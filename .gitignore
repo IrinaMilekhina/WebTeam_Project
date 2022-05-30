@@ -1,0 +1,4 @@
+venv
+.idea
+ProductPlatform/db.sqlite3
+README.md

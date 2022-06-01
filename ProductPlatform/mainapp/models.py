@@ -1,5 +1,5 @@
 from django.db import models
-from users.models import Profile
+# from users.models import Profile
 
 
 class Category(models.Model):

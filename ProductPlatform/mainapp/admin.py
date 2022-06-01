@@ -17,3 +17,4 @@ class AdminCategory(admin.ModelAdmin):
 admin.site.register(Orders, AdminOrders)
 admin.site.register(Category, AdminCategory)
 
+

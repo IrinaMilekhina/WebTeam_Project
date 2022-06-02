@@ -1,4 +1,5 @@
 from django.db import models
+from users.models import Profile
 
 
 class Category(models.Model):
@@ -29,3 +30,4 @@ class Orders(models.Model):
 
     def __str__(self):
         return f'{self.category} {self.name}, Заказ создал: {self.author}'
+

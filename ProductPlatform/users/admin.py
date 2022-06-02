@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from .models import Profile
-
+# Register your models here.
 
 class UserProfile(admin.ModelAdmin):
     list_display = ['comp_name', 'phone_number', 'email']

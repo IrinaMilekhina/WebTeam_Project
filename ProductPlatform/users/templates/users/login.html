@@ -1,0 +1,63 @@
+{% extends 'users/base.html' %} {% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-5">
+    {% if form.errors or messages %}
+    <div
+      class="alert {% if messages %}alert-success{% else %}alert-warning{% endif %} alert-dismissible fade show"
+      role="alert"
+      style="margin-top: 50px"
+    >
+      {% if messages %} {% for message in messages %} {{ message }} {% endfor %}
+      {% else %} {% for error in form.non_field_errors %} {{ error }} {%endfor%}
+      {% endif %}
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %}
+    <div class="card shadow-lg border-0 rounded-lg mt-5">
+      <div class="card-header">
+        <h3 class="text-center font-weight-light my-4">Авторизация</h3>
+      </div>
+      <div class="card-body">
+        <form action="{% url 'users:login' %}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label class="small mb-1" for="inputEmailAddress"
+              >Имя пользователя</label
+            >
+            {{ form.username }}
+          </div>
+          <div class="form-group">
+            <label class="small mb-1" for="inputPassword">Пароль</label>
+            {{ form.password }}
+          </div>
+          <div
+            class="form-group d-flex align-items-center justify-content-between mt-4 mb-0"
+          >
+            <a class="small" href="#">Забыли пароль?</a>
+            <input
+              class="btn btn-primary"
+              type="submit"
+              value="Авторизоваться"
+            />
+          </div>
+        </form>
+      </div>
+
+      <div class="card-footer text-center">
+        <div class="small">
+          <a href="{% url 'users:register' %}"
+            >Нужен аккаунт? Зарегистрируйся!</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends 'users/base.html'%} {% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-5">
+    {% if form.errors %}
+    <div
+      class="alert alert-warning alert-dismissible fade show"
+      role="alert"
+      style="margin-top: 50px"
+    >
+      {{ form.non_field_errors }} {% for error in form %} {{ error.errors }}
+      {%endfor%}
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %}
+    <div class="card shadow-lg border-0 rounded-lg mt-5">
+      <div class="card-header">
+        <h3 class="text-center font-weight-light my-4">Авторизация</h3>
+      </div>
+      <div class="card-body">
+        <form action="{% url 'users:register' %}" method="post">
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="small mb-1" for="inputUsername">Никнейм</label>
+                {{ form.username }}
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="small mb-1" for="inputFirstName">Имя</label>
+                {{ form.first_name }}
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-12">
+              <label class="small mb-1" for="inputLastName">Фамилия</label>
+              {{ form.last_name }}
+            </div>
+            <div class="col-md-12">
+              <label class="small mb-1" for="inputEmailAddress"
+                >Адрес электронной почты</label
+              >
+              {{ form.email }}
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="small mb-1" for="inputPassword">Пароль</label>
+                {{ form.password1 }}
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="small mb-1" for="inputConfirmPassword"
+                  >Подтверждение пароля</label
+                >
+                {{ form.password2 }}
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="small mb-1" for="inputTown">Город</label>
+                {{ form.city }}
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="small mb-1" for=""
+                  >ОГРН компании (макс 15 знаков)</label
+                >
+                {{ form.ogrn }}
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="small mb-1" for="">Название компании</label>
+                {{ form.comp_name }}
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="small mb-1" for="">Заказчик/Поставщик</label>
+                {{ form.role }}
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="small mb-1" for="">Контактный телефон</label>
+                {{ form.phone_number }}
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="small mb-1" for="">Описание</label>
+                {{ form.bio }}
+              </div>
+            </div>
+          </div>
+          <div class="form-group mt-4 mb-0">
+            <input
+              class="btn btn-primary btn-block"
+              type="submit"
+              value="Создать аккаунт"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="card-footer text-center">
+        <div class="small">
+          <a href="{% url 'users:login' %}"
+            >Уже есть аккаунт? Авторизоваться!</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

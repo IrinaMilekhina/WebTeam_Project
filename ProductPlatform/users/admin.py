@@ -1,9 +1,11 @@
 from django.contrib import admin
+from .models import Profile
 
 # Register your models here.
 
+
 class UserProfile(admin.ModelAdmin):
-    list_display = ['comp_name', 'phone_number', 'email']
+    list_display = ['username', 'comp_name', 'phone_number', 'email']
     list_filter = ['role']
     search_fields = ['comp_name']
 

@@ -4,17 +4,22 @@ from django.db import models
 
 # Create your models here.
 
+
 class Profile(AbstractUser):
     company_choice = [
-        ('Customer', 'Customer'),
-        ('Supplier', 'Supplier')
+        ('Customer', 'Заказчик'),
+        ('Supplier', 'Поставщик')
     ]
     phone_number = PhoneNumberField(verbose_name='Номер телефона', unique=True)
-    email = models.EmailField(max_length=120, verbose_name='Элеектронная почта', unique=True)
+    email = models.EmailField(
+        max_length=120, verbose_name='Электронная почта', unique=True)
     city = models.CharField(max_length=120, verbose_name='Город')
-    ogrn = models.CharField(max_length=15, verbose_name='ОГРН')  # В шаблоне добавить подсказку количество цифр!
-    comp_name = models.CharField(max_length=120, verbose_name='Название компании')
-    role = models.CharField(choices=company_choice, max_length=120, verbose_name='Роль')
+    # В шаблоне добавить подсказку количество цифр!
+    ogrn = models.CharField(max_length=15, verbose_name='ОГРН', unique=True)
+    comp_name = models.CharField(
+        max_length=120, unique=True, verbose_name='Название компании')
+    role = models.CharField(choices=company_choice,
+                            max_length=120, verbose_name='Роль')
     bio = models.TextField(verbose_name='Описание', blank=True, )
 
 

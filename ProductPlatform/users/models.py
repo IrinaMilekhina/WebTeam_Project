@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
-from phonenumber_field.modelfields import PhoneNumberField
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
+
 
 # Create your models here.
 
@@ -17,11 +18,9 @@ class Profile(AbstractUser):
     role = models.CharField(choices=company_choice, max_length=120, verbose_name='Роль')
     bio = models.TextField(verbose_name='Описание', blank=True, )
 
+    class Meta:
+        verbose_name = 'Профиль'
+        verbose_name_plural = 'Профили'
 
-class Meta:
-    verbose_name = 'Профиль'
-    verbose_name_plural = 'Профили'
-
-
-def __str__(self):
-    return f'Название компании: {self.comp_name}'
+    def __str__(self):
+        return f'Название компании: {self.comp_name}'

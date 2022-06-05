@@ -15,9 +15,9 @@ class Profile(AbstractUser):
         max_length=120, verbose_name='Электронная почта', unique=True)
     city = models.CharField(max_length=120, verbose_name='Город')
     # В шаблоне добавить подсказку количество цифр!
-    ogrn = models.CharField(max_length=15, verbose_name='ОГРН')
+    ogrn = models.CharField(max_length=15, verbose_name='ОГРН', unique=True)
     comp_name = models.CharField(
-        max_length=120, verbose_name='Название компании')
+        max_length=120, unique=True, verbose_name='Название компании')
     role = models.CharField(choices=company_choice,
                             max_length=120, verbose_name='Роль')
     bio = models.TextField(verbose_name='Описание', blank=True, )

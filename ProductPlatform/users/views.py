@@ -11,6 +11,7 @@ class LoginListView(LoginView):
     template_name = 'users/login.html'
     form_class = UserLoginForm
     title = 'Авторизация'
+    
 
 
 class RegisterListView(FormView):

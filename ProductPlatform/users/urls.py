@@ -22,6 +22,7 @@ app_name = 'users'
 urlpatterns = [
     path('login/', LoginListView.as_view(), name='login'),
     path('register/', RegisterListView.as_view(), name='register'),
+    
 
 
 ]

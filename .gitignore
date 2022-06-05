@@ -1,5 +1,6 @@
-venv
-.idea
+venv/
+.idea/
 ProductPlatform/db.sqlite3
 README.md
 .DS_Store
+__pycache__/

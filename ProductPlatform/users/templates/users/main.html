@@ -1,246 +1,175 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>N</title>
+{% extends 'users/base.html' %}
 
-    <!-- Custom styles for this template -->
-    <link href="../../../static/css/main.css" rel="stylesheet">
-</head>
-<body>
+{% load static %}
 
-<main class="content-wrap">
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-green">
-        <div class="container-fluid navigation">
-            <a class="navbar-brand text-white" href="#">N</a>
-            <button class="navbar-toggler nav-btn text-white" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <svg width="28" height="28" fill="currentColor" class="bi bi-list"
-                     viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                          d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-                </svg>
-            </button>
-            <div class="collapse navbar-collapse col-lg-auto" id="navbarSupportedContent">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-white">
-                            <svg width="16" height="16" fill="currentColor"
-                                 class="bi bi-person-workspace" viewBox="0 0 16 16">
-                                <path d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H4Zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
-                                <path d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.373 5.373 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2H2Z"/>
-                            </svg>
-                            Рабочее пространство
-                        </a>
-                    </li>
+{% block title %}
+    N
+{% endblock %}
 
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-white">
-                            <svg width="16" height="16" fill="currentColor"
-                                 class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                      d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
-                                <path fill-rule="evenodd"
-                                      d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
-                            </svg>
-                            Войти
-                        </a>
-                    </li>
+{% block content %}
+    <main class="content-wrap">
 
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-white">
-                            <svg width="16" height="16" fill="currentColor"
-                                 class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                      d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
-                                <path fill-rule="evenodd"
-                                      d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
-                            </svg>
-                            Выйти
-                        </a>
-                    </li>
 
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-white">
-                            <svg width="16" height="16" fill="currentColor"
-                                 class="bi bi-gear-fill" viewBox="0 0 16 16">
-                                <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
-                            </svg>
-                            Администрация
-                        </a>
-                    </li>
-                </ul>
+        <div class="position-relative about overflow-hidden p-3 p-md-5  text-center bg-light">
+            <div class="col-md-5 p-lg-5 mx-auto my-5">
+                <h1 class="display-4 fw-normal text-color-g">О нас</h1>
+                <p class="lead fw-normal text-color">
+                    Наша миссия - сделать транспортировку продуктов питания по всей России прозрачной, устойчивой и
+                    безотходной. Для начала наша платформа связывает общепит и поставщиков и улучшает процесс заказа,
+                    чтобы сэкономить время, деньги и продукты.</p>
             </div>
         </div>
-    </nav>
+
+        <!-- Marketing messaging and featurettes
+        ================================================== -->
+        <!-- Wrap the rest of the page in another container to center all the content. -->
+
+        <div class="container marketing">
+
+            <!-- Three columns of text below the carousel -->
+            <div class="row margin-bottom">
+                <div class="col-lg-4">
+                    <img src="{% static "media/paper.png" %}" width="150" height="150" class="bottom-mg" alt="">
+
+                    <h2 class="fw-normal">Никакой бумаги больше</h2>
+                    <p>Все в приложении, а значит, больше никаких стопок бумаг.</p>
+                </div><!-- /.col-lg-4 -->
+                <div class="col-lg-4">
+                    <img src="{% static "media/time.png" %}" width="150" height="150" class="bottom-mg" alt="">
+
+                    <h2 class="fw-normal">Экономьте своё время</h2>
+                    <p>Мобильный заказ быстрее. Наши пользователи экономят более 2 часов в неделю.</p>
+                </div><!-- /.col-lg-4 -->
+                <div class="col-lg-4">
+                    <img src="{% static "media/money.png" %}" width="150" height="150" class="bottom-mg" alt="">
+
+                    <h2 class="fw-normal">Тратьте меньше, экономьте больше</h2>
+                    <p>Более точные заказы означают меньше ошибок, меньше отходов и меньше затрат.</p>
+                </div><!-- /.col-lg-4 -->
+            </div><!-- /.row -->
 
 
-    <div class="position-relative about overflow-hidden p-3 p-md-5  text-center bg-light">
-        <div class="col-md-5 p-lg-5 mx-auto my-5">
-            <h1 class="display-4 fw-normal text-color-g">О нас</h1>
-            <p class="lead fw-normal text-color">
-                Наша миссия - сделать транспортировку продуктов питания по всей России прозрачной, устойчивой и
-                безотходной. Для начала наша платформа связывает общепит и поставщиков и улучшает процесс заказа,
-                чтобы сэкономить время, деньги и продукты.</p>
-        </div>
-    </div>
+            <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="c1 carousel-item active">
 
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-
-    <div class="container marketing">
-
-        <!-- Three columns of text below the carousel -->
-        <div class="row margin-bottom">
-            <div class="col-lg-4">
-                <img src="../../../static/media/paper.png" width="150" height="150" class="bottom-mg" alt="">
-
-                <h2 class="fw-normal">Никакой бумаги больше</h2>
-                <p>Все в приложении, а значит, больше никаких стопок бумаг.</p>
-            </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <img src="../../../static/media/time.png" width="150" height="150" class="bottom-mg" alt="">
-
-                <h2 class="fw-normal">Экономьте своё время</h2>
-                <p>Мобильный заказ быстрее. Наши пользователи экономят более 2 часов в неделю.</p>
-            </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <img src="../../../static/media/money.png" width="150" height="150" class="bottom-mg" alt="">
-
-                <h2 class="fw-normal">Тратьте меньше, экономьте больше</h2>
-                <p>Более точные заказы означают меньше ошибок, меньше отходов и меньше затрат.</p>
-            </div><!-- /.col-lg-4 -->
-        </div><!-- /.row -->
-
-
-        <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="c1 carousel-item active">
-
-                    <div class="container">
-                        <div class="carousel-caption margin-bottom">
-                            <h1 class="text-color tf">ПЛАТФОРМА № 1 ДЛЯ РЕСТОРАТОРОВ И ОПТОВИКОВ</h1>
-                            <p class="text-color pf">С N повседневные заказы наконец-то стали цифровыми. Будь то на
-                                кухне
-                                или в сервисе,
-                                в офисе или в дороге - наш сайт наконец-то положил конец разочарованиям
-                                в повседневной работе.</p>
+                        <div class="container">
+                            <div class="carousel-caption margin-bottom">
+                                <h1 class="text-color tf">ПЛАТФОРМА № 1 ДЛЯ РЕСТОРАТОРОВ И ОПТОВИКОВ</h1>
+                                <p class="text-color pf">С N повседневные заказы наконец-то стали цифровыми. Будь то на
+                                    кухне
+                                    или в сервисе,
+                                    в офисе или в дороге - наш сайт наконец-то положил конец разочарованиям
+                                    в повседневной работе.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item c2">
+                        <div class="container">
+                            <div class="carousel-caption margin-bottom">
+                                <h1 class="text-color tf">СОКРАТИТЕ ОБЪЕМ РАБОТЫ</h1>
+                                <p class="text-color pf">N делает размещение и получение заказов более эффективным. Наши
+                                    интуитивно понятный
+                                    веб-сайт упрощают работу поваров, владельцев и торговых представителей. Тратьте ваши
+                                    деньги эффективней.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item c3">
+                        <div class="container">
+                            <div class="carousel-caption margin-bottom">
+                                <h1 class="text-color tf">МЫ ОБЪЕДИНЯЕМ РЕСТОРАТОРОВ РОССИИ</h1>
+                                <p class="text-color pf">Мы хотим объединить ведущие умы в пищевой промышленности
+                                    посредством
+                                    мероприятий,
+                                    дискуссий и партнерства. В конце концов, лучшие идеи приходят в результате командной
+                                    работы.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item c2">
-                    <div class="container">
-                        <div class="carousel-caption margin-bottom">
-                            <h1 class="text-color tf">СОКРАТИТЕ ОБЪЕМ РАБОТЫ</h1>
-                            <p class="text-color pf">N делает размещение и получение заказов более эффективным. Наши
-                                интуитивно понятный
-                                веб-сайт упрощают работу поваров, владельцев и торговых представителей. Тратьте ваши
-                                деньги эффективней.</p>
-                        </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <!-- START THE FEATURETTES -->
+
+            <hr class="featurette-divider">
+
+            <div class="row featurette">
+                <div class="col-md-7">
+                    <h2 class="featurette-heading fw-normal lh-1"><span class="text-muted">Для </span>общепита</h2>
+                    <p class="lead">Откажитесь от бесконечных листов заказов и ночных ожиданий по телефону. Наш
+                        бесплатный
+                        сайт - это самый эффективный способ заказа у всех ваших поставщиков. Выполняйте заказы
+                        быстрее, ложитесь спать раньше. Нашими услугами пользуются свыше 5000 компаний общепита!</p>
+                </div>
+                <div class="col-md-5">
+                    <div class="col-lg-4"><img class="img-info" src="{% static "media/restaurant.png" %}" alt=""></div>
+
+                </div>
+            </div>
+
+            <hr class="featurette-divider">
+
+            <div class="row featurette">
+                <div class="col-md-6 order-md-2">
+                    <h2 class="featurette-heading fw-normal lh-1"><span class="text-muted">Для </span>поставщиков
+                    </h2>
+                    <p class="lead">Независимо от того, являетесь ли вы семейной фермой или национальным дистрибьютором,
+                        наша платформа, разработанная специально для вас, изменит способ ведения бизнеса. Сэкономьте
+                        время
+                        на ручных операциях, сократите количество ошибок в заказах и продавайте больше продукции. Нашей
+                        платформой пользуйся свыше 1000 поставщиков!</p>
+                </div>
+                <div class="col-md-6 order-md-1">
+                    <div class="col-lg-4"><img class="img-info" src="{% static "media/suppliers.png" %}" alt=""></div>
+
+                </div>
+            </div>
+
+
+            <hr class="featurette-divider">
+
+            <!-- /END THE FEATURETTES -->
+
+
+            <div class="d-md-flex  flex-md-equal w-100 my-md-3 ps-md-3">
+                <div class="bg-success me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+                    <div class="my-3 py-3">
+                        <h2 class="display-5">Экология</h2>
+                        <p class="lead">Мы вносим свой вклад в защиту экологии. Важно действовать не завтра, а
+                            СЕЙЧАС! Именно поэтому мы заботимся о биоразнообразии, защите ресурсов, нашей воды и
+                            прочего.
+                            Цели в области устойчивого развития являются для нас руководящими принципами. С 2009 года мы
+                            также сотрудничаем с природоохранной организацией WWF в целях защиты окружающей среды. Наши
+                            поставщики обязаны соблюдать чёткие и строгие правила по защите экологии.</p>
                     </div>
                 </div>
-                <div class="carousel-item c3">
-                    <div class="container">
-                        <div class="carousel-caption margin-bottom">
-                            <h1 class="text-color tf">МЫ ОБЪЕДИНЯЕМ РЕСТОРАТОРОВ РОССИИ</h1>
-                            <p class="text-color pf">Мы хотим объединить ведущие умы в пищевой промышленности
-                                посредством
-                                мероприятий,
-                                дискуссий и партнерства. В конце концов, лучшие идеи приходят в результате командной
-                                работы.</p>
-                        </div>
+                <div class="bg-yellow me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+                    <div class="my-3 p-3">
+                        <h2 class="display-5">Животные</h2>
+                        <p class="lead">Благополучие животных и их здоровье очень важны для нас. Мы активно
+                            стремится к улучшению благосостояния животных при выращивании и содержании
+                            сельскохозяйственных
+                            животных. Мы продолжаем поощрять поставщиков, которые производят свои продукты в
+                            соответствии с
+                            более
+                            высокими стандартами благополучия животных. При этом мы требуем не только большего
+                            благополучия
+                            и здоровья животных, но и большей прозрачности и прослеживаемости всей технологической
+                            цепочки.</p>
                     </div>
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-        <!-- START THE FEATURETTES -->
 
-        <hr class="featurette-divider">
+        </div><!-- /.container -->
 
-        <div class="row featurette">
-            <div class="col-md-7">
-                <h2 class="featurette-heading fw-normal lh-1"><span class="text-muted">Для </span>общепита</h2>
-                <p class="lead">Откажитесь от бесконечных листов заказов и ночных ожиданий по телефону. Наш бесплатный
-                    сайт - это самый эффективный способ заказа у всех ваших поставщиков. Выполняйте заказы
-                    быстрее, ложитесь спать раньше. Нашими услугами пользуются свыше 5000 компаний общепита!</p>
-            </div>
-            <div class="col-md-5">
-                <div class="col-lg-4"><img class="img-info" src="../../../static/media/restaurant.png" alt=""></div>
-
-            </div>
-        </div>
-
-        <hr class="featurette-divider">
-
-        <div class="row featurette">
-            <div class="col-md-6 order-md-2">
-                <h2 class="featurette-heading fw-normal lh-1"><span class="text-muted">Для </span>поставщиков
-                </h2>
-                <p class="lead">Независимо от того, являетесь ли вы семейной фермой или национальным дистрибьютором,
-                    наша платформа, разработанная специально для вас, изменит способ ведения бизнеса. Сэкономьте время
-                    на ручных операциях, сократите количество ошибок в заказах и продавайте больше продукции. Нашей
-                    платформой пользуйся свыше 1000 поставщиков!</p>
-            </div>
-            <div class="col-md-6 order-md-1">
-                <div class="col-lg-4"><img class="img-info" src="../../../static/media/suppliers.png" alt=""></div>
-
-            </div>
-        </div>
-
-
-        <hr class="featurette-divider">
-
-        <!-- /END THE FEATURETTES -->
-
-
-        <div class="d-md-flex  flex-md-equal w-100 my-md-3 ps-md-3">
-            <div class="bg-success me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-                <div class="my-3 py-3">
-                    <h2 class="display-5">Экология</h2>
-                    <p class="lead">Мы вносим свой вклад в защиту экологии. Важно действовать не завтра, а
-                        СЕЙЧАС! Именно поэтому мы заботимся о биоразнообразии, защите ресурсов, нашей воды и прочего.
-                        Цели в области устойчивого развития являются для нас руководящими принципами. С 2009 года мы
-                        также сотрудничаем с природоохранной организацией WWF в целях защиты окружающей среды. Наши
-                        поставщики обязаны соблюдать чёткие и строгие правила по защите экологии.</p>
-                </div>
-            </div>
-            <div class="bg-yellow me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-                <div class="my-3 p-3">
-                    <h2 class="display-5">Животные</h2>
-                    <p class="lead">Благополучие животных и их здоровье очень важны для нас. Мы активно
-                        стремится к улучшению благосостояния животных при выращивании и содержании сельскохозяйственных
-                        животных. Мы продолжаем поощрять поставщиков, которые производят свои продукты в соответствии с
-                        более
-                        высокими стандартами благополучия животных. При этом мы требуем не только большего благополучия
-                        и здоровья животных, но и большей прозрачности и прослеживаемости всей технологической
-                        цепочки.</p>
-                </div>
-            </div>
-        </div>
-
-    </div><!-- /.container -->
-
-</main>
-
-<footer class="footer  mt-auto py-3 bg-green">
-    <div class="container footer-inner ">
-        <div class="text-color-w">&copy; 2022 N</div>
-    </div>
-</footer>
-
-<link href="../../../static/bootstrap-5.2.0-beta1-dist/css/bootstrap.css" rel="stylesheet">
-<script src="../../../static/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.js"></script>
-</body>
-</html>
+    </main>
+{% endblock %}

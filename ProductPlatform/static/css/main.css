@@ -4,8 +4,6 @@
 
 body {
     padding-top: 3rem;
-    color: #5a5a5a;
-    background-color: #fff;
 }
 
 .navbar-collapse {
@@ -239,6 +237,7 @@ body {
 .about {
     background: url("../media/products.jpg") center;
     margin-bottom: 100px;
+    color: #5a5a5a;
 }
 
 .c1 {

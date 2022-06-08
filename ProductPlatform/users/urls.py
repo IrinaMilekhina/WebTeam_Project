@@ -16,8 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from users.views import PersonalAccountListView, PersonalAccountEditView
+
 app_name = 'users'
 
 urlpatterns = [
-
+    path('account/', PersonalAccountListView.as_view(), name='account'),
+    path('account_adit/', PersonalAccountEditView.as_view(), name='account_edit'),
 ]

@@ -1585,4 +1585,8 @@ a {
   padding-bottom: 30px;
   background-color: #217916;
   overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }

@@ -1,0 +1,31 @@
+<!doctype html>
+
+{% load static %}
+
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %} {{ title|title }} {% endblock %}</title>
+
+    {% block css %}
+        <link href="{% static 'bootstrap-5.2.0-beta1-dist/css/bootstrap.css' %}" rel="stylesheet">
+        <link href="{% static 'css/main.css' %}" rel="stylesheet">
+    {% endblock %}
+
+    {% block js %}
+        <script src="{% static 'bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.js' %}"></script>
+    {% endblock %}
+</head>
+<body>
+
+{% block menu %}
+
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}
+
+</body>
+</html>

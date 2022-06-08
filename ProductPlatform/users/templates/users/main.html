@@ -1,10 +1,14 @@
-{% extends 'users/base_site.html' %}
+{% extends 'users/base.html' %}
 
 {% load static %}
 
 
 {% block title %}
     N
+{% endblock %}
+
+{% block menu %}
+    {% include 'users/includes/inc_menu.html' %}
 {% endblock %}
 
 {% block content %}
@@ -172,4 +176,10 @@
         </div><!-- /.container -->
 
     </main>
+
+    <footer class="footer  mt-auto py-3 bg-green">
+        <div class="container footer-inner">
+            <div class="text-color-w">&copy; 2022 N</div>
+        </div>
+    </footer>
 {% endblock %}

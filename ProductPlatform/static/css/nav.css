@@ -2,6 +2,10 @@
     border: 1px solid #c2c2c2 !important;
 }
 
+.nav-link:hover {
+    color: #cecece !important;
+}
+
 .navigation {
     display: flex;
     justify-content: space-between;

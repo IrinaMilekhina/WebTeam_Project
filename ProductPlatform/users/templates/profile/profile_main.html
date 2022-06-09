@@ -1,164 +1,132 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <meta name="description" content="">
-    <title>MyProfile</title>
-    <link rel="stylesheet" href="../../../static/profile/assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../../static/profile/assets/bootstrap/css/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="../../../static/profile/assets/theme/css/style.css">
+{% extends 'users/base.html' %}
+{% load static %}
+
+
+{% block css %}
+    <link href="{% static 'bootstrap-5.2.0-beta1-dist/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/nav.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'profile/assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'profile/assets/bootstrap/css/bootstrap-reboot.min.css' %}">
+    <link rel="stylesheet" href="{% static 'profile/assets/theme/css/style.css' %}">
     <link rel="preload"
           href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"
           as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" as="style" href="../../../static/profile/assets/mobirise/css/mbr-additional.css">
-    <link rel="stylesheet" href="../../../static/profile/assets/mobirise/css/mbr-additional.css" type="text/css">
-</head>
-<body>
-<section data-bs-version="5.1" class="menu menu2 cid-sFF0ciwnEL" once="menu" id="menu2-0">
-    <nav class="navbar navbar-expand-lg fixed-top ">
-        <div class="container-fluid navigation">
-            <div class="navbar-brand text-white">
-                <span class="navbar-caption-wrap">
-                    <a class="navbar-caption text-white"
-                       href="#">Зеленые Луга</a></span>
-            </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse"
-                    data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <div class="hamburger">
-                    <span style="background: white"></span>
-                    <span style="background: white"></span>
-                    <span style="background: white"></span>
-                    <span style="background: white"></span>
-                </div>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
-                    <li class="nav-item"><a class="nav-link link text-primary display-4" href="#top">Главная</a></li>
-                    <li class="nav-item"><a class="nav-link link text-primary display-4" href="index.html#gallery5-3">Категории</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link link text-primary display-4" href="index.html#image1-b">Заказы</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link link text-primary display-4" href="index.html#pricing2-c">Выйти</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</section>
+    <link rel="preload" as="style" href="{% static 'profile/assets/mobirise/css/mbr-additional.css' %}">
+    <link rel="stylesheet" href="{% static 'profile/assets/mobirise/css/mbr-additional.css' %}" type="text/css">
+{% endblock %}
 
-<section data-bs-version="5.1" class="info2 cid-t7X4lymUNx" id="info2-p">
+{% block js %}
+    <script src="{% static 'profile/assets/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'profile/assets/smoothscroll/smooth-scroll.js' %}"></script>
+    <script src="{% static 'profile/assets/dropdown/js/navbar-dropdown.js' %}"></script>
+{% endblock %}
 
+{% block menu %}
+    {% include 'users/includes/inc_menu.html' %}
+{% endblock %}
 
-    <div class="align-center container">
-        <div class="row justify-content-center">
-
-            <div class="col-12 col-lg-6">
-                <div class="wrapper">
-
-
-                    <div class="mbr-section-btn"><a class="btn btn-white display-4" href="#">Мой профиль</a>
-                        <a class="btn btn-white display-4" href="#">Текущие заказы</a> <a
-                                class="btn btn-white display-4" href="#">История заказов</a></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section data-bs-version="5.1" class="form5 cid-t7X5hkhr14" id="form5-q">
-    <div class="container">
-        <div class="mbr-section-head">
-            <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-5"><strong>Мой Профиль</strong></h3>
-
-        </div>
-        <div class="row justify-content-center mt-4">
-            <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                <form action="#" method="POST" class="mbr-form form-with-styler"
-                      data-form-title="Form Name">
-                    <div class="dragArea row">
-
-                        <div class="col-md col-sm-12 form-group mb-3" data-for="name"> Никнейм
-                            <input type="text" name="username" placeholder="Никнейм" data-form-field="username"
-                                   class="form-control" value="Testname" id="username" disabled>
-                        </div>
-                        <div class="col-md col-sm-12 form-group mb-3" data-for="email">Email
-                            <input type="email" name="email" placeholder="E-mail" data-form-field="email"
-                                   class="form-control" value="test@mail.ru" id="email" disabled>
-                        </div>
-                        <div>
-                        </div>
-                        <div class="col-md col-sm-12 form-group mb-3" data-for="name">Фамилия
-                            <input type="text" name="last_name" placeholder="Фамилия" data-form-field="last_name"
-                                   class="form-control" value="Иванов" id="last_name" disabled>
-                        </div>
-                        <div class="col-md col-sm-12 form-group mb-3" data-for="email">Имя
-                            <input type="text" name="first_name" placeholder="Имя" data-form-field="first_name"
-                                   class="form-control" value="Иван" id="first_name" disabled>
-                        </div>
-                        <div>
-                        </div>
-                        <div class="col-md col-sm-12 form-group mb-3" data-for="name">Город
-                            <input type="text" name="city" placeholder="Город" data-form-field="city"
-                                   class="form-control" value="Омск" id="city">
-                        </div>
-                        <div class="col-md col-sm-12 form-group mb-3" data-for="email"> Контактный телефон
-                            <input type="text" name="phone_number" placeholder="Контактный телефон"
-                                   data-form-field="phone_number"
-                                   class="form-control" value="+79091234567" id="phone_number">
-                        </div>
-                        <div>
-                        </div>
-                        <div class="col-md col-sm-12 form-group mb-3" data-for="name">Название комании
-                            <input type="text" name="comp_name" placeholder="Название комании"
-                                   data-form-field="comp_name"
-                                   class="form-control" value="FarmSeller" id="comp_name" disabled>
-                        </div>
-                        <div class="col-md col-sm-12 form-group mb-3" data-for="email"> ОГРН
-                            <input type="text" name="ogrn" placeholder="ОГРН" data-form-field="ogrn"
-                                   class="form-control" value="1234567891011" id="ogrn" disabled>
-                        </div>
-                        <div class="col-12 form-group mb-3" data-for="textarea">О себе...
-                            <textarea name="textarea" placeholder="О себе..." data-form-field="about"
-                                      class="form-control" id="about"></textarea>
-                        </div>
-                        <div>Смена пароля
-                        </div>
-                        <div class="col-md col-sm-12 form-group mb-3" data-for="name">Введите пароль
-                            <input type="password" name="password1" placeholder="Введите пароль"
-                                   data-form-field="password1"
-                                   class="form-control" value="" id="password1">
-                        </div>
-                        <div class="col-md col-sm-12 form-group mb-3" data-for="email"> Подтвердите пароль
-                            <input type="password" name="password2" placeholder="Подтвердите пароль"
-                                   data-form-field="password2"
-                                   class="form-control" value="" id="password2">
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn" style="margin-bottom: 100px">
-                            <button type="submit" class="btn btn-primary display-4">Сохранить</button>
-                        </div>
+{% block content %}
+    <section data-bs-version="5.1" class="info2 cid-t7X4lymUNx" id="info2-p">
+        <div class="align-center container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-6">
+                    <div class="wrapper">
+                        <div class="mbr-section-btn"><a class="btn btn-white display-4" href="#">Мой профиль</a>
+                            <a class="btn btn-white display-4" href="#">Текущие заказы</a> <a
+                                    class="btn btn-white display-4" href="#">История заказов</a></div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-<section data-bs-version="5.1" class="footer7 cid-sFF3CYc3p7" once="footers" id="footer7-9">
-    <div class="container">
-        <div class="media-container-row align-center mbr-white">
-            <div class="col-12">
-                <p class="mbr-text mb-0 mbr-fonts-style display-7">
-                    © Copyright 2022 Зеленые Луга - All Rights Reserved
-                </p>
+    </section>
+    <section data-bs-version="5.1" class="form5 cid-t7X5hkhr14" id="form5-q">
+        <div class="container">
+            <div class="mbr-section-head">
+                <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-5"><strong>Мой Профиль</strong>
+                </h3>
+
+            </div>
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+                    <form action="#" method="POST" class="mbr-form form-with-styler"
+                          data-form-title="Form Name">
+                        <div class="dragArea row">
+
+                            <div class="col-md col-sm-12 form-group mb-3" data-for="name"> Никнейм
+                                <input type="text" name="username" placeholder="Никнейм" data-form-field="username"
+                                       class="form-control" value="Testname" id="username" disabled>
+                            </div>
+                            <div class="col-md col-sm-12 form-group mb-3" data-for="email">Email
+                                <input type="email" name="email" placeholder="E-mail" data-form-field="email"
+                                       class="form-control" value="test@mail.ru" id="email" disabled>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="col-md col-sm-12 form-group mb-3" data-for="name">Фамилия
+                                <input type="text" name="last_name" placeholder="Фамилия" data-form-field="last_name"
+                                       class="form-control" value="Иванов" id="last_name">
+                            </div>
+                            <div class="col-md col-sm-12 form-group mb-3" data-for="email">Имя
+                                <input type="text" name="first_name" placeholder="Имя" data-form-field="first_name"
+                                       class="form-control" value="Иван" id="first_name">
+                            </div>
+                            <div>
+                            </div>
+                            <div class="col-md col-sm-12 form-group mb-3" data-for="name">Город
+                                <input type="text" name="city" placeholder="Город" data-form-field="city"
+                                       class="form-control" value="Омск" id="city">
+                            </div>
+                            <div class="col-md col-sm-12 form-group mb-3" data-for="email"> Контактный телефон
+                                <input type="text" name="phone_number" placeholder="Контактный телефон"
+                                       data-form-field="phone_number"
+                                       class="form-control" value="+79091234567" id="phone_number">
+                            </div>
+                            <div>
+                            </div>
+                            <div class="col-md col-sm-12 form-group mb-3" data-for="name">Название комании
+                                <input type="text" name="comp_name" placeholder="Название комании"
+                                       data-form-field="comp_name"
+                                       class="form-control" value="FarmSeller" id="comp_name">
+                            </div>
+                            <div class="col-md col-sm-12 form-group mb-3" data-for="email"> ОГРН
+                                <input type="text" name="ogrn" placeholder="ОГРН" data-form-field="ogrn"
+                                       class="form-control" value="1234567891011" id="ogrn" disabled>
+                            </div>
+                            <div class="col-12 form-group mb-3" data-for="textarea">О себе...
+                                <textarea name="textarea" placeholder="О себе..." data-form-field="about"
+                                          class="form-control" id="about"></textarea>
+                            </div>
+                            <div>Смена пароля
+                            </div>
+                            <div class="col-md col-sm-12 form-group mb-3" data-for="name">Введите пароль
+                                <input type="password" name="password1" placeholder="Введите пароль"
+                                       data-form-field="password1"
+                                       class="form-control" value="" id="password1">
+                            </div>
+                            <div class="col-md col-sm-12 form-group mb-3" data-for="email"> Подтвердите пароль
+                                <input type="password" name="password2" placeholder="Подтвердите пароль"
+                                       data-form-field="password2"
+                                       class="form-control" value="" id="password2">
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn"
+                                 style="margin-bottom: 100px">
+                                <button type="submit" class="btn btn-primary display-4">Сохранить</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-<script src="../../../static/profile/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../../static/profile/assets/smoothscroll/smooth-scroll.js"></script>
-<script src="../../../static/profile/assets/dropdown/js/navbar-dropdown.js"></script>
-
-
-</body>
-</html>
+    </section>
+    <section data-bs-version="5.1" class="footer7 cid-sFF3CYc3p7" once="footers" id="footer7-9">
+        <div class="container">
+            <div class="media-container-row align-center mbr-white">
+                <div class="col-12">
+                    <p class="mbr-text mb-0 mbr-fonts-style display-7">
+                        © Copyright 2022 Зеленые Луга - All Rights Reserved
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from .views import LoginListView, RegisterListView
 
 from users.views import PersonalAccountListView, PersonalAccountEditView
 
@@ -23,4 +24,6 @@ app_name = 'users'
 urlpatterns = [
     path('account/', PersonalAccountListView.as_view(), name='account'),
     path('account_adit/', PersonalAccountEditView.as_view(), name='account_edit'),
+    path('login/', LoginListView.as_view(), name='login'),
+    path('register/', RegisterListView.as_view(), name='register'),
 ]

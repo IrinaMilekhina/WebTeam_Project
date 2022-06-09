@@ -1,3 +1,7 @@
+from django.contrib.auth.views import LoginView
+from django.contrib import messages
+from django.views.generic.edit import FormView
+from users.forms import UserLoginForm, UserRegisterForm
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, UpdateView
 from django.urls import reverse_lazy
@@ -36,3 +40,25 @@ class PersonalAccountEditView(UpdateView):
             form.save()
             return redirect(self.success_url)
         return redirect(self.success_url)
+
+
+class LoginListView(LoginView):
+    template_name = 'users/login.html'
+    form_class = UserLoginForm
+    title = 'Авторизация'
+
+
+class RegisterListView(FormView):
+    model = Profile
+    template_name = 'users/registration.html'
+    form_class = UserRegisterForm
+    success_url = reverse_lazy('users:login')
+    title = 'Регистрация'
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print(form.errors)
+        return super().form_invalid(form)

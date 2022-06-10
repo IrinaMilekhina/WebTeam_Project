@@ -15,7 +15,7 @@ class CategoryOrder(models.Model):
         verbose_name_plural = 'Категории заказов'
 
     def __str__(self):
-        return self.name
+        return f'{self.name}'
 
 
 class Order(models.Model):
@@ -39,10 +39,17 @@ class Order(models.Model):
 
 class ResponseOrder(models.Model):
     '''Отклик на заказ'''
+    status_choice = [
+        ('On Approval', 'На согласовании'),
+        ('Approved', 'Утвержден'),
+        ('Not Approved', 'Не утвержден'),
+        ('Cancelled', 'Отменен')
+    ]
     order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='Заказ')
     response_user = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name='Компания')
     offer = models.TextField(verbose_name='Предложение')
-    status = models.BooleanField(default=True)
+    status = models.CharField(choices=status_choice,
+                              max_length=120, verbose_name='Статус')
     create_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -50,4 +57,5 @@ class ResponseOrder(models.Model):
         verbose_name_plural = 'Отклики'
 
     def __str__(self):
-        return f'Предлжение от {self.response_user}: {self.offer}, к заказу - {self.order}'
+        return f'Предлжение от {self.response_user}: {self.offer}, ' \
+               f'к заказу - {self.order} со статусом - {self.status}'

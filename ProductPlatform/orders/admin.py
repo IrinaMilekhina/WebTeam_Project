@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Order, CategoryOrder
+from .models import Order, CategoryOrder, ResponseOrder
 
 
 class AdminOrders(admin.ModelAdmin):
@@ -14,6 +14,11 @@ class AdminCategory(admin.ModelAdmin):
     list_filter = ['name']
     search_fields = ['name']
 
+class AdminResponse(admin.ModelAdmin):
+    list_display = ['order', 'response_user']
+    list_filter = ['order', 'response_user']
+    search_fields = ['order', 'response_user']
 
 admin.site.register(Order, AdminOrders)
 admin.site.register(CategoryOrder, AdminCategory)
+admin.site.register(ResponseOrder, AdminResponse)

@@ -1,8 +1,7 @@
-from django.shortcuts import render
-from django.shortcuts import redirect
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.views import View
 from users.models import Profile
 from django.views.generic.edit import FormView
 from users.forms import UserLoginForm, UserRegisterForm
@@ -12,7 +11,6 @@ class LoginListView(LoginView):
     template_name = 'users/login.html'
     form_class = UserLoginForm
     title = 'Авторизация'
-
 
 class RegisterListView(FormView):
     model = Profile

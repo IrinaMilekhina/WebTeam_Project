@@ -7,185 +7,391 @@
     N
 {% endblock %}
 
-{% block css %}
-    <link href="{% static 'bootstrap-5.2.0-beta1-dist/css/bootstrap.css' %}" rel="stylesheet">
-    <link href="{% static 'css/main.css' %}" rel="stylesheet">
-    <link href="{% static 'css/nav.css' %}" rel="stylesheet">
-{% endblock %}
-
-{% block menu %}
-    {% include 'users/includes/inc_menu.html' %}
-{% endblock %}
-
 {% block content %}
-    <main class="content-wrap">
 
+    <!-- ***** Main Banner Area Start ***** -->
+    <section class="section main-banner" id="top" data-section="section1">
+        <video autoplay muted loop id="bg-video">
+            <source src="assets/images/header-bg.mp4" type="video/mp4"/>
+        </video>
 
-        <div class="position-relative about overflow-hidden p-3 p-md-5  text-center bg-light">
-            <div class="col-md-5 p-lg-5 mx-auto my-5">
-                <h1 class="display-4 fw-normal text-color-g">О нас</h1>
-                <p class="lead fw-normal text-color">
-                    Наша миссия - сделать транспортировку продуктов питания по всей России прозрачной, устойчивой и
-                    безотходной. Для начала наша платформа связывает общепит и поставщиков и улучшает процесс заказа,
-                    чтобы сэкономить время, деньги и продукты.</p>
+        <div class="video-overlay header-text">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="caption">
+                            <h2>Добро пожаловать!</h2>
+                            <p>Наша цель – сделать транспортировку продуктов питания по всей России прозрачной,
+                                устойчивой
+                                и безотходной. Для начала наша платформа связывает общепит и поставщиков и улучшает
+                                процесс
+                                заказа, чтобы сэкономить время, деньги и продукты.</p>
+                            <div class="main-button-red">
+                                <div><a href="/">Зарегистрироваться</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    </section>
+    <!-- ***** Main Banner Area End ***** -->
 
-        <!-- Marketing messaging and featurettes
-        ================================================== -->
-        <!-- Wrap the rest of the page in another container to center all the content. -->
+    <section class="services">
+        <div class="container">
+            <div class="row carousel-at-center">
+                <div class="col-lg-11">
+                    <div class="owl-service-item owl-carousel">
 
-        <div class="container marketing">
-
-            <!-- Three columns of text below the carousel -->
-            <div class="row margin-bottom">
-                <div class="col-lg-4">
-                    <img src="{% static 'media/paper.png' %}" width="150" height="150" class="bottom-mg" alt="">
-
-                    <h2 class="fw-normal">Никакой бумаги больше</h2>
-                    <p>Все в приложении, а значит, больше никаких стопок бумаг.</p>
-                </div><!-- /.col-lg-4 -->
-                <div class="col-lg-4">
-                    <img src="{% static 'media/time.png' %}" width="150" height="150" class="bottom-mg" alt="">
-
-                    <h2 class="fw-normal">Экономьте своё время</h2>
-                    <p>Мобильный заказ быстрее. Наши пользователи экономят более 2 часов в неделю.</p>
-                </div><!-- /.col-lg-4 -->
-                <div class="col-lg-4">
-                    <img src="{% static 'media/money.png' %}" width="150" height="150" class="bottom-mg" alt="">
-
-                    <h2 class="fw-normal">Тратьте меньше, экономьте больше</h2>
-                    <p>Более точные заказы означают меньше ошибок, меньше отходов и меньше затрат.</p>
-                </div><!-- /.col-lg-4 -->
-            </div><!-- /.row -->
-
-
-            <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="c1 carousel-item active">
-
-                        <div class="container">
-                            <div class="carousel-caption margin-bottom">
-                                <h1 class="text-color tf">ПЛАТФОРМА № 1 ДЛЯ РЕСТОРАТОРОВ И ОПТОВИКОВ</h1>
-                                <p class="text-color pf">С N повседневные заказы наконец-то стали цифровыми. Будь то на
-                                    кухне
-                                    или в сервисе,
-                                    в офисе или в дороге - наш сайт наконец-то положил конец разочарованиям
-                                    в повседневной работе.</p>
+                        <div class="item">
+                            <div class="icon">
+                                <img src="assets/images/money.png" alt="">
+                            </div>
+                            <div class="down-content">
+                                <h4>Тратьте меньше</h4>
+                                <p>Более точные заказы означают меньше ошибок, меньше отходов и меньше затрат. А так-же
+                                    более высокую выручку</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="carousel-item c2">
-                        <div class="container">
-                            <div class="carousel-caption margin-bottom">
-                                <h1 class="text-color tf">СОКРАТИТЕ ОБЪЕМ РАБОТЫ</h1>
-                                <p class="text-color pf">N делает размещение и получение заказов более эффективным. Наши
-                                    интуитивно понятный
-                                    веб-сайт упрощают работу поваров, владельцев и торговых представителей. Тратьте ваши
-                                    деньги эффективней.</p>
+
+                        <div class="item">
+                            <div class="icon">
+                                <img src="assets/images/time.png" alt="">
+                            </div>
+                            <div class="down-content">
+                                <h4>Экономьте время</h4>
+                                <p>Заказ через вебсайт быстрее. Наши пользователи экономят более 2 часов в неделю. А
+                                    время
+                                    это деньги!</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="carousel-item c3">
-                        <div class="container">
-                            <div class="carousel-caption margin-bottom">
-                                <h1 class="text-color tf">МЫ ОБЪЕДИНЯЕМ РЕСТОРАТОРОВ РОССИИ</h1>
-                                <p class="text-color pf">Мы хотим объединить ведущие умы в пищевой промышленности
-                                    посредством
-                                    мероприятий,
-                                    дискуссий и партнерства. В конце концов, лучшие идеи приходят в результате командной
-                                    работы.</p>
+
+                        <div class="item">
+                            <div class="icon">
+                                <img src="assets/images/paper.png" alt="">
+                            </div>
+                            <div class="down-content">
+                                <h4>Меньше бюрократии</h4>
+                                <p>Все на сайте, а значит, больше никаких стопок бумаг. И ни какого риска потерять
+                                    важные
+                                    документы.</p>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-            <!-- START THE FEATURETTES -->
 
-            <hr class="featurette-divider">
+                        <div class="item">
+                            <div class="icon">
+                                <img src="assets/images/progress.png" alt="">
+                            </div>
+                            <div class="down-content">
+                                <h4>Ускорьте прогресс</h4>
+                                <p>Следите за конкурентами и за их деятельностью. Анализируйте рынок и не дайте себя
+                                    обогнать.</p>
+                            </div>
+                        </div>
 
-            <div class="row featurette">
-                <div class="col-md-7">
-                    <h2 class="featurette-heading fw-normal lh-1"><span class="text-muted">Для </span>общепита</h2>
-                    <p class="lead">Откажитесь от бесконечных листов заказов и ночных ожиданий по телефону. Наш
-                        бесплатный
-                        сайт - это самый эффективный способ заказа у всех ваших поставщиков. Выполняйте заказы
-                        быстрее, ложитесь спать раньше. Нашими услугами пользуются свыше 5000 компаний общепита!</p>
-                </div>
-                <div class="col-md-5">
-                    <div class="col-lg-4"><img class="img-info" src="{% static 'media/restaurant.png' %}" alt=""></div>
+                        <div class="item">
+                            <div class="icon">
+                                <img src="assets/images/delivery.png" alt="">
+                            </div>
+                            <div class="down-content">
+                                <h4>Быстрая доставка</h4>
+                                <p>Быстрое оформление заказов обозначает быструю доставку. Мы автоматически выберем за
+                                    вас
+                                    самый быстрый способ доставки.</p>
+                            </div>
+                        </div>
 
-                </div>
-            </div>
-
-            <hr class="featurette-divider">
-
-            <div class="row featurette">
-                <div class="col-md-6 order-md-2">
-                    <h2 class="featurette-heading fw-normal lh-1"><span class="text-muted">Для </span>поставщиков
-                    </h2>
-                    <p class="lead">Независимо от того, являетесь ли вы семейной фермой или национальным дистрибьютором,
-                        наша платформа, разработанная специально для вас, изменит способ ведения бизнеса. Сэкономьте
-                        время
-                        на ручных операциях, сократите количество ошибок в заказах и продавайте больше продукции. Нашей
-                        платформой пользуйся свыше 1000 поставщиков!</p>
-                </div>
-                <div class="col-md-6 order-md-1">
-                    <div class="col-lg-4"><img class="img-info" src="{% static 'media/suppliers.png' %}" alt=""></div>
-
-                </div>
-            </div>
-
-
-            <hr class="featurette-divider">
-
-            <!-- /END THE FEATURETTES -->
-
-
-            <div class="d-md-flex  flex-md-equal w-100 my-md-3 ps-md-3">
-                <div class="bg-success me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-                    <div class="my-3 py-3">
-                        <h2 class="display-5">Экология</h2>
-                        <p class="lead">Мы вносим свой вклад в защиту экологии. Важно действовать не завтра, а
-                            СЕЙЧАС! Именно поэтому мы заботимся о биоразнообразии, защите ресурсов, нашей воды и
-                            прочего.
-                            Цели в области устойчивого развития являются для нас руководящими принципами. С 2009 года мы
-                            также сотрудничаем с природоохранной организацией WWF в целях защиты окружающей среды. Наши
-                            поставщики обязаны соблюдать чёткие и строгие правила по защите экологии.</p>
-                    </div>
-                </div>
-                <div class="bg-yellow me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-                    <div class="my-3 p-3">
-                        <h2 class="display-5">Животные</h2>
-                        <p class="lead">Благополучие животных и их здоровье очень важны для нас. Мы активно
-                            стремится к улучшению благосостояния животных при выращивании и содержании
-                            сельскохозяйственных
-                            животных. Мы продолжаем поощрять поставщиков, которые производят свои продукты в
-                            соответствии с
-                            более
-                            высокими стандартами благополучия животных. При этом мы требуем не только большего
-                            благополучия
-                            и здоровья животных, но и большей прозрачности и прослеживаемости всей технологической
-                            цепочки.</p>
                     </div>
                 </div>
             </div>
-
-        </div><!-- /.container -->
-
-    </main>
-
-    <footer class="footer  mt-auto py-3 bg-green">
-        <div class="container footer-inner">
-            <div class="text-color-w">&copy; 2022 N</div>
         </div>
-    </footer>
+    </section>
+
+    <section class="upcoming-meetings" id="meetings">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-heading">
+                        <h2>Топ категории</h2>
+                    </div>
+                </div>
+                <div class="col-lg-auto">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="meeting-item">
+                                <div class="thumb">
+                                    <div class="price">
+                                        <span>100 поставщиков</span>
+                                    </div>
+                                    <a href="meeting-details.html"><img src="assets/images/placeholder_300x150.png"
+                                                                        alt="New Lecturer Meeting"></a>
+                                </div>
+                                <div class="down-content">
+                                    <a href="meeting-details.html"><h4>Название</h4></a>
+                                    <p>Описание...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="meeting-item">
+                                <div class="thumb">
+                                    <div class="price">
+                                        <span>100 поставщиков</span>
+                                    </div>
+                                    <a href="meeting-details.html"><img src="assets/images/placeholder_300x150.png"
+                                                                        alt="New Lecturer Meeting"></a>
+                                </div>
+                                <div class="down-content">
+                                    <a href="meeting-details.html"><h4>Название</h4></a>
+                                    <p>Описание...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="meeting-item">
+                                <div class="thumb">
+                                    <div class="price">
+                                        <span>100 поставщиков</span>
+                                    </div>
+                                    <a href="meeting-details.html"><img src="assets/images/placeholder_300x150.png"
+                                                                        alt="New Lecturer Meeting"></a>
+                                </div>
+                                <div class="down-content">
+                                    <a href="meeting-details.html"><h4>Название</h4></a>
+                                    <p>Описание...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="meeting-item">
+                                <div class="thumb">
+                                    <div class="price">
+                                        <span>100 поставщиков</span>
+                                    </div>
+                                    <a href="meeting-details.html"><img src="assets/images/placeholder_300x150.png"
+                                                                        alt="Online Teaching"></a>
+                                </div>
+                                <div class="down-content">
+                                    <a href="meeting-details.html"><h4>Название</h4></a>
+                                    <p>Описание...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="meeting-item">
+                                <div class="thumb">
+                                    <div class="price">
+                                        <span>100 поставщиков</span>
+                                    </div>
+                                    <a href="meeting-details.html"><img src="assets/images/placeholder_300x150.png"
+                                                                        alt="Higher Education"></a>
+                                </div>
+                                <div class="down-content">
+                                    <a href="meeting-details.html"><h4>Название</h4></a>
+                                    <p>Описание...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="meeting-item">
+                                <div class="thumb">
+                                    <div class="price">
+                                        <span>100 поставщиков</span>
+                                    </div>
+                                    <a href="meeting-details.html"><img src="assets/images/placeholder_300x150.png"
+                                                                        alt="Student Training"></a>
+                                </div>
+                                <div class="down-content">
+                                    <a href="meeting-details.html"><h4>Название</h4></a>
+                                    <p>Описание...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="apply-now" id="apply">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 align-self-center">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="item">
+                                <h3>Для <span class="c-yellow">общепита</span></h3>
+                                <p>Откажитесь от бесконечных листов заказов и ночных ожиданий по телефону. Наш
+                                    бесплатный
+                                    сайт - это самый эффективный способ заказа у всех ваших поставщиков. Выполняйте
+                                    заказы
+                                    быстрее, ложитесь спать раньше.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="item">
+                                <h3>Для <span class="c-red">поставщиков</span></h3>
+                                <p>Независимо от того, являетесь ли вы семейной фермой или национальным дистрибьютором,
+                                    наша платформа, разработанная специально для вас, изменит способ ведения бизнеса.
+                                    Сэкономьте время
+                                    на ручных операциях, сократите количество ошибок в заказах и продавайте больше
+                                    продукции.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <article class="accordion">
+                        <div class="accordions is-first-expanded">
+                            <h3 class="head">
+                                <span>Экология</span>
+                            </h3>
+                            <div class="content">
+                                <p class="article">Мы вносим свой вклад в защиту экологии. Важно действовать не завтра,
+                                    а
+                                    СЕЙЧАС! Именно поэтому мы заботимся о биоразнообразии, защите ресурсов, нашей воды и
+                                    прочего. Цели в области устойчивого развития являются для нас руководящими
+                                    принципами.
+                                    С 2009 года мы также сотрудничаем с природоохранной организацией WWF в целях защиты
+                                    окружающей среды. Наши поставщики обязаны соблюдать чёткие и строгие правила по
+                                    защите
+                                    экологии. Мы так-жи активно стремится к улучшению благосостояния животных при
+                                    выращивании и содержании сельскохозяйственных животных. Мы продолжаем поощрять
+                                    поставщиков, которые производят свои продукты в соответствии с более высокими
+                                    стандартами благополучия животных. При этом мы требуем не только большего
+                                    благополучия и
+                                    здоровья животных, но и большей прозрачности и прослеживаемости всей технологической
+                                    цепочки.</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="our-facts">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h2>Коротко о нас в цифрах</h2>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="count-area-content">
+                                        <div class="count-digit">940</div>
+                                        <div class="count-title">поставщиков</div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="count-area-content">
+                                        <div class="count-digit">126</div>
+                                        <div class="count-title">Категорий</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="count-area-content new-students">
+                                        <div class="count-digit">2345</div>
+                                        <div class="count-title">Рестораторов</div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="count-area-content">
+                                        <div class="count-digit">32000</div>
+                                        <div class="count-title">Заказов</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 align-self-center">
+                    <div class="video">
+                        <p><img src="/" alt=""></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-us" id="contact-us">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 align-self-center">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form id="contact" action="" method="post">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h2>Вопросы? Пишите мы поможем!</h2>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <fieldset>
+                                            <input name="name" type="text" id="name" placeholder="Имя..." required="">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <fieldset>
+                                            <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*"
+                                                   placeholder="Эл. почта..." required="">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <fieldset>
+                                            <input name="subject" type="text" id="subject" placeholder="Тема..."
+                                                   required="">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <fieldset>
+                                        <textarea name="message" type="text" class="form-control" id="message"
+                                                  placeholder="Сообщение..." required=""></textarea>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <fieldset>
+                                            <button type="submit" id="form-submit" class="button">Отослать</button>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="right-info">
+                        <ul>
+                            <li>
+                                <h6>Тел. номер</h6>
+                                <span>+7 000-888-0340</span>
+                            </li>
+                            <li>
+                                <h6>Эл. почта</h6>
+                                <span>info@n.ru</span>
+                            </li>
+                            <li>
+                                <h6>Адрес</h6>
+                                <span>7-я Кожуховская ул., 9, Москва</span>
+                            </li>
+                            <li>
+                                <h6>Представитель</h6>
+                                <span>Бойко Михаил Иванович</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>© 2022 N</p>
+        </div>
+    </section>
+
 {% endblock %}

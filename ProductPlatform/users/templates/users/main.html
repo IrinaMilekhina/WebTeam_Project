@@ -12,7 +12,7 @@
     <!-- ***** Main Banner Area Start ***** -->
     <section class="section main-banner" id="top" data-section="section1">
         <video autoplay muted loop id="bg-video">
-            <source src="assets/images/header-bg.mp4" type="video/mp4"/>
+            <source src="{% static 'assets/images/header-bg.mp4' %}" type="video/mp4"/>
         </video>
 
         <div class="video-overlay header-text">
@@ -22,12 +22,12 @@
                         <div class="caption">
                             <h2>Добро пожаловать!</h2>
                             <p>Наша цель – сделать транспортировку продуктов питания по всей России прозрачной,
-                                устойчивой
-                                и безотходной. Для начала наша платформа связывает общепит и поставщиков и улучшает
-                                процесс
-                                заказа, чтобы сэкономить время, деньги и продукты.</p>
+                                устойчивой и безотходной. Для начала наша платформа связывает общепит и поставщиков и
+                                улучшает процесс заказа, чтобы сэкономить время, деньги и продукты.</p>
                             <div class="main-button-red">
-                                <div><a href="/">Зарегистрироваться</a></div>
+                                {% if not user.is_authenticated %}
+                                    <div><a href="{% url 'users:register' %}">Зарегистрироваться</a></div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
 
                         <div class="item">
                             <div class="icon">
-                                <img src="assets/images/money.png" alt="">
+                                <img src="{% static 'assets/images/money.png' %}" alt="">
                             </div>
                             <div class="down-content">
                                 <h4>Тратьте меньше</h4>
@@ -56,7 +56,7 @@
 
                         <div class="item">
                             <div class="icon">
-                                <img src="assets/images/time.png" alt="">
+                                <img src="{% static 'assets/images/time.png' %}" alt="">
                             </div>
                             <div class="down-content">
                                 <h4>Экономьте время</h4>
@@ -68,7 +68,7 @@
 
                         <div class="item">
                             <div class="icon">
-                                <img src="assets/images/paper.png" alt="">
+                                <img src="{% static 'assets/images/paper.png' %}" alt="">
                             </div>
                             <div class="down-content">
                                 <h4>Меньше бюрократии</h4>
@@ -80,7 +80,7 @@
 
                         <div class="item">
                             <div class="icon">
-                                <img src="assets/images/progress.png" alt="">
+                                <img src="{% static 'assets/images/progress.png' %}" alt="">
                             </div>
                             <div class="down-content">
                                 <h4>Ускорьте прогресс</h4>
@@ -91,7 +91,7 @@
 
                         <div class="item">
                             <div class="icon">
-                                <img src="assets/images/delivery.png" alt="">
+                                <img src="{% static 'assets/images/delivery.png' %}" alt="">
                             </div>
                             <div class="down-content">
                                 <h4>Быстрая доставка</h4>
@@ -117,96 +117,25 @@
                 </div>
                 <div class="col-lg-auto">
                     <div class="row">
-                        <div class="col-lg-4">
-                            <div class="meeting-item">
-                                <div class="thumb">
-                                    <div class="price">
-                                        <span>100 поставщиков</span>
+                        {% for item in categories %} <!-- Top 6 categories-->
+                            <div class="col-lg-4">
+                                <div class="meeting-item">
+                                    <div class="thumb">
+                                        <div class="price">
+                                            <span>{{ item.suppliers_amount }} поставщиков</span>
+                                        </div>
+                                        <a href="/">
+                                            <img src="{% static 'assets/images/placeholder_300x150.png' %}"
+                                                 alt="New Lecturer Meeting">
+                                        </a>
                                     </div>
-                                    <a href="meeting-details.html"><img src="assets/images/placeholder_300x150.png"
-                                                                        alt="New Lecturer Meeting"></a>
-                                </div>
-                                <div class="down-content">
-                                    <a href="meeting-details.html"><h4>Название</h4></a>
-                                    <p>Описание...</p>
+                                    <div class="down-content">
+                                        <a href="/"><h4>{{ item.category.name }}</h4></a>
+                                        <p>{{ item.category.description }}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="meeting-item">
-                                <div class="thumb">
-                                    <div class="price">
-                                        <span>100 поставщиков</span>
-                                    </div>
-                                    <a href="meeting-details.html"><img src="assets/images/placeholder_300x150.png"
-                                                                        alt="New Lecturer Meeting"></a>
-                                </div>
-                                <div class="down-content">
-                                    <a href="meeting-details.html"><h4>Название</h4></a>
-                                    <p>Описание...</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="meeting-item">
-                                <div class="thumb">
-                                    <div class="price">
-                                        <span>100 поставщиков</span>
-                                    </div>
-                                    <a href="meeting-details.html"><img src="assets/images/placeholder_300x150.png"
-                                                                        alt="New Lecturer Meeting"></a>
-                                </div>
-                                <div class="down-content">
-                                    <a href="meeting-details.html"><h4>Название</h4></a>
-                                    <p>Описание...</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="meeting-item">
-                                <div class="thumb">
-                                    <div class="price">
-                                        <span>100 поставщиков</span>
-                                    </div>
-                                    <a href="meeting-details.html"><img src="assets/images/placeholder_300x150.png"
-                                                                        alt="Online Teaching"></a>
-                                </div>
-                                <div class="down-content">
-                                    <a href="meeting-details.html"><h4>Название</h4></a>
-                                    <p>Описание...</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="meeting-item">
-                                <div class="thumb">
-                                    <div class="price">
-                                        <span>100 поставщиков</span>
-                                    </div>
-                                    <a href="meeting-details.html"><img src="assets/images/placeholder_300x150.png"
-                                                                        alt="Higher Education"></a>
-                                </div>
-                                <div class="down-content">
-                                    <a href="meeting-details.html"><h4>Название</h4></a>
-                                    <p>Описание...</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="meeting-item">
-                                <div class="thumb">
-                                    <div class="price">
-                                        <span>100 поставщиков</span>
-                                    </div>
-                                    <a href="meeting-details.html"><img src="assets/images/placeholder_300x150.png"
-                                                                        alt="Student Training"></a>
-                                </div>
-                                <div class="down-content">
-                                    <a href="meeting-details.html"><h4>Название</h4></a>
-                                    <p>Описание...</p>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -282,13 +211,13 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="count-area-content">
-                                        <div class="count-digit">940</div>
+                                        <div class="count-digit">{{ all_suppliers_amount }}</div>
                                         <div class="count-title">поставщиков</div>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="count-area-content">
-                                        <div class="count-digit">126</div>
+                                        <div class="count-digit">{{ all_categories_amount }}</div>
                                         <div class="count-title">Категорий</div>
                                     </div>
                                 </div>
@@ -298,13 +227,13 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="count-area-content new-students">
-                                        <div class="count-digit">2345</div>
+                                        <div class="count-digit">{{ all_customers_amount }}</div>
                                         <div class="count-title">Рестораторов</div>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="count-area-content">
-                                        <div class="count-digit">32000</div>
+                                        <div class="count-digit">{{ all_active_orders_amount }}</div>
                                         <div class="count-title">Заказов</div>
                                     </div>
                                 </div>
@@ -328,6 +257,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <form id="contact" action="" method="post">
+                                {% csrf_token %}
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <h2>Вопросы? Пишите мы поможем!</h2>
@@ -351,7 +281,7 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <fieldset>
-                                        <textarea name="message" type="text" class="form-control" id="message"
+                                        <textarea name="message" class="form-control" id="message"
                                                   placeholder="Сообщение..." required=""></textarea>
                                         </fieldset>
                                     </div>

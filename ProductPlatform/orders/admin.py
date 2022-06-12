@@ -10,14 +10,16 @@ class AdminOrders(admin.ModelAdmin):
 
 
 class AdminCategory(admin.ModelAdmin):
-    list_display = ['name']
+    list_display = ['name', 'is_active']
     list_filter = ['name']
     search_fields = ['name']
+
 
 class AdminResponse(admin.ModelAdmin):
     list_display = ['order', 'response_user']
     list_filter = ['order', 'response_user']
     search_fields = ['order', 'response_user']
+
 
 admin.site.register(Order, AdminOrders)
 admin.site.register(CategoryOrder, AdminCategory)

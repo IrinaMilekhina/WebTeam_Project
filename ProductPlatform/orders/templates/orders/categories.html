@@ -1,0 +1,13 @@
+{% extends 'orders/base_orders.html' %} {% block content %}
+<h1 class="">Все категории</h1>
+
+<ul class="">
+  {% for category in all_categories %}
+  <li>
+    <h2>{{ category.name }}</h2>
+    <h3>{{ category.description }}</h3>
+    <h3>{{ category.is_active }}</h3>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

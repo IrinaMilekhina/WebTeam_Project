@@ -1,0 +1,132 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}
+N
+{% endblock %}
+
+{% block content %}
+<section class="section main-banner" id="top" data-section="section1">
+    <video autoplay muted loop>
+        <source src="#"/>
+    </video>
+    <div class="video-overlay header-text">
+        <div class="container text-center" style="padding-top:105px">
+            <a href="#" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px" role="button"
+               aria-pressed="true">Мой
+                профиль</a>
+            <!--        <a href="#" class="btn btn-danger active" style="margin: 5px 5px 5px 5px" role="button" aria-pressed="true">Текущие-->
+            <!--            заказы</a>-->
+            <a href="#" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px" role="button"
+               aria-pressed="true">История
+                заказов</a>
+        </div>
+    </div>
+</section>
+<section class="main" id="form5">
+    <div class="container">
+        <div class="py-3 text-center">
+            <h2>Текущие заказы</h2>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card-wrapper"
+                     style="background:#b02a37; margin-bottom:2rem; padding:2rem; border-radius:20px">
+                    <div class="top-line row">
+                        <div class="col">
+                            <a class="card-title" href="#" style="color:white"><strong>Заказ
+                                №3</strong></a>
+                        </div>
+                        <div class="col-auto">
+                            <p class="price mbr-fonts-style display-7" style="color:white">Статус: <strong>В
+                                работе</strong></p>
+                        </div>
+                    </div>
+                    <div class="bottom-line">
+                        <p class="mbr-text mbr-fonts-style display-7" style="color:white"><strong>Категория</strong>:
+                            Овощи и
+                            Фрукты<br><strong>Адрес</strong>: г. Омск, ул. Мира 2/1<br><strong>Описание</strong>:
+                            Морковка - 2шт, Апельсин - 2 ящика<br><strong>Срок</strong>: до
+                            06.07.2022<br><strong>Цена</strong>:&nbsp; договорная</p>
+                    </div>
+                    <div class="top-line row">
+                        <div class="col">
+                            <h4 class="card-title mbr-fonts-style display-7" style="color:white"></h4>
+                        </div>
+                        <div class="col-auto">
+                            <p class="price mbr-fonts-style display-7" style="color:white">Откликов: <strong> 2</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-wrapper"
+                     style="background:#b02a37; margin-bottom:2rem; padding:2rem; border-radius:20px">
+                    <div class="top-line row">
+                        <div class="col">
+                            <a class="card-title" href="#" style="color:white"><strong>Заказ
+                                №4</strong></a>
+                        </div>
+                        <div class="col-auto">
+                            <p class="price mbr-fonts-style display-7" style="color:white">Статус: <strong>В
+                                работе</strong></p>
+                        </div>
+                    </div>
+                    <div class="bottom-line">
+                        <p class="mbr-text mbr-fonts-style display-7" style="color:white"><strong>Категория</strong>:
+                            Мясные продукты<br><strong>Адрес</strong>: г. Омск, ул. Мира
+                            2/1<br><strong>Описание</strong>:
+                            Свинина - 2кг, Говядина - 1кг<br><strong>Срок</strong>: до
+                            02.07.2022<br><strong>Цена</strong>:&nbsp; договорная</p>
+                    </div>
+                    <div class="top-line row">
+                        <div class="col">
+                            <h4 class="card-title mbr-fonts-style display-7" style="color:white"></h4>
+                        </div>
+                        <div class="col-auto">
+                            <p class="price mbr-fonts-style display-7" style="color:white">Откликов: <strong> 0</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-wrapper"
+                     style="background:#b02a37; margin-bottom:2rem; padding:2rem; border-radius:20px">
+                    <div class="top-line row">
+                        <div class="col">
+                            <a class="card-title" href="#" style="color:white"><strong>Заказ
+                                №5</strong></a>
+                        </div>
+                        <div class="col-auto">
+                            <p class="price mbr-fonts-style display-7" style="color:white">Статус: <strong>В
+                                работе</strong></p>
+                        </div>
+                    </div>
+                    <div class="bottom-line">
+                        <p class="mbr-text mbr-fonts-style display-7" style="color:white"><strong>Категория</strong>:
+                            Овощи и
+                            Фрукты<br><strong>Адрес</strong>: г. Омск, ул. Мира
+                            2/1<br><strong>Описание</strong>:
+                            Трюфели - 200шт<br><strong>Срок</strong>: до
+                            01.07.2022<br><strong>Цена</strong>:&nbsp; договорная</p>
+                    </div>
+                    <div class="top-line row">
+                        <div class="col">
+                            <h4 class="card-title mbr-fonts-style display-7" style="color:white"></h4>
+                        </div>
+                        <div class="col-auto">
+                            <p class="price mbr-fonts-style display-7" style="color:white">Откликов: <strong> 1</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+<section class="footer" style="background:gray">
+    <p>© 2022 N</p>
+</section>
+{% endblock %}

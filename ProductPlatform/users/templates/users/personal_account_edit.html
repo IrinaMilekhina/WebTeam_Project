@@ -1,0 +1,113 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}
+N
+{% endblock %}
+
+
+{% block content %}
+
+<section class="section main-banner" id="top"  data-section="section1">
+    <video autoplay muted loop>
+            <source src="#"/>
+        </video>
+    <div class="video-overlay header-text">
+    <div class="container text-center" style="padding-top:105px">
+        <a href="#" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px" role="button" aria-pressed="true">Мой
+            профиль</a>
+<!--        <a href="#" class="btn btn-danger active" style="margin: 5px 5px 5px 5px" role="button" aria-pressed="true">Текущие-->
+<!--            заказы</a>-->
+        <a href="#" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px" role="button" aria-pressed="true">История
+            заказов</a>
+    </div>
+    </div>
+</section>
+
+<section class="main" id="form5">
+    <div class="container">
+        <div class="py-3 text-center">
+
+            <h2>Мой Профиль</h2>
+            <!--                <img class="d-block mx-auto mb-4" src="#" alt="" width="72"-->
+            <!--                     height="57">-->
+        </div>
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-8 mx-auto" data-form-type="formoid">
+                <form action="#" method="POST" class="form"
+                      data-form-title="Form Name">
+                    <div class="row">
+
+                        <div class="col-md col-sm-12 mb-3" data-for="name"> Никнейм
+                            <input type="text" name="username" placeholder="Никнейм" data-form-field="username"
+                                   class="form-control" value="Testname" id="username" disabled>
+                        </div>
+                        <div class="col-md col-sm-12 mb-3" data-for="email">Email
+                            <input type="email" name="email" placeholder="E-mail" data-form-field="email"
+                                   class="form-control" value="test@mail.ru" id="email" disabled>
+                        </div>
+                        <div>
+                        </div>
+                        <div class="col-md col-sm-12 mb-3" data-for="name">Фамилия
+                            <input type="text" name="last_name" placeholder="Фамилия" data-form-field="last_name"
+                                   class="form-control" value="Иванов" id="last_name">
+                        </div>
+                        <div class="col-md col-sm-12 mb-3" data-for="email">Имя
+                            <input type="text" name="first_name" placeholder="Имя" data-form-field="first_name"
+                                   class="form-control" value="Иван" id="first_name">
+                        </div>
+                        <div>
+                        </div>
+                        <div class="col-md col-sm-12 mb-3" data-for="name">Город
+                            <input type="text" name="city" placeholder="Город" data-form-field="city"
+                                   class="form-control" value="Омск" id="city">
+                        </div>
+                        <div class="col-md col-sm-12 mb-3" data-for="email"> Контактный телефон
+                            <input type="text" name="phone_number" placeholder="Контактный телефон"
+                                   data-form-field="phone_number"
+                                   class="form-control" value="+79091234567" id="phone_number">
+                        </div>
+                        <div>
+                        </div>
+                        <div class="col-md col-sm-12 mb-3" data-for="name">Название комании
+                            <input type="text" name="comp_name" placeholder="Название комании"
+                                   data-form-field="comp_name"
+                                   class="form-control" value="FarmSeller" id="comp_name">
+                        </div>
+                        <div class="col-md col-sm-12 mb-3" data-for="email"> ОГРН
+                            <input type="text" name="ogrn" placeholder="ОГРН" data-form-field="ogrn"
+                                   class="form-control" value="1234567891011" id="ogrn" disabled>
+                        </div>
+                        <div class="col-12 mb-3" data-for="textarea">О себе...
+                            <textarea name="textarea" placeholder="О себе..." data-form-field="about"
+                                      class="form-control" id="about"></textarea>
+                        </div>
+                        <div>Смена пароля
+                        </div>
+                        <div class="col-md col-sm-12 mb-3" data-for="name">
+                            <input type="password" name="password1" placeholder="Введите пароль"
+                                   data-form-field="password1"
+                                   class="form-control" value="" id="password1">
+                        </div>
+                        <div class="col-md col-sm-12 mb-3" data-for="email">
+                            <input type="password" name="password2" placeholder="Подтвердите пароль"
+                                   data-form-field="password2"
+                                   class="form-control" value="" id="password2">
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
+                            <button type="submit" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px">Сохранить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="footer" style="background:gray">
+    <p>© 2022 N</p>
+</section>
+{% endblock %}
+
+
+

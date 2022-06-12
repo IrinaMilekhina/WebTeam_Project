@@ -21,4 +21,3 @@ class CategoryOrderView(ListView):
     context_object_name = 'all_categories'
     template_name = 'orders/categories.html'
     paginate_by = 5
-

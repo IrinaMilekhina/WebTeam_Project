@@ -117,12 +117,12 @@
                 </div>
                 <div class="col-lg-auto">
                     <div class="row">
-                        {% for item in categories %} <!-- Top 6 categories-->
+                        {% for category in categories %} <!-- Top 6 categories-->
                             <div class="col-lg-4">
                                 <div class="meeting-item">
                                     <div class="thumb">
                                         <div class="price">
-                                            <span>{{ item.suppliers_amount }} поставщиков</span>
+                                            <span>100 поставщиков</span> <!-- Надо будет ещё количество добавить, но после того как это вьюху добавят -->
                                         </div>
                                         <a href="/">
                                             <img src="{% static 'assets/images/placeholder_300x150.png' %}"
@@ -130,8 +130,8 @@
                                         </a>
                                     </div>
                                     <div class="down-content">
-                                        <a href="/"><h4>{{ item.category.name }}</h4></a>
-                                        <p>{{ item.category.description }}</p>
+                                        <a href="/"><h4>{{ category.name }}</h4></a>
+                                        <p>{{ category.description }}</p>
                                     </div>
                                 </div>
                             </div>

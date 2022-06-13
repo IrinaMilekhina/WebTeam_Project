@@ -3,6 +3,8 @@ from django.shortcuts import render
 # Create your views here.
 from django.views import View
 
+from orders.models import CategoryOrder
+
 
 class MainView(View):
     template_name = 'orders/main.html'
@@ -11,6 +13,7 @@ class MainView(View):
     def get(self, request, *args, **kwargs):
         content = {
             'title': self.title,
+            'categories': CategoryOrder.objects.limit(6),
         }
 
         return render(request, self.template_name, content)

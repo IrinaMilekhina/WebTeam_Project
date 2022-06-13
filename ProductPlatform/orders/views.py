@@ -5,7 +5,7 @@ from django.views import View
 
 
 class MainView(View):
-    template_name = 'users/base.html'
+    template_name = 'orders/base.html'
     title = 'Главная'
 
     def get(self, request, *args, **kwargs):

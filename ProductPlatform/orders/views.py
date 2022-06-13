@@ -13,7 +13,7 @@ class MainView(View):
     def get(self, request, *args, **kwargs):
         content = {
             'title': self.title,
-            'categories': CategoryOrder.objects.limit(6),
+            'categories': CategoryOrder.objects.all().order_by('-id')[:6]
         }
 
         return render(request, self.template_name, content)

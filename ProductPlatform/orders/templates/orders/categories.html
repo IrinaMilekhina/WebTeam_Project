@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <section class="heading-page header-text" id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Категории</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="meetings-page" id="meetings">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+{#                        <div class="col-lg-12"> !!! Фильтрация на будущее !!! #}
+{#                            <div class="filters">#}
+{#                                <ul>#}
+{#                                    {% for over_category in over_categories %}#}
+{#                                        <li><a href="/">{{ over_category.name }}</a></li>#}
+{#                                    {% endfor %}#}
+{#                                </ul>#}
+{#                            </div>#}
+{#                        </div>#}
+                        <div class="col-lg-12">
+                            <div class="row grid">
+                                {% for category in categories %}
+                                    <div class="col-lg-4 templatemo-item-col all soon">
+                                        <div class="meeting-item">
+                                            <div class="thumb">
+                                                <div class="price">
+                                                    <span>{{ category.all_suppliers_amount }} поставщиков</span>
+                                                </div>
+                                                <a href="meeting-details.html"><img
+                                                        src="{% static 'assets/images/placeholder_300x150.png' %}" alt=""></a>
+                                            </div>
+                                            <div class="down-content">
+                                                <a href="meeting-details.html"><h4>{{ category.name }}</h4></a>
+                                                <p>{{ category.description }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="pagination">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+                                    <li><a href="#">1</a></li>
+                                    <li class="active"><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Copyright © 2022 Edu Meeting Co., Ltd. All Rights Reserved.
+                <br>Design: <a href="https://templatemo.com/page/1" target="_parent" title="website templates">TemplateMo</a>
+            </p>
+        </div>
+    </section>
+{% endblock %}

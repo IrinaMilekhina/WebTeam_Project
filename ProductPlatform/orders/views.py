@@ -15,6 +15,7 @@ class MainView(View):
 
         return render(request, self.template_name, content)
 
+
 class CategoryOrderView(ListView):
     model = CategoryOrder
     queryset = CategoryOrder.objects.filter(is_active=True)

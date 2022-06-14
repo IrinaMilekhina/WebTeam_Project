@@ -1,4 +1,4 @@
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
 from django.views.generic.edit import FormView
 from users.forms import UserLoginForm, UserRegisterForm
@@ -62,3 +62,7 @@ class RegisterListView(FormView):
     def form_invalid(self, form):
         print(form.errors)
         return super().form_invalid(form)
+
+
+class Logout(LogoutView):
+    template_name = 'orders/main.html'

@@ -1,10 +1,7 @@
 from django.shortcuts import render
-
-# Create your views here.
-from django.views import View
-
+from django.views.generic import ListView
 from orders.models import CategoryOrder
-
+from django.views import View
 
 class MainView(View):
     template_name = 'orders/main.html'
@@ -17,3 +14,11 @@ class MainView(View):
         }
 
         return render(request, self.template_name, content)
+
+
+class CategoryOrderView(ListView):
+    model = CategoryOrder
+    queryset = CategoryOrder.objects.filter(is_active=True)
+    context_object_name = 'all_categories'
+    template_name = 'orders/categories.html'
+    paginate_by = 5

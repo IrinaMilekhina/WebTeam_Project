@@ -18,7 +18,8 @@ class PersonalAccountListView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         """Метод для создания необходимого контекста для личного кабинета"""
-        context = super(PersonalAccountListView, self).get_context_data(**kwargs)
+        context = super(PersonalAccountListView,
+                        self).get_context_data(**kwargs)
         context['account'] = Profile.objects.get(pk=self.request.user.pk)
         return context
 

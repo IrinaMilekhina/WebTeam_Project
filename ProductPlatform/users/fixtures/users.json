@@ -10,7 +10,8 @@
       "comp_name": "ООО Заказчик1",
       "role": "Customer",
       "bio": "1",
-      "username": "1"
+      "username": "user1",
+      "password": "1111"
     }
   },
   {
@@ -24,7 +25,8 @@
       "comp_name": "ООО Заказчик2",
       "role": "Customer",
       "bio": "2",
-      "username": "2"
+      "username": "user2",
+      "password": "2222"
     }
   },
   {
@@ -37,8 +39,9 @@
       "ogrn": "213456789012345",
       "comp_name": "ООО Поставщик1",
       "role": "Supplier",
-      "bio": "3",
-      "username": "3"
+      "bio": "user3",
+      "username": "3",
+      "password": "3333"
     }
   },
   {
@@ -52,7 +55,8 @@
       "comp_name": "ООО Поставщик2",
       "role": "Supplier",
       "bio": "4",
-      "username": "4"
+      "username": "user4",
+      "password": "4444"
     }
   },
   {
@@ -66,7 +70,8 @@
       "comp_name": "ООО Поставщик3",
       "role": "Supplier",
       "bio": "5",
-      "username": "5"
+      "username": "user5",
+      "password": "5555"
     }
   }
 ]

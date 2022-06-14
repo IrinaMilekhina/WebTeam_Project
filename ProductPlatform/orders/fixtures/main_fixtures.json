@@ -120,6 +120,30 @@
     }
   },
   {
+    "model": "users.profile",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$MLpzslXXHK7hdR8kXj1K8K$rpegvbQ1OyMOOhYoP0tVPW8eQOy5BYu5XwfSDIyohes=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "ADMIN",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-06-14T13:22:30.908Z",
+      "phone_number": "",
+      "email": "ADMIN@admin.ru",
+      "city": "",
+      "ogrn": "",
+      "comp_name": "",
+      "role": "",
+      "bio": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
     "model": "orders.CategoryOrder",
     "pk": 1,
     "fields": {

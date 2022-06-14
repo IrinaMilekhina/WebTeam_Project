@@ -1,0 +1,72 @@
+[
+  {
+    "model": "users.Profile",
+    "pk": 1,
+    "fields": {
+      "phone_number": "89777777777",
+      "email": "8977@mail.ru",
+      "city": "Москва",
+      "ogrn": "123456789012345",
+      "comp_name": "ООО Заказчик1",
+      "role": "Customer",
+      "bio": "1",
+      "username": "1"
+    }
+  },
+  {
+    "model": "users.Profile",
+    "pk": 2,
+    "fields": {
+      "phone_number": "89888888888",
+      "email": "8988@mail.ru",
+      "city": "Москва",
+      "ogrn": "023456789012345",
+      "comp_name": "ООО Заказчик2",
+      "role": "Customer",
+      "bio": "2",
+      "username": "2"
+    }
+  },
+  {
+    "model": "users.Profile",
+    "pk": 3,
+    "fields": {
+      "phone_number": "89999999999",
+      "email": "8999@mail.ru",
+      "city": "Москва",
+      "ogrn": "213456789012345",
+      "comp_name": "ООО Поставщик1",
+      "role": "Supplier",
+      "bio": "3",
+      "username": "3"
+    }
+  },
+  {
+    "model": "users.Profile",
+    "pk": 4,
+    "fields": {
+      "phone_number": "89000000000",
+      "email": "8900@mail.ru",
+      "city": "Москва",
+      "ogrn": "123456789012354",
+      "comp_name": "ООО Поставщик2",
+      "role": "Supplier",
+      "bio": "4",
+      "username": "4"
+    }
+  },
+  {
+    "model": "users.Profile",
+    "pk": 5,
+    "fields": {
+      "phone_number": "89111111111",
+      "email": "8911@mail.ru",
+      "city": "Москва",
+      "ogrn": "123465789012345",
+      "comp_name": "ООО Поставщик3",
+      "role": "Supplier",
+      "bio": "5",
+      "username": "5"
+    }
+  }
+]

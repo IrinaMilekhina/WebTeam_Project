@@ -1,0 +1,192 @@
+[
+  {
+    "model": "users.Profile",
+    "pk": 1,
+    "fields": {
+      "phone_number": "89777777777",
+      "email": "8977@mail.ru",
+      "city": "Москва",
+      "ogrn": "123456789012345",
+      "comp_name": "ООО Заказчик1",
+      "role": "Customer",
+      "bio": "1",
+      "username": "1"
+    }
+  },
+  {
+    "model": "users.Profile",
+    "pk": 2,
+    "fields": {
+      "phone_number": "89888888888",
+      "email": "8988@mail.ru",
+      "city": "Москва",
+      "ogrn": "023456789012345",
+      "comp_name": "ООО Заказчик2",
+      "role": "Customer",
+      "bio": "2",
+      "username": "2"
+    }
+  },
+  {
+    "model": "users.Profile",
+    "pk": 3,
+    "fields": {
+      "phone_number": "89999999999",
+      "email": "8999@mail.ru",
+      "city": "Москва",
+      "ogrn": "213456789012345",
+      "comp_name": "ООО Поставщик1",
+      "role": "Supplier",
+      "bio": "3",
+      "username": "3"
+    }
+  },
+  {
+    "model": "users.Profile",
+    "pk": 4,
+    "fields": {
+      "phone_number": "89000000000",
+      "email": "8900@mail.ru",
+      "city": "Москва",
+      "ogrn": "123456789012354",
+      "comp_name": "ООО Поставщик2",
+      "role": "Supplier",
+      "bio": "4",
+      "username": "4"
+    }
+  },
+  {
+    "model": "users.Profile",
+    "pk": 5,
+    "fields": {
+      "phone_number": "89111111111",
+      "email": "8911@mail.ru",
+      "city": "Москва",
+      "ogrn": "123465789012345",
+      "comp_name": "ООО Поставщик3",
+      "role": "Supplier",
+      "bio": "5",
+      "username": "5"
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 1,
+    "fields": {
+      "name": "Мясо и мясопродукты",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 2,
+    "fields": {
+      "name": "Птица. Яйцо",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 3,
+    "fields": {
+      "name": "Молочная продукция. Сыры",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 4,
+    "fields": {
+      "name": "Бакалея. Зернопродукты. Макаронные изделия",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 5,
+    "fields": {
+      "name": "Колбасные изделия. Деликатесы",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.Order",
+    "pk": 1,
+    "fields": {
+      "author": 1,
+      "category": 2,
+      "name": "Курица 25кг",
+      "description": "К 28.08.2022 доставить курицу",
+      "create_at": "2022-06-10",
+      "end_time": "2022-08-28"
+    }
+  },
+  {
+    "model": "orders.Order",
+    "pk": 2,
+    "fields": {
+      "author": 2,
+      "category": 3,
+      "name": "Молоко 40л",
+      "description": "К 10.08.2022 доставить молоко",
+      "create_at": "2022-06-10",
+      "end_time": "2022-08-10"
+    }
+  },
+  {
+    "model": "orders.Order",
+    "pk": 3,
+    "fields": {
+      "author": 1,
+      "category": 4,
+      "name": "Гречка 30кг",
+      "description": "К 01.08.2022 доставить крупу",
+      "create_at": "2022-06-10",
+      "end_time": "2022-08-01"
+    }
+  },
+  {
+    "model": "orders.ResponseOrder",
+    "pk": 1,
+    "fields": {
+      "order": 1,
+      "response_user": 3,
+      "offer": "10 000р",
+      "status": "On Approval",
+      "create_at": "2022-06-11"
+    }
+  },
+  {
+    "model": "orders.ResponseOrder",
+    "pk": 2,
+    "fields": {
+      "order": 1,
+      "response_user": 4,
+      "offer": "15 000р",
+      "status": "On Approval",
+      "create_at": "2022-06-11"
+    }
+  },
+  {
+    "model": "orders.ResponseOrder",
+    "pk": 3,
+    "fields": {
+      "order": 2,
+      "response_user": 3,
+      "offer": "7 000р",
+      "status": "On Approval",
+      "create_at": "2022-06-13"
+    }
+  },
+  {
+    "model": "orders.ResponseOrder",
+    "pk": 4,
+    "fields": {
+      "order": 2,
+      "response_user": 4,
+      "offer": "8 000р",
+      "status": "On Approval",
+      "create_at": "2022-06-12"
+    }
+  }
+]

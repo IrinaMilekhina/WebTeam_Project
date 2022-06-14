@@ -1,0 +1,42 @@
+[
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 1,
+    "fields": {
+      "name": "Мясо и мясопродукты",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 2,
+    "fields": {
+      "name": "Птица. Яйцо",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 3,
+    "fields": {
+      "name": "Молочная продукция. Сыры",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 4,
+    "fields": {
+      "name": "Бакалея. Зернопродукты. Макаронные изделия",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 5,
+    "fields": {
+      "name": "Колбасные изделия. Деликатесы",
+      "description": ""
+    }
+  }
+]

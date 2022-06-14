@@ -36,12 +36,14 @@ class Category(DetailView):
             id = kwargs.get('id', None)
         except KeyError as err:
             print(err)  # для DEBAG = True
-            return render(request, self.template_name, {'ERROR': 'Страница не найдена'})
+            return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})
         try:
             category = get_object_or_404(CategoryOrder, id=id)
         except Http404 as err:
             print(err)  # для DEBAG = True
-            return render(request, self.template_name, {'ERROR': 'Страница не найдена'})
-        return render(request, self.template_name, {'category': category})
+            return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})
+        return render(request, self.template_name, {'category': category, 'title': category.name})
+
+
 
 

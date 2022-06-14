@@ -1,0 +1,42 @@
+<!-- ***** Header Area Start ***** -->
+<header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="index.html" class="logo">
+                        N
+                    </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                        <li><a href="/">Главная</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="/">Категории</a></li>
+                        {% endif %}
+                        {% if user.role == 'Supplier' %}
+                            <li><a href="/">Доска заказов</a></li>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'users:account_edit' %}">Личный кабинет</a></li>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'users:logout' %}">Выйти</a></li>
+                        {% endif %}
+                        {% if not user.is_authenticated %}
+                            <li><a href="{% url 'users:login' %}">Войти</a></li>
+                        {% endif %}
+                        {% if user.is_staff or user.is_admin %}
+                            <li><a href="/">Администрация</a></li>
+                        {% endif %}
+                    </ul>
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>

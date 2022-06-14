@@ -1,0 +1,38 @@
+[
+  {
+    "model": "orders.Order",
+    "pk": 1,
+    "fields": {
+      "author": 1,
+      "category": 2,
+      "name": "Курица 25кг",
+      "description": "К 28.08.2022 доставить курицу",
+      "create_at": "2022-06-10",
+      "end_time": "2022-08-28"
+    }
+  },
+  {
+    "model": "orders.Order",
+    "pk": 2,
+    "fields": {
+      "author": 2,
+      "category": 3,
+      "name": "Молоко 40л",
+      "description": "К 10.08.2022 доставить молоко",
+      "create_at": "2022-06-10",
+      "end_time": "2022-08-10"
+    }
+  },
+  {
+    "model": "orders.Order",
+    "pk": 3,
+    "fields": {
+      "author": 1,
+      "category": 4,
+      "name": "Гречка 30кг",
+      "description": "К 01.08.2022 доставить крупу",
+      "create_at": "2022-06-10",
+      "end_time": "2022-08-01"
+    }
+  }
+]

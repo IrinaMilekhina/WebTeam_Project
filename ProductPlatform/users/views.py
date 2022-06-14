@@ -12,6 +12,7 @@ from users.models import Profile
 
 class PersonalAccountListView(ListView):
     """Класс-обработчик для отображения информации в личном кабинете"""
+    title = 'Личный кабинет'
     model = Profile
     template_name = 'users/personal_account.html'
     context_object_name = 'account'
@@ -21,6 +22,7 @@ class PersonalAccountListView(ListView):
         context = super(PersonalAccountListView,
                         self).get_context_data(**kwargs)
         context['account'] = Profile.objects.get(pk=self.request.user.pk)
+        context['title'] = self.title
         return context
 
 

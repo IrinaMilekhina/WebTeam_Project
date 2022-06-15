@@ -20,6 +20,12 @@ class PersonalAccountEditForm(forms.ModelForm):
         self.fields['role'].widget.attrs['readonly'] = True
         self.fields['date_joined'].widget.attrs['readonly'] = True
 
+        for field_name, field in self.fields.items():
+            if field_name != 'role':
+                field.widget.attrs['class'] = 'form-control py-2'
+            else:
+                field.widget.attrs['class'] = 'form-select py-2'
+
 
 class UserLoginForm(AuthenticationForm):
     class Meta:

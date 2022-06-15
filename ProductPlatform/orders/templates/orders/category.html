@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    {% if ERROR %}
+        {{ ERROR }}
+    {% else %}
+    {{ category.name }}
+        {{ category.description }}
+    {% endif %}
+{% endblock %}

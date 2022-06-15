@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import CategoryOrderView
+from .views import CategoryOrderView, Category
 
 app_name = 'orders'
 
 urlpatterns = [
     path('categories/', CategoryOrderView.as_view(), name='categories'),
+    path('category/<int:id>', Category.as_view(), name='category'),
 
 ]

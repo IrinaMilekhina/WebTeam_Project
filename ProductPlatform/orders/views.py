@@ -4,17 +4,14 @@ from django.views.generic import ListView, DetailView
 from orders.models import CategoryOrder
 from django.views import View
 
+
 class MainView(View):
     template_name = 'orders/main.html'
-    title = 'Главная'
+    title = 'Главная страница'
 
     def get(self, request, *args, **kwargs):
-        content = {
-            'title': self.title,
-            'categories': CategoryOrder.objects.all().order_by('-id')[:6]
-        }
-
-        return render(request, self.template_name, content)
+        categories = CategoryOrder.objects.all().order_by('-id')[:6]
+        return render(request, self.template_name, {'categories': categories, 'title': self.title})
 
 
 class CategoryOrderView(ListView):
@@ -43,7 +40,3 @@ class Category(DetailView):
             print(err)  # для DEBAG = True
             return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})
         return render(request, self.template_name, {'category': category, 'title': category.name})
-
-
-
-

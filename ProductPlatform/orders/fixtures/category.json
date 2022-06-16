@@ -1,254 +1,154 @@
 [
   {
-    "model": "orders.categoryorder",
+    "model": "orders.CategoryOrder",
     "pk": 1,
     "fields": {
       "name": "Мясо и мясопродукты",
-      "is_active": true,
       "description": ""
     }
   },
   {
-    "model": "orders.categoryorder",
+    "model": "orders.CategoryOrder",
     "pk": 2,
     "fields": {
       "name": "Птица. Яйцо",
-      "is_active": true,
       "description": ""
     }
   },
   {
-    "model": "orders.categoryorder",
+    "model": "orders.CategoryOrder",
     "pk": 3,
     "fields": {
       "name": "Молочная продукция. Сыры",
-      "is_active": true,
       "description": ""
     }
   },
   {
-    "model": "orders.categoryorder",
+    "model": "orders.CategoryOrder",
     "pk": 4,
     "fields": {
       "name": "Бакалея. Зернопродукты. Макаронные изделия",
-      "is_active": true,
       "description": ""
     }
   },
   {
-    "model": "orders.categoryorder",
+    "model": "orders.CategoryOrder",
     "pk": 5,
     "fields": {
       "name": "Колбасные изделия. Деликатесы",
-      "is_active": true,
       "description": ""
     }
   },
   {
-    "model": "orders.categoryorder",
+    "model": "orders.CategoryOrder",
+    "pk": 6,
+    "fields": {
+      "name": "Мороженое",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 7,
+    "fields": {
+      "name": "Приправы, специи",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 8,
+    "fields": {
+      "name": "Растительные жиры",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 9,
+    "fields": {
+      "name": "Растительные жиры",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
     "pk": 10,
     "fields": {
-      "name": "Рыба и рыбные продукты",
-      "is_active": true,
-      "description": "..."
+      "name": "Соки, воды. Безалкогольные напитки",
+      "description": ""
     }
   },
   {
-    "model": "orders.categoryorder",
+    "model": "orders.CategoryOrder",
     "pk": 11,
     "fields": {
-      "name": "Зерно-мучные товары",
-      "is_active": true,
-      "description": "..."
+      "name": "Замороженные продукты. Полуфабрикаты. Готовые блюда",
+      "description": ""
     }
   },
   {
-    "model": "orders.categoryorder",
+    "model": "orders.CategoryOrder",
     "pk": 12,
     "fields": {
-      "name": "Пищевые жиры",
-      "is_active": true,
-      "description": "..."
+      "name": "Рыба и морепродукты",
+      "description": ""
     }
   },
   {
-    "model": "orders.categoryorder",
+    "model": "orders.CategoryOrder",
     "pk": 13,
     "fields": {
-      "name": "Вкусовые товары",
-      "is_active": true,
-      "description": "..."
+      "name": "Кондитерские изделия. Хлебопекарная продукция",
+      "description": ""
     }
   },
   {
-    "model": "orders.categoryorder",
+    "model": "orders.CategoryOrder",
     "pk": 14,
     "fields": {
-      "name": "Кондитерские товары",
-      "is_active": true,
-      "description": "..."
+      "name": "Консервы. Соусы, кетчупы",
+      "description": ""
     }
   },
   {
-    "model": "orders.categoryorder",
+    "model": "orders.CategoryOrder",
     "pk": 15,
     "fields": {
-      "name": "Плодоовощные товары",
-      "is_active": true,
-      "description": "..."
+      "name": "Гастрономия. Продукция для HoReCa",
+      "description": ""
     }
   },
   {
-    "model": "orders.categoryorder",
+    "model": "orders.CategoryOrder",
     "pk": 16,
     "fields": {
-      "name": "Морепродукты",
-      "is_active": true,
-      "description": "..."
+      "name": "Снэки. Орехи. Сухофрукты",
+      "description": ""
     }
   },
   {
-    "model": "orders.categoryorder",
+    "model": "orders.CategoryOrder",
     "pk": 17,
     "fields": {
-      "name": "Соя и соевые продукты",
-      "is_active": true,
-      "description": "..."
+      "name": "Мёд и продукты пчеловодства",
+      "description": ""
     }
   },
   {
-    "model": "orders.categoryorder",
+    "model": "orders.CategoryOrder",
     "pk": 18,
     "fields": {
-      "name": "Зелень, травы, листья, салаты",
-      "is_active": true,
-      "description": "..."
+      "name": "Чай, кофе",
+      "description": ""
     }
   },
   {
-    "model": "orders.categoryorder",
+    "model": "orders.CategoryOrder",
     "pk": 19,
     "fields": {
-      "name": "Грибы",
-      "is_active": true,
-      "description": "..."
-    }
-  },
-  {
-    "model": "orders.categoryorder",
-    "pk": 20,
-    "fields": {
-      "name": "Специи, пряности",
-      "is_active": true,
-      "description": "..."
-    }
-  },
-  {
-    "model": "orders.categoryorder",
-    "pk": 21,
-    "fields": {
-      "name": "Напитки, соки",
-      "is_active": true,
-      "description": "..."
-    }
-  },
-  {
-    "model": "orders.categoryorder",
-    "pk": 22,
-    "fields": {
-      "name": "Шоколадные изделия",
-      "is_active": true,
-      "description": "..."
-    }
-  },
-  {
-    "model": "orders.categoryorder",
-    "pk": 23,
-    "fields": {
-      "name": "Газировки",
-      "is_active": true,
-      "description": "..."
-    }
-  },
-  {
-    "model": "orders.categoryorder",
-    "pk": 24,
-    "fields": {
-      "name": "Мёд",
-      "is_active": true,
-      "description": "..."
-    }
-  },
-  {
-    "model": "orders.categoryorder",
-    "pk": 25,
-    "fields": {
-      "name": "Сахар",
-      "is_active": true,
-      "description": "..."
-    }
-  },
-  {
-    "model": "orders.categoryorder",
-    "pk": 26,
-    "fields": {
-      "name": "Соль",
-      "is_active": true,
-      "description": "..."
-    }
-  },
-  {
-    "model": "orders.categoryorder",
-    "pk": 27,
-    "fields": {
-      "name": "Растительные продукты",
-      "is_active": true,
-      "description": "..."
-    }
-  },
-  {
-    "model": "orders.categoryorder",
-    "pk": 28,
-    "fields": {
-      "name": "Масло",
-      "is_active": true,
-      "description": "..."
-    }
-  },
-  {
-    "model": "orders.categoryorder",
-    "pk": 29,
-    "fields": {
-      "name": "Орехи",
-      "is_active": true,
-      "description": "..."
-    }
-  },
-  {
-    "model": "orders.categoryorder",
-    "pk": 30,
-    "fields": {
-      "name": "Выпечка",
-      "is_active": true,
-      "description": "..."
-    }
-  },
-  {
-    "model": "orders.categoryorder",
-    "pk": 31,
-    "fields": {
-      "name": "Капуста",
-      "is_active": true,
-      "description": "..."
-    }
-  },
-  {
-    "model": "orders.categoryorder",
-    "pk": 32,
-    "fields": {
-      "name": "Перец",
-      "is_active": true,
-      "description": "..."
+      "name": "Ингредиенты. Пищевые добавки. Сырьё\n",
+      "description": ""
     }
   }
 ]

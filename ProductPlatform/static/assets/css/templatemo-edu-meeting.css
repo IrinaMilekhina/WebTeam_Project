@@ -1591,15 +1591,14 @@ section.auth_login .container {
     justify-content: space-around;
 }
 
-section.auth_login .container .row {
+section.auth_login .input-group {
     display: flex;
-    justify-content: space-around;
+    flex-wrap: nowrap;
 }
 
 section.auth_login #contact {
     background-color: #fff;
     border-radius: 20px;
-    width: 55vw;
     padding: 40px;
 }
 

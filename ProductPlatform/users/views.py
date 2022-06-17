@@ -35,6 +35,13 @@ class PersonalAccountEditView(UpdateView):
         """Метод для получения объекта для использования"""
         return get_object_or_404(Profile, pk=self.request.user.pk)
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        """Метод для создания необходимого контекста для личного кабинета"""
+        context = super(PersonalAccountEditView,
+                        self).get_context_data(**kwargs)
+        context['account'] = Profile.objects.get(pk=self.request.user.pk)
+        return context
+
     def post(self, request, *args, **kwargs):
         form = self.form_class(data=request.POST, instance=self.request.user)
         if form.is_valid():

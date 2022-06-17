@@ -18,6 +18,7 @@ class PersonalAccountEditForm(forms.ModelForm):
         self.fields['email'].widget.attrs['readonly'] = True
         self.fields['ogrn'].widget.attrs['readonly'] = True
         self.fields['role'].widget.attrs['readonly'] = True
+        self.fields['comp_name'].widget.attrs['readonly'] = True
         self.fields['date_joined'].widget.attrs['readonly'] = True
 
         for field_name, field in self.fields.items():

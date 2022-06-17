@@ -11,11 +11,21 @@
                 <div class="pull-right">
                     <a href="/" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px"
                        role="button"
-                       aria-pressed="true">Активные заказы</a>
+                       aria-pressed="true">
+                        {% if account.role == 'Customer' %}
+                        Активные заказы
+                        {% else %}
+                            Отклики на утверждении
+                        {% endif %}
+                    </a>
                     <a href="/" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px"
                        role="button"
-                       aria-pressed="true">История
-                        заказов</a>
+                       aria-pressed="true">
+                        {% if account.role == 'Customer' %}
+                        История заказов
+                        {% else %}
+                            История откликов
+                        {% endif %}</a>
                 </div>
             </div>
         </div>

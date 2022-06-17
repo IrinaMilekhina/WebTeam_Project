@@ -5,49 +5,49 @@
 
 <form action="" method="post">
     {% csrf_token %}
-       <section>
+    <section>
         <div class="container">
-    <div class="row align-items-end">
-        <div class="col-lg-10">
-                <table id="datatable" class="meeting-table table count-digit table-bordered table-hover">
-                    <thead>
-                    <tr class="count-digit">
-                        <th>№</th>
-                        <th>Наименование</th>
-                        <th>Категория</th>
-                        <th>Фирма</th>
-                        <th>Дата заказа</th>
-                        <th>Действует до</th>
-                        <th>Статус</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+            <div class="row align-items-end">
+                <div class="col-lg-10">
+                    <table id="datatable" class="meeting-table table count-digit table-bordered table-hover">
+                        <thead>
+                        <tr class="count-digit">
+                            <th>№</th>
+                            <th>Наименование</th>
+                            <th>Категория</th>
+                            <th>Фирма</th>
+                            <th>Дата заказа</th>
+                            <th>Действует до</th>
+                            <th>Статус</th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-                    {% for row in init %}
-                    <tr class="meeting-table-row" data-href="{% url 'orders' row.id %}">
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{ row.name }}</td>
-                        <td>{{ row.category }}</td>
-                        <td>{{ row.author }}</td>
-                        <td>{{ row.create_at }}</td>
-                        <td>{{ row.end_time }}</td>
-                        <td>{{ row.status }}</td>
-                    </tr>
-                    {% endfor %}
+                        {% for row in init %}
+                        <tr class="meeting-table-row" data-href="{% url 'orders' row.id %}">
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ row.name }}</td>
+                            <td>{{ row.category }}</td>
+                            <td>{{ row.author }}</td>
+                            <td>{{ row.create_at }}</td>
+                            <td>{{ row.end_time }}</td>
+                            <td>{{ row.status }}</td>
+                        </tr>
+                        {% endfor %}
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
-        </div>
-       </section>
+    </section>
 </form>
 
 {% endblock %}
 
 {% block morejs %}
 <script>
-    $(document).ready(function($) {
+    $(document).ready(function ($) {
 
         $(".meeting-table-row").click(function () {
             window.document.location = $(this).data("href");

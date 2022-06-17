@@ -10,7 +10,7 @@ class AdminOrders(admin.ModelAdmin):
 
 
 class AdminCategory(admin.ModelAdmin):
-    list_display = ['name', 'is_active']
+    list_display = ['name', 'is_active', 'description', 'image']
     list_filter = ['name']
     search_fields = ['name']
 

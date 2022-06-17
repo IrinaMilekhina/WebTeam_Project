@@ -107,7 +107,8 @@
                                         <div class="row ">
                                             <div class="col-md-6 mb-3">
                                                 <label class="mb-1" for="{{ form.role.id_for_label }}">Роль</label>
-                                                {{ form.role }}
+                                                <input type="text" class="form-control py-2" value="{% if account.role == account.company_choice.0.0 %}
+{{ account.company_choice.0.1 }}{% endif %}{% if account.role == account.company_choice.1.0 %}{{ account.company_choice.1.1 }}{% endif %}" disabled>
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label class="mb-1" for="{{ form.date_joined.id_for_label }}">Дата

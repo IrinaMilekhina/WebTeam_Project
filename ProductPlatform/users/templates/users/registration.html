@@ -2,213 +2,106 @@
 
 {% load static %}
 
-{% block title %}
-    N
-{% endblock %}
-
 {% block content %}
-    {% if form.errors %}
-            <div
-                    class="alert alert-warning alert-dismissible fade show"
-                    role="alert"
-                    style="margin-top: 50px"
-            >
-                {{ form.non_field_errors }} {% for error in form %} {{ error.errors }}
-            {% endfor %}
-                <button
-                        type="button"
-                        class="close"
-                        data-dismiss="alert"
-                        aria-label="Close"
-                >
-                    <span aria-hidden="true">&times;</span>
-                </button>
+    <form action="{% url 'users:register' %}" method="post" id="contact">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Регистрация</h2>
             </div>
-        {% endif %}
+            <div class="col-lg-6 inp">
+                <fieldset>
+                    <label class="small mb-1">Никнейм</label>
+                    {{ form.username }}
+                </fieldset>
+            </div>
+            <div class="col-lg-6 inp">
+                <fieldset>
+                    <label class="small mb-1" for="inputEmailAddress">Адрес электронной почты</label>
+                    {{ form.email }}
+                </fieldset>
+            </div>
 
-        <form action="{% url 'users:register' %}" method="post" id="contact">
-            {% csrf_token %}
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>Регистрация</h2>
-                </div>
-                <div class="col-lg-6">
-                    <fieldset>
-                        <input name="username" type="text" id="name" placeholder="Имя пользователя..." required="">
-                    </fieldset>
-                </div>
-                <div class="col-lg-6">
-                    <fieldset>
-                        <input name="firs_name" type="text" id="name" placeholder="Имя..." required="">
-                    </fieldset>
-                </div>
-                <div class="col-lg-6">
-                    <fieldset>
-                        <input name="lastname" type="text" id="name" placeholder="Фамилия..." required="">
-                    </fieldset>
-                </div>
-                <div class="col-lg-12">
-                    <fieldset>
-                        <p id="message" class="mt-3 mb-0" style="display: block;"></p>
+            <div class="col-lg-6 inp">
+                <fieldset>
+                    <label class="small mb-1">Имя</label>
+                    {{ form.first_name }}
+                </fieldset>
+            </div>
+            <div class="col-lg-6 inp">
+                <fieldset>
+                    <label class="small mb-1">Фамилия</label>
+                    {{ form.last_name }}
+                </fieldset>
+            </div>
+            <div class="col-lg-12">
+                <fieldset>
+                    <label id="message" class="small mb-1" style="display: block;"></label>
 
-                        <div class="input-group mb-3 mt-3">
-                            {{ form.ogrn }}
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon">Проверка</button>
+                    <div id="orgn-group-input" class="group-input mb-3 mt-3">
+                        {{ form.ogrn }}
+                        <button type="button" id="button-addon">Проверка</button>
+                    </div>
+                </fieldset>
+
+            </div>
+            <div class="col-lg-12 read_only">
+                <fieldset>
+                    <div style='display:none; flex-wrap: nowrap;'
+                         class="col-md-12" id='view_company'>
+                        <div class="col-md-12">
+                            <label class="small mb-1">Название компании</label>
+                            {{ form.comp_name }}
                         </div>
-                    </fieldset>
-
-                </div>
-                <div class="col-lg-12">
-                    <fieldset>
-                        <div style='display:none; margin-top: 10px; padding: 10px 20px 20px 20px'
-                             class="col-md-12 border border-success border-3" id='view_company'>
-                            <div class="col-md-12">
-                                <label class="small mb-1">Название компании</label
-                                >
-                                {{ form.comp_name }}
-                            </div>
-                            <div class="col-md-12">
-                                <label class="small mb-1"
-                                >Город</label
-                                >
-                                {{ form.city }}
-                            </div>
+                        <div class="col-md-12">
+                            <label class="small mb-1">Город</label>
+                            {{ form.city }}
                         </div>
-                    </fieldset>
-
-                </div>
-
-                <div class="col-lg-4">
-                    <fieldset>
-                        <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*"
-                               placeholder="Эл. почта..." required="">
-                    </fieldset>
-                </div>
-                <div class="col-lg-4">
-                    <fieldset>
-                        <input name="subject" type="text" id="subject" placeholder="Тема..."
-                               required="">
-                    </fieldset>
-                </div>
-                <div class="col-lg-12">
-                    <fieldset>
-                    <textarea name="user_message" class="form-control" id="user_message"
-                              placeholder="Сообщение..." required=""></textarea>
-                    </fieldset>
-                </div>
-                <div class="col-lg-12">
-                    <fieldset>
-                        <button type="submit" id="register_button" class="button button-login-reg">Зарегистрироваться</button>
-                    </fieldset>
-                </div>
+                    </div>
+                </fieldset>
             </div>
-            <div class="footer">
-                <p><a href="{% url 'users:login' %}">Уже есть аккаунт? Авторизоваться!</a></p>
+            <div class="col-lg-6 inp">
+                <fieldset>
+                    <label class="small mb-1">Заказчик/Поставщик</label>
+                    {{ form.role }}
+                </fieldset>
             </div>
-        </form>
-
-        {#<div class="container">#}
-        {#<div class="row justify-content-center">#}
-        {#  <div class="col-lg-5">#}
-        {#    {% if form.errors %}#}
-        {#    <div#}
-        {#      class="alert alert-warning alert-dismissible fade show"#}
-        {#      role="alert"#}
-        {#      style="margin-top: 50px"#}
-        {#    >#}
-        {#      {{ form.non_field_errors }} {% for error in form %} {{ error.errors }}#}
-        {#      {%endfor%}#}
-        {#      <button#}
-        {#        type="button"#}
-        {#        class="close"#}
-        {#        data-dismiss="alert"#}
-        {#        aria-label="Close"#}
-        {#      >#}
-        {#        <span aria-hidden="true">&times;</span>#}
-        {#      </button>#}
-        {#    </div>#}
-        {#    {% endif %}#}
-        {#    <div class="card shadow-lg border-0 rounded-lg mt-5">#}
-        {#      <div class="card-header">#}
-        {#        <h3 class="text-center font-weight-light my-4">Регистрация</h3>#}
-        {#        <p class="text-center">Кнопка регистрации появится после проверки ОГРН (ЕГРИП).</p>#}
-        {#      </div>#}
-        {#      <div class="card-body">#}
-        {#        <form action="{% url 'users:register' %}" method="post">#}
-        {#          {% csrf_token %}#}
-        {#          <div class="form-row">#}
-        {#            <div class="col-md-12">#}
-        {#               <label class="small mb-1">Никнейм</label>#}
-        {#              {{ form.username }}#}
-        {#            </div>#}
-        {#            <div class="col-md-12">#}
-        {#               <label class="small mb-1">Фамилия</label>#}
-        {#              {{ form.last_name }}#}
-        {#            </div>#}
-        {#            <div class="col-md-12">#}
-        {#                <label class="small mb-1">Имя</label>#}
-        {#              {{ form.first_name }}#}
-        {#            </div>#}
-        {#             <p id='message' class="mt-3 mb-0" style="display: block;">`{message}`</p>#}
-        {#            <div class="input-group mb-3 mt-3">#}
-        {#              {{ form.ogrn }}#}
-        {#              <button class="btn btn-outline-secondary" type="button" id="button-addon">Проверка</button>#}
-        {#            </div>#}
-        {#             <div style='display:none; margin-top: 10px; padding: 10px 20px 20px 20px' class="col-md-12 border border-success border-3" id='view_company'>#}
-        {#              <div class="col-md-12">#}
-        {#                <label class="small mb-1">Название компании</label#}
-        {#                >#}
-        {#                 {{ form.comp_name }}#}
-        {#              </div>#}
-        {#              <div class="col-md-12">#}
-        {#                <label class="small mb-1"#}
-        {#                  >Город</label#}
-        {#                >#}
-        {#                {{ form.city }}#}
-        {#              </div>#}
-        {#            </div>#}
-        {#            <div class="col-md-12">#}
-        {#               <label class="small mb-1" for="inputEmailAddress"#}
-        {#                >Адрес электронной почты</label#}
-        {#              >#}
-        {#              {{ form.email }}#}
-        {#            </div>#}
-        {#            <div class="col-md-12">#}
-        {#              <label class="small mb-1" for="inputPassword">Пароль</label>#}
-        {#              {{ form.password1 }}#}
-        {#            </div>#}
-        {#            <div class="col-md-12">#}
-        {#               <label class="small mb-1" for="inputConfirmPassword">Подтверждение пароля</label>#}
-        {#                {{ form.password2 }}#}
-        {#            </div>#}
-        {#            <div class="col-md-12">#}
-        {#               <label class="small mb-1">Заказчик/Поставщик</label>#}
-        {#                  {{ form.role }}#}
-        {#              </div>#}
-        {#            <div class="col-md-12">#}
-        {#                <label class="small mb-1">Контактный телефон</label>#}
-        {#                  {{ form.phone_number }}#}
-        {#              </div>#}
-        {#            </div>#}
-        {#            <div class="col-md-12">#}
-        {#               <label class="small mb-1">Описание</label>#}
-        {#                {{ form.bio }}#}
-        {#                 </div>#}
-        {#                 <div class="form-group mt-4 mb-0">#}
-        {#              <input style="display: none"#}
-        {#                class="btn btn-primary btn-block"#}
-        {#                id='register_button'#}
-        {#                type="submit"#}
-        {#                value="Создать аккаунт"/>#}
-        {#            </div>#}
-        {#        </form>#}
-        {#         <div class="card-footer text-center">#}
-        {#          <div class="small">#}
-        {#            <a href="{% url 'users:login' %}">Уже есть аккаунт? Авторизоваться!</a>#}
-        {#        </div>#}
-        {#      </div>#}
-        {#    </div>#}
-        {#  </div>#}
-        {#</div>#}
-        {#</div>#}
+            <div class="col-lg-6 inp">
+                <fieldset>
+                    <label class="small mb-1">Контактный телефон</label>
+                    {{ form.phone_number }}
+                </fieldset>
+            </div>
+            <div class="col-lg-6 inp">
+                <fieldset>
+                    <label class="small mb-1" for="inputPassword">Пароль</label>
+                    {{ form.password1 }}
+                </fieldset>
+            </div>
+            <div class="col-lg-6 inp">
+                <fieldset>
+                    <label class="small mb-1" for="inputConfirmPassword">Подтверждение пароля</label>
+                    {{ form.password2 }}
+                </fieldset>
+            </div>
+            <div class="col-lg-12">
+                <fieldset>
+                    <label class="small mb-1">Описание</label>
+                    {{ form.bio }}
+                </fieldset>
+            </div>
+            <div class="col-lg-12 submit-btn">
+                <fieldset>
+                    <button style="display: none"
+                            class="button button-login-reg"
+                            id='register_button'
+                            type="submit">Создать аккаунт
+                    </button>
+                </fieldset>
+            </div>
+        </div>
+        <div class="footer">
+            <p><a href="{% url 'users:login' %}">Уже есть аккаунт? Авторизоваться!</a></p>
+        </div>
+    </form>
 {% endblock %}

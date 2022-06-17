@@ -274,6 +274,36 @@ body {
     color: #fff;
 }
 
+.pagination {
+    text-align: center;
+    width: 100%;
+    margin-top: 30px;
+    display: inline-block;
+}
+
+.pagination ul li {
+    display: inline-block;
+}
+
+.pagination ul li a {
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    color: #1f272b;
+    display: inline-block;
+    text-align: center;
+    line-height: 40px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all .3s;
+}
+
+.pagination ul li.active a,
+.pagination ul li a:hover {
+    background-color: #a12c2f;
+    color: #fff;
+}
 
 /* 
 ---------------------------------------------
@@ -1649,31 +1679,6 @@ section.meetings-page .filters ul li:hover {
     color: #fff;
 }
 
-section.meetings-page .pagination {
-    text-align: center;
-    width: 100%;
-    margin-top: 30px;
-    display: inline-block;
-}
-
-section.meetings-page .pagination ul li {
-    display: inline-block;
-}
-
-section.meetings-page .pagination ul li a {
-    width: 40px;
-    height: 40px;
-    background-color: #fff;
-    border-radius: 10px;
-    color: #1f272b;
-    display: inline-block;
-    text-align: center;
-    line-height: 40px;
-    font-weight: 600;
-    font-size: 15px;
-    transition: all .3s;
-}
-
 section.meetings-page .main-button-red {
     text-align: center;
 }
@@ -1682,12 +1687,6 @@ section.meetings-page .main-button-red a {
     padding: 12px 60px;
     text-align: center;
     margin-top: 30px;
-}
-
-section.meetings-page .pagination ul li.active a,
-section.meetings-page .pagination ul li a:hover {
-    background-color: #a12c2f;
-    color: #fff;
 }
 
 .meeting-single-item .thumb {

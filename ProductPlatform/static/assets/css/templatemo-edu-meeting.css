@@ -1965,3 +1965,57 @@ responsive
     }
 
 }
+
+/*
+---------------------------------------------
+table
+---------------------------------------------
+*/
+.meeting-table {
+	width: 100%;
+	margin-bottom: 20px;
+    border-collapse: collapse;
+    border: 2px solid white;
+    background-color: rgba(250, 250, 250, 0.9);
+}
+.meeting-table thead th {
+	text-align: left;
+	border: 2px solid  white;
+	padding: 10px 15px;
+	background: #1f272b;
+	font-size: 16px;
+
+}
+.meeting-table thead tr th:first-child {
+	border-radius: 12px 0 0 12px;
+    border-right: 2px solid  white;
+}
+.meeting-table thead tr th:last-child {
+	border-radius: 0 12px 12px 0;
+    border-left: 2px solid  white;
+}
+
+.meeting-table tbody td {
+	text-align: left;
+	padding: 10px 15px;
+	font-size: 14px;
+	vertical-align: top;
+    border: 2px solid  white;
+    color: #1a1e21;
+}
+.meeting-table tbody tr:nth-child(even){
+	background: #f3f3f3;
+
+}
+.meeting-table tbody tr td:first-child {
+	border-radius: 12px 0 0 12px;
+    border-right: 2px solid  white;
+}
+.meeting-table tbody tr td:last-child {
+	border-radius: 0 12px 12px 0;
+    border-left: 2px solid  white;
+}
+
+.meeting-table-row{
+    cursor:pointer;
+}

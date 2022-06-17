@@ -29,7 +29,7 @@ class PersonalAccountEditView(UpdateView):
     model = Profile
     template_name = 'users/personal_account_edit.html'
     form_class = PersonalAccountEditForm
-    success_url = reverse_lazy('users:account')
+    success_url = reverse_lazy('users:account_edit')
 
     def get_object(self, queryset=None):
         """Метод для получения объекта для использования"""

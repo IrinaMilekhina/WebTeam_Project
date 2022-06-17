@@ -9,7 +9,7 @@ class CategoryOrder(models.Model):
     # slug = models.SlugField(unique=True)
     is_active = models.BooleanField('active', default=True)
     description = models.TextField(blank=True)
-    image = models.ImageField(blank=True)
+    image = models.ImageField(upload_to='category_order/%Y/%m/%d/', blank=True)
 
     class Meta:
         verbose_name = 'Категория заказа'

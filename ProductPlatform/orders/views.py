@@ -69,7 +69,9 @@ class CreateOrder(CreateView):
                                          category=category,
                                          name=form.data.get('name'),
                                          description=form.data.get('description'),
-                                         end_time=form.data.get('end_time'))
+                                         end_time=f'{form.data.get("end_time_year")}-'
+                                                  f'{form.data.get("end_time_month")}-'
+                                                  f'{form.data.get("end_time_day")}')
             order.save()
             return HttpResponseRedirect(redirect_to=reverse_lazy('main'))
         else:

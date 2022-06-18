@@ -1,1 +1,254 @@
-[{"model": "orders.categoryorder", "pk": 1, "fields": {"name": "Мясо и мясопродукты", "is_active": true, "description": ""}}, {"model": "orders.categoryorder", "pk": 2, "fields": {"name": "Птица. Яйцо", "is_active": true, "description": ""}}, {"model": "orders.categoryorder", "pk": 3, "fields": {"name": "Молочная продукция. Сыры", "is_active": true, "description": ""}}, {"model": "orders.categoryorder", "pk": 4, "fields": {"name": "Бакалея. Зернопродукты. Макаронные изделия", "is_active": true, "description": ""}}, {"model": "orders.categoryorder", "pk": 5, "fields": {"name": "Колбасные изделия. Деликатесы", "is_active": true, "description": ""}}, {"model": "orders.categoryorder", "pk": 10, "fields": {"name": "Рыба и рыбные продукты", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 11, "fields": {"name": "Зерно-мучные товары", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 12, "fields": {"name": "Пищевые жиры", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 13, "fields": {"name": "Вкусовые товары", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 14, "fields": {"name": "Кондитерские товары", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 15, "fields": {"name": "Плодоовощные товары", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 16, "fields": {"name": "Морепродукты", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 17, "fields": {"name": "Соя и соевые продукты", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 18, "fields": {"name": "Зелень, травы, листья, салаты", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 19, "fields": {"name": "Грибы", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 20, "fields": {"name": "Специи, пряности", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 21, "fields": {"name": "Напитки, соки", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 22, "fields": {"name": "Шоколадные изделия", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 23, "fields": {"name": "Газировки", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 24, "fields": {"name": "Мёд", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 25, "fields": {"name": "Сахар", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 26, "fields": {"name": "Соль", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 27, "fields": {"name": "Растительные продукты", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 28, "fields": {"name": "Масло", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 29, "fields": {"name": "Орехи", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 30, "fields": {"name": "Выпечка", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 31, "fields": {"name": "Капуста", "is_active": true, "description": "..."}}, {"model": "orders.categoryorder", "pk": 32, "fields": {"name": "Перец", "is_active": true, "description": "..."}}]
+[
+  {
+    "model": "orders.categoryorder",
+    "pk": 1,
+    "fields": {
+      "name": "Мясо и мясопродукты",
+      "is_active": true,
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 2,
+    "fields": {
+      "name": "Птица. Яйцо",
+      "is_active": true,
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 3,
+    "fields": {
+      "name": "Молочная продукция. Сыры",
+      "is_active": true,
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 4,
+    "fields": {
+      "name": "Бакалея. Зернопродукты. Макаронные изделия",
+      "is_active": true,
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 5,
+    "fields": {
+      "name": "Колбасные изделия. Деликатесы",
+      "is_active": true,
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 10,
+    "fields": {
+      "name": "Рыба и рыбные продукты",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 11,
+    "fields": {
+      "name": "Зерно-мучные товары",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 12,
+    "fields": {
+      "name": "Пищевые жиры",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 13,
+    "fields": {
+      "name": "Вкусовые товары",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 14,
+    "fields": {
+      "name": "Кондитерские товары",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 15,
+    "fields": {
+      "name": "Плодоовощные товары",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 16,
+    "fields": {
+      "name": "Морепродукты",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 17,
+    "fields": {
+      "name": "Соя и соевые продукты",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 18,
+    "fields": {
+      "name": "Зелень, травы, листья, салаты",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 19,
+    "fields": {
+      "name": "Грибы",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 20,
+    "fields": {
+      "name": "Специи, пряности",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 21,
+    "fields": {
+      "name": "Напитки, соки",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 22,
+    "fields": {
+      "name": "Шоколадные изделия",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 23,
+    "fields": {
+      "name": "Газировки",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 24,
+    "fields": {
+      "name": "Мёд",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 25,
+    "fields": {
+      "name": "Сахар",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 26,
+    "fields": {
+      "name": "Соль",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 27,
+    "fields": {
+      "name": "Растительные продукты",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 28,
+    "fields": {
+      "name": "Масло",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 29,
+    "fields": {
+      "name": "Орехи",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 30,
+    "fields": {
+      "name": "Выпечка",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 31,
+    "fields": {
+      "name": "Капуста",
+      "is_active": true,
+      "description": "..."
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 32,
+    "fields": {
+      "name": "Перец",
+      "is_active": true,
+      "description": "..."
+    }
+  }
+]

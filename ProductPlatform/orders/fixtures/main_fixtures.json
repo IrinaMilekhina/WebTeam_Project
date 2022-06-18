@@ -211,7 +211,7 @@
     "model": "orders.CategoryOrder",
     "pk": 9,
     "fields": {
-      "name": "Растительные жиры",
+      "name": "Овощи, фрукты, грибы, ягоды, дикоросы",
       "description": ""
     }
   },
@@ -291,7 +291,7 @@
     "model": "orders.CategoryOrder",
     "pk": 19,
     "fields": {
-      "name": "Ингредиенты. Пищевые добавки. Сырьё\n",
+      "name": "Ингредиенты. Пищевые добавки. Сырьё",
       "description": ""
     }
   },

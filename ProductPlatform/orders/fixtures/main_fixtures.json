@@ -184,6 +184,118 @@
     }
   },
   {
+    "model": "orders.CategoryOrder",
+    "pk": 6,
+    "fields": {
+      "name": "Мороженое",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 7,
+    "fields": {
+      "name": "Приправы, специи",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 8,
+    "fields": {
+      "name": "Растительные жиры",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 9,
+    "fields": {
+      "name": "Растительные жиры",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 10,
+    "fields": {
+      "name": "Соки, воды. Безалкогольные напитки",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 11,
+    "fields": {
+      "name": "Замороженные продукты. Полуфабрикаты. Готовые блюда",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 12,
+    "fields": {
+      "name": "Рыба и морепродукты",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 13,
+    "fields": {
+      "name": "Кондитерские изделия. Хлебопекарная продукция",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 14,
+    "fields": {
+      "name": "Консервы. Соусы, кетчупы",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 15,
+    "fields": {
+      "name": "Гастрономия. Продукция для HoReCa",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 16,
+    "fields": {
+      "name": "Снэки. Орехи. Сухофрукты",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 17,
+    "fields": {
+      "name": "Мёд и продукты пчеловодства",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 18,
+    "fields": {
+      "name": "Чай, кофе",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 19,
+    "fields": {
+      "name": "Ингредиенты. Пищевые добавки. Сырьё\n",
+      "description": ""
+    }
+  },
+  {
     "model": "orders.Order",
     "pk": 1,
     "fields": {

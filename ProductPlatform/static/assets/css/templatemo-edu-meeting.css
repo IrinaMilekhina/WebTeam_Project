@@ -1072,6 +1072,7 @@ section.upcoming-meetings .categories .main-button-red a {
     padding: 30px;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
+    min-height: 170px;
 }
 
 .meeting-item .down-content .date {
@@ -1828,7 +1829,7 @@ heading page
 */
 
 section.heading-page {
-    background-image: url(../images/heading-bg.jpg);
+    background-image: url(../images/food.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -1864,7 +1865,7 @@ upcoming meetings page
 */
 
 section.meetings-page {
-    background-image: url(../images/meetings-page-bg.jpg);
+    background-color: #262626;
     background-position: center center;
     background-attachment: fixed;
     background-repeat: no-repeat;

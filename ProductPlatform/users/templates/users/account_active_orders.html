@@ -35,23 +35,29 @@
                         <div class="card-header">
                             <h2 class="text-center font-weight-light my-4">
                                 {% if account.role == 'Supplier' %}
-                            Отклики на утверждении
+                                    Отклики на утверждении
                                 {% else %}
-                             Активные заказы
-                    {% endif %}</h2>
+                                    Активные заказы
+                                {% endif %}</h2>
                         </div>
                         <div class="card-body">
                             <div class="col-md-12 mx-auto">
                                 <div class="col-12">
                                     {% if not orders %}
                                         <div class="card-header" style="padding: 150px">
-                                            <h4 class="text-center font-weight-light my-4">У Вас нет активных заказов
-                                                :-(</h4>
+                                            <h4 class="text-center font-weight-light my-4">
+                                                {% if account.role == 'Supplier' %}
+                                    У Вас нет активных откликов
+                                                :-(
+                                {% else %}
+                                    У Вас нет активных заказов
+                                                :-(
+                                {% endif %}</h4>
                                         </div>
                                     {% endif %}
                                     {% for order in orders %}
                                         <div class="card-wrapper "
-                                             style="background:#b02a37; margin-bottom:2rem; padding:2rem; border-radius:20px">
+                                             style="{% if account.id == order.response_approved.response_user.id %}background:darkgreen;{% else %}background:#b02a37;{% endif %}margin-bottom:2rem; padding:2rem; border-radius:20px">
                                             <div class="top-line row">
                                                 <div class="col">
                                                     <a class="card-title" href="/"><strong>Заказ
@@ -68,15 +74,19 @@
                                                     {{ order.category }}<br><strong>Адрес</strong>:
                                                     г. {{ order.city }}<br><strong>Описание</strong>:
                                                     {{ order.description }}<br><strong>Срок</strong>: до
-                                                    {{ order.date_to }}<br><strong>Цена</strong>:&nbsp; договорная</p>
+                                                    {{ order.date_to }}<br><strong>
+                                                    Цена</strong>:&nbsp;{% if order.response_approved %}
+                                                    {{ order.response_approved.offer }} {% else %}договорная {% endif %}
+                                                </p>
                                             </div>
                                             <div class="top-line row">
                                                 <div class="col">
                                                     <a href="/" class="card-title mbr-fonts-style display-7"
                                                     >
-                                                        {% if order.supplier %}
-                                                            <strong>Поставщик:</strong> {{ order.supplier.first_name }}
-                                                            {{ order.supplier.last_name }}
+                                                        {% if order.response_approved %}
+                                                            <strong>Поставщик:</strong>
+                                                            {{ order.response_approved.response_user.first_name }}
+                                                            {{ order.response_approved.response_user.last_name }}
                                                         {% endif %}
                                                     </a>
                                                 </div>

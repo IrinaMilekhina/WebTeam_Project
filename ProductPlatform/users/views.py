@@ -81,17 +81,26 @@ class PersonalActiveOrdersView(ListView):
         """Метод для создания необходимого контекста для активных заказов личного кабинета"""
         context = super(PersonalActiveOrdersView,
                         self).get_context_data(**kwargs)
-        responses = ResponseOrder.objects.select_related('order__author').filter(order__author=self.request.user.pk, order__status=True)
-        orders = Order.objects.filter(author=self.request.user.pk, status=True)
+        current_profile = Profile.objects.get(pk=self.request.user.pk)
+        responses, orders = None, None
+        if current_profile.role == 'Customer':
+            responses = ResponseOrder.objects.filter(order__author=self.request.user.pk, order__status=True)
+            orders = Order.objects.filter(author=self.request.user.pk, status=True)
+        elif current_profile.role == 'Supplier':
+            orders = Order.objects.filter(responseorder__response_user=self.request.user.pk, status=True)
+            responses = ResponseOrder.objects.filter(order__id__in=orders.values_list('id'), order__status=True)
         active_orders = []
         for item in orders:
             response_count = responses.filter(order=item.id).count()
             status = 'Поиск заказчика'
-            supplier = None
-            for resp in responses.filter(order=item.id):
-                if 'Approved' == resp.status:
-                    status = 'Заказчик утвержден'
-                    supplier = resp.response_user
+            response_approved = None
+            for response in responses.filter(order=item.id):
+                if 'Approved' == response.status:
+                    if current_profile.role == 'Supplier' and response.response_user.id == current_profile.id:
+                        status = 'Ваш отклик утвержден'
+                    else:
+                        status = 'Заказчик утвержден'
+                    response_approved = response
             active_orders.append({
                 'name': item.name,
                 'order_num': item.id,
@@ -101,10 +110,9 @@ class PersonalActiveOrdersView(ListView):
                 'date_to': item.end_time.date(),
                 'response_count': response_count,
                 'status': status,
-                'supplier': supplier
+                'response_approved': response_approved
             })
         context['orders'] = active_orders
-        context['account'] = Profile.objects.get(pk=self.request.user.pk)
+        context['account'] = current_profile
 
         return context
-

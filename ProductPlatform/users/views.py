@@ -1,6 +1,8 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
 from django.views.generic.edit import FormView
+
+from orders.models import ResponseOrder, Order
 from users.forms import UserLoginForm, UserRegisterForm
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, UpdateView
@@ -69,3 +71,40 @@ class RegisterListView(FormView):
 
 class Logout(LogoutView):
     template_name = 'orders/main.html'
+
+
+class PersonalActiveOrdersView(ListView):
+    model = Order
+    template_name = 'users/account_active_orders.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        """Метод для создания необходимого контекста для активных заказов личного кабинета"""
+        context = super(PersonalActiveOrdersView,
+                        self).get_context_data(**kwargs)
+        responses = ResponseOrder.objects.select_related('order__author').filter(order__author=self.request.user.pk, order__status=True)
+        orders = Order.objects.filter(author=self.request.user.pk, status=True)
+        active_orders = []
+        for item in orders:
+            response_count = responses.filter(order=item.id).count()
+            status = 'Поиск заказчика'
+            supplier = None
+            for resp in responses.filter(order=item.id):
+                if 'Approved' == resp.status:
+                    status = 'Заказчик утвержден'
+                    supplier = resp.response_user
+            active_orders.append({
+                'name': item.name,
+                'order_num': item.id,
+                'description': item.description,
+                'category': item.category.name,
+                'city': item.author.city,
+                'date_to': item.end_time.date(),
+                'response_count': response_count,
+                'status': status,
+                'supplier': supplier
+            })
+        context['orders'] = active_orders
+        context['account'] = Profile.objects.get(pk=self.request.user.pk)
+
+        return context
+

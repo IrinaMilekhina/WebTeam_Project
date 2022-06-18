@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="section main-banner" id="top" data-section="section1">
+        <video autoplay muted loop>
+            <source src="#"/>
+        </video>
+        <div class="video-overlay header-text">
+            <div class="container" style="padding-top:105px">
+                <div class="pull-right">
+                    <a href="/" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px"
+                       role="button"
+                       aria-pressed="true">
+                        Мой профиль
+                    </a>
+                    <a href="/" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px"
+                       role="button"
+                       aria-pressed="true">
+                        {% if account.role == 'Supplier' %}
+                            Отклики на утверждении
+                        {% else %}
+                            Активные заказы
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="card shadow-lg border-0 rounded-lg mt-5">
+                        <div class="card-header">
+                            <h2 class="text-center font-weight-light my-4">
+                                {% if account.role == 'Supplier' %}
+                                    История откликов
+                                {% else %}
+                                    История заказов
+                                {% endif %}</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="col-md-12 mx-auto">
+                                <div class="col-12">
+                                    {% if not orders %}
+                                        <div class="card-header" style="padding: 150px">
+                                            <h4 class="text-center font-weight-light my-4">
+                                                {% if account.role == 'Supplier' %}
+                                                    История откликов пока пуста
+                                                    :-(
+                                                {% else %}
+                                                    История заказов пока пуста
+                                                    :-(
+                                                {% endif %}</h4>
+                                        </div>
+                                    {% endif %}
+                                    {% for order in orders %}
+                                        <div class="card-wrapper "
+                                             style="{% if account.id == order.response_approved.response_user.id %}background:darkgreen;{% else %}background:#b02a37;{% endif %}margin-bottom:2rem; padding:2rem; border-radius:20px">
+                                            <div class="top-line row">
+                                                <div class="col">
+                                                    <a class="card-title" href="/"><strong>Заказ
+                                                        №{{ order.order_num }} | {{ order.name }}</strong></a>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <p class="price mbr-fonts-style display-7 text-white">
+                                                        Статус: <strong>{{ order.status }}</strong></p>
+                                                </div>
+                                            </div>
+                                            <div class="bottom-line">
+                                                <p class="mbr-text mbr-fonts-style display-7 text-white">
+                                                    {% if account.role == 'Supplier' %}
+                                                        <strong>Заказчик</strong>:
+                                                    {{ order.author.first_name }} {{ order.author.last_name }}
+                                                        <br>
+                                                {% endif %}
+                                                    <strong>Категория</strong>:
+                                                    {{ order.category }}<br>
+                                                    <strong>Адрес</strong>:
+                                                    г. {{ order.city }}<br><strong>Описание</strong>:
+                                                    {{ order.description }}<br><strong>Срок</strong>: до
+                                                    {{ order.date_to }}<br><strong>
+                                                    Цена</strong>:&nbsp;{% if order.response_approved %}
+                                                    {{ order.response_approved.offer }} {% else %}договорная {% endif %}
+                                                </p>
+                                            </div>
+                                            <div class="top-line row">
+                                                <div class="col">
+                                                    <a href="/" class="card-title mbr-fonts-style display-7"
+                                                    >
+                                                        {% if order.response_approved and order.response_approved.response_user.id != account.id%}
+                                                            <strong>Поставщик:</strong>
+                                                            {{ order.response_approved.response_user.first_name }}
+                                                            {{ order.response_approved.response_user.last_name }}
+                                                        {% endif %}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </section>
+    <section class="footer" style="background:gray">
+        <p>© 2022 N</p>
+    </section>
+{% endblock %}

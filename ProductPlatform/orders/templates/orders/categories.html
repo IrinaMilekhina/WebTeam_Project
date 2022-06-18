@@ -38,8 +38,13 @@
                                                         <span>100 поставщиков</span>
                                                         <!-- Надо будет ещё количество добавить, но после того как это вьюху добавят -->
                                                     </div>
-                                                    <img src="{% static 'assets/images/placeholder_300x150.png' %}"
-                                                         alt="">
+                                                    {% if category.image %}
+                                                        <img src="{{ category.image }}"
+                                                             alt="">
+                                                    {% else %}
+                                                        <img src="{% static 'assets/images/placeholder_300x150.png' %}"
+                                                             alt="">
+                                                    {% endif %}
                                                 </div>
                                                 <div class="down-content">
                                                     <h4>{{ category.name }}</h4>

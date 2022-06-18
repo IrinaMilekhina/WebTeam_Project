@@ -1102,6 +1102,7 @@ section.upcoming-meetings .categories .main-button-red a {
     padding: 30px;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
+    min-height: 170px;
 }
 
 .meeting-item .down-content .date {

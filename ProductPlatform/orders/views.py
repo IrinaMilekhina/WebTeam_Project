@@ -22,7 +22,7 @@ class CategoryOrderView(ListView):
     queryset = CategoryOrder.objects.filter(is_active=True)
     context_object_name = 'all_categories'
     template_name = 'orders/categories.html'
-    paginate_by = 5
+    paginate_by = 9
 
 
 class Category(DetailView):

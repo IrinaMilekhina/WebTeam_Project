@@ -211,7 +211,7 @@
     "model": "orders.CategoryOrder",
     "pk": 9,
     "fields": {
-      "name": "Растительные жиры",
+      "name": "Овощи, фрукты, грибы, ягоды, дикоросы",
       "description": ""
     }
   },

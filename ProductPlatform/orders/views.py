@@ -1,17 +1,30 @@
+import datetime
+
+from django.db.models import Count
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
-from orders.models import CategoryOrder
+from orders.models import CategoryOrder, Order
 from django.views import View
+
 
 class MainView(View):
     template_name = 'orders/main.html'
     title = 'Главная'
 
     def get(self, request, *args, **kwargs):
+        top_category = CategoryOrder.objects \
+            .filter(order__status='Done',
+                    order__date_completion__gte=datetime.datetime.now() - datetime.timedelta(days=7)) \
+            .annotate(count=Count('order')) \
+            .values('name', 'count') \
+            .order_by('count') \
+            .reverse()[:6]
+
         content = {
             'title': self.title,
-            'categories': CategoryOrder.objects.all().order_by('-id')[:6]
+            'categories': CategoryOrder.objects.all(),
+            'top_categories': top_category
         }
 
         return render(request, self.template_name, content)
@@ -43,7 +56,3 @@ class Category(DetailView):
             print(err)  # для DEBAG = True
             return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})
         return render(request, self.template_name, {'category': category, 'title': category.name})
-
-
-
-

@@ -15,12 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import CategoryOrderView, Category
+from .views import CategoryOrderView, Category, OrderBoardView, OrderView
 
 app_name = 'orders'
 
 urlpatterns = [
     path('categories/', CategoryOrderView.as_view(), name='categories'),
     path('category/<int:id>', Category.as_view(), name='category'),
+    path('order-board/', OrderBoardView.as_view(), name='order-board'),
+    path('orders-detail/<int:id>', OrderView.as_view(), name='order'),
 
 ]

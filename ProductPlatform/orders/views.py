@@ -1,8 +1,9 @@
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
-from orders.models import CategoryOrder
+from orders.models import CategoryOrder, Order
 from django.views import View
+
 
 class MainView(View):
     template_name = 'orders/main.html'
@@ -45,5 +46,16 @@ class Category(DetailView):
         return render(request, self.template_name, {'category': category, 'title': category.name})
 
 
+class OrderBoardView(ListView):
+    model = Order
+    context_object_name = 'all_orders'
+    template_name = 'orders/order_board.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['all_category'] = CategoryOrder.objects.filter(is_active=True)
+        return context
 
 
+class OrderView(ListView):
+    pass

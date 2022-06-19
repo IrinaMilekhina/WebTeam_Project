@@ -1,58 +1,84 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} {% load static %}
+{% block morecss %}
+<link rel="stylesheet" href="{% static 'assets/css/table_order.css' %}">
+{% endblock %} 
 
 {% block content %}
+<h1 class="text-center mt-4">Доска Заказов</h1>
 
 <form action="" method="post">
-    {% csrf_token %}
-    <section>
-        <div class="container">
-            <div class="row align-items-end">
-                <div class="col-lg-10">
-                    <table id="datatable" class="meeting-table table count-digit table-bordered table-hover">
-                        <thead>
-                        <tr class="count-digit">
-                            <th>№</th>
-                            <th>Наименование</th>
-                            <th>Категория</th>
-                            <th>Фирма</th>
-                            <th>Дата заказа</th>
-                            <th>Действует до</th>
-                            <th>Статус</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        {% for row in init %}
-                        <tr class="meeting-table-row" data-href="{% url 'orders' row.id %}">
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ row.name }}</td>
-                            <td>{{ row.category }}</td>
-                            <td>{{ row.author }}</td>
-                            <td>{{ row.create_at }}</td>
-                            <td>{{ row.end_time }}</td>
-                            <td>{{ row.status }}</td>
-                        </tr>
-                        {% endfor %}
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+  {% csrf_token %}
+  <section>
+    <div class="container">
+    <div class="input-group mb-3 mt-4">
+  <div class="input-group-prepend">
+    <button id="choice_category" class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Выбор категории</button>
+    <div class="dropdown-menu2">
+        <a class="dropdown-item" data-f="Все категории" href="#">Все категории</a>
+        {% for item in all_category %}
+      <a class="dropdown-item" data-f="{{ item.name }}" href="#">{{ item.name }}</a>
+      {% endfor %}
+      
+    </div>
+  </div>
+  <input id="search" type="text" placeholder="Для поиска категории заказа начните вводить..." class="form-control" aria-label="Text input with dropdown button">
+    
+</div>    
+      <div class="row align-items-end">
+        <div class="col-lg-12">
+          <table
+            id="datatable"
+            class="meeting-table table count-digit table-bordered table-hover"
+          >
+            <thead>
+              <tr class="count-digit">
+                <th>№</th>
+                <th>Наименование</th>
+                <th>Категория</th>
+                <th>Фирма</th>
+                <th>Дата заказа</th>
+                <th>Действует до</th>
+                <th>Статус</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in all_orders %}
+              <tr
+                class="meeting-table-row"
+                data-href="{% url 'orders:order' row.id %}"
+              >
+                <td>{{ forloop.counter }}</td>
+                <td>{{ row.name }}</td>
+                <td class="category_row">{{ row.category }}</td>
+                <td>{{ row.author }}</td>
+                <td>{{ row.create_at }}</td>
+                <td>{{ row.end_time }}</td>
+                
+                
+                <td {% if row.status == 'Active'%} class="text-success" {% else %} class="text-danger" {% endif %}> {{ row.status }}</td>
+                <td>
+                  {% if row.status == 'Active'%}
+                  <button type="submit" class="btn btn-success">Принять</button>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 </form>
 
-{% endblock %}
-
-{% block morejs %}
+{% endblock %} {% block morejs %}
 <script>
-    $(document).ready(function ($) {
-
-        $(".meeting-table-row").click(function () {
-            window.document.location = $(this).data("href");
-        });
+  $(document).ready(function ($) {
+    $('.meeting-table-row').click(function () {
+      window.document.location = $(this).data('href');
     });
-
+  });
 </script>
+<script src="{% static 'assets/js/table_order.js' %}"></script>
 {% endblock %}

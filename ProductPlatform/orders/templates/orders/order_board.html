@@ -23,8 +23,9 @@
                         </thead>
                         <tbody>
 
-                        {% for row in init %}
-                        <tr class="meeting-table-row" data-href="{% url 'orders' row.id %}">
+                        {% for row in active_orders %}
+{#                        <tr class="meeting-table-row" data-href="{% url 'orders' row.id %}">#}
+                        <tr class="meeting-table-row" data-href=#>
                             <td>{{ forloop.counter }}</td>
                             <td>{{ row.name }}</td>
                             <td>{{ row.category }}</td>

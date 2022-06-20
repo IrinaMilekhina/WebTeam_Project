@@ -1,7 +1,7 @@
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
-from orders.models import CategoryOrder
+from orders.models import CategoryOrder, Order
 from django.views import View
 
 class MainView(View):
@@ -45,5 +45,9 @@ class Category(DetailView):
         return render(request, self.template_name, {'category': category, 'title': category.name})
 
 
-
-
+class OrderView(ListView):
+    model = Order
+    queryset = Order.objects.all()
+    context_object_name = 'active_orders'
+    template_name = 'orders/order_board.html'
+    paginate_by = 10

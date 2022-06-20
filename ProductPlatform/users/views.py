@@ -113,6 +113,6 @@ class PersonalActiveOrdersView(ListView):
                 'response_approved': response_approved
             })
         context['orders'] = active_orders
-        context['account'] = current_profile
+        context['user'] = current_profile
 
         return context

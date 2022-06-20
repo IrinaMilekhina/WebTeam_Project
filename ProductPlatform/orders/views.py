@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
@@ -50,6 +51,21 @@ class OrderBoardView(ListView):
     model = Order
     context_object_name = 'all_orders'
     template_name = 'orders/order_board.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['all_category'] = CategoryOrder.objects.filter(is_active=True)
+        return context
+
+
+class OrderBoardViewFilter(ListView):
+    model = Order
+    context_object_name = 'all_orders'
+    template_name = 'orders/order_board.html'
+
+    def get_queryset(self, **kwargs):
+        qs = super().get_queryset(**kwargs)
+        return qs.filter(category=self.kwargs['id'])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

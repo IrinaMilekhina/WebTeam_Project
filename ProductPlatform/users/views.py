@@ -166,5 +166,5 @@ class PersonalHistoryOrdersView(ListView):
                 'response_approved': response_approved
             })
         context['orders'] = history_orders
-        context['account'] = current_profile
+        context['user'] = current_profile
         return context

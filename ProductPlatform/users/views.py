@@ -39,7 +39,7 @@ class PersonalAccountEditView(UpdateView):
         """Метод для создания необходимого контекста для личного кабинета"""
         context = super(PersonalAccountEditView,
                         self).get_context_data(**kwargs)
-        context['account'] = Profile.objects.get(pk=self.request.user.pk)
+        context['user'] = Profile.objects.get(pk=self.request.user.pk)
         return context
 
     def post(self, request, *args, **kwargs):

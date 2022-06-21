@@ -13,7 +13,7 @@
                     <ul class="nav">
                         <li><a href="/">Главная</a></li>
                         {% if user.is_authenticated %}
-                            <li><a href="/">Категории</a></li>
+                            <li><a href="{% url 'orders:categories' %}">Категории</a></li>
                         {% endif %}
                         {% if user.role == 'Supplier' %}
                             <li><a href="/">Доска заказов</a></li>

@@ -9,12 +9,12 @@
         <div class="video-overlay header-text">
             <div class="container" style="padding-top:105px">
                 <div class="pull-right">
-                    <a href="/" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px"
+                    <a href="{% url  'users:account_edit' %}" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px"
                        role="button"
                        aria-pressed="true">
                         Личный кабинет
                     </a>
-                    <a href="/" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px"
+                    <a href="{% url  'users:account_history_orders' %}" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px"
                        role="button"
                        aria-pressed="true">
                         {% if user.role == 'Supplier' %}

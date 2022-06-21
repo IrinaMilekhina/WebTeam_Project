@@ -135,15 +135,18 @@ class PersonalHistoryOrdersView(ListView):
         current_profile = Profile.objects.get(pk=self.request.user.pk)
         responses, orders = None, None
         if current_profile.role == 'Customer':
-            responses = ResponseOrder.objects.filter(order__author=self.request.user.pk, order__status=False)
-            orders = Order.objects.filter(author=self.request.user.pk, status=False)
+            responses = ResponseOrder.objects.filter(order__author=self.request.user.pk, order__status__in=['Done', 'Not Active'])
+            orders = Order.objects.filter(author=self.request.user.pk, status__in=['Done', 'Not Active'])
         elif current_profile.role == 'Supplier':
-            orders = Order.objects.filter(responseorder__response_user=self.request.user.pk, status=False)
-            responses = ResponseOrder.objects.filter(order__id__in=orders.values_list('id'), order__status=False)
+            orders = Order.objects.filter(responseorder__response_user=self.request.user.pk, status__in=['Done', 'Not Active'])
+            responses = ResponseOrder.objects.filter(order__id__in=orders.values_list('id'), order__status__in=['Done', 'Not Active'])
         history_orders = []
         for item in orders:
             response_count = responses.filter(order=item.id).count()
-            status = 'Отменен'
+            if item.status == 'Done':
+                status = 'Выполнен'
+            else:
+                status = 'Отменен'
             response_approved = None
             for response in responses.filter(order=item.id):
                 if 'Approved' == response.status:

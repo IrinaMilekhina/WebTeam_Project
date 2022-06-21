@@ -1,14 +1,75 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}
     {{ title }}
 {% endblock %}
 
 {% block content %}
-    {% if ERROR %}
-        {{ ERROR }}
-    {% else %}
-    {{ category.name }}
-        {{ category.description }}
-    {% endif %}
+    <section class="meetings-page" id="meetings">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="meeting-single-item">
+                                <div class="thumb">
+                                    <div class="price">
+                                        <span>{{ suppliers_amount }} поставщиков</span>
+                                    </div>
+                                </div>
+                                <div class="down-content">
+                                    <h4>{{ category.name }}</h4>
+                                    <p class="description">
+                                        {{ category.description }}
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-lg-12 top-suppliers">
+                                            <h5>Топ поставщики</h5>
+                                            <table class="suppliers" id="topsuppliers">
+                                                <tr class="table-headers">
+                                                    <th class="supplier">Поставщик</th>
+                                                    <th class="orders_amount">Количество выполненных заказов</th>
+                                                </tr>
+                                                <!-- Топ 5 поставщиков -->
+                                                {% for supplier in top_suppliers %}
+                                                    <tr class="t-row">
+                                                        <td>{{ supplier.name }}</td>
+                                                        <td>{{ supplier.amount }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </table>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="share col-lg-12">
+                                                <div>
+                                                    <p><span>Всего Заказов:</span> {{ all_orders_amount }}</p>
+                                                </div>
+                                                <div>
+                                                    <p><span>Выполненные Заказы:</span> {{ all_completed_orders }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="main-button-red">
+                                <a href="{% url 'orders:categories' %}">Назад к списку категорий</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>© 2022 N</p>
+        </div>
+    </section>
+{% endblock %}
+
+{% block morejs %}
+    <script src="{% static 'assets/js/table.js' %}"></script>
 {% endblock %}

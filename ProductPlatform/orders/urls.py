@@ -23,8 +23,9 @@ urlpatterns = [
     path('categories/', CategoryOrderView.as_view(), name='categories'),
     path('category/<int:id>', Category.as_view(), name='category'),
     path('orders-board/', OrderBoardView.as_view(), name='order-board'),
-    path('orders-detail/<int:id>', OrderView.as_view(), name='order'),
-    path('orders-board/<int:id>',
-         OrderBoardViewFilter.as_view(), name='order_filter'),
+    path('orders-board/<int:id>', OrderBoardViewFilter.as_view(), name='order_filter'),
+    path('create_order/', CreateOrder.as_view(), name='create_order'),
+    path('view_order/<int:pk>/', OrderView.as_view(), name='view_order'),
+
 
 ]

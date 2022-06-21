@@ -9,7 +9,7 @@ class PersonalAccountEditForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['username', 'first_name', 'last_name', 'email',
-                  'comp_name', 'city', 'ogrn', 'phone_number', 'role',
+                  'comp_name', 'city', 'ogrn', 'phone_number',
                   'date_joined', 'bio']
 
     def __init__(self, *args, **kwargs):
@@ -17,8 +17,11 @@ class PersonalAccountEditForm(forms.ModelForm):
         self.fields['username'].widget.attrs['readonly'] = True
         self.fields['email'].widget.attrs['readonly'] = True
         self.fields['ogrn'].widget.attrs['readonly'] = True
-        self.fields['role'].widget.attrs['readonly'] = True
+        self.fields['comp_name'].widget.attrs['readonly'] = True
         self.fields['date_joined'].widget.attrs['readonly'] = True
+
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control py-2'
 
 
 class UserLoginForm(AuthenticationForm):

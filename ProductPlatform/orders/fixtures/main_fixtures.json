@@ -184,6 +184,118 @@
     }
   },
   {
+    "model": "orders.CategoryOrder",
+    "pk": 6,
+    "fields": {
+      "name": "Мороженое",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 7,
+    "fields": {
+      "name": "Приправы, специи",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 8,
+    "fields": {
+      "name": "Растительные жиры",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 9,
+    "fields": {
+      "name": "Овощи, фрукты, грибы, ягоды, дикоросы",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 10,
+    "fields": {
+      "name": "Соки, воды. Безалкогольные напитки",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 11,
+    "fields": {
+      "name": "Замороженные продукты. Полуфабрикаты. Готовые блюда",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 12,
+    "fields": {
+      "name": "Рыба и морепродукты",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 13,
+    "fields": {
+      "name": "Кондитерские изделия. Хлебопекарная продукция",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 14,
+    "fields": {
+      "name": "Консервы. Соусы, кетчупы",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 15,
+    "fields": {
+      "name": "Гастрономия. Продукция для HoReCa",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 16,
+    "fields": {
+      "name": "Снэки. Орехи. Сухофрукты",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 17,
+    "fields": {
+      "name": "Мёд и продукты пчеловодства",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 18,
+    "fields": {
+      "name": "Чай, кофе",
+      "description": ""
+    }
+  },
+  {
+    "model": "orders.CategoryOrder",
+    "pk": 19,
+    "fields": {
+      "name": "Ингредиенты. Пищевые добавки. Сырьё",
+      "description": ""
+    }
+  },
+  {
     "model": "orders.Order",
     "pk": 1,
     "fields": {
@@ -192,7 +304,9 @@
       "name": "Курица 25кг",
       "description": "К 28.08.2022 доставить курицу",
       "create_at": "2022-06-10",
-      "end_time": "2022-08-28"
+      "end_time": "2022-08-28",
+      "date_completion": "2022-06-19",
+      "status": "Done"
     }
   },
   {
@@ -204,7 +318,9 @@
       "name": "Молоко 40л",
       "description": "К 10.08.2022 доставить молоко",
       "create_at": "2022-06-10",
-      "end_time": "2022-08-10"
+      "end_time": "2022-08-10",
+      "date_completion": "2022-06-19",
+      "status": "Done"
     }
   },
   {
@@ -216,7 +332,93 @@
       "name": "Гречка 30кг",
       "description": "К 01.08.2022 доставить крупу",
       "create_at": "2022-06-10",
-      "end_time": "2022-08-01"
+      "end_time": "2022-08-01",
+      "date_completion": "2022-06-19",
+      "status": "Done"
+    }
+  },
+  {
+    "model": "orders.Order",
+    "pk": 4,
+    "fields": {
+      "author": 1,
+      "category": 5,
+      "name": "что-то",
+      "description": "200кг",
+      "create_at": "2022-06-10",
+      "end_time": "2022-08-01",
+      "date_completion": "2022-06-19",
+      "status": "Done"
+    }
+  },
+  {
+    "model": "orders.Order",
+    "pk": 5,
+    "fields": {
+      "author": 1,
+      "category": 2,
+      "name": "Курица",
+      "description": "40кг",
+      "create_at": "2022-06-10",
+      "end_time": "2022-08-28",
+      "date_completion": "2022-06-19",
+      "status": "Done"
+    }
+  },
+  {
+    "model": "orders.Order",
+    "pk": 6,
+    "fields": {
+      "author": 1,
+      "category": 5,
+      "name": "что-то",
+      "description": "200кг",
+      "create_at": "2022-06-10",
+      "end_time": "2022-08-01",
+      "date_completion": "2022-06-19",
+      "status": "Done"
+    }
+  },
+  {
+    "model": "orders.Order",
+    "pk": 7,
+    "fields": {
+      "author": 1,
+      "category": 6,
+      "name": "что-то",
+      "description": "200кг",
+      "create_at": "2022-06-10",
+      "end_time": "2022-08-01",
+      "date_completion": "2022-06-19",
+      "status": "Done"
+    }
+  },
+  {
+    "model": "orders.Order",
+    "pk": 8,
+    "fields": {
+      "author": 1,
+      "category": 7,
+      "name": "что-то",
+      "description": "200кг",
+      "create_at": "2022-06-10",
+      "end_time": "2022-08-01",
+      "date_completion": "2022-06-19",
+      "status": "Done"
+    }
+  },
+  {
+    "model": "orders.Order",
+    "pk": 9,
+    "fields": {
+      "author": 1,
+      "category": 8,
+      "name": "что-то",
+      "description": "200кг",
+      "create_at": "2022-06-10",
+      "end_time": "2022-08-01",
+      "date_completion": "2022-06-19",
+      "status": "Done"
     }
   },
   {

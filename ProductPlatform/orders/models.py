@@ -9,7 +9,7 @@ class CategoryOrder(models.Model):
     # slug = models.SlugField(unique=True)
     is_active = models.BooleanField('active', default=True)
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='category_order/%Y/%m/%d/', blank=True)
+    image = models.ImageField(upload_to='category_order/%Y/%m/%d/', default='category_order/default/placeholder_300x150.png', blank=True)
 
     class Meta:
         verbose_name = 'Категория заказа'
@@ -23,7 +23,8 @@ class Order(models.Model):
     '''Заказ'''
     status_choice = [
         ('Active', 'Активно'),
-        ('Not Active', 'Не активно')
+        ('Not Active', 'Не активно'),
+        ('Done', 'Выполнен')
     ]
     author = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name='Компания')
     category = models.ForeignKey(CategoryOrder, on_delete=models.PROTECT, verbose_name='Категория')
@@ -33,7 +34,8 @@ class Order(models.Model):
     status = models.CharField(choices=status_choice,
                               max_length=120, verbose_name='Статус')
     create_at = models.DateTimeField(auto_now_add=True)
-    end_time = models.DateTimeField()
+    end_time = models.DateTimeField(blank=True, null=True)
+    date_completion = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         verbose_name = 'Заказ'

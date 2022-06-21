@@ -291,7 +291,7 @@
     "model": "orders.CategoryOrder",
     "pk": 19,
     "fields": {
-      "name": "Ингредиенты. Пищевые добавки. Сырьё\n",
+      "name": "Ингредиенты. Пищевые добавки. Сырьё",
       "description": ""
     }
   },

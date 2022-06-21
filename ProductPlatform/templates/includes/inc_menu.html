@@ -1,11 +1,11 @@
 <!-- ***** Header Area Start ***** -->
-<header class="header-area header-sticky">
+<header class="header-area header-sticky background-header margin-sub-header">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <a href="index.html" class="logo">
+                    <a href="{% url 'main' %}" class="logo">
                         N
                     </a>
                     <!-- ***** Logo End ***** -->
@@ -18,9 +18,9 @@
                                 <li><a href="/">Доска заказов</a></li>
                             {% endif %}
                             {% if user.role == 'Customer' %}
-    {#                            <li><a href="{% url 'orders:create_order' %}">Создать заказ</a></li>#}
-                                <li><a href="/">Создать заказ</a></li>
+                                <li><a href="{% url 'orders:create_order' %}">Создать заказ</a></li>
                             {% endif %}
+
                             <li><a href="{% url 'users:account_edit' %}">Личный кабинет</a></li>
                             <li><a href="{% url 'users:logout' %}">Выйти</a></li>
                         {% endif %}

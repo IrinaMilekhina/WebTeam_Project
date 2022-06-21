@@ -20,7 +20,7 @@ class MainView(View):
             .filter(order__status='Done',
                     order__date_completion__gte=datetime.datetime.now() - datetime.timedelta(days=7)) \
             .annotate(count=Count('order')) \
-            .values('name', 'count') \
+            .values('id', 'name', 'count') \
             .order_by('count') \
             .reverse()[:6]
 
@@ -38,7 +38,7 @@ class CategoryOrderView(ListView):
     queryset = CategoryOrder.objects.filter(is_active=True)
     context_object_name = 'all_categories'
     template_name = 'orders/categories.html'
-    paginate_by = 5
+    paginate_by = 6
 
 
 class Category(DetailView):

@@ -118,13 +118,13 @@
                                         <div class="price">
                                             <span>100 поставщиков</span> <!-- Надо будет ещё количество добавить, но после того как это вьюху добавят -->
                                         </div>
-                                        <a href="/">
+                                        <a href="{% url 'orders:category' category.id %}">
                                             <img src="{% static 'assets/images/placeholder_300x150.png' %}"
                                                  alt="New Lecturer Meeting">
                                         </a>
                                     </div>
                                     <div class="down-content">
-                                        <a href="/"><h4>{{ category.name }}</h4></a>
+                                        <a href="{% url 'orders:category' category.id %}"><h4>{{ category.name }}</h4></a>
                                         <p>{{ category.description }}</p>
                                     </div>
                                 </div>

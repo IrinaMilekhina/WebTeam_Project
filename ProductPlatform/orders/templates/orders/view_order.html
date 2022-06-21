@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{{ order.author }}
+    <br>
+    {{ order.category }}
+    <br>
+    {{ order.name }}
+    <br>
+    {{ order.description }}
+    <br>
+    {{ order.status }}
+    <br><br><br>
+    {% for response_order in response_orders %}
+    {{ response_order.offer }}
+    {{ response_order.status }}
+        <br>
+    {% endfor %}
+
+{% endblock %}

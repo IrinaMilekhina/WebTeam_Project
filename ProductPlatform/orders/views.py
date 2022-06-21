@@ -76,3 +76,26 @@ class CreateOrder(CreateView):
             return HttpResponseRedirect(redirect_to=reverse_lazy('main'))
         else:
             return self.form_invalid(form)
+
+
+class OrderView(ListView):
+    """Класс-обработчик для просмотра заказа"""
+    model = Order
+    template_name = 'orders/view_order.html'
+
+    def get(self, request, *args, **kwargs):
+        try:
+            id = kwargs.get('pk', None)
+        except KeyError as err:
+            print(err)
+        try:
+            order = get_object_or_404(Order, id=id)
+        except Http404 as err:
+            print(err)
+        response_orders = order.responseorder_set.all()
+        context = {
+            'order': order,
+            'response_orders': response_orders,
+        }
+        return render(request, self.template_name, context=context)
+

@@ -10,28 +10,28 @@
             <div class="container" style="padding-top:105px">
                 <div class="pull-right">
                     {% if user.role == 'Customer' %}
-                        <a href="/" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px"
+                        <a href="{% url  'users:account_active_orders' %}" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px"
                            role="button"
                            aria-pressed="true">
                             Активные заказы
                         </a>
                     {% endif %}
                     {% if user.role == 'Supplier' %}
-                        <a href="/" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px"
+                        <a href="{% url  'users:account_active_orders' %}" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px"
                            role="button"
                            aria-pressed="true">
                             Отклики на утверждении
                         </a>
                     {% endif %}
                     {% if user.role == 'Customer' %}
-                        <a href="/" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px"
+                        <a href="{% url  'users:account_history_orders' %}" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px"
                            role="button"
                            aria-pressed="true">
                             История заказов
                         </a>
                     {% endif %}
                     {% if user.role == 'Supplier' %}
-                        <a href="/" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px"
+                        <a href="{% url  'users:account_history_orders' %}" class="btn btn-danger active" style="margin: 5px 5px 5px 5px; border-radius:20px"
                            role="button"
                            aria-pressed="true">
                             История откликов

@@ -9,8 +9,9 @@ var input_form_name = document.querySelector('#id_comp_name');
 var input_form_city = document.querySelector('#id_city');
 var message_text = document.querySelector('#message');
 var input_ogrn = document.querySelector('#id_ogrn');
+var group_input = document.querySelector('#orgn-group-input');
 
-message('Введите 13 или 15 цифр.', 'blue');
+message('Введите 13 или 15 цифр.');
 
 ogrn_button.addEventListener('click', () => {
   const ogrn_value = document.querySelector('#id_ogrn').value;
@@ -63,6 +64,8 @@ function show_hide_input(comp_name, city, status_company) {
     register_button.style.display = 'block';
     input_ogrn.setAttribute('readonly', 'readonly');
     ogrn_button.style.display = 'none';
+    group_input.classList.add('read_only');
+    group_input.classList.remove('group-input');
     message('Проверка ОГРН (ЕГРИП) пройдена.', 'green');
   } else {
     message(

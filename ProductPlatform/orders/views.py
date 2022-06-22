@@ -17,7 +17,7 @@ class MainView(View):
 
     def get(self, request, *args, **kwargs):
         top_category = CategoryOrder.objects \
-            .filter(order__status='Done',
+            .filter(order__status='Active',
                     order__date_completion__gte=datetime.datetime.now() - datetime.timedelta(days=7)) \
             .annotate(count=Count('order')) \
             .values('id', 'name', 'count') \
@@ -60,7 +60,7 @@ class Category(DetailView):
             return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})
         return render(request, self.template_name, {'category': category, 'title': category.name})
 
-      
+
 class CreateOrder(CreateView):
     """Класс-обработчик для создания Заказа"""
     model = Order

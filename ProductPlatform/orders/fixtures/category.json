@@ -67,7 +67,7 @@
     "model": "orders.CategoryOrder",
     "pk": 9,
     "fields": {
-      "name": "Растительные жиры",
+      "name": "Животные жиры",
       "description": ""
     }
   },

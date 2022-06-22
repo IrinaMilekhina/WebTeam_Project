@@ -91,11 +91,11 @@ class PersonalActiveOrdersView(ListView):
         current_profile = Profile.objects.get(pk=self.request.user.pk)
         responses, orders = None, None
         if current_profile.role == 'Customer':
-            responses = ResponseOrder.objects.filter(order__author=self.request.user.pk, order__status=True)
-            orders = Order.objects.filter(author=self.request.user.pk, status=True)
+            responses = ResponseOrder.objects.filter(order__author=self.request.user.pk, order__status='Active')
+            orders = Order.objects.filter(author=self.request.user.pk, status='Active')
         elif current_profile.role == 'Supplier':
-            orders = Order.objects.filter(responseorder__response_user=self.request.user.pk, status=True)
-            responses = ResponseOrder.objects.filter(order__id__in=orders.values_list('id'), order__status=True)
+            orders = Order.objects.filter(responseorder__response_user=self.request.user.pk, status='Active')
+            responses = ResponseOrder.objects.filter(order__id__in=orders.values_list('id'), order__status='Active')
         active_orders = []
         for item in orders:
             response_count = responses.filter(order=item.id).count()

@@ -55,6 +55,7 @@ class ResponseOrder(models.Model):
     ]
     order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='Заказ')
     response_user = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name='Компания')
+    price = models.FloatField(verbose_name='Цена')
     offer = models.TextField(verbose_name='Предложение')
     status = models.CharField(choices=status_choice,
                               max_length=120, verbose_name='Статус')

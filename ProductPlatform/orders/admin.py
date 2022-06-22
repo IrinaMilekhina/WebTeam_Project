@@ -16,9 +16,9 @@ class AdminCategory(admin.ModelAdmin):
 
 
 class AdminResponse(admin.ModelAdmin):
-    list_display = ['order', 'response_user']
-    list_filter = ['order', 'response_user']
-    search_fields = ['order', 'response_user']
+    list_display = ['order', 'response_user', 'price']
+    list_filter = ['order', 'response_user', 'price']
+    search_fields = ['order', 'response_user', 'price']
 
 
 admin.site.register(Order, AdminOrders)

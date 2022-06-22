@@ -1,7 +1,7 @@
 venv/
 .idea/
 ProductPlatform/db.sqlite3
-README.md
 .DS_Store
 .vscode/
 __pycache__/
+ProductPlatform/*/migrations/*.py

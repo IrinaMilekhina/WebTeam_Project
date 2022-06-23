@@ -1,5 +1,764 @@
 [
   {
+    "model": "auth.permission",
+    "pk": 1,
+    "fields": {
+      "name": "Can add log entry",
+      "content_type": 1,
+      "codename": "add_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+      "name": "Can change log entry",
+      "content_type": 1,
+      "codename": "change_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+      "name": "Can delete log entry",
+      "content_type": 1,
+      "codename": "delete_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+      "name": "Can view log entry",
+      "content_type": 1,
+      "codename": "view_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+      "name": "Can add permission",
+      "content_type": 2,
+      "codename": "add_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+      "name": "Can change permission",
+      "content_type": 2,
+      "codename": "change_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+      "name": "Can delete permission",
+      "content_type": 2,
+      "codename": "delete_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+      "name": "Can view permission",
+      "content_type": 2,
+      "codename": "view_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+      "name": "Can add group",
+      "content_type": 3,
+      "codename": "add_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+      "name": "Can change group",
+      "content_type": 3,
+      "codename": "change_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+      "name": "Can delete group",
+      "content_type": 3,
+      "codename": "delete_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+      "name": "Can view group",
+      "content_type": 3,
+      "codename": "view_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+      "name": "Can add content type",
+      "content_type": 4,
+      "codename": "add_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+      "name": "Can change content type",
+      "content_type": 4,
+      "codename": "change_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+      "name": "Can delete content type",
+      "content_type": 4,
+      "codename": "delete_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+      "name": "Can view content type",
+      "content_type": 4,
+      "codename": "view_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+      "name": "Can add session",
+      "content_type": 5,
+      "codename": "add_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+      "name": "Can change session",
+      "content_type": 5,
+      "codename": "change_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+      "name": "Can delete session",
+      "content_type": 5,
+      "codename": "delete_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+      "name": "Can view session",
+      "content_type": 5,
+      "codename": "view_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+      "name": "Can add Категория заказа",
+      "content_type": 6,
+      "codename": "add_categoryorder"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+      "name": "Can change Категория заказа",
+      "content_type": 6,
+      "codename": "change_categoryorder"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+      "name": "Can delete Категория заказа",
+      "content_type": 6,
+      "codename": "delete_categoryorder"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+      "name": "Can view Категория заказа",
+      "content_type": 6,
+      "codename": "view_categoryorder"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+      "name": "Can add Заказ",
+      "content_type": 7,
+      "codename": "add_order"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+      "name": "Can change Заказ",
+      "content_type": 7,
+      "codename": "change_order"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+      "name": "Can delete Заказ",
+      "content_type": 7,
+      "codename": "delete_order"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+      "name": "Can view Заказ",
+      "content_type": 7,
+      "codename": "view_order"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+      "name": "Can add Отклик",
+      "content_type": 8,
+      "codename": "add_responseorder"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+      "name": "Can change Отклик",
+      "content_type": 8,
+      "codename": "change_responseorder"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+      "name": "Can delete Отклик",
+      "content_type": 8,
+      "codename": "delete_responseorder"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+      "name": "Can view Отклик",
+      "content_type": 8,
+      "codename": "view_responseorder"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+      "name": "Can add Профиль",
+      "content_type": 9,
+      "codename": "add_profile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+      "name": "Can change Профиль",
+      "content_type": 9,
+      "codename": "change_profile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+      "name": "Can delete Профиль",
+      "content_type": 9,
+      "codename": "delete_profile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+      "name": "Can view Профиль",
+      "content_type": 9,
+      "codename": "view_profile"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 1,
+    "fields": {
+      "app_label": "admin",
+      "model": "logentry"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 2,
+    "fields": {
+      "app_label": "auth",
+      "model": "permission"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 3,
+    "fields": {
+      "app_label": "auth",
+      "model": "group"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 4,
+    "fields": {
+      "app_label": "contenttypes",
+      "model": "contenttype"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 5,
+    "fields": {
+      "app_label": "sessions",
+      "model": "session"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 6,
+    "fields": {
+      "app_label": "orders",
+      "model": "categoryorder"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 7,
+    "fields": {
+      "app_label": "orders",
+      "model": "order"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 8,
+    "fields": {
+      "app_label": "orders",
+      "model": "responseorder"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 9,
+    "fields": {
+      "app_label": "users",
+      "model": "profile"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "poi2mu5mg8wdpqa3e5j0cwcfc55vmapf",
+    "fields": {
+      "session_data": ".eJxVjDkOwjAUBe_iGlm2wUso6TmD9TeTALKlOKkQd4dIKaB9M_NeKsO6jHntMueJ1VkFdfjdEOghdQN8h3prmlpd5gn1puiddn1tLM_L7v4djNDHb23jEQULmESBQ3LFSfEciGSgoaQQ2JERjAOSNQYxeYke2HgHp2hdVO8PEjw4mA:1o41a9:cyQsYILhjH77_sNHkFkpwlfxTrGU9LhVFpHwg6QNJgI",
+      "expire_date": "2022-07-06T14:43:49.523Z"
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 1,
+    "fields": {
+      "name": "Мясо и мясопродукты",
+      "is_active": true,
+      "description": "",
+      "image": "category_order/default/placeholder_300x150.png"
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 2,
+    "fields": {
+      "name": "Птица. Яйцо",
+      "is_active": true,
+      "description": "",
+      "image": "category_order/default/placeholder_300x150.png"
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 3,
+    "fields": {
+      "name": "Молочная продукция. Сыры",
+      "is_active": true,
+      "description": "",
+      "image": "category_order/default/placeholder_300x150.png"
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 4,
+    "fields": {
+      "name": "Бакалея. Зернопродукты. Макаронные изделия",
+      "is_active": true,
+      "description": "",
+      "image": "category_order/default/placeholder_300x150.png"
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 5,
+    "fields": {
+      "name": "Колбасные изделия. Деликатесы",
+      "is_active": true,
+      "description": "",
+      "image": "category_order/default/placeholder_300x150.png"
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 6,
+    "fields": {
+      "name": "Мороженое",
+      "is_active": true,
+      "description": "",
+      "image": "category_order/default/placeholder_300x150.png"
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 7,
+    "fields": {
+      "name": "Приправы, специи",
+      "is_active": true,
+      "description": "",
+      "image": "category_order/default/placeholder_300x150.png"
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 8,
+    "fields": {
+      "name": "Растительные жиры",
+      "is_active": true,
+      "description": "",
+      "image": "category_order/default/placeholder_300x150.png"
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 9,
+    "fields": {
+      "name": "Овощи, фрукты, грибы, ягоды, дикоросы",
+      "is_active": true,
+      "description": "",
+      "image": "category_order/default/placeholder_300x150.png"
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 10,
+    "fields": {
+      "name": "Соки, воды. Безалкогольные напитки",
+      "is_active": true,
+      "description": "",
+      "image": "category_order/default/placeholder_300x150.png"
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 11,
+    "fields": {
+      "name": "Замороженные продукты. Полуфабрикаты. Готовые блюда",
+      "is_active": true,
+      "description": "",
+      "image": "category_order/default/placeholder_300x150.png"
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 12,
+    "fields": {
+      "name": "Рыба и морепродукты",
+      "is_active": true,
+      "description": "",
+      "image": "category_order/default/placeholder_300x150.png"
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 13,
+    "fields": {
+      "name": "Кондитерские изделия. Хлебопекарная продукция",
+      "is_active": true,
+      "description": "",
+      "image": "category_order/default/placeholder_300x150.png"
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 14,
+    "fields": {
+      "name": "Консервы. Соусы, кетчупы",
+      "is_active": true,
+      "description": "",
+      "image": "category_order/default/placeholder_300x150.png"
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 15,
+    "fields": {
+      "name": "Гастрономия. Продукция для HoReCa",
+      "is_active": true,
+      "description": "",
+      "image": "category_order/default/placeholder_300x150.png"
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 16,
+    "fields": {
+      "name": "Снэки. Орехи. Сухофрукты",
+      "is_active": true,
+      "description": "",
+      "image": "category_order/default/placeholder_300x150.png"
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 17,
+    "fields": {
+      "name": "Мёд и продукты пчеловодства",
+      "is_active": true,
+      "description": "",
+      "image": "category_order/default/placeholder_300x150.png"
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 18,
+    "fields": {
+      "name": "Чай, кофе",
+      "is_active": true,
+      "description": "",
+      "image": "category_order/default/placeholder_300x150.png"
+    }
+  },
+  {
+    "model": "orders.categoryorder",
+    "pk": 19,
+    "fields": {
+      "name": "Ингредиенты. Пищевые добавки. Сырьё",
+      "is_active": true,
+      "description": "",
+      "image": "category_order/default/placeholder_300x150.png"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 1,
+    "fields": {
+      "author": 1,
+      "category": 2,
+      "name": "Курица 25кг",
+      "description": "К 28.08.2022 доставить курицу",
+      "status": "Active",
+      "create_at": "2022-06-10T00:00:00Z",
+      "end_time": "2022-08-28T00:00:00Z"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 2,
+    "fields": {
+      "author": 2,
+      "category": 3,
+      "name": "Молоко 40л",
+      "description": "К 10.08.2022 доставить молоко",
+      "status": "Active",
+      "create_at": "2022-06-10T00:00:00Z",
+      "end_time": "2022-08-10T00:00:00Z"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 3,
+    "fields": {
+      "author": 1,
+      "category": 4,
+      "name": "Гречка 30кг",
+      "description": "К 01.08.2022 доставить крупу",
+      "status": "Active",
+      "create_at": "2022-06-10T00:00:00Z",
+      "end_time": "2022-08-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 4,
+    "fields": {
+      "author": 1,
+      "category": 5,
+      "name": "что-то",
+      "description": "200кг",
+      "status": "Active",
+      "create_at": "2022-06-10T00:00:00Z",
+      "end_time": "2022-08-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 5,
+    "fields": {
+      "author": 1,
+      "category": 2,
+      "name": "Курица",
+      "description": "40кг",
+      "status": "Active",
+      "create_at": "2022-06-10T00:00:00Z",
+      "end_time": "2022-08-28T00:00:00Z"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 6,
+    "fields": {
+      "author": 1,
+      "category": 5,
+      "name": "что-то",
+      "description": "200кг",
+      "status": "Active",
+      "create_at": "2022-06-10T00:00:00Z",
+      "end_time": "2022-08-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 7,
+    "fields": {
+      "author": 1,
+      "category": 6,
+      "name": "что-то",
+      "description": "200кг",
+      "status": "Active",
+      "create_at": "2022-06-10T00:00:00Z",
+      "end_time": "2022-08-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 8,
+    "fields": {
+      "author": 1,
+      "category": 7,
+      "name": "что-то",
+      "description": "200кг",
+      "status": "Active",
+      "create_at": "2022-06-10T00:00:00Z",
+      "end_time": "2022-08-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 9,
+    "fields": {
+      "author": 1,
+      "category": 8,
+      "name": "что-то",
+      "description": "200кг",
+      "status": "Active",
+      "create_at": "2022-06-10T00:00:00Z",
+      "end_time": "2022-08-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "orders.responseorder",
+    "pk": 1,
+    "fields": {
+      "order": 1,
+      "response_user": 3,
+      "offer": "10 000р",
+      "price": 10000.00,
+      "status": "On Approval",
+      "create_at": "2022-06-11T00:00:00Z"
+    }
+  },
+  {
+    "model": "orders.responseorder",
+    "pk": 2,
+    "fields": {
+      "order": 1,
+      "response_user": 4,
+      "offer": "15 000р",
+      "price": 10000.00,
+      "status": "On Approval",
+      "create_at": "2022-06-11T00:00:00Z"
+    }
+  },
+  {
+    "model": "orders.responseorder",
+    "pk": 3,
+    "fields": {
+      "order": 2,
+      "response_user": 3,
+      "offer": "7 000р",
+      "price": 10000.00,
+      "status": "On Approval",
+      "create_at": "2022-06-13T00:00:00Z"
+    }
+  },
+  {
+    "model": "orders.responseorder",
+    "pk": 4,
+    "fields": {
+      "order": 2,
+      "response_user": 4,
+      "offer": "8 000р",
+      "price": 10000.00,
+      "status": "On Approval",
+      "create_at": "2022-06-12T00:00:00Z"
+    }
+  },
+  {
     "model": "users.profile",
     "pk": 1,
     "fields": {
@@ -124,7 +883,7 @@
     "pk": 6,
     "fields": {
       "password": "pbkdf2_sha256$320000$MLpzslXXHK7hdR8kXj1K8K$rpegvbQ1OyMOOhYoP0tVPW8eQOy5BYu5XwfSDIyohes=",
-      "last_login": null,
+      "last_login": "2022-06-22T14:43:49.522Z",
       "is_superuser": true,
       "username": "ADMIN",
       "first_name": "",
@@ -141,332 +900,6 @@
       "bio": "",
       "groups": [],
       "user_permissions": []
-    }
-  },
-  {
-    "model": "orders.CategoryOrder",
-    "pk": 1,
-    "fields": {
-      "name": "Мясо и мясопродукты",
-      "description": ""
-    }
-  },
-  {
-    "model": "orders.CategoryOrder",
-    "pk": 2,
-    "fields": {
-      "name": "Птица. Яйцо",
-      "description": ""
-    }
-  },
-  {
-    "model": "orders.CategoryOrder",
-    "pk": 3,
-    "fields": {
-      "name": "Молочная продукция. Сыры",
-      "description": ""
-    }
-  },
-  {
-    "model": "orders.CategoryOrder",
-    "pk": 4,
-    "fields": {
-      "name": "Бакалея. Зернопродукты. Макаронные изделия",
-      "description": ""
-    }
-  },
-  {
-    "model": "orders.CategoryOrder",
-    "pk": 5,
-    "fields": {
-      "name": "Колбасные изделия. Деликатесы",
-      "description": ""
-    }
-  },
-  {
-    "model": "orders.CategoryOrder",
-    "pk": 6,
-    "fields": {
-      "name": "Мороженое",
-      "description": ""
-    }
-  },
-  {
-    "model": "orders.CategoryOrder",
-    "pk": 7,
-    "fields": {
-      "name": "Приправы, специи",
-      "description": ""
-    }
-  },
-  {
-    "model": "orders.CategoryOrder",
-    "pk": 8,
-    "fields": {
-      "name": "Растительные жиры",
-      "description": ""
-    }
-  },
-  {
-    "model": "orders.CategoryOrder",
-    "pk": 9,
-    "fields": {
-      "name": "Овощи, фрукты, грибы, ягоды, дикоросы",
-      "description": ""
-    }
-  },
-  {
-    "model": "orders.CategoryOrder",
-    "pk": 10,
-    "fields": {
-      "name": "Соки, воды. Безалкогольные напитки",
-      "description": ""
-    }
-  },
-  {
-    "model": "orders.CategoryOrder",
-    "pk": 11,
-    "fields": {
-      "name": "Замороженные продукты. Полуфабрикаты. Готовые блюда",
-      "description": ""
-    }
-  },
-  {
-    "model": "orders.CategoryOrder",
-    "pk": 12,
-    "fields": {
-      "name": "Рыба и морепродукты",
-      "description": ""
-    }
-  },
-  {
-    "model": "orders.CategoryOrder",
-    "pk": 13,
-    "fields": {
-      "name": "Кондитерские изделия. Хлебопекарная продукция",
-      "description": ""
-    }
-  },
-  {
-    "model": "orders.CategoryOrder",
-    "pk": 14,
-    "fields": {
-      "name": "Консервы. Соусы, кетчупы",
-      "description": ""
-    }
-  },
-  {
-    "model": "orders.CategoryOrder",
-    "pk": 15,
-    "fields": {
-      "name": "Гастрономия. Продукция для HoReCa",
-      "description": ""
-    }
-  },
-  {
-    "model": "orders.CategoryOrder",
-    "pk": 16,
-    "fields": {
-      "name": "Снэки. Орехи. Сухофрукты",
-      "description": ""
-    }
-  },
-  {
-    "model": "orders.CategoryOrder",
-    "pk": 17,
-    "fields": {
-      "name": "Мёд и продукты пчеловодства",
-      "description": ""
-    }
-  },
-  {
-    "model": "orders.CategoryOrder",
-    "pk": 18,
-    "fields": {
-      "name": "Чай, кофе",
-      "description": ""
-    }
-  },
-  {
-    "model": "orders.CategoryOrder",
-    "pk": 19,
-    "fields": {
-      "name": "Ингредиенты. Пищевые добавки. Сырьё",
-      "description": ""
-    }
-  },
-  {
-    "model": "orders.Order",
-    "pk": 1,
-    "fields": {
-      "author": 1,
-      "category": 2,
-      "name": "Курица 25кг",
-      "description": "К 28.08.2022 доставить курицу",
-      "create_at": "2022-06-10",
-      "end_time": "2022-08-28",
-      "date_completion": "2022-06-19",
-      "status": "Done"
-    }
-  },
-  {
-    "model": "orders.Order",
-    "pk": 2,
-    "fields": {
-      "author": 2,
-      "category": 3,
-      "name": "Молоко 40л",
-      "description": "К 10.08.2022 доставить молоко",
-      "create_at": "2022-06-10",
-      "end_time": "2022-08-10",
-      "date_completion": "2022-06-19",
-      "status": "Done"
-    }
-  },
-  {
-    "model": "orders.Order",
-    "pk": 3,
-    "fields": {
-      "author": 1,
-      "category": 4,
-      "name": "Гречка 30кг",
-      "description": "К 01.08.2022 доставить крупу",
-      "create_at": "2022-06-10",
-      "end_time": "2022-08-01",
-      "date_completion": "2022-06-19",
-      "status": "Done"
-    }
-  },
-  {
-    "model": "orders.Order",
-    "pk": 4,
-    "fields": {
-      "author": 1,
-      "category": 5,
-      "name": "что-то",
-      "description": "200кг",
-      "create_at": "2022-06-10",
-      "end_time": "2022-08-01",
-      "date_completion": "2022-06-19",
-      "status": "Done"
-    }
-  },
-  {
-    "model": "orders.Order",
-    "pk": 5,
-    "fields": {
-      "author": 1,
-      "category": 2,
-      "name": "Курица",
-      "description": "40кг",
-      "create_at": "2022-06-10",
-      "end_time": "2022-08-28",
-      "date_completion": "2022-06-19",
-      "status": "Done"
-    }
-  },
-  {
-    "model": "orders.Order",
-    "pk": 6,
-    "fields": {
-      "author": 1,
-      "category": 5,
-      "name": "что-то",
-      "description": "200кг",
-      "create_at": "2022-06-10",
-      "end_time": "2022-08-01",
-      "date_completion": "2022-06-19",
-      "status": "Done"
-    }
-  },
-  {
-    "model": "orders.Order",
-    "pk": 7,
-    "fields": {
-      "author": 1,
-      "category": 6,
-      "name": "что-то",
-      "description": "200кг",
-      "create_at": "2022-06-10",
-      "end_time": "2022-08-01",
-      "date_completion": "2022-06-19",
-      "status": "Done"
-    }
-  },
-  {
-    "model": "orders.Order",
-    "pk": 8,
-    "fields": {
-      "author": 1,
-      "category": 7,
-      "name": "что-то",
-      "description": "200кг",
-      "create_at": "2022-06-10",
-      "end_time": "2022-08-01",
-      "date_completion": "2022-06-19",
-      "status": "Done"
-    }
-  },
-  {
-    "model": "orders.Order",
-    "pk": 9,
-    "fields": {
-      "author": 1,
-      "category": 8,
-      "name": "что-то",
-      "description": "200кг",
-      "create_at": "2022-06-10",
-      "end_time": "2022-08-01",
-      "date_completion": "2022-06-19",
-      "status": "Done"
-    }
-  },
-  {
-    "model": "orders.ResponseOrder",
-    "pk": 1,
-    "fields": {
-      "order": 1,
-      "response_user": 3,
-      "offer": "10 000р",
-      "price": 10000.00,
-      "status": "On Approval",
-      "create_at": "2022-06-11"
-    }
-  },
-  {
-    "model": "orders.ResponseOrder",
-    "pk": 2,
-    "fields": {
-      "order": 1,
-      "response_user": 4,
-      "offer": "15 000р",
-      "price": 10000.00,
-      "status": "On Approval",
-      "create_at": "2022-06-11"
-    }
-  },
-  {
-    "model": "orders.ResponseOrder",
-    "pk": 3,
-    "fields": {
-      "order": 2,
-      "response_user": 3,
-      "offer": "7 000р",
-      "price": 10000.00,
-      "status": "On Approval",
-      "create_at": "2022-06-13"
-    }
-  },
-  {
-    "model": "orders.ResponseOrder",
-    "pk": 4,
-    "fields": {
-      "order": 2,
-      "response_user": 4,
-      "offer": "8 000р",
-      "price": 10000.00,
-      "status": "On Approval",
-      "create_at": "2022-06-12"
     }
   }
 ]

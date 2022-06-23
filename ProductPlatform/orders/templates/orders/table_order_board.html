@@ -5,13 +5,14 @@
             <thead>
               <tr class="count-digit">
                 <th>№</th>
+                <th>id Заказа</th>
                 <th>Наименование</th>
                 <th>Категория</th>
                 <th>Фирма</th>
                 <th>Дата заказа</th>
                 <th>Действует до</th>
                 <th>Статус</th>
-                <th></th>
+                
               </tr>
             </thead>
             <tbody>
@@ -22,19 +23,16 @@
                 data-href="{% url 'orders:view_order' row.id %}"
               >
                 <td>{{ forloop.counter }}</td>
+                <td>{{ row.id }}</td>
                 <td>{{ row.name }}</td>
                 <td class="category_row">{{ row.category }}</td>
-                <td>{{ row.author }}</td>
+                <td>{{ row.author.comp_name }}</td>
                 <td>{{ row.create_at }}</td>
                 <td>{{ row.end_time }}</td>
                 
                 
                 <td {% if row.status == 'Active'%} class="text-success" {% else %} class="text-danger" {% endif %}> {{ row.status }}</td>
-                <td>
-                  {% if row.status == 'Active'%}
-                  <button type="submit" class="btn btn-success">Принять</button>
-                  {% endif %}
-                </td>
+                
               </tr>
               {% endfor %}
 

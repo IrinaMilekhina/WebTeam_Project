@@ -17,13 +17,12 @@ class MainView(View):
 
     def get(self, request, *args, **kwargs):
         top_category = CategoryOrder.objects \
-            .filter(order__status='Active',
-                    order__date_completion__gte=datetime.datetime.now() - datetime.timedelta(days=7)) \
-            .annotate(count=Count('order')) \
-            .values('id', 'name', 'count') \
-            .order_by('count') \
-            .reverse()[:6]
-
+                           .filter(order__responseorder__statusresponse__status='Approved',
+                                   order__responseorder__statusresponse__time_status__gte=
+                                   datetime.datetime.now() - datetime.timedelta(days=7)) \
+                           .annotate(count=Count('order')) \
+                           .values('id', 'name', 'count') \
+                           .order_by('-count')[:6]
         content = {
             'title': self.title,
             'categories': CategoryOrder.objects.all(),

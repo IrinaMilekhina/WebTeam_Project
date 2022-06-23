@@ -23,7 +23,6 @@ class MainView(View):
                            .annotate(count=Count('order')) \
                            .values('id', 'name', 'count') \
                            .order_by('-count')[:6]
-        #
         content = {
             'title': self.title,
             'categories': CategoryOrder.objects.all(),

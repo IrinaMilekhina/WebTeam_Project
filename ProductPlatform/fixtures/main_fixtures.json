@@ -1,252 +1,5 @@
 [
   {
-    "model": "admin.logentry",
-    "pk": 1,
-    "fields": {
-      "action_time": "2022-06-22T14:08:02.510Z",
-      "user": 6,
-      "content_type": 8,
-      "object_id": "1",
-      "object_repr": "Предлжение от Название компании: ООО Поставщик1: 123, к заказу - Птица. Яйцо Курица 25кг, Заказ создал: Название компании: ООО Заказчик1",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 2,
-    "fields": {
-      "action_time": "2022-06-22T14:08:12.629Z",
-      "user": 6,
-      "content_type": 9,
-      "object_id": "2",
-      "object_repr": "У отклика с ID# Предлжение от Название компании: ООО Поставщик1: 123, к заказу - Птица. Яйцо Курица 25кг, Заказ создал: Название компании: ООО Заказчик1 статус - Approved",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 3,
-    "fields": {
-      "action_time": "2022-06-22T14:08:27.677Z",
-      "user": 6,
-      "content_type": 8,
-      "object_id": "2",
-      "object_repr": "Предлжение от Название компании: ООО Поставщик3: 456, к заказу - Молочная продукция. Сыры Молоко 40л, Заказ создал: Название компании: ООО Закачик2",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 4,
-    "fields": {
-      "action_time": "2022-06-22T14:08:37.322Z",
-      "user": 6,
-      "content_type": 9,
-      "object_id": "4",
-      "object_repr": "У отклика с ID# Предлжение от Название компании: ООО Поставщик3: 456, к заказу - Молочная продукция. Сыры Молоко 40л, Заказ создал: Название компании: ООО Закачик2 статус - Approved",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 5,
-    "fields": {
-      "action_time": "2022-06-22T14:08:48.712Z",
-      "user": 6,
-      "content_type": 8,
-      "object_id": "3",
-      "object_repr": "Предлжение от Название компании: ООО Поставщик2: 789, к заказу - Бакалея. Зернопродукты. Макаронные изделия Гречка 30кг, Заказ создал: Название компании: ООО Заказчик1",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 6,
-    "fields": {
-      "action_time": "2022-06-22T14:08:57.515Z",
-      "user": 6,
-      "content_type": 9,
-      "object_id": "6",
-      "object_repr": "У отклика с ID# Предлжение от Название компании: ООО Поставщик2: 789, к заказу - Бакалея. Зернопродукты. Макаронные изделия Гречка 30кг, Заказ создал: Название компании: ООО Заказчик1 статус - Approve",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 7,
-    "fields": {
-      "action_time": "2022-06-22T14:09:11.215Z",
-      "user": 6,
-      "content_type": 8,
-      "object_id": "4",
-      "object_repr": "Предлжение от Название компании: ООО Поставщик2: awe, к заказу - Колбасные изделия. Деликатесы что-то, Заказ создал: Название компании: ООО Заказчик1",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 8,
-    "fields": {
-      "action_time": "2022-06-22T14:09:20.782Z",
-      "user": 6,
-      "content_type": 9,
-      "object_id": "8",
-      "object_repr": "У отклика с ID# Предлжение от Название компании: ООО Поставщик2: awe, к заказу - Колбасные изделия. Деликатесы что-то, Заказ создал: Название компании: ООО Заказчик1 статус - Approved",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 9,
-    "fields": {
-      "action_time": "2022-06-22T14:09:31.342Z",
-      "user": 6,
-      "content_type": 8,
-      "object_id": "5",
-      "object_repr": "Предлжение от Название компании: ООО Поставщик2: rty, к заказу - Птица. Яйцо Курица, Заказ создал: Название компании: ООО Заказчик1",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 10,
-    "fields": {
-      "action_time": "2022-06-22T14:09:48.567Z",
-      "user": 6,
-      "content_type": 9,
-      "object_id": "10",
-      "object_repr": "У отклика с ID# Предлжение от Название компании: ООО Поставщик2: rty, к заказу - Птица. Яйцо Курица, Заказ создал: Название компании: ООО Заказчик1 статус - Approved",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 11,
-    "fields": {
-      "action_time": "2022-06-22T14:14:39.393Z",
-      "user": 6,
-      "content_type": 7,
-      "object_id": "9",
-      "object_repr": "Растительные жиры что-то, Заказ создал: Название компании: ООО Заказчик1",
-      "action_flag": 2,
-      "change_message": "[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441\"]}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 12,
-    "fields": {
-      "action_time": "2022-06-22T14:14:44.437Z",
-      "user": 6,
-      "content_type": 7,
-      "object_id": "8",
-      "object_repr": "Приправы, специи что-то, Заказ создал: Название компании: ООО Заказчик1",
-      "action_flag": 2,
-      "change_message": "[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441\"]}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 13,
-    "fields": {
-      "action_time": "2022-06-22T14:14:49.323Z",
-      "user": 6,
-      "content_type": 7,
-      "object_id": "7",
-      "object_repr": "Мороженое что-то, Заказ создал: Название компании: ООО Заказчик1",
-      "action_flag": 2,
-      "change_message": "[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441\"]}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 14,
-    "fields": {
-      "action_time": "2022-06-22T14:14:54.121Z",
-      "user": 6,
-      "content_type": 7,
-      "object_id": "6",
-      "object_repr": "Колбасные изделия. Деликатесы что-то, Заказ создал: Название компании: ООО Заказчик1",
-      "action_flag": 2,
-      "change_message": "[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441\"]}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 15,
-    "fields": {
-      "action_time": "2022-06-22T14:14:58.887Z",
-      "user": 6,
-      "content_type": 7,
-      "object_id": "5",
-      "object_repr": "Птица. Яйцо Курица, Заказ создал: Название компании: ООО Заказчик1",
-      "action_flag": 2,
-      "change_message": "[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441\"]}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 16,
-    "fields": {
-      "action_time": "2022-06-22T14:15:04.387Z",
-      "user": 6,
-      "content_type": 7,
-      "object_id": "4",
-      "object_repr": "Колбасные изделия. Деликатесы что-то, Заказ создал: Название компании: ООО Заказчик1",
-      "action_flag": 2,
-      "change_message": "[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441\"]}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 17,
-    "fields": {
-      "action_time": "2022-06-22T14:15:09.419Z",
-      "user": 6,
-      "content_type": 7,
-      "object_id": "3",
-      "object_repr": "Бакалея. Зернопродукты. Макаронные изделия Гречка 30кг, Заказ создал: Название компании: ООО Заказчик1",
-      "action_flag": 2,
-      "change_message": "[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441\"]}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 18,
-    "fields": {
-      "action_time": "2022-06-22T14:15:13.621Z",
-      "user": 6,
-      "content_type": 7,
-      "object_id": "2",
-      "object_repr": "Молочная продукция. Сыры Молоко 40л, Заказ создал: Название компании: ООО Закачик2",
-      "action_flag": 2,
-      "change_message": "[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441\"]}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 19,
-    "fields": {
-      "action_time": "2022-06-22T14:15:18.703Z",
-      "user": 6,
-      "content_type": 7,
-      "object_id": "1",
-      "object_repr": "Птица. Яйцо Курица 25кг, Заказ создал: Название компании: ООО Заказчик1",
-      "action_flag": 2,
-      "change_message": "[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441\"]}}]"
-    }
-  },
-  {
     "model": "auth.permission",
     "pk": 1,
     "fields": {
@@ -538,71 +291,35 @@
     "model": "auth.permission",
     "pk": 33,
     "fields": {
-      "name": "Can add Статус отклика",
+      "name": "Can add Профиль",
       "content_type": 9,
-      "codename": "add_statusresponse"
+      "codename": "add_profile"
     }
   },
   {
     "model": "auth.permission",
     "pk": 34,
     "fields": {
-      "name": "Can change Статус отклика",
+      "name": "Can change Профиль",
       "content_type": 9,
-      "codename": "change_statusresponse"
+      "codename": "change_profile"
     }
   },
   {
     "model": "auth.permission",
     "pk": 35,
     "fields": {
-      "name": "Can delete Статус отклика",
+      "name": "Can delete Профиль",
       "content_type": 9,
-      "codename": "delete_statusresponse"
+      "codename": "delete_profile"
     }
   },
   {
     "model": "auth.permission",
     "pk": 36,
     "fields": {
-      "name": "Can view Статус отклика",
-      "content_type": 9,
-      "codename": "view_statusresponse"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 37,
-    "fields": {
-      "name": "Can add Профиль",
-      "content_type": 10,
-      "codename": "add_profile"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 38,
-    "fields": {
-      "name": "Can change Профиль",
-      "content_type": 10,
-      "codename": "change_profile"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 39,
-    "fields": {
-      "name": "Can delete Профиль",
-      "content_type": 10,
-      "codename": "delete_profile"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "pk": 40,
-    "fields": {
       "name": "Can view Профиль",
-      "content_type": 10,
+      "content_type": 9,
       "codename": "view_profile"
     }
   },
@@ -674,24 +391,16 @@
     "model": "contenttypes.contenttype",
     "pk": 9,
     "fields": {
-      "app_label": "orders",
-      "model": "statusresponse"
-    }
-  },
-  {
-    "model": "contenttypes.contenttype",
-    "pk": 10,
-    "fields": {
       "app_label": "users",
       "model": "profile"
     }
   },
   {
     "model": "sessions.session",
-    "pk": "6kghcng6prrdpcagvp8c5m16n5xux61i",
+    "pk": "poi2mu5mg8wdpqa3e5j0cwcfc55vmapf",
     "fields": {
-      "session_data": ".eJxVjDkOwjAUBe_iGlm2wUso6TmD9TeTALKlOKkQd4dIKaB9M_NeKsO6jHntMueJ1VkFdfjdEOghdQN8h3prmlpd5gn1puiddn1tLM_L7v4djNDHb23jEQULmESBQ3LFSfEciGSgoaQQ2JERjAOSNQYxeYke2HgHp2hdVO8PEjw4mA:1o411M:PYOdvOkHPEiA1bB1vS-GqfgiQbwmPze3Zc6Yfb_97Rw",
-      "expire_date": "2022-07-06T14:07:52.552Z"
+      "session_data": ".eJxVjDkOwjAUBe_iGlm2wUso6TmD9TeTALKlOKkQd4dIKaB9M_NeKsO6jHntMueJ1VkFdfjdEOghdQN8h3prmlpd5gn1puiddn1tLM_L7v4djNDHb23jEQULmESBQ3LFSfEciGSgoaQQ2JERjAOSNQYxeYke2HgHp2hdVO8PEjw4mA:1o41a9:cyQsYILhjH77_sNHkFkpwlfxTrGU9LhVFpHwg6QNJgI",
+      "expire_date": "2022-07-06T14:43:49.523Z"
     }
   },
   {
@@ -894,8 +603,7 @@
       "description": "К 28.08.2022 доставить курицу",
       "status": "Active",
       "create_at": "2022-06-10T00:00:00Z",
-      "end_time": "2022-08-28T00:00:00Z",
-      "date_completion": "2022-06-19T00:00:00Z"
+      "end_time": "2022-08-28T00:00:00Z"
     }
   },
   {
@@ -908,8 +616,7 @@
       "description": "К 10.08.2022 доставить молоко",
       "status": "Active",
       "create_at": "2022-06-10T00:00:00Z",
-      "end_time": "2022-08-10T00:00:00Z",
-      "date_completion": "2022-06-19T00:00:00Z"
+      "end_time": "2022-08-10T00:00:00Z"
     }
   },
   {
@@ -922,8 +629,7 @@
       "description": "К 01.08.2022 доставить крупу",
       "status": "Active",
       "create_at": "2022-06-10T00:00:00Z",
-      "end_time": "2022-08-01T00:00:00Z",
-      "date_completion": "2022-06-19T00:00:00Z"
+      "end_time": "2022-08-01T00:00:00Z"
     }
   },
   {
@@ -936,8 +642,7 @@
       "description": "200кг",
       "status": "Active",
       "create_at": "2022-06-10T00:00:00Z",
-      "end_time": "2022-08-01T00:00:00Z",
-      "date_completion": "2022-06-19T00:00:00Z"
+      "end_time": "2022-08-01T00:00:00Z"
     }
   },
   {
@@ -950,8 +655,7 @@
       "description": "40кг",
       "status": "Active",
       "create_at": "2022-06-10T00:00:00Z",
-      "end_time": "2022-08-28T00:00:00Z",
-      "date_completion": "2022-06-19T00:00:00Z"
+      "end_time": "2022-08-28T00:00:00Z"
     }
   },
   {
@@ -964,8 +668,7 @@
       "description": "200кг",
       "status": "Active",
       "create_at": "2022-06-10T00:00:00Z",
-      "end_time": "2022-08-01T00:00:00Z",
-      "date_completion": "2022-06-19T00:00:00Z"
+      "end_time": "2022-08-01T00:00:00Z"
     }
   },
   {
@@ -978,8 +681,7 @@
       "description": "200кг",
       "status": "Active",
       "create_at": "2022-06-10T00:00:00Z",
-      "end_time": "2022-08-01T00:00:00Z",
-      "date_completion": "2022-06-19T00:00:00Z"
+      "end_time": "2022-08-01T00:00:00Z"
     }
   },
   {
@@ -992,8 +694,7 @@
       "description": "200кг",
       "status": "Active",
       "create_at": "2022-06-10T00:00:00Z",
-      "end_time": "2022-08-01T00:00:00Z",
-      "date_completion": "2022-06-19T00:00:00Z"
+      "end_time": "2022-08-01T00:00:00Z"
     }
   },
   {
@@ -1006,8 +707,7 @@
       "description": "200кг",
       "status": "Active",
       "create_at": "2022-06-10T00:00:00Z",
-      "end_time": "2022-08-01T00:00:00Z",
-      "date_completion": "2022-06-19T00:00:00Z"
+      "end_time": "2022-08-01T00:00:00Z"
     }
   },
   {
@@ -1016,148 +716,42 @@
     "fields": {
       "order": 1,
       "response_user": 3,
-      "offer": "123",
-      "create_at": "2022-06-22T14:08:02.504Z"
+      "offer": "10 000р",
+      "status": "On Approval",
+      "create_at": "2022-06-11T00:00:00Z"
     }
   },
   {
     "model": "orders.responseorder",
     "pk": 2,
+    "fields": {
+      "order": 1,
+      "response_user": 4,
+      "offer": "15 000р",
+      "status": "On Approval",
+      "create_at": "2022-06-11T00:00:00Z"
+    }
+  },
+  {
+    "model": "orders.responseorder",
+    "pk": 3,
     "fields": {
       "order": 2,
-      "response_user": 5,
-      "offer": "456",
-      "create_at": "2022-06-22T14:08:27.671Z"
-    }
-  },
-  {
-    "model": "orders.responseorder",
-    "pk": 3,
-    "fields": {
-      "order": 3,
-      "response_user": 4,
-      "offer": "789",
-      "create_at": "2022-06-22T14:08:48.707Z"
+      "response_user": 3,
+      "offer": "7 000р",
+      "status": "On Approval",
+      "create_at": "2022-06-13T00:00:00Z"
     }
   },
   {
     "model": "orders.responseorder",
     "pk": 4,
     "fields": {
-      "order": 4,
+      "order": 2,
       "response_user": 4,
-      "offer": "awe",
-      "create_at": "2022-06-22T14:09:11.209Z"
-    }
-  },
-  {
-    "model": "orders.responseorder",
-    "pk": 5,
-    "fields": {
-      "order": 5,
-      "response_user": 4,
-      "offer": "rty",
-      "create_at": "2022-06-22T14:09:31.336Z"
-    }
-  },
-  {
-    "model": "orders.statusresponse",
-    "pk": 1,
-    "fields": {
-      "response_order": 1,
+      "offer": "8 000р",
       "status": "On Approval",
-      "time_status": "2022-06-22T14:08:02.506Z",
-      "user_initiator": 3
-    }
-  },
-  {
-    "model": "orders.statusresponse",
-    "pk": 2,
-    "fields": {
-      "response_order": 1,
-      "status": "Approved",
-      "time_status": "2022-06-22T14:08:12.625Z",
-      "user_initiator": 6
-    }
-  },
-  {
-    "model": "orders.statusresponse",
-    "pk": 3,
-    "fields": {
-      "response_order": 2,
-      "status": "On Approval",
-      "time_status": "2022-06-22T14:08:27.674Z",
-      "user_initiator": 5
-    }
-  },
-  {
-    "model": "orders.statusresponse",
-    "pk": 4,
-    "fields": {
-      "response_order": 2,
-      "status": "Approved",
-      "time_status": "2022-06-22T14:08:37.316Z",
-      "user_initiator": 6
-    }
-  },
-  {
-    "model": "orders.statusresponse",
-    "pk": 5,
-    "fields": {
-      "response_order": 3,
-      "status": "On Approval",
-      "time_status": "2022-06-22T14:08:48.709Z",
-      "user_initiator": 4
-    }
-  },
-  {
-    "model": "orders.statusresponse",
-    "pk": 6,
-    "fields": {
-      "response_order": 3,
-      "status": "Approved",
-      "time_status": "2022-06-22T14:08:57.510Z",
-      "user_initiator": 6
-    }
-  },
-  {
-    "model": "orders.statusresponse",
-    "pk": 7,
-    "fields": {
-      "response_order": 4,
-      "status": "On Approval",
-      "time_status": "2022-06-22T14:09:11.211Z",
-      "user_initiator": 4
-    }
-  },
-  {
-    "model": "orders.statusresponse",
-    "pk": 8,
-    "fields": {
-      "response_order": 4,
-      "status": "Approved",
-      "time_status": "2022-06-22T14:09:20.776Z",
-      "user_initiator": 6
-    }
-  },
-  {
-    "model": "orders.statusresponse",
-    "pk": 9,
-    "fields": {
-      "response_order": 5,
-      "status": "On Approval",
-      "time_status": "2022-06-22T14:09:31.338Z",
-      "user_initiator": 4
-    }
-  },
-  {
-    "model": "orders.statusresponse",
-    "pk": 10,
-    "fields": {
-      "response_order": 5,
-      "status": "Approved",
-      "time_status": "2022-06-22T14:09:48.561Z",
-      "user_initiator": 6
+      "create_at": "2022-06-12T00:00:00Z"
     }
   },
   {
@@ -1285,7 +879,7 @@
     "pk": 6,
     "fields": {
       "password": "pbkdf2_sha256$320000$MLpzslXXHK7hdR8kXj1K8K$rpegvbQ1OyMOOhYoP0tVPW8eQOy5BYu5XwfSDIyohes=",
-      "last_login": "2022-06-22T14:07:52.551Z",
+      "last_login": "2022-06-22T14:43:49.522Z",
       "is_superuser": true,
       "username": "ADMIN",
       "first_name": "",

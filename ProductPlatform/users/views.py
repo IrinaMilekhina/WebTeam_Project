@@ -12,6 +12,8 @@ from django.urls import reverse_lazy
 from users.forms import PersonalAccountEditForm
 from users.models import Profile
 
+from django.db.models import Max, Count
+
 
 class PersonalAccountListView(ListView):
     """Класс-обработчик для отображения информации в личном кабинете"""
@@ -110,21 +112,28 @@ class PersonalActiveOrdersView(ListView):
         # для поставщика
         elif current_profile.role == 'Supplier':
             unique_responses = []
-            active_responses = all_responses.filter(response_user_id=self.request.user.pk) \
-                .values('id', 'statusresponse__id', 'price', 'offer', 'statusresponse__time_status',
-                        'statusresponse__status', 'order__category__name', 'order_id', 'order__name')
-            for i in range(active_responses.count()):
-                if i > 0 and active_responses[i - 1] != {}:
-                    if active_responses[i]['id'] == active_responses[i - 1]['id'] and active_responses[i][
-                        'statusresponse__time_status'] > active_responses[i - 1]['statusresponse__time_status']:
-                        active_responses[i - 1].clear()
-                    elif active_responses[i]['id'] == active_responses[i - 1]['id'] and active_responses[i][
-                        'statusresponse__time_status'] < active_responses[i - 1]['statusresponse__time_status']:
-                        active_responses[i].clear()
+            # active_responses = all_responses.filter(response_user_id=self.request.user.pk) \
+            #     .values('id', 'statusresponse__id', 'price', 'offer', 'statusresponse__time_status',
+            #             'statusresponse__status', 'order__category__name', 'order_id', 'order__name')
+            # for i in range(active_responses.count()):
+            #     if i > 0 and active_responses[i - 1] != {}:
+            #         if active_responses[i]['id'] == active_responses[i - 1]['id'] and active_responses[i][
+            #             'statusresponse__time_status'] > active_responses[i - 1]['statusresponse__time_status']:
+            #             active_responses[i - 1].clear()
+            #         elif active_responses[i]['id'] == active_responses[i - 1]['id'] and active_responses[i][
+            #             'statusresponse__time_status'] < active_responses[i - 1]['statusresponse__time_status']:
+            #             active_responses[i].clear()
+            #
+            # for n in range(active_responses.count()):
+            #     if active_responses[n] != {} and active_responses[n]['statusresponse__status'] == 'On Approval':
+            #         unique_responses.append(active_responses[n])
 
-            for n in range(active_responses.count()):
-                if active_responses[n] != {} and active_responses[n]['statusresponse__status'] == 'On Approval':
-                    unique_responses.append(active_responses[n])
+            active_responses = all_responses.filter(response_user_id=self.request.user.pk)
+
+            for i in active_responses:
+               if list(i.statusresponse_set.all())[-1].status == 'On Approval':
+                   unique_responses.append(i)
+
 
             context['user'] = current_profile
             context['responses'] = unique_responses

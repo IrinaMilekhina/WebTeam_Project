@@ -29,7 +29,6 @@
             </div>
         </div>
     </section>
-
     <section style="background-color: #262626">
         <div class="container" style="padding-bottom: 100px">
             <div class="row justify-content-center">
@@ -64,7 +63,8 @@
                                              style="{% if user.id == order.response_approved.response_user.id %}background:#931c1c;{% else %}background:rgba(250, 250, 250, 0.15);{% endif %}margin-bottom:2rem; padding:2rem; border-radius:20px">
                                             <div class="top-line row">
                                                 <div class="col">
-                                                    <a class="card-title" href="{% url  'orders:view_order' order.order_num %}"><strong>Заказ
+                                                    <a class="card-title"
+                                                       href="{% url  'orders:view_order' order.order_num %}"><strong>Заказ
                                                         №{{ order.order_num }} | {{ order.name }}</strong></a>
                                                 </div>
                                                 <div class="col-auto">
@@ -85,22 +85,22 @@
                                                     г. {{ order.city }}<br><strong>Описание</strong>:
                                                     {{ order.description }}<br><strong>Срок</strong>: до
                                                     {{ order.date_to }}<br>
-                                                {% if order.response_approved %}
-                                                    {% if user.role == 'Customer' %}
-                                                        <strong>Предложение</strong>:
-                                                        {{ order.response_approved.offer }}
-                                                        <br>
-                                                        <strong>Цена</strong>:&nbsp;
-                                                        {{ order.response_approved.price }}
+                                                    {% if order.response_approved %}
+                                                        {% if user.role == 'Customer' %}
+                                                            <strong>Предложение</strong>:
+                                                            {{ order.response_approved.offer }}
+                                                            <br>
+                                                            <strong>Цена</strong>:&nbsp;
+                                                            {{ order.response_approved.price }}
+                                                        {% endif %}
+                                                        {% if user.role == 'Supplier' and order.response_approved.response_user.id == user.id %}
+                                                            <strong>Предложение</strong>:
+                                                            {{ order.response_approved.offer }}
+                                                            <br>
+                                                            <strong>Цена</strong>:&nbsp;
+                                                            {{ order.response_approved.price }}
+                                                        {% endif %}
                                                     {% endif %}
-                                                {% if user.role == 'Supplier' and order.response_approved.response_user.id == user.id %}
-                                                        <strong>Предложение</strong>:
-                                                        {{ order.response_approved.offer }}
-                                                        <br>
-                                                        <strong>Цена</strong>:&nbsp;
-                                                        {{ order.response_approved.price }}
-                                                    {% endif %}
-                                                {% endif %}
                                                 </p>
                                             </div>
                                             <div class="top-line row">
@@ -117,14 +117,43 @@
                                             </div>
                                         </div>
                                     {% endfor %}
+                                    <nav aria-label="Page navigation example">
+                                        <div class="container">
+                                            <ul class="pagination justify-content-center">
+                                                {% if page_obj.has_previous %}
+                                                    <li class="p-1">
+                                                        <a href="?page={{ page_obj.previous_page_number }}">
+                                                            <i class="fa fa-angle-left"></i>
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+                                                {% for i in paginator.page_range %}
+                                                    {% if page_obj.number == i %}
+                                                        <li class="p-1 active"><a href="?page={{ i }}">{{ i }}</a></li>
+                                                    {% elif i < page_obj.number and i|add:'2' >= page_obj.number %}
+                                                        <li class="p-1"><a href="?page={{ i }}">{{ i }}</a></li>
+                                                    {% elif i > page_obj.number and i|add:'-2' <= page_obj.number %}
+                                                        <li class="p-1"><a href="?page={{ i }}">{{ i }}</a></li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% if page_obj.has_next %}
+                                                    <li class="p-1">
+                                                        <a href="?page={{ page_obj.next_page_number }}">
+                                                            <i class="fa fa-angle-right"></i>
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+                                    </nav>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
     </section>
     <section class="footer" style="background:#262626; margin-top: 0">
         <p>© 2022 N</p>

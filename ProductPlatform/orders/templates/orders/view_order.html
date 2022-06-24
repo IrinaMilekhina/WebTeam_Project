@@ -1,21 +1,145 @@
-{% extends 'base.html' %} {% block content %}
-<div class="container" style="margin-top: 150px">
-  <div class="row">
-    <h1 class="">Заказ с id {{ order.id }}</h1>
-    <h5 class=""><b>Создан:</b> {{ order.create_at }}</h5>
-    <h5 class=""><b>Заказчик:</b> {{ order.author.comp_name }}</h5>
-    <h5 class=""><b>Категория:</b> {{ order.category }}</h5>
-    <h5 class=""><b>Название товара:</b> {{ order.name }}</h5>
-    <h5 class=""><b>Описание:</b> {{ order.description }}</h5>
-    <h5 class=""><b>Статус заказа:</b> {{ order.status }}</h5>
-    <h5 class="mt-3"><b>Уже откликнулись поставщики:</b></h5>
-    <ul class="">
-      {% for response_order in response_orders %}
-      <li>{{ response_order.response_user.comp_name }}</li>
-      {% endfor %}
-    </ul>
-    <button type="submit" class="btn btn-success">Откликнуться</button>
-  </div>
-</div>
+{% extends 'base.html' %}
+{% load static %}
 
+
+{% block content %}
+    <section class="heading-order header-text" id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Заказ</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="order" id="meetings">
+        <div class="container">
+            <div class="row order-content">
+                <div class="col-lg-6 responses">
+                    <div class="categories">
+                        <h4 class="h-responses">Отклики</h4>
+                        <ul>
+                            {% for response_order in response_orders %}
+                                <li class="col-lg-12 response"><a
+                                        href="#">{{ response_order.response_user.comp_name }}</a>
+                                    <div class="line">
+                                        <div class="price">{{ response_order.price }} ₽</div>
+                                        <i type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop1"
+                                           class="fa fa-check accept"></i>
+                                        <i type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"
+                                           class="fa fa-close cancel"></i>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                            <!-- Modal -->
+                            <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static"
+                                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            accept
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button type="button" class="btn btn-primary">Understood</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static"
+                                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            cencel
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button type="button" class="btn btn-primary">Understood</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="categories">
+                            <div class="h-order">{{ order.name }}</div>
+                            <form id="contact" action="" method="post">
+                                {% csrf_token %}
+                                    <div class="col-lg-12">
+                                        <fieldset>
+                                            <label class="small mb-1" for="company">Компания</label>
+                                            <input name="name" type="text" id="company" placeholder="Компания..."
+                                                   required="">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <fieldset>
+                                            <label class="small mb-1" for="category">Категория</label>
+                                            <input name="name" type="text" id="category" placeholder="Категория..."
+                                                   required="">
+                                        </fieldset>
+                                    </div>
+                                <div class="col-lg-12">
+                                    <fieldset>
+                                        <label class="small description mb-1" for="description">Описание</label>
+                                        <textarea name="message" type="text" class="form-control" id="description"
+                                                  placeholder="Описание..." required=""></textarea>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12 submit-btn">
+                                    <fieldset>
+                                        <button style="display :none;"
+                                                class="button edit button-login-reg"
+                                                type="submit"
+                                                id="submit-btn">
+                                            Сохранить
+                                        </button>
+                                    </fieldset>
+                                    <div style="display :none;"
+                                         class="button edit"
+                                         id="edit-btn">
+                                        Редактировать
+                                    </div>
+                                    <div class="button del">
+                                        Удалить заказ
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>© 2022 N</p>
+        </div>
+    </section>
+{% endblock %}
+
+{% block morejs %}
+    {% if user.role == 'Customer' %}
+        <script src="{% static 'assets/js/order_customer.js' %}"></script>
+    {% else %}
+        <script src="{% static 'assets/js/order.js' %}"></script>
+    {% endif %}
 {% endblock %}

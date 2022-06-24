@@ -27,7 +27,7 @@
                 <td>{{ row.author.comp_name }}</td>
                 <td>{{ row.create_at }}</td>
                 <td>{{ row.end_time }}</td>
-                <td {% if row.status == 'Active'%} class="text-success" {% else %} class="text-danger" {% endif %}> {{ row.status }}</td>
+                <td {% if row.status =='Active'%} class="text-success" {% else %} class="text-danger" {% endif %}> {{ row.status }}</td>
               </tr>
               {% endfor %}
             </tbody>

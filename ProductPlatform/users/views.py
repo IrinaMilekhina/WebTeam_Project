@@ -1,8 +1,9 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
 from django.views.generic.edit import FormView
+from django.db.models import Count
 
-from orders.models import ResponseOrder, Order
+from orders.models import ResponseOrder, Order, StatusResponse
 from users.forms import UserLoginForm, UserRegisterForm
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, UpdateView
@@ -84,44 +85,51 @@ class PersonalActiveOrdersView(ListView):
     model = Order
     template_name = 'users/account_active_orders.html'
 
+
     def get_context_data(self, *, object_list=None, **kwargs):
         """Метод для создания необходимого контекста для активных заказов личного кабинета"""
-        context = super(PersonalActiveOrdersView,
-                        self).get_context_data(**kwargs)
-        current_profile = Profile.objects.get(pk=self.request.user.pk)
-        responses, orders = None, None
+        context = super().get_context_data(**kwargs)
+        current_profile = Profile.objects.select_related().get(pk=self.request.user.pk)
+        all_responses = ResponseOrder.objects.select_related().all()
+
+        # для Заказчика
         if current_profile.role == 'Customer':
-            responses = ResponseOrder.objects.filter(order__author=self.request.user.pk, order__status='Active')
-            orders = Order.objects.filter(author=self.request.user.pk, status='Active')
+            response_for_customer = all_responses.filter(order__author=self.request.user.pk).values('id', 'order_id',
+                                                                                                    'price', 'offer',
+                                                                                                    'create_at',
+                                                                                                    'response_user__comp_name')
+            active_orders = Order.objects.select_related() \
+                .filter(status='Active', author_id=self.request.user.pk) \
+                .annotate(count_response=Count('responseorder')) \
+                .values('id', 'category__name', 'author__city', 'name', 'description',
+                        'status', 'create_at', 'end_time', 'count_response')
+            context['orders'] = active_orders
+            context['user'] = current_profile
+            context['responses_to_orders'] = response_for_customer
+            return context
+        # для поставщика
         elif current_profile.role == 'Supplier':
-            orders = Order.objects.filter(responseorder__response_user=self.request.user.pk, status='Active')
-            responses = ResponseOrder.objects.filter(order__id__in=orders.values_list('id'), order__status='Active')
-        active_orders = []
-        for item in orders:
-            response_count = responses.filter(order=item.id).count()
-            status = 'Поиск заказчика'
-            response_approved = None
-            for response in responses.filter(order=item.id):
-                if 'Approved' == response.status:
-                    if current_profile.role == 'Supplier' and response.response_user.id == current_profile.id:
-                        status = 'Ваш отклик утвержден'
-                    else:
-                        status = 'Заказчик утвержден'
-                    response_approved = response
-            active_orders.append({
-                'name': item.name,
-                'order_num': item.id,
-                'description': item.description,
-                'category': item.category.name,
-                'city': item.author.city,
-                'date_to': item.end_time.date(),
-                'response_count': response_count,
-                'status': status,
-                'response_approved': response_approved
-            })
-        context['orders'] = active_orders
-        context['user'] = current_profile
-        return context
+            unique_responses = []
+            active_responses = all_responses.filter(response_user_id=self.request.user.pk) \
+                .values('id', 'statusresponse__id', 'price', 'offer', 'statusresponse__time_status',
+                        'statusresponse__status', 'order__category__name', 'order_id', 'order__name')
+            for i in range(active_responses.count()):
+                if i > 0 and active_responses[i - 1] != {}:
+                    if active_responses[i]['id'] == active_responses[i - 1]['id'] and active_responses[i][
+                        'statusresponse__time_status'] > active_responses[i - 1]['statusresponse__time_status']:
+                        active_responses[i - 1].clear()
+                    elif active_responses[i]['id'] == active_responses[i - 1]['id'] and active_responses[i][
+                        'statusresponse__time_status'] < active_responses[i - 1]['statusresponse__time_status']:
+                        active_responses[i].clear()
+
+            for n in range(active_responses.count()):
+                if active_responses[n] != {} and active_responses[n]['statusresponse__status'] == 'On Approval':
+                    unique_responses.append(active_responses[n])
+
+            context['user'] = current_profile
+            context['responses'] = unique_responses
+            return context
+
 
 
 class PersonalHistoryOrdersView(ListView):
@@ -135,11 +143,14 @@ class PersonalHistoryOrdersView(ListView):
         current_profile = Profile.objects.get(pk=self.request.user.pk)
         responses, orders = None, None
         if current_profile.role == 'Customer':
-            responses = ResponseOrder.objects.filter(order__author=self.request.user.pk, order__status__in=['Done', 'Not Active'])
+            responses = ResponseOrder.objects.filter(order__author=self.request.user.pk,
+                                                     order__status__in=['Done', 'Not Active'])
             orders = Order.objects.filter(author=self.request.user.pk, status__in=['Done', 'Not Active'])
         elif current_profile.role == 'Supplier':
-            orders = Order.objects.filter(responseorder__response_user=self.request.user.pk, status__in=['Done', 'Not Active'])
-            responses = ResponseOrder.objects.filter(order__id__in=orders.values_list('id'), order__status__in=['Done', 'Not Active'])
+            orders = Order.objects.filter(responseorder__response_user=self.request.user.pk,
+                                          status__in=['Done', 'Not Active'])
+            responses = ResponseOrder.objects.filter(order__id__in=orders.values_list('id'),
+                                                     order__status__in=['Done', 'Not Active'])
         history_orders = []
         for item in orders:
             response_count = responses.filter(order=item.id).count()
@@ -183,11 +194,14 @@ class PersonalHistoryOrdersView(ListView):
         current_profile = Profile.objects.get(pk=self.request.user.pk)
         responses, orders = None, None
         if current_profile.role == 'Customer':
-            responses = ResponseOrder.objects.filter(order__author=self.request.user.pk, order__status__in=['Done', 'Not Active'])
+            responses = ResponseOrder.objects.filter(order__author=self.request.user.pk,
+                                                     order__status__in=['Done', 'Not Active'])
             orders = Order.objects.filter(author=self.request.user.pk, status__in=['Done', 'Not Active'])
         elif current_profile.role == 'Supplier':
-            orders = Order.objects.filter(responseorder__response_user=self.request.user.pk, status__in=['Done', 'Not Active'])
-            responses = ResponseOrder.objects.filter(order__id__in=orders.values_list('id'), order__status__in=['Done', 'Not Active'])
+            orders = Order.objects.filter(responseorder__response_user=self.request.user.pk,
+                                          status__in=['Done', 'Not Active'])
+            responses = ResponseOrder.objects.filter(order__id__in=orders.values_list('id'),
+                                                     order__status__in=['Done', 'Not Active'])
         history_orders = []
         for item in orders:
             response_count = responses.filter(order=item.id).count()

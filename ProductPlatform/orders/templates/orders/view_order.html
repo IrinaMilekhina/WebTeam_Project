@@ -1,22 +1,21 @@
-{% extends 'base.html' %}
-
-
-{% block content %}
-
-{{ order.author }}
-    <br>
-    {{ order.category }}
-    <br>
-    {{ order.name }}
-    <br>
-    {{ order.description }}
-    <br>
-    {{ order.status }}
-    <br><br><br>
-    {% for response_order in response_orders %}
-    {{ response_order.offer }}
-    {{ response_order.status }}
-        <br>
-    {% endfor %}
+{% extends 'base.html' %} {% block content %}
+<div class="container" style="margin-top: 150px">
+  <div class="row">
+    <h1 class="">Заказ с id {{ order.id }}</h1>
+    <h5 class=""><b>Создан:</b> {{ order.create_at }}</h5>
+    <h5 class=""><b>Заказчик:</b> {{ order.author.comp_name }}</h5>
+    <h5 class=""><b>Категория:</b> {{ order.category }}</h5>
+    <h5 class=""><b>Название товара:</b> {{ order.name }}</h5>
+    <h5 class=""><b>Описание:</b> {{ order.description }}</h5>
+    <h5 class=""><b>Статус заказа:</b> {{ order.status }}</h5>
+    <h5 class="mt-3"><b>Уже откликнулись поставщики:</b></h5>
+    <ul class="">
+      {% for response_order in response_orders %}
+      <li>{{ response_order.response_user.comp_name }}</li>
+      {% endfor %}
+    </ul>
+    <button type="submit" class="btn btn-success">Откликнуться</button>
+  </div>
+</div>
 
 {% endblock %}

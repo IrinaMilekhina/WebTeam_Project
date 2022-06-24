@@ -652,7 +652,7 @@ header
     }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 766px) {
     .header-area .main-nav .logo {
         color: #1e1e1e;
     }
@@ -1950,18 +1950,18 @@ section.meetings-page .filters ul li:hover {
     color: #fff;
 }
 
-section.meetings-page .pagination {
+.pagination {
     text-align: center;
     width: 100%;
     margin-top: 30px;
     display: inline-block;
 }
 
-section.meetings-page .pagination ul li {
+.pagination ul li {
     display: inline-block;
 }
 
-section.meetings-page .pagination ul li a {
+.pagination ul li a {
     width: 40px;
     height: 40px;
     background-color: #fff;
@@ -1985,8 +1985,8 @@ section.meetings-page .main-button-red a {
     margin-top: 30px;
 }
 
-section.meetings-page .pagination ul li.active a,
-section.meetings-page .pagination ul li a:hover {
+.pagination ul li.active a,
+.pagination ul li a:hover {
     background-color: #a12c2f;
     color: #fff;
 }

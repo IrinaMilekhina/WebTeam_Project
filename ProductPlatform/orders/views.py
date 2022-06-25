@@ -129,9 +129,9 @@ def HomeView(request):
     filtered_persons = OrderFilter(request.GET, queryset=Order.objects.all())
     context['all_category'] = CategoryOrder.objects.filter(is_active=True)
     context['filtered_persons'] = filtered_persons
+    # ! Здесь устанавливается пагинация
     paginated = Paginator(filtered_persons.qs, 2)
     page_number = request.GET.get('page')
     person_page_obj = paginated.get_page(page_number)
     context['page_obj'] = person_page_obj
-
     return render(request, 'orders/order_board.html', context=context)

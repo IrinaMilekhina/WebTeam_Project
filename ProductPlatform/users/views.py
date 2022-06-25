@@ -1,5 +1,6 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views.generic.edit import FormView
 
 from orders.models import ResponseOrder, Order
@@ -127,6 +128,8 @@ class PersonalActiveOrdersView(ListView):
 class PersonalHistoryOrdersView(ListView):
     model = Order
     template_name = 'users/account_history_orders.html'
+    context_object_name = 'orders'
+    paginate_by = 3
 
     def get_context_data(self, *, object_list=None, **kwargs):
         """Метод для создания необходимого контекста для истории заказов личного кабинета"""
@@ -167,8 +170,17 @@ class PersonalHistoryOrdersView(ListView):
                 'status': status,
                 'response_approved': response_approved
             })
-        context['orders'] = history_orders
-        context['user'] = current_profile
+        page = self.request.GET.get('page')
+        paginator = Paginator(history_orders, per_page=3)
+        try:
+            orders_paginator = paginator.page(page)
+        except PageNotAnInteger:
+            orders_paginator = paginator.page(1)
+        except EmptyPage:
+            orders_paginator = paginator.page(paginator.num_pages)
+        context['paginator'] = orders_paginator.paginator
+        context['page_obj'] = orders_paginator
+        context['user'] = orders_paginator
         return context
 
 

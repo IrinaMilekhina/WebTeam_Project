@@ -5,9 +5,9 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
-from forms import CreateOrderForm
-from filters import OrderFilter
-from models import CategoryOrder, Order
+from orders.forms import CreateOrderForm
+from orders.filters import OrderFilter
+from orders.models import CategoryOrder, Order
 from django.views import View
 
 

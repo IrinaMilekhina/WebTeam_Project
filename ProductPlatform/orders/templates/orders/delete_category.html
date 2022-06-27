@@ -1,0 +1,10 @@
+<form method="post">{% csrf_token %}
+
+
+
+<p>Вы точно хотите {% if object.is_active == True %} деактивировать {% else %} активировать {% endif %} "{{ object }}"?</p>
+
+
+
+    <input type="submit" value="Confirm">
+</form>

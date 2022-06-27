@@ -24,6 +24,13 @@
                                     <p class="description">
                                         {{ category.description }}
                                     </p>
+                                {% if user.role != 'Supplier' or user.role != 'Customer' %}
+                                    <div class="main-button-red">
+                                        <a href="{% url 'orders:delete_category' category.id %}">
+                                            {% if category.is_active == True %} Деактивировать {% else %}
+                                                Активировать{% endif %}</a>
+                                    </div>
+                                {% endif %}
                                     <div class="row">
                                         <div class="col-lg-12 top-suppliers">
                                             <h5>Топ поставщики</h5>

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import CategoryOrderView, Category, CreateOrder, OrderView, HomeView
+from .views import CategoryOrderView, Category, CreateOrder, OrderView, HomeView, DeleteCategory
 
 app_name = 'orders'
 
@@ -25,6 +25,7 @@ urlpatterns = [
     path('create_order/', CreateOrder.as_view(), name='create_order'),
     path('view_order/<int:pk>/', OrderView.as_view(), name='view_order'),
     path("table-order/", HomeView, name="table-order"),
+    path('category/delete/<int:pk>/', DeleteCategory.as_view(), name='delete_category')
 
 
 ]

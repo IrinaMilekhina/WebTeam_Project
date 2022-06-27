@@ -4,11 +4,13 @@ from django.db.models import Count
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView
 from orders.forms import CreateOrderForm
 from orders.filters import OrderFilter
 from orders.models import CategoryOrder, Order
 from django.views import View
+
+from users.models import Profile
 
 
 class MainView(View):
@@ -34,10 +36,20 @@ class MainView(View):
 
 class CategoryOrderView(ListView):
     model = CategoryOrder
-    queryset = CategoryOrder.objects.filter(is_active=True)
+    # queryset = CategoryOrder.objects.filter(is_active=True)
     context_object_name = 'all_categories'
     template_name = 'orders/categories.html'
     paginate_by = 6
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        all_category = CategoryOrder.objects.select_related().all()
+        current_profile = Profile.objects.select_related().get(pk=self.request.user.pk)
+        context['all_category'] = all_category
+        context['active_category'] = all_category.filter(is_active=True)
+        context['user'] = current_profile
+
+        return context
 
 
 class Category(DetailView):
@@ -134,3 +146,19 @@ def HomeView(request):
     person_page_obj = paginated.get_page(page_number)
     context['page_obj'] = person_page_obj
     return render(request, 'orders/order_board.html', context=context)
+
+
+class DeleteCategory(DeleteView):
+    model = CategoryOrder
+    success_url = reverse_lazy('orders:categories')
+    template_name = 'orders/delete_category.html'
+
+    # def delete(self, request, *args, **kwargs):
+    #     self.object = self.get_object()
+    #     if self.object.is_active:
+    #         self.object.is_active = False
+    #         self.object.product_set.update(is_active=False)
+    #     else:
+    #         self.object.is_active = True
+    #     self.object.save()
+    #     return HttpResponseRedirect(self.get_success_url())

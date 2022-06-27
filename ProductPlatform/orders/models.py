@@ -21,6 +21,13 @@ class CategoryOrder(models.Model):
     def __str__(self):
         return f'{self.name}'
 
+    def delete(self, using=None, keep_parents=False):
+        if self.is_active == True:
+            self.is_active = False
+        elif self.is_active == False:
+            self.is_active = True
+        self.save()
+
 
 class Order(models.Model):
     '''Заказ'''

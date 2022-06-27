@@ -455,25 +455,25 @@
     "pk": 10,
     "fields": {
       "author": 1,
-      "category": 2,
-      "name": "Индейка 15кг",
-      "description": "К 28.06.2022 доставить индейку",
-      "status": "Not Active",
+      "category": 3,
+      "name": "что-то",
+      "description": "200кг",
+      "status": "Active",
       "create_at": "2022-06-10T00:00:00Z",
-      "end_time": "2022-06-22T14:09:48.561Z"
+      "end_time": "2022-08-01T00:00:00Z"
     }
   },
   {
     "model": "orders.order",
     "pk": 11,
     "fields": {
-      "author": 2,
+      "author": 1,
       "category": 3,
-      "name": "Кефир 40л",
-      "description": "К 10.06.2022 доставить Кефир",
-      "status": "Not Active",
-      "create_at": "2022-06-08T00:00:00Z",
-      "end_time": "2022-06-20T14:09:48.561Z"
+      "name": "что-то",
+      "description": "200кг",
+      "status": "Active",
+      "create_at": "2022-06-10T00:00:00Z",
+      "end_time": "2022-08-01T00:00:00Z"
     }
   },
   {
@@ -542,6 +542,32 @@
     }
   },
   {
+    "model": "orders.order",
+    "pk": 17,
+    "fields": {
+      "author": 1,
+      "category": 2,
+      "name": "Индейка 15кг",
+      "description": "К 28.06.2022 доставить индейку",
+      "status": "Not Active",
+      "create_at": "2022-06-10T00:00:00Z",
+      "end_time": "2022-06-22T14:09:48.561Z"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 18,
+    "fields": {
+      "author": 2,
+      "category": 3,
+      "name": "Кефир 40л",
+      "description": "К 10.06.2022 доставить Кефир",
+      "status": "Not Active",
+      "create_at": "2022-06-08T00:00:00Z",
+      "end_time": "2022-06-20T14:09:48.561Z"
+    }
+  },
+  {
     "model": "orders.responseorder",
     "pk": 1,
     "fields": {
@@ -600,7 +626,7 @@
     "model": "orders.responseorder",
     "pk": 6,
     "fields": {
-      "order": 10,
+      "order": 17,
       "response_user": 4,
       "price": 10000.00,
       "offer": "rtyasd",
@@ -611,7 +637,7 @@
     "model": "orders.responseorder",
     "pk": 7,
     "fields": {
-      "order": 11,
+      "order": 18,
       "response_user": 4,
       "price": 8000.00,
       "offer": "rty1",

@@ -61,7 +61,7 @@
                                              style="{% if user.id == order.response_approved.response_user.id %}background:#931c1c;{% else %}background:rgba(250, 250, 250, 0.15);{% endif %}margin-bottom:2rem; padding:2rem; border-radius:20px">
                                             <div class="top-line row">
                                                 <div class="col">
-                                                    <a class="card-title" href="/"><strong>Заказ
+                                                    <a class="card-title" href="{% url  'orders:view_order' order.order_num %}"><strong>Заказ
                                                         №{{ order.order_num }} | {{ order.name }}</strong></a>
                                                 </div>
                                                 <div class="col-auto">

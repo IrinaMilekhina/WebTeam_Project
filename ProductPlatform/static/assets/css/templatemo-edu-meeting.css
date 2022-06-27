@@ -230,7 +230,7 @@ body {
     }
 }
 
-.main-button-red a {
+.main-button-red a button {
     font-size: 13px;
     color: #fff;
     background-color: #a12c2f;
@@ -242,7 +242,7 @@ body {
     transition: all .3s;
 }
 
-.main-button-red a:hover {
+.main-button-red a:hover button:hover{
     opacity: 0.9;
 }
 

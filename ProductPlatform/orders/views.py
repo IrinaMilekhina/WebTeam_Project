@@ -1,13 +1,16 @@
 import datetime
 
+
 from django.db.models import Count, Q
 from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.core.paginator import Paginator
+
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 from orders.forms import CreateOrderForm
-from django.db.models import Count
 
+from orders.filters import OrderFilter
 from orders.models import CategoryOrder, Order
 from users.models import Profile
 from django.views import View
@@ -150,17 +153,14 @@ class OrderBoardView(ListView):
         return context
 
 
-class OrderBoardViewFilter(ListView):
-    model = Order
-    context_object_name = 'all_orders'
-    template_name = 'orders/order_board.html'
-    paginate_by = 2
-
-    def get_queryset(self, **kwargs):
-        qs = super().get_queryset(**kwargs)
-        return qs.filter(category=self.kwargs['id'])
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['all_category'] = CategoryOrder.objects.filter(is_active=True)
-        return context
+def HomeView(request):
+    context = {}
+    filtered_persons = OrderFilter(request.GET, queryset=Order.objects.all())
+    context['all_category'] = CategoryOrder.objects.filter(is_active=True)
+    context['filtered_persons'] = filtered_persons
+    # ! Здесь устанавливается пагинация
+    paginated = Paginator(filtered_persons.qs, 2)
+    page_number = request.GET.get('page')
+    person_page_obj = paginated.get_page(page_number)
+    context['page_obj'] = person_page_obj
+    return render(request, 'orders/order_board.html', context=context)

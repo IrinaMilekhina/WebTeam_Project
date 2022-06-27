@@ -1,5 +1,5 @@
 [
-    {
+  {
     "model": "users.profile",
     "pk": 1,
     "fields": {
@@ -573,7 +573,7 @@
     "fields": {
       "order": 1,
       "response_user": 3,
-      "price": 10000.00,
+      "price": 10000.0,
       "offer": "123",
       "create_at": "2022-06-22T14:08:02.504Z"
     }
@@ -584,7 +584,7 @@
     "fields": {
       "order": 2,
       "response_user": 5,
-      "price": 10000.00,
+      "price": 10000.0,
       "offer": "456",
       "create_at": "2022-06-22T14:08:27.671Z"
     }
@@ -595,7 +595,7 @@
     "fields": {
       "order": 3,
       "response_user": 4,
-      "price": 10000.00,
+      "price": 10000.0,
       "offer": "789",
       "create_at": "2022-06-22T14:08:48.707Z"
     }
@@ -606,7 +606,7 @@
     "fields": {
       "order": 4,
       "response_user": 4,
-      "price": 10000.00,
+      "price": 10000.0,
       "offer": "awe",
       "create_at": "2022-06-22T14:09:11.209Z"
     }
@@ -617,7 +617,7 @@
     "fields": {
       "order": 5,
       "response_user": 4,
-      "price": 10000.00,
+      "price": 10000.0,
       "offer": "rty",
       "create_at": "2022-06-22T14:09:31.336Z"
     }

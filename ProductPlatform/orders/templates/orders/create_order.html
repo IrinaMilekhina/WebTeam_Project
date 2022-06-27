@@ -33,21 +33,58 @@
                                 </button>
                             </div>
                         {% endif %}
-                        <div class="col-lg-12">
-
-                            <div class="meeting-single-item">
-                                <form action="{% url 'orders:create_order' %}" method="post">
+                        <form action="{% url 'orders:create_order' %}" method="post">
+                            <div class="col-lg-12">
+                                <div class="meeting-single-item">
                                     <div class="thumb">
-                                        <img src="{% static 'assets/images/single-meeting.jpg' %}"
-                                             alt="">
+                                        <img src="{% static 'assets/images/single-meeting.jpg' %}" alt="">
                                     </div>
                                     <div class="down-content">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <span class="input-group-text"
+                                                          id="inputGroup-sizing-sm">Наименование:</span>
+                                                    {{ form.name }}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="col-md-16">
+                                                        <div class="input-group input-group-sm mb-3">
+                                                            <span class="input-group-text"
+                                                                  id="inputGroup-sizing-sm">Категория:</span>
+                                                            {{ form.category }}
+                                                        </div>
+                                                    </div>
 
+                                                    <div class="col-md-6">
+                                                        <div class="input-group">
+                                                            <span class="input-group-text">Действует до:</span>
+                                                            {{ form.end_time }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="col-md-20">
+                                                        <div class="input-group">
+                                                            <span class="input-group-text">Описание:</span>
+                                                            {{ form.description }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </form>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="main-button-red">
+                                        <input type="submit" value="Создать заказ">
+                                        <a type="button">Создать заказ</a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-
+                        </form>
                     </div>
                 </div>
             </div>
@@ -57,68 +94,4 @@
             <p>© 2022 N</p>
         </div>
     </section>
-
-
-
-
-
-    <section class="meetings-page" id="meetings">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-5">
-                    {% if form.errors %}
-                        <div
-                                class="alert alert-warning alert-dismissible fade show"
-                                role="alert"
-                                style="margin-top: 50px"
-                        >
-                            {{ form.non_field_errors }} {% for error in form %} {{ error.errors }}
-                        {% endfor %}
-                            <button
-                                    type="button"
-                                    class="close"
-                                    data-dismiss="alert"
-                                    aria-label="Close"
-                            >
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    {% endif %}
-                    <div class="col-lg-4 templatemo-item-col all soon">
-                        <div class="meeting-item">
-                            <form action="{% url 'orders:create_order' %}" method="post">
-                                {% csrf_token %}
-                                <div class="form-row">
-                                    <div class="col-md-12">
-                                        <label class="small mb-1">Категория</label>
-                                        {{ form.category }}
-                                    </div>
-                                    <div class="col-md-12">
-                                        <label class="small mb-1">Наименование заказа</label>
-                                        {{ form.name }}
-                                    </div>
-                                    <div class="col-md-12">
-                                        <label class="small mb-1">Доставить до</label>
-                                        {{ form.end_time }}
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="small mb-1">Описание</label>
-                                    {{ form.description }}
-                                </div>
-
-                                <div class="form-group mt-4 mb-0">
-                                    <input
-                                            class="btn btn-primary btn-block"
-                                            type="submit"
-                                            value="Создать заказ"/>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
 {% endblock %}

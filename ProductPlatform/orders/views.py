@@ -1,13 +1,15 @@
 import datetime
 
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 from orders.forms import CreateOrderForm
+from django.db.models import Count
 
 from orders.models import CategoryOrder, Order
+from users.models import Profile
 from django.views import View
 
 
@@ -34,30 +36,55 @@ class MainView(View):
 
 class CategoryOrderView(ListView):
     model = CategoryOrder
-    queryset = CategoryOrder.objects.filter(is_active=True)
-    context_object_name = 'all_categories'
     template_name = 'orders/categories.html'
     paginate_by = 6
 
+    def get_context_data(self, **kwargs):
+        context = super(CategoryOrderView, self).get_context_data(**kwargs)
+        categories = CategoryOrder.objects.select_related() \
+            .filter(is_active=True) \
+            .annotate(count_orders=Count('id', filter=Q(order__responseorder__statusresponse__status='Approved'))) \
+            .values('id', 'name', 'image', 'description', 'count_orders')
 
-class Category(DetailView):
+        context['categories'] = categories
+
+        return context
+
+
+class Category(ListView):
     """Класс-обработчик для отображения выбранной категории"""
     model = CategoryOrder
     template_name = 'orders/category.html'
 
-    def get(self, request, *args, **kwargs):
-        """Если приходит GET запрос, получаем категорию по id и рендерим шаблон orders/category.html"""
-        try:
-            id = kwargs.get('id', None)
-        except KeyError as err:
-            print(err)  # для DEBAG = True
-            return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})
-        try:
-            category = get_object_or_404(CategoryOrder, id=id)
-        except Http404 as err:
-            print(err)  # для DEBAG = True
-            return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})
-        return render(request, self.template_name, {'category': category, 'title': category.name})
+    # def get(self, request, *args, **kwargs):
+    #     """Если приходит GET запрос, получаем категорию по id и рендерим шаблон orders/category.html"""
+    #     try:
+    #         id = kwargs.get('id', None)
+    #     except KeyError as err:
+    #         print(err)  # для DEBAG = True
+    #         return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})
+    #     try:
+    #         category = get_object_or_404(CategoryOrder, id=id)
+    #     except Http404 as err:
+    #         print(err)  # для DEBAG = True
+    #         return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})
+    #     return render(request, self.template_name, {'category': category, 'title': category.name})
+
+    def get_context_data(self, **kwargs):
+        context = super(Category, self).get_context_data(**kwargs)
+        # categories = CategoryOrder.objects.select_related() \
+        #     .filter(is_active=True) \
+        #     .annotate(count_orders_done=Count('id', filter=Q(order__responseorder__statusresponse__status='Approved')),
+        #               count_orders=Count('order')) \
+        #     .values('id', 'name', 'image', 'description', 'count_orders_done', 'count_orders')
+        select_category = CategoryOrder.objects.select_related() \
+            .filter(id=self.kwargs['id'])
+        category = select_category.annotate(
+            count_orders_done=Count('id', filter=Q(order__responseorder__statusresponse__status='Approved'))) \
+            .values('id', 'name', 'description','image', 'count_orders_done')
+        context['category'] = category.last()
+
+        return context
 
 
 class CreateOrder(CreateView):

@@ -44,7 +44,7 @@
                         <div class="card-body">
                             <div class="col-md-12 mx-auto">
                                 <div class="col-12">
-                                    {% if not orders %}
+                                    {% if not page_obj %}
                                         <div class="card-header" style="padding: 150px">
                                             <h4 class="text-center font-weight-light my-4">
                                                 {% if user.role == 'Supplier' %}
@@ -56,7 +56,7 @@
                                                 {% endif %}</h4>
                                         </div>
                                     {% endif %}
-                                    {% for order in orders %}
+                                    {% for order in page_obj %}
                                         <div class="card-wrapper "
                                              style="{% if user.id == order.response_approved.response_user.id %}background:#931c1c;{% else %}background:rgba(250, 250, 250, 0.15);{% endif %}margin-bottom:2rem; padding:2rem; border-radius:20px">
                                             <div class="top-line row">
@@ -81,9 +81,25 @@
                                                     <strong>Адрес</strong>:
                                                     г. {{ order.city }}<br><strong>Описание</strong>:
                                                     {{ order.description }}<br><strong>Срок</strong>: до
-                                                    {{ order.date_to }}<br><strong>
-                                                    Цена</strong>:&nbsp;{% if order.response_approved %}
-                                                    {{ order.response_approved.offer }} {% else %}договорная {% endif %}
+                                                    {{ order.date_to }}<br>
+{#                                                    Цена</strong>:&nbsp;{% if order.response_approved %}#}
+{#                                                    {{ order.response_approved.offer }} {% else %}договорная {% endif %}#}
+                                                    {% if order.response_approved %}
+                                                        {% if user.role == 'Customer' %}
+                                                            <strong>Предложение</strong>:
+                                                            {{ order.response_approved.offer }}
+                                                            <br>
+                                                            <strong>Цена</strong>:&nbsp;
+                                                            {{ order.response_approved.price }}
+                                                        {% endif %}
+                                                        {% if user.role == 'Supplier' and order.response_approved.response_user.id == user.id %}
+                                                            <strong>Предложение</strong>:
+                                                            {{ order.response_approved.offer }}
+                                                            <br>
+                                                            <strong>Цена</strong>:&nbsp;
+                                                            {{ order.response_approved.price }}
+                                                        {% endif %}
+                                                    {% endif %}
                                                 </p>
                                             </div>
                                             <div class="top-line row">
@@ -100,6 +116,7 @@
                                             </div>
                                         </div>
                                     {% endfor %}
+                                {% include 'includes/pagination.html' %}
                                 </div>
                             </div>
                         </div>

@@ -10,7 +10,6 @@
 
     {% block css %}
         <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-        <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
 
         <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
         <link rel="stylesheet" href="{% static 'assets/css/templatemo-edu-meeting.css' %}">
@@ -29,7 +28,9 @@
 
 {% endblock %}
 
+{% if user.role == 'Customer' %}
     {% include 'includes/button_create_order.html' %}
+{% endif %}
 
 {% block js %}
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>

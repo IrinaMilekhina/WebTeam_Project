@@ -149,7 +149,7 @@ class PersonalHistoryOrdersView(ListView):
             response_count = responses.filter(order=item.id).count()
             approved_response_user_id = None
             try:
-                approved_response = status_responses.get(status='Approved', response_order=item.id)
+                approved_response = status_responses.get(status='Approved', response_order__order=item.id)
                 if current_profile.role == 'Supplier' \
                         and approved_response.response_order.response_user.id == current_profile.id:
                     status = 'Ваш отклик утвержден'

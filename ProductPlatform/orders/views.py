@@ -10,6 +10,8 @@ from orders.filters import OrderFilter
 from orders.models import CategoryOrder, Order
 from django.views import View
 
+from users.models import Profile
+
 
 class MainView(View):
     template_name = 'orders/main.html'
@@ -34,10 +36,20 @@ class MainView(View):
 
 class CategoryOrderView(ListView):
     model = CategoryOrder
-    queryset = CategoryOrder.objects.filter(is_active=True)
+    # queryset = CategoryOrder.objects.filter(is_active=True)
     context_object_name = 'all_categories'
     template_name = 'orders/categories.html'
     paginate_by = 6
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        all_category = CategoryOrder.objects.select_related().all()
+        current_profile = Profile.objects.select_related().get(pk=self.request.user.pk)
+        context['all_category'] = all_category
+        context['active_category'] = all_category.filter(is_active=True)
+        context['user'] = current_profile
+
+        return context
 
 
 class Category(DetailView):

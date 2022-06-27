@@ -1225,7 +1225,14 @@ section.order .section-heading h2 {
     color: #fff;
 }
 
-section.order .categories {
+section.order .order {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 22px 40px 40px 40px;
+    width: 100%;
+}
+
+section.order .respons {
     background-color: #fff;
     border-radius: 20px;
     padding: 40px;
@@ -1233,12 +1240,18 @@ section.order .categories {
 }
 
 @media (min-width: 992px) {
-    section.order .categories {
+    section.order .respons {
         margin-right: 45px;
     }
 }
 
-section.order .categories .h-responses {
+@media (max-width: 991px) {
+    section.order .respons {
+        margin-bottom: 40px;
+    }
+}
+
+section.order .respons .h-responses {
     font-size: 18px;
     font-weight: 600;
     color: #1f272b;
@@ -1247,34 +1260,46 @@ section.order .categories .h-responses {
     border-bottom: 1px solid #eee;
 }
 
-section.order .categories .h-order {
+section.order .order .h-order {
     font-size: 18px;
     font-weight: 600;
     color: #1f272b;
     margin-bottom: 30px;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+section.order .date-position {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+section.order .center {
+    display: flex;
     justify-content: center;
 }
 
-section.order .categories ul li {
+section.order .respons ul li {
     margin-bottom: 15px;
 }
 
-section.order .categories ul li a {
+section.order .respons ul li a {
     color: #1f272b;
     font-weight: 500;
     transition: all .3s;
     font-size: 15px;
 }
 
-section.order .categories ul li div {
+section.order .respons ul li div {
     color: #1f272b;
     font-weight: 600;
     transition: all .3s;
     font-size: 15px;
 }
 
-section.order .categories ul li a:hover {
+section.order .respons ul li a:hover {
     color: #a12c2f;
 }
 
@@ -1288,11 +1313,12 @@ section.order .ptb {
     padding-top: 10px;
     padding-bottom: 5px;
 }
+
 section.order #contact .read_only {
     width: 100%;
     height: 40px;
     border-radius: 20px !important;
-    background-color: #f6f6f6;
+    background-color: #eeeeee;
     outline: none;
     border: none;
     box-shadow: none !important;
@@ -1302,17 +1328,18 @@ section.order #contact .read_only {
     padding: 0px 15px;
     margin-bottom: 30px;
 }
+
 section.order .description {
     margin-top: 20px;
 }
 
-section.order .categories .main-button-red {
+section.order .order .main-button-red {
     border-top: 1px solid #eee;
     padding-top: 30px;
     margin-top: 15px;
 }
 
-section.order .categories .main-button-red a {
+section.order .order .main-button-red a {
     width: 100%;
     text-align: center;
 }
@@ -1362,6 +1389,23 @@ section.order #contact input {
     margin-bottom: 30px;
 }
 
+
+
+section.order #contact select {
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #f7f7f7;
+    outline: none;
+    border: none;
+    box-shadow: none;
+    font-size: 13px;
+    font-weight: 500;
+    color: #7a7a7a;
+    padding: 0px 15px;
+    margin-bottom: 30px;
+}
+
 section.order #contact .submit-btn {
     display: flex;
     justify-content: flex-end;
@@ -1382,9 +1426,10 @@ section.order #contact .edit {
     margin-right: 15px;
 }
 
-
 section.order .del:hover,
-section.order .edit:hover {
+section.order .edit:hover,
+section.order .accept-btn:hover,
+section.order .close-btn:hover {
     opacity: 0.9;
 }
 
@@ -1392,6 +1437,77 @@ section.order #contact label {
     margin-left: 4px;
     margin-bottom: 5px;
     color: #3b3b3b;
+}
+
+section.order .close-btn {
+    font-size: 13px;
+    color: #fff;
+    background-color: #a12c2f;
+    padding: 12px 30px;
+    border-radius: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all .3s;
+    border: none;
+    outline: none;
+}
+
+section.order .accept-btn {
+    font-size: 13px;
+    color: #fff;
+    background-color: #29a121;
+    padding: 12px 30px;
+    border-radius: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all .3s;
+    border: none;
+    outline: none;
+}
+
+section.order .date {
+    float: left;
+    text-align: center;
+    display: inline-block;
+    background-color: #f4f4f4;
+    border-radius: 6px;
+    padding: 5px 7px;
+    margin-left: 5px;
+}
+
+section.order .date h6 {
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #a12c2f;
+}
+
+section.order .date span {
+    display: block;
+    color: #1f272b;
+    font-size: 22px;
+    margin-top: 7px;
+}
+
+.modal-content {
+    margin-top: 35vh;
+    border-radius: 20px !important;
+}
+
+.modal-header {
+    border-bottom: unset !important;
+}
+
+.modal-body {
+    padding: 0 20px 15px;
+}
+
+.modal-footer {
+    border-top: unset !important;
+}
+
+.btn-close:active {
+    text-shadow: unset !important;
 }
 
 /*

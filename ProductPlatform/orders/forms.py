@@ -17,7 +17,7 @@ class CreateOrderForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CreateOrderForm, self).__init__(*args, **kwargs)
 
-        self.fields['name'].widget.attrs['placeholder'] = "Введите продукцию"
+        self.fields['name'].widget.attrs['placeholder'] = "Введите наименование заказа"
         self.fields['name'].widget.attrs['class'] = "form-control"
         self.fields['name'].widget.attrs['aria-describedby'] = "inputGroup-sizing-sm"
 

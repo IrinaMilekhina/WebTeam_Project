@@ -51,7 +51,7 @@ class ResponseOrder(models.Model):
 
     order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='Заказ')
     response_user = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name='Компания')
-    price = models.FloatField(verbose_name='Цена')
+    price = models.FloatField(default=0, verbose_name='Цена')
     offer = models.TextField(verbose_name='Предложение')
     create_at = models.DateTimeField(auto_now_add=True)
 

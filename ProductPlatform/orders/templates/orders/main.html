@@ -55,8 +55,7 @@
                             <div class="down-content">
                                 <h4>Экономьте время</h4>
                                 <p>Заказ через вебсайт быстрее. Наши пользователи экономят более 2 часов в неделю. А
-                                    время
-                                    это деньги!</p>
+                                    время - это деньги!</p>
                             </div>
                         </div>
 
@@ -67,8 +66,7 @@
                             <div class="down-content">
                                 <h4>Меньше бюрократии</h4>
                                 <p>Все на сайте, а значит, больше никаких стопок бумаг. И ни какого риска потерять
-                                    важные
-                                    документы.</p>
+                                    важные документы.</p>
                             </div>
                         </div>
 
@@ -119,8 +117,12 @@
                                             <span>100 поставщиков</span> <!-- Надо будет ещё количество добавить, но после того как это вьюху добавят -->
                                         </div>
                                         <a href="{% url 'orders:category' category.id %}">
-                                            <img src="{% static 'assets/images/placeholder_300x150.png' %}"
-                                                 alt="New Lecturer Meeting">
+                                            {% if category.image %}
+                                                    <img src="/media/{{ category.image }}" alt="">
+                                                {% else %}
+                                                    <img src="{% static 'assets/images/placeholder_300x150.png' %}"
+                                                         alt="">
+                                                {% endif %}
                                         </a>
                                     </div>
                                     <div class="down-content">

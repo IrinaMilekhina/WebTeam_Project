@@ -1329,6 +1329,13 @@ section.order #contact .read_only {
     margin-bottom: 30px;
 }
 
+section.order .order-desc {
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 9px !important;
+    min-height: 100px;
+}
+
 section.order .description {
     margin-top: 20px;
 }

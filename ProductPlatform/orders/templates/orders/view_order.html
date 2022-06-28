@@ -104,7 +104,7 @@
                                     <fieldset>
                                         <label class="small mb-1" for="category">Категория</label>
                                         {% if user.role == 'Supplier' %}
-                                            <select name="name" type="text" id="category"  class="form-select"
+                                            <select name="name" type="text" id="category" class="form-select"
                                                     required="" disabled>
                                                 <option value="value1">Значение 1</option>
                                                 <option value="value2">Значение 2</option>
@@ -121,6 +121,14 @@
                                     </fieldset>
                                 </div>
                                 {% if user.role == 'Supplier' %}
+                                    <div class="col-lg-12">
+                                            <label class="small description mb-1" for="description">
+                                                Описание заказа
+                                            </label>
+                                            <div class="form-control read_only order-desc">
+                                                {{ order.description }}
+                                            </div>
+                                    </div>
                                     <div class="col-lg-12">
                                         <fieldset>
                                             <label class="small mb-1" for="price-suggestion">Предложение</label>

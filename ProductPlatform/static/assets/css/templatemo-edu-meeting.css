@@ -233,16 +233,25 @@ body {
 .main-button-red a {
     font-size: 13px;
     color: #fff;
-    background-color: #a12c2f;
     padding: 12px 30px;
     display: inline-block;
     border-radius: 22px;
     font-weight: 500;
     text-transform: uppercase;
     transition: all .3s;
+    width: 317px;
+    margin: 0 20px;
 }
 
-.main-button-red a:hover {
+.button-red {
+    background-color: #a12c2f;
+}
+
+.button-green {
+    background-color: rgb(58, 161, 44);
+}
+
+.main-button-red a:hover{
     opacity: 0.9;
 }
 
@@ -274,6 +283,34 @@ body {
     color: #fff;
 }
 
+.create-order-btn {
+    position: fixed;
+    width: 45px;
+    height: 45px;
+    bottom: 30px;
+    right: 30px;
+    border-radius: 45px;
+    background-color: #33ad1d;
+    z-index: 55555;
+    color: #ffffff;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 5px #676767;
+}
+
+.create-order-btn:hover {
+    background-color: #2b9318;
+}
+
+.create-order-btn:active {
+    width: 43px;
+    height: 43px;
+    bottom: 31px;
+    right: 31px;
+    font-size: 28px;
+}
 
 /*
 ---------------------------------------------
@@ -2319,3 +2356,4 @@ table
 .meeting-table-row{
     cursor:pointer;
 }
+

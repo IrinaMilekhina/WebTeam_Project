@@ -1,13 +1,16 @@
 import datetime
-
+from django.core.paginator import Paginator
 from django.db.models import Count
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 from orders.forms import CreateOrderForm
 
+
 from orders.models import CategoryOrder, Order, StatusResponse, ResponseOrder
+
+from orders.filters import OrderFilter
 from django.views import View
 
 
@@ -18,12 +21,11 @@ class MainView(View):
 
     def get(self, request, *args, **kwargs):
         top_category = CategoryOrder.objects \
-                           .filter(order__responseorder__statusresponse__status='Approved',
-                                   order__responseorder__statusresponse__time_status__gte=
-                                   datetime.datetime.now() - datetime.timedelta(days=7)) \
-                           .annotate(count=Count('order')) \
-                           .values('id', 'name', 'count') \
-                           .order_by('-count')[:6]
+            .filter(order__responseorder__statusresponse__status='Approved',
+                    order__responseorder__statusresponse__time_status__gte=datetime.datetime.now() - datetime.timedelta(days=7)) \
+            .annotate(count=Count('order')) \
+            .values('id', 'name', 'count') \
+            .order_by('-count')[:6]
         content = {
             'title': self.title,
             'categories': CategoryOrder.objects.all(),
@@ -94,6 +96,21 @@ class CreateOrder(CreateView):
     title = 'Создание заказа'
     success_url = reverse_lazy('main')
 
+    def get(self, request, *args, **kwargs):
+        """
+        Если приходит id категории в параметрах запроса,
+        получаем нужную категорию по id и ставим её дефолтной.
+        """
+
+        try:
+            category_id = request.GET['category_id']
+            category = get_object_or_404(CategoryOrder, id=category_id)
+            self.form_class.base_fields['category'].initial = category
+
+            return render(request, self.template_name, {'form': self.form_class, 'title': self.title})
+        except (KeyError, Http404):
+            return render(request, self.template_name, {'form': self.form_class, 'title': self.title})
+
     def post(self, request, *args, **kwargs):
 
         session_user = request.user
@@ -105,7 +122,8 @@ class CreateOrder(CreateView):
             order = Order.objects.create(author_id=session_user.id,
                                          category=category,
                                          name=form.data.get('name'),
-                                         description=form.data.get('description'),
+                                         description=form.data.get(
+                                             'description'),
                                          end_time=f'{form.data.get("end_time_year")}-'
                                                   f'{form.data.get("end_time_month")}-'
                                                   f'{form.data.get("end_time_day")}')
@@ -149,17 +167,12 @@ class OrderBoardView(ListView):
         return context
 
 
-class OrderBoardViewFilter(ListView):
-    model = Order
-    context_object_name = 'all_orders'
-    template_name = 'orders/order_board.html'
-    paginate_by = 2
-
-    def get_queryset(self, **kwargs):
-        qs = super().get_queryset(**kwargs)
-        return qs.filter(category=self.kwargs['id'])
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['all_category'] = CategoryOrder.objects.filter(is_active=True)
-        return context
+def table_order(request):
+    context = {}
+    context['filtered_table'] = OrderFilter(
+        request.GET, queryset=Order.objects.all())
+    # ! Здесь устанавливается пагинация
+    paginated = Paginator(context['filtered_table'].qs, 2)
+    page_number = request.GET.get('page')
+    context['page_obj'] = paginated.get_page(page_number)
+    return render(request, 'orders/order_board.html', context=context)

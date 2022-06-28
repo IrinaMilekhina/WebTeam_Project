@@ -1,28 +1,31 @@
-{% extends 'base.html' %} {% load static %}
+{% extends 'base.html' %}
+
+{% load static %}
 
 {% block content %}
+<div style='height:50px'></div>
 <h1 class="text-center mt-5">Доска Заказов</h1>
 
-<form action="" method="post">
-  {% csrf_token %}
   <section>
     <div class="container mt-4">
       <div class="row">
-        <div class="col-2">
-        <a class="btn btn-outline-primary w-100 mb-1" data-f="Все категории" href="{% url 'orders:order-board' %}">Все категории</a>
-            {% for item in all_category %}
-          <a class="btn btn-outline-danger w-100 mb-1" data-f="{{ item.name }}" href="{% url 'orders:order_filter' item.id %}">{{ item.name }}</a>
-            {% endfor %}
+        <div class="col-6">
+         <form class="form-inline" method="GET" style="color: black; font-weight: bold;">
+          {{ filtered_table.form }}
+          &nbsp;&nbsp;<button type="submit" class="btn btn-warning">Go</button>
+        </form>
         </div>
-        <div class="col-10">
-          {% if all_orders %}
+        <div class="col-12">
+
+          {% if page_obj %}
           <!-- Вставляем таблицу -->
           {% include "orders/table_order_board.html" %}
           {% else %}
           <h4 class="text-left text-primary">Заказов в данной категории нет, выберите другую категорию.</h4>
           {% endif %}
-
+          
         </div>
+        
 
       </div>
           
@@ -33,7 +36,7 @@
       </div>
     </div>
   </section>
-</form>
+
 
 {% endblock %} {% block morejs %}
 <script>

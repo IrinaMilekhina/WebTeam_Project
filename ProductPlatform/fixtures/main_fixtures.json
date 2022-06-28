@@ -149,8 +149,8 @@
     "fields": {
       "name": "Мясо и мясопродукты",
       "is_active": true,
-      "description": "",
-      "image": "category_order/default/placeholder_300x150.png"
+      "description": "Ассортимент мясных товаров: сырые продукты, мясо и субпродукты, а также различные полуфабрикаты",
+      "image": "category_order/2022/06/23/slices-pork-loin_67618-1839.jpg"
     }
   },
   {
@@ -159,8 +159,8 @@
     "fields": {
       "name": "Птица. Яйцо",
       "is_active": true,
-      "description": "",
-      "image": "category_order/default/placeholder_300x150.png"
+      "description": "Курица, индейка, утка, гусь, а также разные виды дичи и яиц от лучших производителей",
+      "image": "category_order/2022/06/23/whole-raw-chicken-wooden-board-dark-background-preparing-raw-c_rB15KOK.jpg"
     }
   },
   {
@@ -169,8 +169,8 @@
     "fields": {
       "name": "Молочная продукция. Сыры",
       "is_active": true,
-      "description": "",
-      "image": "category_order/default/placeholder_300x150.png"
+      "description": "Все основные виды молочных продуктов от поставщиков из экологически чистых регионов",
+      "image": "category_order/2022/06/23/WhatsApp_Image_2022-06-23_at_01.30.20.jpeg"
     }
   },
   {
@@ -179,8 +179,8 @@
     "fields": {
       "name": "Бакалея. Зернопродукты. Макаронные изделия",
       "is_active": true,
-      "description": "",
-      "image": "category_order/default/placeholder_300x150.png"
+      "description": "Различные виды муки и мучные смеси для приготовления выпечки, итальянские пасты",
+      "image": "category_order/2022/06/23/baking-kitchen-meal_140725-160354.jpg"
     }
   },
   {
@@ -189,8 +189,8 @@
     "fields": {
       "name": "Колбасные изделия. Деликатесы",
       "is_active": true,
-      "description": "",
-      "image": "category_order/default/placeholder_300x150.png"
+      "description": "Колбасные изделия, сосиски, деликатесы, полуфабрикаты, субпродукты и паштеты",
+      "image": "category_order/2022/06/23/food-meat-delicious-sausage-table_144627-32807.jpg"
     }
   },
   {
@@ -199,8 +199,8 @@
     "fields": {
       "name": "Мороженое",
       "is_active": true,
-      "description": "",
-      "image": "category_order/default/placeholder_300x150.png"
+      "description": "Все самые популярные виды и вкусы мороженого, а также сорбеты, десерты и топинги",
+      "image": "category_order/2022/06/23/WhatsApp_Image_2022-06-23_at_02.12.40.jpeg"
     }
   },
   {
@@ -209,8 +209,8 @@
     "fields": {
       "name": "Приправы, специи",
       "is_active": true,
-      "description": "",
-      "image": "category_order/default/placeholder_300x150.png"
+      "description": "Только лучшие натуральные специи высочайшего качества со всех уголков мира",
+      "image": "category_order/2022/06/23/world-map-set-spices-condiments-black-background-top-view_187166-25965.jpg"
     }
   },
   {
@@ -219,8 +219,8 @@
     "fields": {
       "name": "Растительные жиры",
       "is_active": true,
-      "description": "",
-      "image": "category_order/default/placeholder_300x150.png"
+      "description": "Широкий ассортимент растительных масел, богатых витаминами, омега 3 и омега 6",
+      "image": "category_order/2022/06/23/WhatsApp_Image_2022-06-23_at_01.22.23.jpeg"
     }
   },
   {
@@ -229,8 +229,8 @@
     "fields": {
       "name": "Овощи, фрукты, грибы, ягоды, дикоросы",
       "is_active": true,
-      "description": "",
-      "image": "category_order/default/placeholder_300x150.png"
+      "description": "В ассортименте только самые свежие отборные продукты, включая экзотические на любой вкус",
+      "image": "category_order/2022/06/23/top-view-fresh-ripe-vegetables-composition-dark-floor_140725-76625.jpg"
     }
   },
   {
@@ -239,8 +239,8 @@
     "fields": {
       "name": "Соки, воды. Безалкогольные напитки",
       "is_active": true,
-      "description": "",
-      "image": "category_order/default/placeholder_300x150.png"
+      "description": "Безалкогольные напитки натуральной и искусственной газации, соки, смузи и мин.вода",
+      "image": "category_order/2022/06/23/WhatsApp_Image_2022-06-23_at_01.50.05.jpeg"
     }
   },
   {
@@ -249,8 +249,8 @@
     "fields": {
       "name": "Замороженные продукты. Полуфабрикаты. Готовые блюда",
       "is_active": true,
-      "description": "",
-      "image": "category_order/default/placeholder_300x150.png"
+      "description": "Более 1000 наименований различных продуктов питания, полуфабрикатов и готовых блюд",
+      "image": "category_order/2022/06/23/cheerful-bearded-waiter-with-kebab-barbecue-side-dish-georgia_1JaCFgh.webp"
     }
   },
   {
@@ -259,8 +259,8 @@
     "fields": {
       "name": "Рыба и морепродукты",
       "is_active": true,
-      "description": "",
-      "image": "category_order/default/placeholder_300x150.png"
+      "description": "Широкий выбор рыбы и морепродуктов различных видов промышленной обработки",
+      "image": "category_order/2022/06/23/salmon-seabass-shrimps-oysters_82893-9048.jpg"
     }
   },
   {
@@ -269,8 +269,8 @@
     "fields": {
       "name": "Кондитерские изделия. Хлебопекарная продукция",
       "is_active": true,
-      "description": "",
-      "image": "category_order/default/placeholder_300x150.png"
+      "description": "Богатый ассортимент выпечки, а также сырье для хлебопекарной продукции",
+      "image": "category_order/2022/06/23/top-view-basket-full-breads-as-baguette-bagel-rye-with-sunflow_f1PeTjV.jpg"
     }
   },
   {
@@ -279,8 +279,8 @@
     "fields": {
       "name": "Консервы. Соусы, кетчупы",
       "is_active": true,
-      "description": "",
-      "image": "category_order/default/placeholder_300x150.png"
+      "description": "Все самые популярные соусы для гриля, мяса, рыбы, овощей из США, Мексики, ЮАР, России и со всего мира",
+      "image": "category_order/2022/06/23/WhatsApp_Image_2022-06-23_at_02.28.36.jpeg"
     }
   },
   {
@@ -289,8 +289,8 @@
     "fields": {
       "name": "Гастрономия. Продукция для HoReCa",
       "is_active": true,
-      "description": "",
-      "image": "category_order/default/placeholder_300x150.png"
+      "description": "Комплексное обеспечение продуктов питания для ресторанов, баров, кафе и отелей",
+      "image": "category_order/2022/06/23/for_HoReCa.jpg"
     }
   },
   {
@@ -299,8 +299,8 @@
     "fields": {
       "name": "Снэки. Орехи. Сухофрукты",
       "is_active": true,
-      "description": "",
-      "image": "category_order/default/placeholder_300x150.png"
+      "description": "Самый большой ассортимент восточных сладостей, сушенных фруктов и овощей, орехов",
+      "image": "category_order/2022/06/23/different-nuts-with-raisins-dried-fruits-grey-background-nut-s_E8ZUDIL.jpg"
     }
   },
   {
@@ -309,8 +309,8 @@
     "fields": {
       "name": "Мёд и продукты пчеловодства",
       "is_active": true,
-      "description": "",
-      "image": "category_order/default/placeholder_300x150.png"
+      "description": "Для приготовления кондитерских изделий, напитков, соусов и других сладких блюд",
+      "image": "category_order/2022/06/23/honey-with-honeycomb-black-table-top-view-space-text_130265-11478.jpg"
     }
   },
   {
@@ -319,8 +319,8 @@
     "fields": {
       "name": "Чай, кофе",
       "is_active": true,
-      "description": "",
-      "image": "category_order/default/placeholder_300x150.png"
+      "description": "Более 300 сортов качественного чая: листовой, в пирамидках, прессованный, порошковый и связанный, 70 видов зернового кофе",
+      "image": "category_order/2022/06/23/imgonline-com-ua-Resize-JnCmrke7SVOWoU.png"
     }
   },
   {
@@ -329,8 +329,8 @@
     "fields": {
       "name": "Ингредиенты. Пищевые добавки. Сырьё",
       "is_active": true,
-      "description": "",
-      "image": "category_order/default/placeholder_300x150.png"
+      "description": "Высококачественное сырьё для пищевой промышленности: ароматизаторы, красители и добавки",
+      "image": "category_order/2022/06/23/essential-vitamin-mineral-complex_23-2148497447.webp"
     }
   },
   {

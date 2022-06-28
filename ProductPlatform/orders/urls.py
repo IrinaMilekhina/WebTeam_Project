@@ -24,7 +24,7 @@ urlpatterns = [
     path('category/<int:id>', Category.as_view(), name='category'),
     path('create_order/', CreateOrder.as_view(), name='create_order'),
     path('view_order/<int:pk>/', OrderView.as_view(), name='view_order'),
-    path("table-order/", table_order, name="table-order"),
+    path("table_order/", table_order, name="table_order"),
 
 
 ]

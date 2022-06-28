@@ -3,7 +3,7 @@ from django.core.paginator import Paginator
 from django.db.models import Count
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, DeleteView
 from orders.forms import CreateOrderForm
 from orders.filters import OrderFilter
@@ -151,14 +151,3 @@ def HomeView(request):
 class DeleteCategory(DeleteView):
     model = CategoryOrder
     success_url = reverse_lazy('orders:categories')
-    template_name = 'orders/delete_category.html'
-
-    # def delete(self, request, *args, **kwargs):
-    #     self.object = self.get_object()
-    #     if self.object.is_active:
-    #         self.object.is_active = False
-    #         self.object.product_set.update(is_active=False)
-    #     else:
-    #         self.object.is_active = True
-    #     self.object.save()
-    #     return HttpResponseRedirect(self.get_success_url())

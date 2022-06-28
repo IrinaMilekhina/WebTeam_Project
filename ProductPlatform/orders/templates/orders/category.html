@@ -73,10 +73,11 @@
                                         <div class="modal-footer">
                                             <div class="row">
                                                 <div class="main-button-red">
-                                                    <a class="btn btn-primary" type="button"
-                                                       href="{% url 'orders:delete_category' category.id %}"
-                                                       class="main-button-red">Подтверждаю</a>
-                                                     <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    <form class="btn btn-primary" method="POST"
+                                                          action="{% url 'orders:delete_category' category.id %}">
+                                                        {% csrf_token %}<input type="submit" value="Подтверждаю">
+                                                    </form>
+                                                    <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                         Закрыть
                                                     </a>
                                                 </div>
@@ -88,7 +89,7 @@
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        {% if user.role != 'Supplier' or user.role != 'Customer' %}
+                        {% if not user.role == 'Supplier' and not user.role == 'Customer' %}
                             <div class="main-button-red">
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                                 >{% if category.is_active == True %} Деактивировать {% else %}

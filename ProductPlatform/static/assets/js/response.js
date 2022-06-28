@@ -1,8 +1,6 @@
 "use strict";
 
 //селекторы основных
-let company_inp = document.querySelector("#company");
-let category_inp = document.querySelector("#category");
 let price_inp = document.querySelector("#price-suggestion");
 let description_textarea = document.querySelector("#description");
 let edit_btn = document.querySelector("#edit-btn");
@@ -28,8 +26,5 @@ function make_modifiable() {
     description_textarea.removeAttribute("readonly");
     description_textarea.classList.remove("read_only");
 }
-
-category_inp.setAttribute("readonly", "readonly");
-category_inp.classList.add("read_only");
 
 make_readonly();

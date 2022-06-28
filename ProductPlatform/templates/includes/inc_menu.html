@@ -17,10 +17,6 @@
                             {% if user.role == 'Supplier' %}
                                 <li><a href="{% url 'orders:table-order' %}">Доска заказов</a></li>
                             {% endif %}
-                            {% if user.role == 'Customer' %}
-                                <li><a href="{% url 'orders:create_order' %}">Создать заказ</a></li>
-                            {% endif %}
-
                             <li><a href="{% url 'users:account_edit' %}">Личный кабинет</a></li>
                             <li><a href="{% url 'users:logout' %}">Выйти</a></li>
                         {% endif %}

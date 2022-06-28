@@ -71,13 +71,13 @@ class Category(DetailView):
         unique_responses = {}
         for i in active_responses:
             if not i.statusresponse_set.last() is None and i.statusresponse_set.last().status == 'Approved':
+
                 if unique_responses.get(i.response_user):
                     unique_responses[i.response_user] = unique_responses[i.response_user] + 1
                 else:
                     unique_responses[i.response_user] = 1
 
         # unique_responses = sorted(unique_responses.items(), key=lambda item: item[1])[::-5]
-
 
         return render(request, self.template_name, {'category': category,
                                                     'title': category.name,

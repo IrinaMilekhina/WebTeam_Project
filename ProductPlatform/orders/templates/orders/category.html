@@ -94,6 +94,12 @@
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                                 >{% if category.is_active == True %} Деактивировать {% else %}
                                     Активировать{% endif %}</a>
+                                {% if not user.role == 'Supplier' %}
+                                    <a class="button-green"
+                                       href="{% url 'orders:create_order' %}?category_id={{ category.id }}">
+                                        Создать заказ
+                                    </a>
+                                {% endif %}
                             </div>
                         {% endif %}
                         <div class="main-button-red">

@@ -17,12 +17,11 @@ class MainView(View):
 
     def get(self, request, *args, **kwargs):
         top_category = CategoryOrder.objects \
-                           .filter(order__responseorder__statusresponse__status='Approved',
-                                   order__responseorder__statusresponse__time_status__gte=
-                                   datetime.datetime.now() - datetime.timedelta(days=7)) \
-                           .annotate(count=Count('order')) \
-                           .values('id', 'name', 'count') \
-                           .order_by('-count')[:6]
+            .filter(order__responseorder__statusresponse__status='Approved',
+                    order__responseorder__statusresponse__time_status__gte=datetime.datetime.now() - datetime.timedelta(days=7)) \
+            .annotate(count=Count('order')) \
+            .values('id', 'name', 'count') \
+            .order_by('-count')[:6]
         content = {
             'title': self.title,
             'categories': CategoryOrder.objects.all(),
@@ -68,6 +67,21 @@ class CreateOrder(CreateView):
     title = 'Создание заказа'
     success_url = reverse_lazy('main')
 
+    def get(self, request, *args, **kwargs):
+        """
+        Если приходит id категории в параметрах запроса,
+        получаем нужную категорию по id и ставим её дефолтной.
+        """
+
+        try:
+            category_id = request.GET['category_id']
+            category = get_object_or_404(CategoryOrder, id=category_id)
+            self.form_class.base_fields['category'].initial = category
+
+            return render(request, self.template_name, {'form': self.form_class, 'title': self.title})
+        except (KeyError, Http404):
+            return render(request, self.template_name, {'form': self.form_class, 'title': self.title})
+
     def post(self, request, *args, **kwargs):
 
         session_user = request.user
@@ -79,8 +93,16 @@ class CreateOrder(CreateView):
             order = Order.objects.create(author_id=session_user.id,
                                          category=category,
                                          name=form.data.get('name'),
+
                                          description=form.data.get('description'),
                                          end_time=form.data.get("end_time"))
+
+                                         #description=form.data.get(
+                                         #   'description'),
+                                         #end_time=f'{form.data.get("end_time_year")}-'
+                                         #         f'{form.data.get("end_time_month")}-'
+                                         #        f'{form.data.get("end_time_day")}')
+
             order.save()
             return HttpResponseRedirect(redirect_to=reverse_lazy('main'))
         else:
@@ -121,14 +143,12 @@ class OrderBoardView(ListView):
         return context
 
 
-def HomeView(request):
+def table_order(request):
     context = {}
-    filtered_persons = OrderFilter(request.GET, queryset=Order.objects.all())
-    context['all_category'] = CategoryOrder.objects.filter(is_active=True)
-    context['filtered_persons'] = filtered_persons
+    context['filtered_table'] = OrderFilter(
+        request.GET, queryset=Order.objects.all())
     # ! Здесь устанавливается пагинация
-    paginated = Paginator(filtered_persons.qs, 2)
+    paginated = Paginator(context['filtered_table'].qs, 2)
     page_number = request.GET.get('page')
-    person_page_obj = paginated.get_page(page_number)
-    context['page_obj'] = person_page_obj
+    context['page_obj'] = paginated.get_page(page_number)
     return render(request, 'orders/order_board.html', context=context)

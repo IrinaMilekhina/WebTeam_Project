@@ -28,5 +28,6 @@ urlpatterns = [
     path('register/', RegisterListView.as_view(), name='register'),
     path('logout/', Logout.as_view(), name='logout'),
     path('account_history_orders/', PersonalHistoryOrdersView.as_view(), name='account_history_orders'),
+    path('account_history_orders/<int:page>/', PersonalHistoryOrdersView.as_view(), name='history_orders_page'),
     path('account_active_orders/', PersonalActiveOrdersView.as_view(), name='account_active_orders'),
 ]

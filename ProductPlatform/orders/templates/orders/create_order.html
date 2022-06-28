@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-    <section class="heading-page header-text" id="top">
+    <section class="heading-page-create_order header-text" id="top">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -13,34 +13,34 @@
     </section>
 
     <section class="meetings-page" id="meetings">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="row">
-                        {% if form.errors %}
-                            <div
-                                    class="alert alert-warning alert-dismissible fade show"
-                                    role="alert"
-                                    style="margin-top: 50px">
-                                {{ form.non_field_errors }} {% for error in form %} {{ error.errors }}
-                            {% endfor %}
-                                <button
-                                        type="button"
-                                        class="close"
-                                        data-dismiss="alert"
-                                        aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        {% endif %}
-                        <form id='form' action="{% url 'orders:create_order' %}" method="post">
-                            {% csrf_token %}
+        <form id='form' action="{% url 'orders:create_order' %}" method="post">
+            {% csrf_token %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            {% if form.errors %}
+                                <div
+                                        class="alert alert-warning alert-dismissible fade show"
+                                        role="alert"
+                                        style="margin-top: 50px">
+                                    {{ form.non_field_errors }} {% for error in form %} {{ error.errors }}
+                                {% endfor %}
+                                    <button
+                                            type="button"
+                                            class="close"
+                                            data-dismiss="alert"
+                                            aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            {% endif %}
                             <div class="col-lg-12">
                                 <div class="meeting-single-item mb-3">
-                                    <div class="thumb">
-                                        <img src="{% static 'assets/images/single-meeting.jpg' %}" alt="">
-                                    </div>
-                                    <div class="down-content">
+{#                                    <div class="thumb">#}
+{#                                        <img src="{% static 'assets/images/single-meeting.jpg' %}" alt="">#}
+{#                                    </div>#}
+                                    <div class="down-content-create_order">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="input-group input-group-sm mb-3">
@@ -86,14 +86,15 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="footer">
-            <p>© 2022 N</p>
-        </div>
+            <div class="footer">
+                <p>© 2022 N</p>
+            </div>
+        </form>
     </section>
 {% endblock %}

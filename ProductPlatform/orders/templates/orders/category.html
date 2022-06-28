@@ -55,22 +55,53 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-12">
-                            {% if user.role != 'Supplier' or user.role != 'Customer' %}
-                                    <div class="main-button-red">
-                                        <a href="{% url 'orders:delete_category' category.id %}">
-                                            {% if category.is_active == True %} Деактивировать {% else %}
-                                                Активировать{% endif %}</a>
+                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                 data-bs-keyboard="false" tabindex="-1"
+                                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Подтверждение действий</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Закрыть"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Вы действительно уверены, что хотите {% if category.is_active == True %}
+                                            Деактивировать {% else %}
+                                            Активировать{% endif %}?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div class="row">
+                                                <div class="main-button-red">
+                                                    <a class="btn btn-primary" type="button"
+                                                       href="{% url 'orders:delete_category' category.id %}"
+                                                       class="main-button-red">Подтверждаю</a>
+                                                     <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                        Закрыть
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                {% endif %}
-                            <div class="main-button-red">
-                                <a href="{% url 'orders:categories' %}">Назад к списку категорий</a>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        {% if user.role != 'Supplier' or user.role != 'Customer' %}
+                            <div class="main-button-red">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                >{% if category.is_active == True %} Деактивировать {% else %}
+                                    Активировать{% endif %}</a>
+                            </div>
+                        {% endif %}
+                        <div class="main-button-red">
+                            <a href="{% url 'orders:categories' %}">Назад к списку категорий</a>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <div class="footer">
             <p>© 2022 N</p>

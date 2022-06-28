@@ -40,8 +40,7 @@
                                                             <!-- Надо будет ещё количество добавить, но после того как это вьюху добавят -->
                                                         </div>
                                                         {% if category.image %}
-                                                            <img src="{{ category.image }}"
-                                                                 alt="">
+                                                            <img src="/media/{{ category.image }}" alt="">
                                                         {% else %}
                                                             <img src="{% static 'assets/images/placeholder_300x150.png' %}"
                                                                  alt="">
@@ -66,8 +65,7 @@
                                                             <!-- Надо будет ещё количество добавить, но после того как это вьюху добавят -->
                                                         </div>
                                                         {% if category.image %}
-                                                            <img src="{{ category.image }}"
-                                                                 alt="">
+                                                            <img src="/media/{{ category.image }}" alt="">
                                                         {% else %}
                                                             <img src="{% static 'assets/images/placeholder_300x150.png' %}"
                                                                  alt="">
@@ -79,6 +77,7 @@
                                                     </div>
                                                 </a>
                                             </div>
+
                                         </div>
                                     {% endfor %}
 

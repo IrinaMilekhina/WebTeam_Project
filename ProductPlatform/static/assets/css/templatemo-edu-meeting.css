@@ -1200,6 +1200,379 @@ section.upcoming-meetings .categories .main-button-red a {
 
 /*
 ---------------------------------------------
+order
+---------------------------------------------
+*/
+
+section.order {
+    background-color: #262626;
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 10vh;
+}
+
+section.order .response {
+    display: flex;
+    justify-content: space-between;
+}
+
+section.order .order-content .responses {
+    display: flex;
+    align-items: stretch;
+}
+
+section.order .accept {
+    color: #51b600;
+    margin-right: 15px;
+}
+
+section.order .cancel {
+    color: #ef0000;
+}
+
+section.order .accept:hover,
+section.order .cancel {
+    cursor: pointer;
+}
+
+section.order .line {
+    display: flex;
+    align-items: center;
+}
+
+section.order .price {
+    padding-right: 28px;
+}
+
+section.order .section-heading {
+    text-align: center;
+}
+
+section.order .section-heading h2 {
+    line-height: 40px;
+    margin-top: 0px;
+    margin-bottom: 50px;
+    padding-bottom: 20px;
+    border-bottom: unset;
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+section.order .order {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 22px 40px 40px 40px;
+    width: 100%;
+}
+
+section.order .respons {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+}
+
+@media (min-width: 992px) {
+    section.order .respons {
+        margin-right: 45px;
+    }
+}
+
+@media (max-width: 991px) {
+    section.order .respons {
+        margin-bottom: 40px;
+    }
+}
+
+section.order .response-form {
+    padding: 40px !important;
+    margin-top: 5vh;
+}
+
+section.order .order-response {
+    padding: 0 !important;
+}
+
+section.order .respons .h-responses {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f272b;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+section.order .order .h-order {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f272b;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+section.order .date-position {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+section.order .center {
+    display: flex;
+    justify-content: center;
+}
+
+section.order .respons ul li {
+    margin-bottom: 15px;
+}
+
+section.order .respons ul li a {
+    color: #1f272b;
+    font-weight: 500;
+    transition: all .3s;
+    font-size: 15px;
+}
+
+section.order .respons ul li div {
+    color: #1f272b;
+    font-weight: 600;
+    transition: all .3s;
+    font-size: 15px;
+}
+
+section.order .respons ul li a:hover {
+    color: #a12c2f;
+}
+
+section.order .info {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f272b;
+}
+
+section.order .ptb {
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+section.order .read_only {
+    width: 100%;
+    height: 40px;
+    border-radius: 20px !important;
+    background-color: #eeeeee;
+    outline: none;
+    border: none;
+    box-shadow: none !important;
+    font-size: 13px;
+    font-weight: 500;
+    color: #7a7a7a;
+    padding: 0px 15px;
+    margin-bottom: 30px;
+}
+
+section.order .order-desc {
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 10px !important;
+    min-height: 100px;
+}
+
+section.order .description {
+    margin-top: 20px;
+}
+
+section.order .order .main-button-red {
+    border-top: 1px solid #eee;
+    padding-top: 30px;
+    margin-top: 15px;
+}
+
+section.order .order .main-button-red a {
+    width: 100%;
+    text-align: center;
+}
+
+section.order #contact textarea {
+    width: 100%;
+    min-height: 140px;
+    max-height: 180px;
+    border-radius: 20px;
+    background-color: #f7f7f7;
+    outline: none;
+    border: none;
+    box-shadow: none;
+    font-size: 13px;
+    font-weight: 500;
+    color: #7a7a7a;
+    padding: 9px 15px !important;
+    margin-bottom: 30px;
+}
+
+section.order #contact .del {
+    cursor: pointer;
+    font-size: 13px;
+    color: #fff;
+    background-color: #a12c2f;
+    padding: 12px 30px;
+    border-radius: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all .3s;
+    border: none;
+    outline: none;
+}
+
+section.order #contact input {
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #f7f7f7;
+    outline: none;
+    border: none;
+    box-shadow: none;
+    font-size: 13px;
+    font-weight: 500;
+    color: #7a7a7a;
+    padding: 0px 15px;
+    margin-bottom: 30px;
+}
+
+
+
+section.order #contact select {
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #f7f7f7;
+    outline: none;
+    border: none;
+    box-shadow: none;
+    font-size: 13px;
+    font-weight: 500;
+    color: #7a7a7a;
+    padding: 0px 15px;
+    margin-bottom: 30px;
+}
+
+section.order #contact .submit-btn {
+    display: flex;
+    justify-content: flex-end;
+}
+
+section.order #contact .edit {
+    cursor: pointer;
+    background-color: #676767;
+    font-size: 13px;
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all .3s;
+    border: none;
+    outline: none;
+    margin-right: 15px;
+}
+
+section.order .del:hover,
+section.order .edit:hover,
+section.order .accept-btn:hover,
+section.order .close-btn:hover {
+    opacity: 0.9;
+}
+
+section.order label {
+    margin-left: 4px;
+    margin-bottom: 5px;
+    color: #3b3b3b;
+}
+
+section.order .close-btn {
+    font-size: 13px;
+    color: #fff;
+    background-color: #a12c2f;
+    padding: 12px 30px;
+    border-radius: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all .3s;
+    border: none;
+    outline: none;
+}
+
+section.order .accept-btn {
+    font-size: 13px;
+    color: #fff;
+    background-color: #29a121;
+    padding: 12px 30px;
+    border-radius: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all .3s;
+    border: none;
+    outline: none;
+}
+
+section.order .date {
+    float: left;
+    text-align: center;
+    display: inline-block;
+    background-color: #f4f4f4;
+    border-radius: 6px;
+    padding: 5px 7px;
+    margin-left: 5px;
+}
+
+section.order .date-start {
+    margin-right: 7px;
+}
+
+section.order .order-info {
+    padding-top: 10px !important;
+}
+
+section.order .date h6 {
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #a12c2f;
+}
+
+section.order .date span {
+    display: block;
+    color: #1f272b;
+    font-size: 22px;
+    margin-top: 7px;
+}
+
+.modal-content {
+    margin-top: 35vh;
+    border-radius: 20px !important;
+}
+
+.modal-header {
+    border-bottom: unset !important;
+}
+
+.modal-body {
+    padding: 0 20px 15px;
+}
+
+.modal-footer {
+    border-top: unset !important;
+}
+
+.btn-close:active {
+    text-shadow: unset !important;
+}
+
+/*
+---------------------------------------------
 apply now
 ---------------------------------------------
 */
@@ -1948,6 +2321,41 @@ section.heading-page h2 {
 
 /*
 ---------------------------------------------
+heading order
+---------------------------------------------
+*/
+
+section.heading-order {
+    background-image: url(../images/documents.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 230px;
+    padding-bottom: 110px;
+    text-align: center;
+}
+
+section.heading-order h6 {
+    margin-top: 0px;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+section.heading-order h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 36px;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #9d9d9d;
+    letter-spacing: 1px;
+}
+
+/*
+---------------------------------------------
 upcoming meetings page
 ---------------------------------------------
 */
@@ -2309,51 +2717,57 @@ table
 ---------------------------------------------
 */
 .meeting-table {
-	width: 100%;
-	margin-bottom: 20px;
+    width: 100%;
+    margin-bottom: 20px;
     border-collapse: collapse;
     border: 2px solid white;
     background-color: rgba(250, 250, 250, 0.9);
 }
+
 .meeting-table thead th {
-	text-align: left;
-	border: 2px solid  white;
-	padding: 10px 15px;
-	background: #1f272b;
-	font-size: 16px;
+    text-align: left;
+    border: 2px solid white;
+    padding: 10px 15px;
+    background: #1f272b;
+    font-size: 16px;
 
 }
+
 .meeting-table thead tr th:first-child {
-	border-radius: 12px 0 0 12px;
-    border-right: 2px solid  white;
+    border-radius: 12px 0 0 12px;
+    border-right: 2px solid white;
 }
+
 .meeting-table thead tr th:last-child {
-	border-radius: 0 12px 12px 0;
-    border-left: 2px solid  white;
+    border-radius: 0 12px 12px 0;
+    border-left: 2px solid white;
 }
 
 .meeting-table tbody td {
-	text-align: left;
-	padding: 10px 15px;
-	font-size: 14px;
-	vertical-align: top;
-    border: 2px solid  white;
+    text-align: left;
+    padding: 10px 15px;
+    font-size: 14px;
+    vertical-align: top;
+    border: 2px solid white;
     color: #1a1e21;
 }
-.meeting-table tbody tr:nth-child(even){
-	background: #f3f3f3;
+
+.meeting-table tbody tr:nth-child(even) {
+    background: #f3f3f3;
 
 }
+
 .meeting-table tbody tr td:first-child {
-	border-radius: 12px 0 0 12px;
-    border-right: 2px solid  white;
-}
-.meeting-table tbody tr td:last-child {
-	border-radius: 0 12px 12px 0;
-    border-left: 2px solid  white;
+    border-radius: 12px 0 0 12px;
+    border-right: 2px solid white;
 }
 
-.meeting-table-row{
-    cursor:pointer;
+.meeting-table tbody tr td:last-child {
+    border-radius: 0 12px 12px 0;
+    border-left: 2px solid white;
+}
+
+.meeting-table-row {
+    cursor: pointer;
 }
 

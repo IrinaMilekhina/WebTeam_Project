@@ -1,5 +1,6 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views.generic.edit import FormView
 
 from orders.models import ResponseOrder, Order, StatusResponse
@@ -127,6 +128,8 @@ class PersonalActiveOrdersView(ListView):
 class PersonalHistoryOrdersView(ListView):
     model = Order
     template_name = 'users/account_history_orders.html'
+    context_object_name = 'orders'
+    paginate_by = 3
 
     def get_context_data(self, *, object_list=None, **kwargs):
         """Метод для создания необходимого контекста для истории заказов личного кабинета"""
@@ -170,54 +173,16 @@ class PersonalHistoryOrdersView(ListView):
                 'status': status,
                 'response_approved': approved_response_user_id
             })
-        context['orders'] = history_orders
-        context['user'] = current_profile
+        page = self.request.GET.get('page')
+        paginator = Paginator(history_orders, per_page=3)
+        try:
+            orders_paginator = paginator.page(page)
+        except PageNotAnInteger:
+            orders_paginator = paginator.page(1)
+        except EmptyPage:
+            orders_paginator = paginator.page(paginator.num_pages)
+        context['paginator'] = orders_paginator.paginator
+        context['page_obj'] = orders_paginator
+        context['user'] = orders_paginator
         return context
 
-
-class PersonalHistoryOrdersView(ListView):
-    model = Order
-    template_name = 'users/account_history_orders.html'
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        """Метод для создания необходимого контекста для истории заказов личного кабинета"""
-        context = super(PersonalHistoryOrdersView,
-                        self).get_context_data(**kwargs)
-        current_profile = Profile.objects.get(pk=self.request.user.pk)
-        responses, orders = None, None
-        if current_profile.role == 'Customer':
-            responses = ResponseOrder.objects.filter(order__author=self.request.user.pk, order__status__in=['Done', 'Not Active'])
-            orders = Order.objects.filter(author=self.request.user.pk, status__in=['Done', 'Not Active'])
-        elif current_profile.role == 'Supplier':
-            orders = Order.objects.filter(responseorder__response_user=self.request.user.pk, status__in=['Done', 'Not Active'])
-            responses = ResponseOrder.objects.filter(order__id__in=orders.values_list('id'), order__status__in=['Done', 'Not Active'])
-        history_orders = []
-        for item in orders:
-            response_count = responses.filter(order=item.id).count()
-            if item.status == 'Done':
-                status = 'Выполнен'
-            else:
-                status = 'Отменен'
-            response_approved = None
-            for response in responses.filter(order=item.id):
-                if 'Approved' == response.status:
-                    if current_profile.role == 'Supplier' and response.response_user.id == current_profile.id:
-                        status = 'Ваш отклик утвержден'
-                    else:
-                        status = 'Заказчик утвержден'
-                    response_approved = response
-            history_orders.append({
-                'name': item.name,
-                'author': item.author,
-                'order_num': item.id,
-                'description': item.description,
-                'category': item.category.name,
-                'city': item.author.city,
-                'date_to': item.end_time.date(),
-                'response_count': response_count,
-                'status': status,
-                'response_approved': response_approved
-            })
-        context['orders'] = history_orders
-        context['user'] = current_profile
-        return context

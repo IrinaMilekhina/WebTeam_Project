@@ -20,7 +20,7 @@ class MainView(View):
             .filter(order__responseorder__statusresponse__status='Approved',
                     order__responseorder__statusresponse__time_status__gte=datetime.datetime.now() - datetime.timedelta(days=7)) \
             .annotate(count=Count('order')) \
-            .values('id', 'name', 'count') \
+            .values('id', 'name', 'image', 'count') \
             .order_by('-count')[:6]
         content = {
             'title': self.title,

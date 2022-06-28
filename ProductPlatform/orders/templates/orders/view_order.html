@@ -79,75 +79,126 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="row">
-                        <div class="order">
-                            <div class="h-order col-lg-12">
-                                <div class="col-lg-2" style="width: 72px;"></div>
-                                <div class="col-lg-8 center">{{ order.name }}</div>
-                                <div class="date-position col-lg-2">До
-                                    <div class="date">
-                                        <h6>Nov <span>12</span></h6>
+                        {% if user.role == 'Supplier' %}
+                            <div class="order-response">
+                                <div class="order">
+                                    <div class="h-order col-lg-12">
+                                        <div class="col-lg-2" style="width: 72px;"></div>
+                                        <div class="col-lg-8 center">{{ order.name }}</div>
+                                        <div class="date-position col-lg-2">
+                                            С
+                                            <div class="date date-start">
+                                                <h6>Nov <span>9</span></h6>
+                                            </div>
+                                            До
+                                            <div class="date">
+                                                <h6>Nov <span>12</span></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label class="small mb-1" for="company">Компания</label>
+                                        <div class="read_only order-info">
+                                            {{ order.author.comp_name }} на сайте с {{ order.author.date_joined }}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label class="small mb-1" for="category">Категория</label>
+                                        <div class="read_only order-info">
+                                            {{ order.category }}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label class="small description mb-1" for="description">
+                                            Описание заказа
+                                        </label>
+                                        <div class="form-control read_only order-desc">
+                                            {{ order.description }}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <form id="contact" action="" method="post">
-                                {% csrf_token %}
-                                <div class="col-lg-12">
-                                    <fieldset>
-                                        <label class="small mb-1" for="company">Компания</label>
-                                        <input name="name" class="read_only" readonly="readonly" type="text"
-                                               id="company"
-                                               required=""
-                                               value="{{ order.author.comp_name }} на сайте с {{ order.author.date_joined }}">
-                                    </fieldset>
+                                <div class="order response-form">
+                                    <form id="contact" action="" method="post">
+                                        {% csrf_token %}
+                                        <div class="col-lg-12">
+                                            <fieldset>
+                                                <label class="small mb-1" for="price-suggestion">Предложение</label>
+                                                <input name="name" min="0" step="0.01" type="number"
+                                                       id="price-suggestion"
+                                                       placeholder="Предложение..." required="">
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <fieldset>
+                                                <label class="small description mb-1" for="description">Описание</label>
+                                                <textarea name="message" type="text" class="form-control"
+                                                          id="description"
+                                                          placeholder="Описание..." required=""></textarea>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-lg-12 submit-btn">
+                                            <fieldset>
+                                                <button class="button button-login-reg del" type="submit"
+                                                        id="submit-btn"
+                                                        data-canceledresponse="false">
+                                                    Откликнуться
+                                                </button>
+                                            </fieldset>
+                                            <div style="display: none;" class="button del" id="edit-btn">
+                                                Отменить отклик
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="col-lg-12">
-                                    <fieldset>
-                                        <label class="small mb-1" for="category">Категория</label>
-                                        {% if user.role == 'Supplier' %}
-                                            <select name="name" type="text" id="category" class="form-select"
-                                                    required="" disabled>
-                                                <option value="value1">Значение 1</option>
-                                                <option value="value2">Значение 2</option>
-                                                <option value="value3">Значение 3</option>
-                                            </select>
-                                        {% else %}
+                            </div>
+                        {% else %}
+                            <div class="order">
+                                <div class="h-order col-lg-12">
+                                    <div class="col-lg-2" style="width: 72px;"></div>
+                                    <div class="col-lg-8 center">{{ order.name }}</div>
+                                    <div class="date-position col-lg-2">
+                                        С
+                                        <div class="date date-start">
+                                            <h6>Nov <span>9</span></h6>
+                                        </div>
+                                        До
+                                        <div class="date">
+                                            <h6>Nov <span>12</span></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form id="contact" action="" method="post">
+                                    {% csrf_token %}
+                                    <div class="col-lg-12">
+                                        <fieldset>
+                                            <label class="small mb-1" for="company">Компания</label>
+                                            <input name="name" class="read_only" readonly="readonly" type="text"
+                                                   id="company"
+                                                   required=""
+                                                   value="{{ order.author.comp_name }} на сайте с {{ order.author.date_joined }}">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <fieldset>
+                                            <label class="small mb-1" for="category">Категория</label>
                                             <select name="name" type="text" id="category" class="form-select"
                                                     required="">
                                                 <option value="value1">Значение 1</option>
                                                 <option value="value2">Значение 2</option>
                                                 <option value="value3">Значение 3</option>
                                             </select>
-                                        {% endif %}
-                                    </fieldset>
-                                </div>
-                                {% if user.role == 'Supplier' %}
-                                    <div class="col-lg-12">
-                                            <label class="small description mb-1" for="description">
-                                                Описание заказа
-                                            </label>
-                                            <div class="form-control read_only order-desc">
-                                                {{ order.description }}
-                                            </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <fieldset>
-                                            <label class="small mb-1" for="price-suggestion">Предложение</label>
-                                            <input name="name" min="0" step="0.01" type="number" id="price-suggestion"
-                                                   placeholder="Предложение..." required="">
                                         </fieldset>
                                     </div>
-                                {% endif %}
-                                <div class="col-lg-12">
-                                    <fieldset>
-                                        <label class="small description mb-1" for="description">Описание</label>
-                                        <textarea name="message" type="text" class="form-control" id="description"
-                                                  placeholder="Описание..." required=""></textarea>
-                                    </fieldset>
-                                </div>
-                                <div class="col-lg-12 submit-btn">
-                                    {% if not user.role == 'Supplier' %}
+                                    <div class="col-lg-12">
                                         <fieldset>
-                                            <button style="display :none;"
+                                            <label class="small description mb-1" for="description">Описание</label>
+                                            <textarea name="message" type="text" class="form-control" id="description"
+                                                      placeholder="Описание..." required=""></textarea>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-12 submit-btn">
+                                        <fieldset>
+                                            <button style="display: none;"
                                                     class="button edit button-login-reg"
                                                     type="submit"
                                                     id="submit-btn">
@@ -162,20 +213,10 @@
                                         <div class="button del">
                                             Удалить заказ
                                         </div>
-                                    {% else %}
-                                        <fieldset>
-                                            <button class="button button-login-reg del" type="submit" id="submit-btn"
-                                                    data-canceledresponse="false">
-                                                Откликнуться
-                                            </button>
-                                        </fieldset>
-                                        <div style="display: none;" class="button del" id="edit-btn">
-                                            Отменить отклик
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </form>
-                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

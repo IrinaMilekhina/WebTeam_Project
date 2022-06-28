@@ -68,6 +68,21 @@ class CreateOrder(CreateView):
     title = 'Создание заказа'
     success_url = reverse_lazy('main')
 
+    def get(self, request, *args, **kwargs):
+        """
+        Если приходит id категории в параметрах запроса,
+        получаем нужную категорию по id и ставим её дефолтной.
+        """
+
+        try:
+            category_id = request.GET['category_id']
+            category = get_object_or_404(CategoryOrder, id=category_id)
+            self.form_class.base_fields['category'].initial = category
+
+            return render(request, self.template_name, {'form': self.form_class, 'title': self.title})
+        except (KeyError, Http404):
+            return render(request, self.template_name, {'form': self.form_class, 'title': self.title})
+
     def post(self, request, *args, **kwargs):
 
         session_user = request.user

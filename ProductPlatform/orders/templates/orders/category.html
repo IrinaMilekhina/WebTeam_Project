@@ -33,10 +33,10 @@
                                                     <th class="orders_amount">Количество выполненных заказов</th>
                                                 </tr>
                                                 <!-- Топ 5 поставщиков -->
-                                                {% for supplier in top_suppliers %}
+                                                {% for supplier, total in top_suppliers.items %}
                                                     <tr class="t-row">
                                                         <td>{{ supplier.comp_name }}</td>
-                                                        <td>{{ supplier.amount }}</td>
+                                                        <td>{{ total }}</td>
                                                     </tr>
                                                 {% endfor %}
                                             </table>

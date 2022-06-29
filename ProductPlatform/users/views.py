@@ -132,8 +132,9 @@ class PersonalActiveOrdersView(ListView):
             active_responses = all_responses.filter(response_user_id=self.request.user.pk)
 
             for i in active_responses:
-               if list(i.statusresponse_set.all())[-1].status == 'On Approval':
-                   unique_responses.append(i)
+                last_status_response = i.statusresponse_set.last()
+                if not last_status_response is None and last_status_response.status == 'On Approval':
+                    unique_responses.append(i)
 
 
             context['user'] = current_profile

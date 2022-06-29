@@ -6,9 +6,13 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 from orders.forms import CreateOrderForm
+
+
+from orders.models import CategoryOrder, Order, StatusResponse, ResponseOrder
+
 from orders.filters import OrderFilter
-from orders.models import CategoryOrder, Order
 from django.views import View
+
 
 
 class MainView(View):
@@ -56,7 +60,32 @@ class Category(DetailView):
         except Http404 as err:
             print(err)  # для DEBAG = True
             return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})
-        return render(request, self.template_name, {'category': category, 'title': category.name})
+        orders = Order.objects.filter(category_id=category.pk, status='Active')
+        all_orders_amount = len(orders)
+        status_response_orders = StatusResponse.objects.filter(status='Approved')
+        response_orders = [status_response.response_order for status_response in status_response_orders]
+        run_orders = [response_order.order for response_order in response_orders if response_order.order.status == 'Active' and response_order.order.category == category]
+        all_completed_orders = len(run_orders)
+        top_suppliers = [response_order.response_user for response_order in response_orders if response_order.order.status == 'Active' and response_order.order.category == category]
+
+        all_responses = ResponseOrder.objects.select_related().all()
+        active_responses = all_responses.filter(order__category=category)
+        unique_responses = {}
+        for i in active_responses:
+            if not i.statusresponse_set.last() is None and i.statusresponse_set.last().status == 'Approved':
+
+                if unique_responses.get(i.response_user):
+                    unique_responses[i.response_user] = unique_responses[i.response_user] + 1
+                else:
+                    unique_responses[i.response_user] = 1
+
+        # unique_responses = sorted(unique_responses.items(), key=lambda item: item[1])[::-5]
+
+        return render(request, self.template_name, {'category': category,
+                                                    'title': category.name,
+                                                    'all_orders_amount': all_orders_amount,
+                                                    'all_completed_orders': all_completed_orders,
+                                                    'top_suppliers': unique_responses})
 
 
 class CreateOrder(CreateView):

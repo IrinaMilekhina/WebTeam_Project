@@ -183,6 +183,6 @@ class PersonalHistoryOrdersView(ListView):
             orders_paginator = paginator.page(paginator.num_pages)
         context['paginator'] = orders_paginator.paginator
         context['page_obj'] = orders_paginator
-        context['user'] = orders_paginator
+        context['user'] = current_profile
         return context
 

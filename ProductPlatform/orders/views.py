@@ -1,6 +1,5 @@
 import datetime
 
-
 from django.db.models import Count, Q
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.core.paginator import Paginator
@@ -59,32 +58,13 @@ class Category(ListView):
     model = CategoryOrder
     template_name = 'orders/category.html'
 
-    # def get(self, request, *args, **kwargs):
-    #     """Если приходит GET запрос, получаем категорию по id и рендерим шаблон orders/category.html"""
-    #     try:
-    #         id = kwargs.get('id', None)
-    #     except KeyError as err:
-    #         print(err)  # для DEBAG = True
-    #         return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})
-    #     try:
-    #         category = get_object_or_404(CategoryOrder, id=id)
-    #     except Http404 as err:
-    #         print(err)  # для DEBAG = True
-    #         return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})
-    #     return render(request, self.template_name, {'category': category, 'title': category.name})
-
     def get_context_data(self, **kwargs):
         context = super(Category, self).get_context_data(**kwargs)
-        # categories = CategoryOrder.objects.select_related() \
-        #     .filter(is_active=True) \
-        #     .annotate(count_orders_done=Count('id', filter=Q(order__responseorder__statusresponse__status='Approved')),
-        #               count_orders=Count('order')) \
-        #     .values('id', 'name', 'image', 'description', 'count_orders_done', 'count_orders')
         select_category = CategoryOrder.objects.select_related() \
             .filter(id=self.kwargs['id'])
         category = select_category.annotate(
             count_orders_done=Count('id', filter=Q(order__responseorder__statusresponse__status='Approved'))) \
-            .values('id', 'name', 'description','image', 'count_orders_done')
+            .values('id', 'name', 'description', 'image', 'count_orders_done')
         context['category'] = category.last()
 
         return context

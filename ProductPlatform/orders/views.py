@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 from orders.forms import CreateOrderForm
-from orders.filters import OrderFilter
+from orders.filters import OrderFilter, CategoryFilter
 from orders.models import CategoryOrder, Order
 from django.views import View
 
@@ -159,3 +159,18 @@ def table_order(request):
     page_number = request.GET.get('page')
     context['page_obj'] = paginated.get_page(page_number)
     return render(request, 'orders/order_board.html', context=context)
+
+def categories(request):
+    context = {}
+    context['filtered_categories'] = CategoryFilter(
+        request.GET, queryset=CategoryOrder.objects.all())
+    context['active_category'] = CategoryOrder.objects.filter(is_active=True)
+    # ! Здесь устанавливается пагинация
+    paginated = Paginator(context['filtered_categories'].qs, 6)
+    page_number = request.GET.get('page')
+    context['page_obj'] = paginated.get_page(page_number)
+    paginated_active = Paginator(context['active_category'], 6)
+    page_number_active = request.GET.get('page')
+    context['page_obj_active'] = paginated_active.get_page(page_number_active)
+
+    return render(request, 'orders/categories.html', context=context)

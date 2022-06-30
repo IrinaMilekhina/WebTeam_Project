@@ -10,8 +10,9 @@ from django.views.generic import ListView, DetailView, CreateView
 from orders.forms import CreateOrderForm
 
 from orders.filters import OrderFilter
-from orders.models import CategoryOrder, Order
+from orders.models import CategoryOrder, Order, StatusResponse, ResponseOrder
 from users.models import Profile
+
 from django.views import View
 
 
@@ -22,10 +23,10 @@ class MainView(View):
     def get(self, request, *args, **kwargs):
         top_category = CategoryOrder.objects \
                            .filter(order__responseorder__statusresponse__status='Approved',
-                                   order__responseorder__statusresponse__time_status__gte=
-                                   datetime.datetime.now() - datetime.timedelta(days=7)) \
+                                   order__responseorder__statusresponse__time_status__gte=datetime.datetime.now() - datetime.timedelta(
+                                       days=7)) \
                            .annotate(count=Count('order')) \
-                           .values('id', 'name', 'count') \
+                           .values('id', 'name', 'image', 'count') \
                            .order_by('-count')[:6]
         content = {
             'title': self.title,
@@ -45,7 +46,9 @@ class CategoryOrderView(ListView):
         context = super(CategoryOrderView, self).get_context_data(**kwargs)
         categories = CategoryOrder.objects.select_related() \
             .filter(is_active=True) \
-            .annotate(count_orders=Count('id', filter=Q(order__responseorder__statusresponse__status='Approved'))) \
+            .annotate(count_orders=Count('order__responseorder__response_user_id',
+                                         filter=Q(order__responseorder__statusresponse__status='Approved'),
+                                         distinct=True)) \
             .values('id', 'name', 'image', 'description', 'count_orders')
 
         context['categories'] = categories
@@ -58,16 +61,54 @@ class Category(ListView):
     model = CategoryOrder
     template_name = 'orders/category.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(Category, self).get_context_data(**kwargs)
+    def get(self, request, *args, **kwargs):
+        """Если приходит GET запрос, получаем категорию по id и рендерим шаблон orders/category.html"""
+        try:
+            id = kwargs.get('id', None)
+        except KeyError as err:
+            print(err)  # для DEBAG = True
+            return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})
+        try:
+            category = get_object_or_404(CategoryOrder, id=id)
+        except Http404 as err:
+            print(err)  # для DEBAG = True
+            return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})
+        orders = Order.objects.filter(category_id=category.pk, status='Active')
+        all_orders_amount = len(orders)
+        status_response_orders = StatusResponse.objects.filter(status='Approved')
+        response_orders = [status_response.response_order for status_response in status_response_orders]
+        run_orders = [response_order.order for response_order in response_orders if
+                      response_order.order.status == 'Active' and response_order.order.category == category]
+        all_completed_orders = len(run_orders)
+        top_suppliers = [response_order.response_user for response_order in response_orders if
+                         response_order.order.status == 'Active' and response_order.order.category == category]
+
+        all_responses = ResponseOrder.objects.select_related().all()
+        active_responses = all_responses.filter(order__category=category)
+        unique_responses = {}
+        for i in active_responses:
+            if not i.statusresponse_set.last() is None and i.statusresponse_set.last().status == 'Approved':
+
+                if unique_responses.get(i.response_user):
+                    unique_responses[i.response_user] = unique_responses[i.response_user] + 1
+                else:
+                    unique_responses[i.response_user] = 1
+
+        # unique_responses = sorted(unique_responses.items(), key=lambda item: item[1])[::-5]
+
         select_category = CategoryOrder.objects.select_related() \
             .filter(id=self.kwargs['id'])
         category = select_category.annotate(
-            count_orders_done=Count('id', filter=Q(order__responseorder__statusresponse__status='Approved'))) \
+            count_orders_done=Count('order__responseorder__response_user_id',
+                                    filter=Q(order__responseorder__statusresponse__status='Approved'), distinct=True)) \
             .values('id', 'name', 'description', 'image', 'count_orders_done')
-        context['category'] = category.last()
+        category = category.last()
 
-        return context
+        return render(request, self.template_name, {'category': category,
+                                                    'title': category.get('name'),
+                                                    'all_orders_amount': all_orders_amount,
+                                                    'all_completed_orders': all_completed_orders,
+                                                    'top_suppliers': unique_responses})
 
 
 class CreateOrder(CreateView):
@@ -77,6 +118,21 @@ class CreateOrder(CreateView):
     form_class = CreateOrderForm
     title = 'Создание заказа'
     success_url = reverse_lazy('main')
+
+    def get(self, request, *args, **kwargs):
+        """
+        Если приходит id категории в параметрах запроса,
+        получаем нужную категорию по id и ставим её дефолтной.
+        """
+
+        try:
+            category_id = request.GET['category_id']
+            category = get_object_or_404(CategoryOrder, id=category_id)
+            self.form_class.base_fields['category'].initial = category
+
+            return render(request, self.template_name, {'form': self.form_class, 'title': self.title})
+        except (KeyError, Http404):
+            return render(request, self.template_name, {'form': self.form_class, 'title': self.title})
 
     def post(self, request, *args, **kwargs):
 
@@ -89,7 +145,8 @@ class CreateOrder(CreateView):
             order = Order.objects.create(author_id=session_user.id,
                                          category=category,
                                          name=form.data.get('name'),
-                                         description=form.data.get('description'),
+                                         description=form.data.get(
+                                             'description'),
                                          end_time=f'{form.data.get("end_time_year")}-'
                                                   f'{form.data.get("end_time_month")}-'
                                                   f'{form.data.get("end_time_day")}')
@@ -133,14 +190,12 @@ class OrderBoardView(ListView):
         return context
 
 
-def HomeView(request):
+def table_order(request):
     context = {}
-    filtered_persons = OrderFilter(request.GET, queryset=Order.objects.all())
-    context['all_category'] = CategoryOrder.objects.filter(is_active=True)
-    context['filtered_persons'] = filtered_persons
+    context['filtered_table'] = OrderFilter(
+        request.GET, queryset=Order.objects.all())
     # ! Здесь устанавливается пагинация
-    paginated = Paginator(filtered_persons.qs, 2)
+    paginated = Paginator(context['filtered_table'].qs, 2)
     page_number = request.GET.get('page')
-    person_page_obj = paginated.get_page(page_number)
-    context['page_obj'] = person_page_obj
+    context['page_obj'] = paginated.get_page(page_number)
     return render(request, 'orders/order_board.html', context=context)

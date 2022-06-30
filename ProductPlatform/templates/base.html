@@ -28,6 +28,10 @@
 
 {% endblock %}
 
+{% if user.role == 'Customer' %}
+    {% include 'includes/button_create_order.html' %}
+{% endif %}
+
 {% block js %}
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>

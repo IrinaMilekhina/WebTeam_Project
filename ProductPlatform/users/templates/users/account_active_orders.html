@@ -146,10 +146,9 @@
                                                     </div>
                                                     <div class="col-auto">
                                                         <p class="price mbr-fonts-style display-7 text-white">
-                                                            <strong>к Заказу № {{ response.order_id }}</strong><br>
                                                         <a href="{% url 'orders:view_order' response.order_id %}"
                                                            class="card-title mbr-fonts-style display-7">
-                                                            {{ response.order__name }}</a><br>
+                                                            <strong>Заказ № {{ response.order_id }}:</strong> {{ response.order.name }}</a><br>
                                                         </p>
                                                     </div>
                                                 </div>

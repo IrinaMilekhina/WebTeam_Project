@@ -124,15 +124,13 @@
                                                     </div>
                                                     <div class="col-auto">
                                                         <p class="price mbr-fonts-style display-7 text-white">
-                                                            Статус: <strong>{% if response.statusresponse__status == 'On Approval' %}На
-                                                            утверждении{% else %}
-                                                            {{ response.statusresponse__status }}{% endif %}</strong></p>
+                                                            Статус: <strong>На утверждении</strong></p>
                                                     </div>
                                                 </div>
                                                 <div class="bottom-line">
                                                     <p class="mbr-text mbr-fonts-style display-7 text-white">
                                                         <strong>Категория</strong>:
-                                                        {{ response.order__category__name }}<br><strong>Цена</strong>:
+                                                        {{ response.order.category }}<br><strong>Цена</strong>:
                                                         {{ response.price }}<br><strong>Оффер</strong>:
                                                         {{ response.offer }}<br>
                                                     </p>

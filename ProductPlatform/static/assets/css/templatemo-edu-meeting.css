@@ -2395,6 +2395,12 @@ section.meetings-page .filters ul li:hover {
     color: #fff;
 }
 
+section.meetings-page .cat-cont {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap !important;
+}
+
 .pagination {
     text-align: center;
     width: 100%;

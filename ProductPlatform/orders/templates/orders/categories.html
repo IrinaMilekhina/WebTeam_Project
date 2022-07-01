@@ -28,18 +28,18 @@
                         {#                            </div>#}
                         {#                        </div>#}
                         <div class="col-lg-12">
-                            <div class="row grid">
+                            <div class="row">
                                 {% for category in all_categories %}
-                                    <div class="col-lg-4 templatemo-item-col all soon">
-                                        <div class="meeting-item">
-                                            <a href="{% url 'orders:category' category.id %}">
+                                    <div class="col-lg-4 cat-cont templatemo-item-col all soon">
+                                        <div class="meeting-item cat-cont">
+                                            <a class="cat-cont" href="{% url 'orders:category' category.id %}">
                                                 <div class="thumb">
                                                     <div class="price">
                                                         <span>100 поставщиков</span>
                                                         <!-- Надо будет ещё количество добавить, но после того как это вьюху добавят -->
                                                     </div>
                                                     {% if category.image %}
-<!--                                                        <img src="{{ category.image }}" alt="">-->
+{#<!--                                                        <img src="{{ category.image }}" alt="">-->#}
                                                             <img src="/media/{{ category.image }}" alt="">
                                                     {% else %}
                                                         <img src="{% static 'assets/images/placeholder_300x150.png' %}"

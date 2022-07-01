@@ -1,0 +1,42 @@
+import threading
+import time
+from datetime import datetime, timedelta
+
+import schedule as schedule
+
+from orders.models import Order, StatusResponse
+
+CHECK_TIME = "19:25"
+
+def check_order_status():
+    """Проверка активных заказов: если дата окончания заказа
+     end_time истекла или с момента
+    утверждения отклика прошло 3 дня, то
+    перевод Заказа в статус Not Active"""
+    orders = Order.objects.filter(status='Active')
+    status_response = StatusResponse.objects.filter(status='Approved')
+    for order in orders:
+        order_responses = status_response.filter(response_order__order__id=order.id).first()
+        if datetime.date(order.end_time) < datetime.today().date() \
+                or (order_responses and datetime.date(order_responses.time_status) + timedelta(
+            days=3) < datetime.today().date()):
+            print(f'Change status: {order}')
+            order.status = 'Not Active'
+            order.save()
+    print(datetime.now(), "Check_order_status_DONE...")
+
+
+def start_planner():
+    """Запуск планировщика"""
+    schedule.every().day.at(CHECK_TIME).do(check_order_status)  # проверка ордеров по времени CHECK_TIME
+    # schedule.every(1).minutes.do(reload)  # для теста проверка через 1 минуту
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
+
+def start_thread_check_order_status():
+    """Запуск потока проверки статусов Заказов"""
+    print('start thread check order...')
+    my_thread = threading.Thread(target=start_planner)
+    my_thread.start()

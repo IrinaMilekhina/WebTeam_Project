@@ -1,47 +1,70 @@
-<table 
-     id="datatable"
-            class="meeting-table table count-digit table-bordered table-hover"
-          >
-            <thead>
-              <tr class="count-digit">
-                <th>№</th>
-                <th>id Заказа</th>
-                <th>Наименование</th>
-                <th>Категория</th>
-                <th>Фирма</th>
-                <th>Дата заказа</th>
-                <th>Действует до</th>
-                <th>Статус</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for row in page_obj %}
-              <tr
+<table
+        id="datatable"
+        class="meeting-table table count-digit"
+>
+    <thead>
+    <tr class="count-digit">
+        <th class="num">№</th>
+        <th class="order-id">id Заказа</th>
+        <th class="name">Наименование</th>
+        <th class="category">Категория</th>
+        <th class="company">Фирма</th>
+        <th class="start-date">Дата заказа</th>
+        <th class="end-date">Действует до</th>
+        <th class="status">Статус</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for row in page_obj %}
+        <tr
                 class="meeting-table-row"
                 data-href="{% url 'orders:view_order' row.id %}"
-              >
-                <td>{{ forloop.counter }}</td>
-                <td>{{ row.id }}</td>
-                <td>{{ row.name }}</td>
-                <td class="category_row">{{ row.category }}</td>
-                <td>{{ row.author.comp_name }}</td>
-                <td>{{ row.create_at }}</td>
-                <td>{{ row.end_time }}</td>
-                <td {% if row.status == 'Active'%} class="text-success" {% else %} class="text-danger" {% endif %}> {{ row.status }}</td>
-              </tr>
-              {% endfor %}
-            </tbody>
+        >
+            <td>{{ forloop.counter }}</td>
+            <td>{{ row.id }}</td>
+            <td>{{ row.name }}</td>
+            <td class="category_row">{{ row.category }}</td>
+            <td>{{ row.author.comp_name }}</td>
+            <td>{{ row.create_at }}</td>
+            <td>{{ row.end_time }}</td>
+            <td {% if row.status == 'Active' %} class="text-success" {% else %}
+                                                class="text-danger" {% endif %}> {{ row.status }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
 </table>
 <!-- Важно, не изменять -->
 {% load filter_tags %}
-<div class="pagination">
-{% if page_obj.has_previous %}
-  <a href="{% my_url 1 'page' request.GET.urlencode %}">First Page</a>
-  <a class="ms-1 me-1" href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}">Previous</a>
-{% endif %}
-Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
-{% if page_obj.has_next %}
-  <a class="ms-1" href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}">Next</a>
-  <a class="ms-1" href="{% my_url page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a>
-{% endif %}
+<div class="pagination col-lg-12">
+    <ul>
+        {% if page_obj.has_previous %}
+            <li>
+                <a href="{% my_url 1 'page' request.GET.urlencode %}">
+                    <i class="fa fa-angle-double-left"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            </li>
+        {% endif %}
+        <li class="active">
+            <a href="#">
+                {{ page_obj.number }}
+            </a>
+        </li>
+        {% if page_obj.has_next %}
+            <li>
+                <a href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{% my_url page_obj.paginator.num_pages 'page' request.GET.urlencode %}">
+                    <i class="fa fa-angle-double-right"></i>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
 </div>

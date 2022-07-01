@@ -3,47 +3,51 @@
 {% load static %}
 
 {% block content %}
-<div style='height:50px'></div>
-<h1 class="text-center mt-5">Доска Заказов</h1>
-
-  <section>
-    <div class="container mt-4">
-      <div class="row">
-        <div class="col-6">
-         <form class="form-inline" method="GET" style="color: black; font-weight: bold;">
-          {{ filtered_table.form }}
-          &nbsp;&nbsp;<button type="submit" class="btn btn-warning">Go</button>
-        </form>
+    <section class="orders-table-board">
+        <div class="col-lg-12">
+            <div class="section-heading">
+                <h2>Доска Заказов</h2>
+            </div>
         </div>
-        <div class="col-12">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-12 center">
+                    <form class="filter-form" method="GET">
+                        <div class="filter-fields">
+                            {{ filtered_table.form }}
+                        </div>
 
-          {% if page_obj %}
-          <!-- Вставляем таблицу -->
-          {% include "orders/table_order_board.html" %}
-          {% else %}
-          <h4 class="text-left text-primary">Заказов в данной категории нет, выберите другую категорию.</h4>
-          {% endif %}
-          
+                        <div class="filter-fields">
+                            <label for="search">Поиск</label>
+                            <input id="search" type="text" placeholder="Поиск...">
+
+                            <button type="submit" class="filter-btn">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-12">
+
+                    {% if page_obj %}
+                        <!-- Вставляем таблицу -->
+                        {% include "orders/table_order_board.html" %}
+                    {% else %}
+                        <h4 class="no-orders text-lg-center text-white">Заказов в данной категории нет, выберите другую
+                            категорию.</h4>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-        
+    </section>
+{% endblock %}
 
-      </div>
-          
-        
-        </div>
-         
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-{% endblock %} {% block morejs %}
-<script>
-  $(document).ready(function ($) {
-    $('.meeting-table-row').click(function () {
-      window.document.location = $(this).data('href');
-    });
-  });
-</script>
+{% block morejs %}
+    <script>
+        $(document).ready(function ($) {
+            $('.meeting-table-row').click(function () {
+                window.document.location = $(this).data('href');
+            });
+        });
+    </script>
 {% endblock %}

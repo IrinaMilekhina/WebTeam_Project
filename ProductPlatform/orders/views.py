@@ -9,6 +9,7 @@ from orders.forms import CreateOrderForm
 
 
 from orders.models import CategoryOrder, Order, StatusResponse, ResponseOrder
+from users.models import Profile
 
 from orders.filters import OrderFilter
 from django.views import View
@@ -26,10 +27,19 @@ class MainView(View):
             .annotate(count=Count('order')) \
             .values('id', 'name', 'image', 'count') \
             .order_by('-count')[:6]
+        all_suppliers_amount = len(Profile.objects.filter(role='Supplier'))
+        all_categories_amount = len(CategoryOrder.objects.all())
+        all_active_orders_amount = len(Order.objects.filter(status='Active'))
+        all_customers_amount = len(Profile.objects.filter(role='Customer'))
+
         content = {
             'title': self.title,
             'categories': CategoryOrder.objects.all(),
-            'top_categories': top_category
+            'top_categories': top_category,
+            'all_suppliers_amount': all_suppliers_amount,
+            'all_categories_amount': all_categories_amount,
+            'all_active_orders_amount': all_active_orders_amount,
+            'all_customers_amount': all_customers_amount,
         }
 
         return render(request, self.template_name, content)

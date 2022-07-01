@@ -1,4 +1,5 @@
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, PasswordResetDoneView, \
+    PasswordResetConfirmView, PasswordResetCompleteView
 from django.contrib import messages
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views.generic.edit import FormView
@@ -186,3 +187,25 @@ class PersonalHistoryOrdersView(ListView):
         context['user'] = current_profile
         return context
 
+
+class ProfilePasswordResetView(PasswordResetView):
+    title = "Сброс пароля"
+    email_template_name = "users/registration/password_reset_email.html"
+    template_name = "users/registration/password_reset_form.html"
+    success_url = reverse_lazy("users:password_reset_done")
+
+
+class ProfilePasswordResetDoneView(PasswordResetDoneView):
+    title = "Сброс пароля"
+    template_name = "users/registration/password_reset_done.html"
+
+
+class ProfilePasswordResetConfirmView(PasswordResetConfirmView):
+    title = "Сброс пароля"
+    template_name = "users/registration/password_reset_confirm.html"
+    success_url = reverse_lazy("users:password_reset_complete")
+
+
+class ProfilePasswordResetCompleteView(PasswordResetCompleteView):
+    title = "Сброс пароля"
+    template_name = "users/registration/password_reset_complete.html"

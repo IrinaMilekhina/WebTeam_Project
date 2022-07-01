@@ -1870,9 +1870,8 @@ section.our-facts h2 {
 }
 
 .count-digit {
-    margin: 5px 0px;
-    color: #f5a425;
-    font-weight: 700;
+    margin: 0px;
+    color: #ffffff;
     font-size: 36px;
 }
 
@@ -2347,22 +2346,73 @@ section.orders-table-board .filter-form {
 }
 
 @media (max-width: 1399px) {
+    section.orders-table-board .meeting-table thead tr {
+        height: auto;
+    }
     section.orders-table-board .filter-form {
         height: auto;
         padding-top: 6px;
         padding-bottom: 6px;
+        border-radius: 20px;
     }
 
-    section.orders-table-board .filter-form .filter-fields{
+    section.orders-table-board .filter-form .left-fields {
         display: flex;
         align-items: center;
         flex-wrap: wrap !important;
     }
 
+    section.orders-table-board .filter-form .filter-fields select {
+        margin-top: 6px;
+        margin-right: 10vw;
+    }
+}
+
+@media (max-width: 799px) {
+    section.orders-table-board .filter-form .left-fields select {
+        max-width: 310px;
+    }
+}
+
+@media (max-width: 709px) {
+    section.orders-table-board .filter-form .left-fields select {
+        max-width: 258px;
+    }
+}
+
+@media (max-width: 568px) {
+    section.orders-table-board .filter-form {
+        display: block;
+    }
+
+    section.orders-table-board .filter-form .filter-fields input {
+        margin-top: 6px;
+        margin-right: 10vw;
+    }
+}
+
+@media (max-width: 401px) {
+    section.orders-table-board .filter-form .left-fields select {
+        max-width: 231px;
+        min-width: 123px;
+    }
+}
+
+@media (max-width: 991px) {
     section.orders-table-board .filter-form .filter-fields select{
         margin-top: 6px;
-        margin-right: 20vw;
+        margin-right: 0;
     }
+
+    section.orders-table-board .content-table {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        max-width: unset !important;
+    }
+
+    /*section.orders-table-board .row-table {*/
+    /*    width: 100% !important;*/
+    /*}*/
 }
 
 section.orders-table-board .filter-form .filter-fields input {
@@ -2431,6 +2481,10 @@ section.orders-table-board .meeting-table {
     border-collapse: separate;
     border: 1px solid #262626;
     background-color: rgba(250, 250, 250, 0.9);
+}
+
+section.orders-table-board .meeting-table thead tr {
+    height: 55px;
 }
 
 section.orders-table-board .meeting-table thead th {

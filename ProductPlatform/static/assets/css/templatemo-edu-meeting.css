@@ -1088,7 +1088,7 @@ section.upcoming-meetings .categories .main-button-red a {
 
 .meeting-single-item .thumb {
     position: relative;
-    background-image: url("../images/placeholder_300x150.png");
+    /*background-image: url("../images/placeholder_300x150.png");*/
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;

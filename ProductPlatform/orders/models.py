@@ -66,12 +66,9 @@ class ResponseOrder(models.Model):
     def save(self, *args, **kwargs):
         super(ResponseOrder, self).save(*args, **kwargs)
         obj = StatusResponse.objects.create(response_order=self,
-                                      status='On Approval',
-                                      user_initiator=self.response_user)
+                                            status='On Approval',
+                                            user_initiator=self.response_user)
         obj.save()
-
-
-
 
 
 class StatusResponse(models.Model):
@@ -95,3 +92,10 @@ class StatusResponse(models.Model):
 
     def __str__(self):
         return f'У отклика с ID# {self.response_order} статус - {self.status}'
+
+    def save(self, *args, **kwargs):
+        super(StatusResponse, self).save(*args, **kwargs)
+        if self.status == 'Approved':
+            obj = Order.objects.get(id=self.response_order.order_id)
+            obj.status = 'Not Active'
+            obj.save()

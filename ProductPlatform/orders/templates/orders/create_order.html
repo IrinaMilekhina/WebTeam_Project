@@ -43,34 +43,36 @@
                                     <div class="down-content-create_order">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text"
-                                                          id="inputGroup-sizing-sm">Наименование:</span>
+                                                <div class="mb-3">
+                                                    <label class="small mb-1"
+                                                          id="inputGroup-sizing-sm">Наименование:</label>
                                                     {{ form.name }}
                                                 </div>
                                             </div>
                                             <div class="row row-cols-auto mb-3">
                                                 <div class="col-sm-6">
                                                     <div class="col-md-16">
-                                                        <div class="input-group input-group-sm mb-3">
-                                                            <span class="input-group-text"
-                                                                  id="inputGroup-sizing-sm">Категория:</span>
+                                                        <div class="mb-3">
+                                                            <label class="small mb-1"
+                                                                  id="inputGroup-sizing-sm">Категория:</label>
                                                             {{ form.category }}
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-6 mb-3">
-                                                        <div class="input-group input-group-sm mb-3">
-                                                            <span class="input-group-text">Действует до:</span>
+                                                        <div class="mb-3">
+                                                            <label class="small mb-1">Действует до:</label>
                                                             {{ form.end_time }}
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col col-sm-6">
                                                     <div class="col-md-auto">
-                                                        <div class="input-group input-group-sm mb-3">
-                                                            <span class="input-group-text">Описание:</span>
-                                                            {{ form.description }}
+                                                        <div class="mb-3">
+                                                            <fieldset>
+                                                                <label class="small mb-1">Описание:</label>
+                                                                {{ form.description }}
+                                                            </fieldset>
                                                         </div>
                                                     </div>
                                                 </div>

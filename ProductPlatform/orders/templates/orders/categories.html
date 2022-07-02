@@ -29,13 +29,13 @@
                         {#                        </div>#}
                         <div class="col-lg-12">
                             <div class="row grid">
-                                {% for category in all_categories %}
+                                {% for category in categories %}
                                     <div class="col-lg-4 templatemo-item-col all soon">
                                         <div class="meeting-item">
                                             <a href="{% url 'orders:category' category.id %}">
                                                 <div class="thumb">
                                                     <div class="price">
-                                                        <span>100 поставщиков</span>
+                                                        <span>Кол-во поставщиков: {{ category.count_orders }}</span>
                                                         <!-- Надо будет ещё количество добавить, но после того как это вьюху добавят -->
                                                     </div>
                                                     {% if category.image %}

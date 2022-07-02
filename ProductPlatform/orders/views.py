@@ -1,6 +1,6 @@
 import datetime
 from django.core.paginator import Paginator
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
@@ -47,10 +47,21 @@ class MainView(View):
 
 class CategoryOrderView(ListView):
     model = CategoryOrder
-    queryset = CategoryOrder.objects.filter(is_active=True)
-    context_object_name = 'all_categories'
     template_name = 'orders/categories.html'
     paginate_by = 6
+
+    def get_context_data(self, **kwargs):
+         context = super(CategoryOrderView, self).get_context_data(**kwargs)
+         categories = CategoryOrder.objects.select_related() \
+             .filter(is_active=True) \
+             .annotate(count_orders=Count('order__responseorder__response_user_id',
+                                          filter=Q(order__responseorder__statusresponse__status='Approved'),
+                                          distinct=True)) \
+             .values('id', 'name', 'image', 'description', 'count_orders')
+
+         context['categories'] = categories
+
+         return context
 
 
 class Category(DetailView):
@@ -91,8 +102,16 @@ class Category(DetailView):
 
         # unique_responses = sorted(unique_responses.items(), key=lambda item: item[1])[::-5]
 
+        select_category = CategoryOrder.objects.select_related() \
+            .filter(id=self.kwargs['id'])
+        category = select_category.annotate(
+            count_orders_done=Count('order__responseorder__response_user_id',
+                                    filter=Q(order__responseorder__statusresponse__status='Approved'), distinct=True)) \
+            .values('id', 'name', 'description', 'image', 'count_orders_done')
+        category = category.last()
+
         return render(request, self.template_name, {'category': category,
-                                                    'title': category.name,
+                                                    'title': category.get('name'),
                                                     'all_orders_amount': all_orders_amount,
                                                     'all_completed_orders': all_completed_orders,
                                                     'top_suppliers': unique_responses})

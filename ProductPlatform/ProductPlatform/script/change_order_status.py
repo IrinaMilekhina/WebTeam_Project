@@ -6,7 +6,7 @@ import schedule as schedule
 
 from orders.models import Order, StatusResponse
 
-CHECK_TIME = "19:25"
+CHECK_TIME = "00:00"  # запуск скрипта, время по москве
 
 def check_order_status():
     """Проверка активных заказов: если дата окончания заказа
@@ -28,8 +28,11 @@ def check_order_status():
 
 def start_planner():
     """Запуск планировщика"""
-    schedule.every().day.at(CHECK_TIME).do(check_order_status)  # проверка ордеров по времени CHECK_TIME
-    # schedule.every(1).minutes.do(reload)  # для теста проверка через 1 минуту
+    tz = int(datetime.now().astimezone().strftime("%z")[:3])
+    delta_tz = tz - 3
+    start_time = f"{int(CHECK_TIME.split(':')[0]) + delta_tz}:{CHECK_TIME.split(':')[1]}"
+    schedule.every().day.at(start_time).do(check_order_status)  # проверка ордеров по времени CHECK_TIME
+    # schedule.every(1).minutes.do(check_order_status)  # для теста проверка через 1 минуту
     while True:
         schedule.run_pending()
         time.sleep(1)

@@ -227,3 +227,4 @@ class ProfilePasswordResetConfirmView(PasswordResetConfirmView):
 class ProfilePasswordResetCompleteView(PasswordResetCompleteView):
     title = "Сброс пароля"
     template_name = "users/registration/password_reset_complete.html"
+

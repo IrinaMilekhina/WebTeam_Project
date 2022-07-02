@@ -2048,6 +2048,71 @@ section.contact-us .right-info ul li span {
     color: #f5a425;
 }
 
+/*
+---------------------------------------------
+profile
+---------------------------------------------
+*/
+
+section.profile {
+    background-color: #262626;
+    padding: 140px 0px 0px 0px;
+}
+
+section.profile .left-info {
+    background-color: #a12c2f;
+    border-radius: 20px;
+    padding: 40px;
+}
+
+section.profile .right-info {
+    background-color: #ffffff;
+    border-radius: 20px;
+}
+
+section.profile .left-info ul li {
+    display: inline-block;
+    border-bottom: 1px solid rgba(250, 250, 250, 0.15);
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+}
+
+section.profile .left-info ul li:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+section.profile .left-info ul li h6 {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+section.profile .left-info ul li span {
+    display: block;
+    font-size: 18px;
+    color: #fff;
+    font-weight: 700;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 140px;
+    border-top: 1px solid rgba(250, 250, 250, 0.15);
+    padding: 50px 0px;
+}
+
+.footer p {
+    text-transform: uppercase;
+    font-size: 14px;
+    color: #fff;
+}
+
+.footer p a {
+    color: #f5a425;
+}
 
 /*
 ---------------------------------------------

@@ -15,6 +15,12 @@
                         <div class="col-lg-12">
                             <div class="meeting-single-item">
                                 <div class="thumb">
+                                    {% if category.image %}
+                                        <img src="/media/{{ category.image }}" alt="">
+                                    {% else %}
+                                        <img src="{% static 'assets/images/placeholder_300x150.png' %}"
+                                                             alt="">
+                                    {% endif %}
                                     <div class="price">
                                         <span>Кол-во поставщиков: {{ category.count_orders_done }}</span>
                                     </div>
@@ -27,7 +33,7 @@
                                     <div class="row">
                                         <div class="col-lg-12 top-suppliers">
                                             <h5>Топ поставщики</h5>
-                                            <table class="suppliers" id="topsuppliers">
+                                            <table class="suppliers mt-3" id="topsuppliers">
                                                 <tr class="table-headers">
                                                     <th class="supplier">Поставщик</th>
                                                     <th class="orders_amount">Количество выполненных заказов</th>

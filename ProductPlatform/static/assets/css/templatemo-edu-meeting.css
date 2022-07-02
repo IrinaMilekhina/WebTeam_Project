@@ -1088,7 +1088,6 @@ section.upcoming-meetings .categories .main-button-red a {
 
 .meeting-single-item .thumb {
     position: relative;
-    background-image: url("../images/placeholder_300x150.png");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -2443,6 +2442,8 @@ section.meetings-page .main-button-red a {
 .meeting-single-item .thumb img {
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
+    height: 55vh;
+    object-fit: cover;
 }
 
 .meeting-single-item .thumb .price {

@@ -2056,7 +2056,18 @@ profile
 
 section.profile {
     background-color: #262626;
-    padding: 140px 0px 0px 0px;
+    padding: 140px 0 0 0;
+}
+
+section.profile .profile-content {
+    display: flex;
+    align-items: stretch;
+}
+
+section.profile .right-content {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
 }
 
 section.profile .left-info {
@@ -2068,6 +2079,26 @@ section.profile .left-info {
 section.profile .right-info {
     background-color: #ffffff;
     border-radius: 20px;
+    padding: 40px;
+}
+
+section.profile .right-info .rating {
+    font-size: 3.5rem;
+    color: #949494;
+}
+
+section.profile .comp_name {
+    display: flex;
+    justify-content: center;
+}
+
+section.profile .comp_name h2 {
+    text-transform: uppercase;
+    color: #1f272b;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    font-size: 30px;
+    font-weight: 700;
 }
 
 section.profile .left-info ul li {

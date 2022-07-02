@@ -30,7 +30,10 @@ def start_planner():
     """Запуск планировщика"""
     tz = int(datetime.now().astimezone().strftime("%z")[:3])
     delta_tz = tz - 3
-    start_time = f"{int(CHECK_TIME.split(':')[0]) + delta_tz}:{CHECK_TIME.split(':')[1]}"
+    real_hour = int(CHECK_TIME.split(':')[0]) + delta_tz
+    if real_hour < 10:
+        real_hour = f'0{real_hour}'
+    start_time = f"{real_hour}:{CHECK_TIME.split(':')[1]}"
     schedule.every().day.at(start_time).do(check_order_status)  # проверка ордеров по времени CHECK_TIME
     # schedule.every(1).minutes.do(check_order_status)  # для теста проверка через 1 минуту
     while True:

@@ -28,11 +28,11 @@
                         {#                            </div>#}
                         {#                        </div>#}
                         <div class="col-lg-12">
-                            <div class="row grid">
+                            <div class="row">
                                 {% for category in categories %}
-                                    <div class="col-lg-4 templatemo-item-col all soon">
-                                        <div class="meeting-item">
-                                            <a href="{% url 'orders:category' category.id %}">
+                                    <div class="col-lg-4 cat-cont templatemo-item-col all soon">
+                                        <div class="meeting-item cat-cont">
+                                            <a class="cat-cont-a" href="{% url 'orders:category' category.id %}">
                                                 <div class="thumb">
                                                     <div class="price">
                                                         <span>Кол-во поставщиков: {{ category.count_orders }}</span>

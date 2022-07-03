@@ -52,6 +52,15 @@ class Order(models.Model):
     def __str__(self):
         return f'{self.category} {self.name}, Заказ создал: {self.author}'
 
+    def save(self, *args, **kwargs):
+        super(Order, self).save(*args, **kwargs)
+        if self.status == 'Not Active':
+            set_responses = ResponseOrder.objects.select_related().filter(order=self)
+            for response in set_responses:
+                if response.status == 'On Approval':
+                    response.status = 'Not Approved'
+                    response.save()
+
 
 class ResponseOrder(models.Model):
     '''Отклик на заказ'''
@@ -73,12 +82,9 @@ class ResponseOrder(models.Model):
     def save(self, *args, **kwargs):
         super(ResponseOrder, self).save(*args, **kwargs)
         obj = StatusResponse.objects.create(response_order=self,
-                                      status='On Approval',
-                                      user_initiator=self.response_user)
+                                            status='On Approval',
+                                            user_initiator=self.response_user)
         obj.save()
-
-
-
 
 
 class StatusResponse(models.Model):
@@ -102,3 +108,10 @@ class StatusResponse(models.Model):
 
     def __str__(self):
         return f'У отклика с ID# {self.response_order} статус - {self.status}'
+
+    def save(self, *args, **kwargs):
+        super(StatusResponse, self).save(*args, **kwargs)
+        if self.status == 'Approved':
+            obj = Order.objects.get(id=self.response_order.order_id)
+            obj.status = 'Not Active'
+            obj.save()

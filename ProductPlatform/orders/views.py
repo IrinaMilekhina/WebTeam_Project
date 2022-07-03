@@ -11,7 +11,7 @@ from orders.forms import CreateOrderForm
 from orders.models import CategoryOrder, Order, StatusResponse, ResponseOrder
 from users.models import Profile
 
-from orders.filters import OrderFilter
+from orders.filters import OrderFilter, CategoryFilter
 from django.views import View
 
 
@@ -45,23 +45,23 @@ class MainView(View):
         return render(request, self.template_name, content)
 
 
-class CategoryOrderView(ListView):
-    model = CategoryOrder
-    template_name = 'orders/categories.html'
-    paginate_by = 6
-
-    def get_context_data(self, **kwargs):
-        context = super(CategoryOrderView, self).get_context_data(**kwargs)
-        categories = CategoryOrder.objects.select_related() \
-            .filter(is_active=True) \
-            .annotate(count_orders=Count('order__responseorder__response_user_id',
-                                         filter=Q(order__responseorder__statusresponse__status='Approved'),
-                                         distinct=True)) \
-            .values('id', 'name', 'image', 'description', 'count_orders')
-
-        context['categories'] = categories
-
-        return context
+# class CategoryOrderView(ListView):
+#     model = CategoryOrder
+#     template_name = 'orders/categories.html'
+#     paginate_by = 6
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(CategoryOrderView, self).get_context_data(**kwargs)
+#         categories = CategoryOrder.objects.select_related() \
+#             .filter(is_active=True) \
+#             .annotate(count_orders=Count('order__responseorder__response_user_id',
+#                                          filter=Q(order__responseorder__statusresponse__status='Approved'),
+#                                          distinct=True)) \
+#             .values('id', 'name', 'image', 'description', 'count_orders')
+#
+#         context['categories'] = categories
+#
+#         return context
 
 
 class Category(DetailView):
@@ -210,3 +210,30 @@ def table_order(request):
 class DeleteCategory(DeleteView):
     model = CategoryOrder
     success_url = reverse_lazy('orders:categories')
+
+
+def categories(request):
+    context = {}
+    active_categories = CategoryOrder.objects.select_related() \
+                    .filter(is_active=True) \
+                .annotate(count_orders=Count('order__responseorder__response_user_id',
+                                             filter=Q(order__responseorder__statusresponse__status='Approved'),
+                                             distinct=True)) \
+                .values('id', 'name', 'image', 'description', 'count_orders')
+    all_categories = CategoryOrder.objects.select_related() \
+        .annotate(count_orders=Count('order__responseorder__response_user_id',
+                                     filter=Q(order__responseorder__statusresponse__status='Approved'),
+                                     distinct=True)) \
+        .values('id', 'name', 'image', 'description', 'count_orders')
+    context['filtered_categories'] = CategoryFilter(
+        request.GET, queryset=all_categories)
+    context['active_category'] = active_categories
+    # ! Здесь устанавливается пагинация
+    paginated = Paginator(context['filtered_categories'].qs, 6)
+    page_number = request.GET.get('page')
+    context['page_obj'] = paginated.get_page(page_number)
+    paginated_active = Paginator(context['active_category'], 6)
+    page_number_active = request.GET.get('page')
+    context['page_obj_active'] = paginated_active.get_page(page_number_active)
+
+    return render(request, 'orders/categories.html', context=context)

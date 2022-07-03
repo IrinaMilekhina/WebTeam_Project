@@ -4,7 +4,7 @@ from django.db.models import Count, Q
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView
 from orders.forms import CreateOrderForm
 
 
@@ -107,7 +107,7 @@ class Category(DetailView):
         category = select_category.annotate(
             count_orders_done=Count('order__responseorder__response_user_id',
                                     filter=Q(order__responseorder__statusresponse__status='Approved'), distinct=True)) \
-            .values('id', 'name', 'description', 'image', 'count_orders_done')
+            .values('id', 'name', 'description', 'is_active', 'image', 'count_orders_done')
         category = category.last()
 
         return render(request, self.template_name, {'category': category,
@@ -205,3 +205,8 @@ def table_order(request):
     page_number = request.GET.get('page')
     context['page_obj'] = paginated.get_page(page_number)
     return render(request, 'orders/order_board.html', context=context)
+
+
+class DeleteCategory(DeleteView):
+    model = CategoryOrder
+    success_url = reverse_lazy('orders:categories')

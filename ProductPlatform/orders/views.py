@@ -2,7 +2,7 @@ import datetime
 from django.core.paginator import Paginator
 from django.db.models import Count
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,25 +13,38 @@ from orders.models import CategoryOrder, Order, StatusResponse, ResponseOrder
 from orders.filters import OrderFilter
 from django.views import View
 
+from orders.forms import FeedbackForm
+from orders.models import Feedback
 
-class MainView(View):
+
+class MainView(CreateView):
     template_name = 'orders/main.html'
     title = 'Главная'
+    form_class = FeedbackForm
+    success_url = reverse_lazy('main')
 
-    def get(self, request, *args, **kwargs):
+    def get_context_data(self, **kwargs):
+        context = super(MainView, self).get_context_data(**kwargs)
         top_category = CategoryOrder.objects \
             .filter(order__responseorder__statusresponse__status='Approved',
                     order__responseorder__statusresponse__time_status__gte=datetime.datetime.now() - datetime.timedelta(days=7)) \
             .annotate(count=Count('order')) \
             .values('id', 'name', 'image', 'count') \
             .order_by('-count')[:6]
-        content = {
-            'title': self.title,
-            'categories': CategoryOrder.objects.all(),
-            'top_categories': top_category
-        }
+        context['title'] = self.title
+        context['categories'] = CategoryOrder.objects.all()
+        context['top_categories'] = top_category
+        context['form'] = self.form_class
+        return context
 
-        return render(request, self.template_name, content)
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        print(form)
+        if form.is_valid():
+            form.save()
+            print(form)
+            return redirect(self.success_url)
+        return self.form_invalid(form)
 
 
 class CategoryOrderView(LoginRequiredMixin, ListView):
@@ -175,3 +188,5 @@ def table_order(request):
     page_number = request.GET.get('page')
     context['page_obj'] = paginated.get_page(page_number)
     return render(request, 'orders/order_board.html', context=context)
+
+

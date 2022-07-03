@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Order, CategoryOrder, ResponseOrder, StatusResponse
+from .models import Order, CategoryOrder, ResponseOrder, StatusResponse, Feedback
 
 
 class AdminOrders(admin.ModelAdmin):
@@ -26,7 +26,14 @@ class AdminStatusResponse(admin.ModelAdmin):
     list_filter = ['status', 'time_status']
     search_fields = ['status', 'time_status', 'response_order', 'user_initiator']
 
+
+class AdminFeedback(admin.ModelAdmin):
+    list_display = ['id', 'name_user', 'issue',]
+    list_display_links = ['name_user',]
+
+
 admin.site.register(Order, AdminOrders)
 admin.site.register(CategoryOrder, AdminCategory)
 admin.site.register(ResponseOrder, AdminResponse)
 admin.site.register(StatusResponse, AdminStatusResponse)
+admin.site.register(Feedback, AdminFeedback)

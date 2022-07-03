@@ -71,9 +71,6 @@ class ResponseOrder(models.Model):
         obj.save()
 
 
-
-
-
 class StatusResponse(models.Model):
     '''Статус отклика для избежания UPDATE таблицы RESPONSE_ORDER'''
     status_choice = [
@@ -95,3 +92,17 @@ class StatusResponse(models.Model):
 
     def __str__(self):
         return f'У отклика с ID# {self.response_order} статус - {self.status}'
+
+
+class Feedback(models.Model):
+    name_user = models.CharField(max_length=50, verbose_name='Имя пользователя')
+    email = models.EmailField(verbose_name='Почта')
+    issue = models.CharField(max_length=250, verbose_name='Тема')
+    message = models.TextField(verbose_name='Сообщение')
+
+    class Meta:
+        verbose_name = 'Сообщение от пользователя'
+        verbose_name_plural = 'Сообщения от пользователей'
+
+    def __str__(self):
+        return f'Сообщение от {self.name_user}'

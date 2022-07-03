@@ -1086,6 +1086,22 @@ section.upcoming-meetings .categories .main-button-red a {
     margin-bottom: 30px;
 }
 
+section.meetings-page .cat-cont {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap !important;
+}
+
+section.meetings-page .cat-center {
+    display: flex;
+    justify-content: center;
+}
+
+section.meetings-page .cat-cont-a {
+    background-color: #fff;
+    border-radius: 20px;
+}
+
 .meeting-single-item .thumb {
     position: relative;
     background-position: center center;

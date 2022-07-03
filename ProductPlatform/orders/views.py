@@ -1,15 +1,18 @@
 import datetime
 from django.core.paginator import Paginator
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView, DetailView, CreateView, DeleteView
+
 
 
 from orders.forms import CreateOrderForm
 from orders.models import CategoryOrder, Order, StatusResponse, ResponseOrder
+from users.models import Profile
+
 from orders.filters import OrderFilter
 from django.views import View
 
@@ -31,10 +34,21 @@ class MainView(CreateView):
             .annotate(count=Count('order')) \
             .values('id', 'name', 'image', 'count') \
             .order_by('-count')[:6]
+
         context['title'] = self.title
         context['categories'] = CategoryOrder.objects.all()
         context['top_categories'] = top_category
         context['form'] = self.form_class
+
+        all_suppliers_amount = len(Profile.objects.filter(role='Supplier'))
+        all_categories_amount = len(CategoryOrder.objects.all())
+        all_active_orders_amount = len(Order.objects.filter(status='Active'))
+        all_customers_amount = len(Profile.objects.filter(role='Customer'))
+        
+        context['all_suppliers_amount'] = all_suppliers_amount
+        context['all_categories_amount'] = all_categories_amount
+        context['all_active_orders_amount'] = all_active_orders_amount
+        context['all_customers_amount'] = all_customers_amount
         return context
 
     def post(self, request, *args, **kwargs):
@@ -49,10 +63,21 @@ class MainView(CreateView):
 
 class CategoryOrderView(LoginRequiredMixin, ListView):
     model = CategoryOrder
-    queryset = CategoryOrder.objects.filter(is_active=True)
-    context_object_name = 'all_categories'
     template_name = 'orders/categories.html'
     paginate_by = 6
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryOrderView, self).get_context_data(**kwargs)
+        categories = CategoryOrder.objects.select_related() \
+            .filter(is_active=True) \
+            .annotate(count_orders=Count('order__responseorder__response_user_id',
+                                         filter=Q(order__responseorder__statusresponse__status='Approved'),
+                                         distinct=True)) \
+            .values('id', 'name', 'image', 'description', 'count_orders')
+
+        context['categories'] = categories
+
+        return context
 
 
 class Category(LoginRequiredMixin, DetailView):
@@ -93,8 +118,16 @@ class Category(LoginRequiredMixin, DetailView):
 
         # unique_responses = sorted(unique_responses.items(), key=lambda item: item[1])[::-5]
 
+        select_category = CategoryOrder.objects.select_related() \
+            .filter(id=self.kwargs['id'])
+        category = select_category.annotate(
+            count_orders_done=Count('order__responseorder__response_user_id',
+                                    filter=Q(order__responseorder__statusresponse__status='Approved'), distinct=True)) \
+            .values('id', 'name', 'description', 'is_active', 'image', 'count_orders_done')
+        category = category.last()
+
         return render(request, self.template_name, {'category': category,
-                                                    'title': category.name,
+                                                    'title': category.get('name'),
                                                     'all_orders_amount': all_orders_amount,
                                                     'all_completed_orders': all_completed_orders,
                                                     'top_suppliers': unique_responses})
@@ -189,4 +222,8 @@ def table_order(request):
     context['page_obj'] = paginated.get_page(page_number)
     return render(request, 'orders/order_board.html', context=context)
 
+
+class DeleteCategory(DeleteView):
+    model = CategoryOrder
+    success_url = reverse_lazy('orders:categories')
 

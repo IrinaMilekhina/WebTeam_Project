@@ -1086,9 +1086,24 @@ section.upcoming-meetings .categories .main-button-red a {
     margin-bottom: 30px;
 }
 
+section.meetings-page .cat-cont {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap !important;
+}
+
+section.meetings-page .cat-center {
+    display: flex;
+    justify-content: center;
+}
+
+section.meetings-page .cat-cont-a {
+    background-color: #fff;
+    border-radius: 20px;
+}
+
 .meeting-single-item .thumb {
     position: relative;
-    background-image: url("../images/placeholder_300x150.png");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -1915,7 +1930,7 @@ section.contact-us {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-    padding: 140px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
 }
 
 section.contact-us #contact {
@@ -2443,6 +2458,8 @@ section.meetings-page .main-button-red a {
 .meeting-single-item .thumb img {
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
+    height: 55vh;
+    object-fit: cover;
 }
 
 .meeting-single-item .thumb .price {

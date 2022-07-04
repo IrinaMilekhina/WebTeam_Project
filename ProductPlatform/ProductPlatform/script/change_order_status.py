@@ -12,18 +12,13 @@ from orders.models import Order, StatusResponse
 def check_order_status():
     """Проверка активных заказов: если дата окончания заказа
      end_time истекла, то
-    перевод Заказа в статус Not Active и Перевод ВСЕХ откликов
-    со статусом On Approval в статус Not Approved"""
+    перевод Заказа в статус Not Active"""
     orders = Order.objects.filter(status='Active')
     for order in orders:
         if datetime.date(order.end_time) < datetime.today().date():
-            logger.info(f'Change status: {order}')
+            logger.warning(f'Change status: {order}')
             order.status = 'Not Active'
             order.save()
-            not_approve_responses = StatusResponse.objects.filter(status='On Approval', response_order__order__id=order.id)
-            for response in not_approve_responses:
-                response.status ='Not Approved'
-                response.save()
     logger.info(datetime.now(), "Check_order_status_DONE...")
 
 

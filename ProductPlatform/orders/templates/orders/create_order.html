@@ -1,49 +1,102 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
 {% block content %}
-<div style='height:50px'></div>
-<h1 class="text-center mt-5">Доска Заказов</h1>
+    <section class="heading-page-create_order header-text" id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Создание заказа</h2>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section>
-    <div class="container mt-4">
-      <div class="row">
-        <div class="col-6">
-         <form class="form-inline" method="GET" style="color: black; font-weight: bold;">
-          {{ filtered_table.form }}
-          &nbsp;&nbsp;<button type="submit" class="btn btn-warning">Go</button>
+    <section class="meetings-page" id="meetings">
+        <form id='form' action="{% url 'orders:create_order' %}" method="post">
+            {% csrf_token %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            {% if form.errors %}
+                                <div
+                                        class="alert alert-warning alert-dismissible fade show"
+                                        role="alert"
+                                        style="margin-top: 50px">
+                                    {{ form.non_field_errors }} {% for error in form %} {{ error.errors }}
+                                {% endfor %}
+                                    <button
+                                            type="button"
+                                            class="close"
+                                            data-dismiss="alert"
+                                            aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            {% endif %}
+                            <div class="col-lg-12">
+                                <div class="meeting-single-item mb-3">
+{#                                    <div class="thumb">#}
+{#                                        <img src="{% static 'assets/images/single-meeting.jpg' %}" alt="">#}
+{#                                    </div>#}
+                                    <div class="down-content-create_order">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="mb-3">
+                                                    <label class="small mb-1"
+                                                          id="inputGroup-sizing-sm">Наименование:</label>
+                                                    {{ form.name }}
+                                                </div>
+                                            </div>
+                                            <div class="row row-cols-auto mb-3">
+                                                <div class="col-sm-6">
+                                                    <div class="col-md-16">
+                                                        <div class="mb-3">
+                                                            <label class="small mb-1"
+                                                                  id="inputGroup-sizing-sm">Категория:</label>
+                                                            {{ form.category }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6 mb-3">
+                                                        <div class="mb-3">
+                                                            <label class="small mb-1">Действует до:</label>
+                                                            {{ form.end_time }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col col-sm-6">
+                                                    <div class="col-md-auto">
+                                                        <div class="mb-3">
+                                                            <fieldset>
+                                                                <label class="small mb-1">Описание:</label>
+                                                                {{ form.description }}
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="main-button-red">
+                                        <button class="btn btn-danger" role="button" aria-pressed="true">Создать
+                                            заказ
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p>© 2022 N</p>
+            </div>
         </form>
-        </div>
-        <div class="col-12">
-
-          {% if page_obj %}
-          <!-- Вставляем таблицу -->
-          {% include "orders/table_order_board.html" %}
-          {% else %}
-          <h4 class="text-left text-primary">Заказов в данной категории нет, выберите другую категорию.</h4>
-          {% endif %}
-
-        </div>
-
-
-      </div>
-
-
-        </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-{% endblock %} {% block morejs %}
-<script>
-  $(document).ready(function ($) {
-    $('.meeting-table-row').click(function () {
-      window.document.location = $(this).data('href');
-    });
-  });
-</script>
+    </section>
 {% endblock %}

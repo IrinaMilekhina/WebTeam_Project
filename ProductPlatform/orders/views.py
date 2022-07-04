@@ -2,7 +2,7 @@ import datetime
 from django.core.paginator import Paginator
 from django.db.models import Count, Q
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DeleteView
 from orders.forms import CreateOrderForm
@@ -153,11 +153,11 @@ class CreateOrder(CreateView):
                                          name=form.data.get('name'),
                                          description=form.data.get(
                                              'description'),
-                                         end_time=f'{form.data.get("end_time_year")}-'
-                                                  f'{form.data.get("end_time_month")}-'
-                                                  f'{form.data.get("end_time_day")}')
+                                         end_time=form.data.get("end_time"))
             order.save()
-            return HttpResponseRedirect(redirect_to=reverse_lazy('main'))
+            # return HttpResponseRedirect(redirect_to=reverse_lazy('main'))
+            return redirect('orders:view_order', pk=order.id)
+
         else:
             return self.form_invalid(form)
 

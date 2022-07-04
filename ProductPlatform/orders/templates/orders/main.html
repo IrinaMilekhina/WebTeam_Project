@@ -230,13 +230,13 @@
               <div class="col-12">
                 <div class="count-area-content">
                   <div class="count-digit">{{ all_suppliers_amount }}</div>
-                  <div class="count-title">{{ all_suppliers_amount|default:'100'|"Поставщик,Поставщика,Поставщиков" }}</div>
+                  <div class="count-title">{{ all_suppliers_amount|default:"100"|ru_plural:"Поставщик,Поставщика,Поставщиков" }}</div>
                 </div>
               </div>
               <div class="col-12">
                 <div class="count-area-content">
                   <div class="count-digit">{{ all_categories_amount }}</div>
-                  <div class="count-title">{{ all_categories_amount|default:'100'|"Категория,Категории,Категорий" }}</div>
+                  <div class="count-title">{{ all_categories_amount|default:"100"|ru_plural:"Категория,Категории,Категорий" }}</div>
                 </div>
               </div>
             </div>
@@ -246,13 +246,13 @@
               <div class="col-12">
                 <div class="count-area-content">
                   <div class="count-digit">{{ all_customers_amount }}</div>
-                  <div class="count-title">{{ all_customers_amount|default:'100'|"Ресторатор,Ресторатора,Рестораторов" }}</div>
+                  <div class="count-title">{{ all_customers_amount|default:"100"|ru_plural:"Ресторатор,Ресторатора,Рестораторов" }}</div>
                 </div>
               </div>
               <div class="col-12">
                 <div class="count-area-content">
                   <div class="count-digit">{{ all_active_orders_amount }}</div>
-                  <div class="count-title">{{ all_active_orders_amount|default:'100'|"Заказ,Заказа,Заказов" }}</div>
+                  <div class="count-title">{{ all_active_orders_amount|default:"100"|ru_plural:"Заказ,Заказа,Заказов" }}</div>
                 </div>
               </div>
             </div>

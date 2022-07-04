@@ -207,10 +207,30 @@ class PersonalHistoryOrdersView(ListView):
 
 
 class ProfilePasswordResetView(PasswordResetView):
+
     title = "Сброс пароля"
     email_template_name = "users/registration/password_reset_email.html"
     template_name = "users/registration/password_reset_form.html"
     success_url = reverse_lazy("users:password_reset_done")
+
+    def form_valid(self, form):
+        user = Profile.objects.get(pk=self.request.user.pk)
+        if user.email == form.cleaned_data['email']:
+            opts = {
+                "use_https": self.request.is_secure(),
+                "token_generator": self.token_generator,
+                "from_email": self.from_email,
+                "email_template_name": self.email_template_name,
+                "subject_template_name": self.subject_template_name,
+                "request": self.request,
+                "html_email_template_name": self.html_email_template_name,
+                "extra_email_context": self.extra_email_context,
+            }
+            form.save(**opts)
+            return super().form_valid(form)
+        else:
+            form.errors['InvalidEmail'] = 'Введен некорректный email. Введите email, указанный при регистрации.'
+            return super().form_invalid(form)
 
 
 class ProfilePasswordResetDoneView(PasswordResetDoneView):

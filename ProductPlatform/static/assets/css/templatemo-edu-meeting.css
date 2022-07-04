@@ -2057,6 +2057,14 @@ profile
 section.profile {
     background-color: #262626;
     padding: 140px 0 0 0;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap !important;
+}
+
+section.profile .footer {
+    margin-top: 55px;
+    align-self: flex-end;
 }
 
 section.profile .profile-content {
@@ -2065,31 +2073,52 @@ section.profile .profile-content {
 }
 
 section.profile .right-content {
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
 }
 
-section.profile .left-info {
-    background-color: #a12c2f;
-    border-radius: 20px;
-    padding: 40px;
+section.profile .right-content,
+section.profile .right-info .center,
+section.profile .right-content .profile-info,
+section.profile .right-content .profile-info .center {
+    display: flex;
+    justify-content: center;
 }
 
 section.profile .right-info {
     background-color: #ffffff;
     border-radius: 20px;
     padding: 40px;
+    display: flex;
 }
 
 section.profile .right-info .rating {
-    font-size: 3.5rem;
-    color: #949494;
+    font-size: 24px;
+}
+
+section.profile .right-content img {
+    width: 130px;
+    height: 130px;
 }
 
 section.profile .comp_name {
     display: flex;
     justify-content: center;
+}
+
+section.profile .right-content .profile-info .info-text {
+    text-transform: uppercase;
+    color: #7c7c7c;
+    margin-top: 10px;
+}
+
+section.profile .ogrn {
+    display: flex;
+    align-self: flex-end;
+}
+
+section.profile .left-info {
+    background-color: #a12c2f;
+    border-radius: 20px;
+    padding: 40px;
 }
 
 section.profile .comp_name h2 {

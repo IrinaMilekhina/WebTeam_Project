@@ -199,3 +199,22 @@ class PersonalHistoryOrdersView(LoginRequiredMixin, ListView):
         context['page_obj'] = orders_paginator
         context['user'] = current_profile
         return context
+
+
+class ProfileView(DetailView):
+    """Класс-обработчик для отображения выбранного профиля"""
+    model = Profile
+    template_name = 'users/profile.html'
+
+    def get(self, request, *args, **kwargs):
+        """Если приходит GET запрос, получаем профиль по id и рендерим шаблон users/profile.html"""
+        try:
+            if kwargs.get('id'):
+                profile_id = kwargs['id']
+                user_profile = get_object_or_404(Profile, id=profile_id)
+
+                return render(request, self.template_name, {'profile': user_profile})
+            else:
+                return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})
+        except Http404:
+            return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})

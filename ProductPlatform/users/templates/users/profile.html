@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
     <section class="profile" id="profile">
-        <div class="container">
+        <div class="container col-lg-12">
             <div class="row profile-content">
                 <div class="col-lg-4 profile-content">
                     <div class="left-info">
@@ -27,19 +29,55 @@
                     </div>
                 </div>
                 <div class="col-lg-8 profile-content">
-                    <div class="right-info col-lg-12">
+                    <div class="right-info row col-lg-12">
                         <div class="comp_name col-lg-12">
                             <h2>Company Name</h2>
                         </div>
                         <div class="right-content col-lg-12">
-                            <i class="fa fa-check-circle-o rating"></i>
+                            <div class="col-lg-4 row profile-info">
+                                <div class="col-lg-12 center">
+                                    <img src="{% static 'assets/images/rating.png' %}" alt="">
+                                </div>
+                                <div class="col-lg-12 row center info-text">
+                                    <div class="col-lg-12 center">Рейтинг</div>
+                                    <div class="col-lg-12 center">
+                                        <i class="fa fa-star rating"></i>
+                                        <i class="fa fa-star rating"></i>
+                                        <i class="fa fa-star rating"></i>
+                                        <i class="fa fa-star rating"></i>
+                                        <i class="fa fa-star-half-full rating"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 row profile-info">
+                                <div class="col-lg-12 center">
+                                    <img src="{% static 'assets/images/responses.png' %}" alt="">
+                                </div>
+                                <div class="col-lg-12 row center info-text">
+                                    <div class="col-lg-12 center">Отклики</div>
+                                    <div class="col-lg-12 center">1000</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 row profile-info">
+                                <div class="col-lg-12 center">
+                                    <img src="{% static 'assets/images/orders.png' %}" alt="">
+                                </div>
+                                <div class="col-lg-12 row center info-text">
+                                    <div class="col-lg-12 center">Заказы</div>
+                                    <div class="col-lg-12 center">1000</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ogrn row col-lg-12">
+                            <div class="col-lg-12 center">ОГРН</div>
+                            <div class="col-lg-12 center">409390344932403</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="footer">
+        <div class="footer col-lg-12">
             <p>© 2022 N</p>
         </div>
-    </section>s
+    </section>
 {% endblock %}

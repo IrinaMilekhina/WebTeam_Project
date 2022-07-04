@@ -2788,3 +2788,43 @@ table
     cursor: pointer;
 }
 
+/*create order*/
+section.heading-page-create_order {
+    background-image: url(../images/single-meeting.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 230px;
+    padding-bottom: 110px;
+    text-align: center;
+}
+
+section.heading-page-create_order h6 {
+    margin-top: 0px;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+section.heading-page-create_order h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 36px;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+.meeting-single-item .down-content-create_order {
+    background-color: #fff;
+    padding: 40px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+}
+/*create order*/
+

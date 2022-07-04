@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% load words_extras %} {% block content %}
 
 <!-- ***** Main Banner Area Start ***** -->
 <section class="section main-banner" id="top" data-section="section1">
@@ -227,13 +227,13 @@
               <div class="col-12">
                 <div class="count-area-content">
                   <div class="count-digit">{{ all_suppliers_amount }}</div>
-                  <div class="count-title">поставщиков</div>
+                  <div class="count-title">{{ all_suppliers_amount|default:'100'|"Поставщик,Поставщика,Поставщиков" }}</div>
                 </div>
               </div>
               <div class="col-12">
                 <div class="count-area-content">
                   <div class="count-digit">{{ all_categories_amount }}</div>
-                  <div class="count-title">Категорий</div>
+                  <div class="count-title">{{ all_categories_amount|default:'100'|"Категория,Категории,Категорий" }}</div>
                 </div>
               </div>
             </div>
@@ -243,13 +243,13 @@
               <div class="col-12">
                 <div class="count-area-content">
                   <div class="count-digit">{{ all_customers_amount }}</div>
-                  <div class="count-title">Рестораторов</div>
+                  <div class="count-title">{{ all_customers_amount|default:'100'|"Ресторатор,Ресторатора,Рестораторов" }}</div>
                 </div>
               </div>
               <div class="col-12">
                 <div class="count-area-content">
                   <div class="count-digit">{{ all_active_orders_amount }}</div>
-                  <div class="count-title">Заказов</div>
+                  <div class="count-title">{{ all_active_orders_amount|default:'100'|"Заказ,Заказа,Заказов" }}</div>
                 </div>
               </div>
             </div>

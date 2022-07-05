@@ -282,47 +282,22 @@
                 </div>
                 <div class="col-lg-4">
                   <fieldset>
-                    <input
-                      name="name"
-                      type="text"
-                      id="name"
-                      placeholder="Имя..."
-                      required=""
-                    />
+                      {{ form.name_user }}
                   </fieldset>
                 </div>
                 <div class="col-lg-4">
                   <fieldset>
-                    <input
-                      name="email"
-                      type="text"
-                      id="email"
-                      pattern="[^ @]*@[^ @]*"
-                      placeholder="Эл. почта..."
-                      required=""
-                    />
+                      {{ form.email }}
                   </fieldset>
                 </div>
                 <div class="col-lg-4">
                   <fieldset>
-                    <input
-                      name="subject"
-                      type="text"
-                      id="subject"
-                      placeholder="Тема..."
-                      required=""
-                    />
+                      {{ form.issue }}
                   </fieldset>
                 </div>
                 <div class="col-lg-12">
                   <fieldset>
-                    <textarea
-                      name="user_message"
-                      class="form-control"
-                      id="user_message"
-                      placeholder="Сообщение..."
-                      required=""
-                    ></textarea>
+                      {{ form.message }}
                   </fieldset>
                 </div>
                 <div class="col-lg-12">

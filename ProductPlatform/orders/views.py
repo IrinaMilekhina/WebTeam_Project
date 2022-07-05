@@ -2,11 +2,11 @@ import datetime
 from django.core.paginator import Paginator
 from django.db.models import Count, Q
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, DeleteView
-from orders.forms import CreateOrderForm
+from orders.forms import CreateOrderForm, FeedbackForm
 
 from orders.models import CategoryOrder, Order, StatusResponse, ResponseOrder
 from users.models import Profile
@@ -14,34 +14,45 @@ from orders.filters import OrderFilter, CategoryFilter
 from django.views import View
 
 
-class MainView(View):
+class MainView(CreateView):
     template_name = 'orders/main.html'
     title = 'Главная'
+    form_class = FeedbackForm
+    success_url = reverse_lazy('main')
 
-    def get(self, request, *args, **kwargs):
+    def get_context_data(self, **kwargs):
+        context = super(MainView, self).get_context_data(**kwargs)
         top_category = CategoryOrder.objects \
             .filter(order__responseorder__statusresponse__status='Approved',
                     order__responseorder__statusresponse__time_status__gte=datetime.datetime.now() - datetime.timedelta(days=7)) \
             .annotate(count=Count('order')) \
             .values('id', 'name', 'image', 'count') \
             .order_by('-count')[:6]
+
+        context['title'] = self.title
+        context['categories'] = CategoryOrder.objects.all()
+        context['top_categories'] = top_category
+        context['form'] = self.form_class
+
         all_suppliers_amount = len(Profile.objects.filter(role='Supplier'))
         all_categories_amount = len(CategoryOrder.objects.all())
         all_active_orders_amount = len(Order.objects.filter(status='Active'))
         all_customers_amount = len(Profile.objects.filter(role='Customer'))
 
-        content = {
-            'title': self.title,
-            'categories': CategoryOrder.objects.all(),
-            'top_categories': top_category,
-            'all_suppliers_amount': all_suppliers_amount,
-            'all_categories_amount': all_categories_amount,
-            'all_active_orders_amount': all_active_orders_amount,
-            'all_customers_amount': all_customers_amount,
-        }
+        context['all_suppliers_amount'] = all_suppliers_amount
+        context['all_categories_amount'] = all_categories_amount
+        context['all_active_orders_amount'] = all_active_orders_amount
+        context['all_customers_amount'] = all_customers_amount
+        return context
 
-        return render(request, self.template_name, content)
-
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        print(form)
+        if form.is_valid():
+            form.save()
+            print(form)
+            return redirect(self.success_url)
+        return self.form_invalid(form)
 
 
 class CategoryOrderView(LoginRequiredMixin, ListView):

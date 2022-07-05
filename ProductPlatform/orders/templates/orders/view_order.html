@@ -98,9 +98,11 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <label class="small mb-1" for="company">Компания</label>
-                                        <div class="read_only order-info">
-                                            {{ order.author.comp_name }} на сайте с {{ order.author.date_joined }}
-                                        </div>
+                                        <a href="{% url 'users:profile' order.author.id %}">
+                                            <div class="read_only order-info">
+                                                {{ order.author.comp_name }} на сайте с {{ order.author.date_joined }}
+                                            </div>
+                                        </a>
                                     </div>
                                     <div class="col-lg-12">
                                         <label class="small mb-1" for="category">Категория</label>

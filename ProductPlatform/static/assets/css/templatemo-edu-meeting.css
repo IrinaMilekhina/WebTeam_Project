@@ -1361,7 +1361,7 @@ section.order .respons ul li div {
 }
 
 section.order .respons ul li a:hover {
-    color: #a12c2f;
+    color: #f5a425;
 }
 
 section.order .info {
@@ -2195,6 +2195,10 @@ section.profile .comp_name h2 {
         margin-bottom: 30px;
         padding-bottom: 30px;
     }
+
+    section.profile .profile-info {
+        margin: 0 10px;
+    }
 }
 
 section.profile .left-info ul li:last-child {
@@ -2569,6 +2573,14 @@ section.meetings-page {
     background-size: cover;
     padding-top: 140px;
     padding-bottom: 0px;
+}
+
+section.meetings-page .t-row a {
+    color: #1f272b;
+}
+
+section.meetings-page .t-row a:hover {
+    color: #f5a425;
 }
 
 section.meetings-page .filters {

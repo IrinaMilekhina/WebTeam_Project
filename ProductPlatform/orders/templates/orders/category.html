@@ -73,7 +73,7 @@
                                 {% endif %}
                             {% if not user.role == 'Supplier' and not user.role == 'Customer' %}
                                 {#                                <a class="button-red" href="{% url 'orders:categories' %}">Назад к списку категорий</a>#}
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop1"
                                 >{% if category.is_active == True %} Деактивировать {% else %}
                                     Активировать{% endif %}</a>
 
@@ -83,47 +83,78 @@
                             <a href="{% url 'orders:categories' %}">Назад к списку категорий</a>
                         </div>
 
-                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-                             data-bs-keyboard="false" tabindex="-1"
-                             aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="staticBackdropLabel">Подтверждение действий</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Закрыть"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Вы действительно уверены, что хотите {% if category.is_active == True %}
-                                        Деактивировать {% else %}
-                                        Активировать{% endif %}?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <div class="row">
-                                            <div class="main-button-red">
-                                                <form class="btn btn-primary" method="POST"
-                                                      action="{% url 'orders:delete_category' category.id %}">
-                                                    {% csrf_token %}<input type="submit" value="Подтверждаю">
-                                                </form>
-                                                <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    Закрыть
-                                                </a>
-                                            </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2022 N</p>
+        </div>
+
+    </section>
+    <section class="order" id="meetings">
+    <div class="container">
+        <div class="row order-content">
+            <div class="col-lg-6 responses" style="padding-left: 0px; padding-right: 0px;">
+                <div class="respons">
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                         data-bs-keyboard="false" tabindex="-1"
+                         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Подтверждение действий</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Закрыть"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Вы действительно уверены, что хотите {% if category.is_active == True %}
+                                    Деактивировать {% else %}
+                                    Активировать{% endif %}?
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="row">
+                                        <div class="main-button-red">
+                                            <form class="btn btn-primary" method="POST"
+                                                  action="{% url 'orders:delete_category' category.id %}">
+                                                {% csrf_token %}<input type="submit" value="Подтверждаю">
+                                            </form>
+                                            <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Закрыть
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static"
+                                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Подтверждение</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Вы действительно уверены, что хотите принять предложение?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="accept-btn">Принять</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                 </div>
             </div>
         </div>
-        </div>
-        <div class="footer">
-            <p>© 2022 N</p>
-        </div>
-
+    </div>
     </section>
+
 {% endblock %}
 
 {% block morejs %}

@@ -55,11 +55,18 @@ class Order(models.Model):
     def save(self, *args, **kwargs):
         super(Order, self).save(*args, **kwargs)
         if self.status == 'Not Active':
-            set_responses = ResponseOrder.objects.select_related().filter(order=self)
+            set_responses = StatusResponse.objects.filter(response_order_id=self.id)
             for response in set_responses:
                 if response.status == 'On Approval':
                     response.status = 'Not Approved'
                     response.save()
+
+    def delete(self, using=None, keep_parents=False):
+         if self.status == 'Active':
+             self.status = 'Not Active'
+         elif self.status == 'Not Active':
+             self.status = 'Active'
+         self.save()
 
 
 class ResponseOrder(models.Model):

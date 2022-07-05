@@ -14,7 +14,7 @@
                         <li><a href="/">Главная</a></li>
                         {% if user.is_authenticated %}
                             <li><a href="{% url 'orders:categories' %}">Категории</a></li>
-                            {% if user.role == 'Supplier' %}
+                            {% if not user.role == 'Customer' %}
                                 <li><a href="{% url 'orders:table_order' %}">Доска заказов</a></li>
                             {% endif %}
                             <li><a href="{% url 'users:account_edit' %}">Личный кабинет</a></li>

@@ -4,16 +4,14 @@ from django.db.models import Count, Q
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, DeleteView
 from orders.forms import CreateOrderForm
 
-
 from orders.models import CategoryOrder, Order, StatusResponse, ResponseOrder
 from users.models import Profile
-
 from orders.filters import OrderFilter, CategoryFilter
 from django.views import View
-
 
 
 class MainView(View):
@@ -45,26 +43,28 @@ class MainView(View):
         return render(request, self.template_name, content)
 
 
-# class CategoryOrderView(ListView):
-#     model = CategoryOrder
-#     template_name = 'orders/categories.html'
-#     paginate_by = 6
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(CategoryOrderView, self).get_context_data(**kwargs)
-#         categories = CategoryOrder.objects.select_related() \
-#             .filter(is_active=True) \
-#             .annotate(count_orders=Count('order__responseorder__response_user_id',
-#                                          filter=Q(order__responseorder__statusresponse__status='Approved'),
-#                                          distinct=True)) \
-#             .values('id', 'name', 'image', 'description', 'count_orders')
-#
-#         context['categories'] = categories
-#
-#         return context
+
+class CategoryOrderView(LoginRequiredMixin, ListView):
+    model = CategoryOrder
+    template_name = 'orders/categories.html'
+    paginate_by = 6
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryOrderView, self).get_context_data(**kwargs)
+        categories = CategoryOrder.objects.select_related() \
+            .filter(is_active=True) \
+            .annotate(count_orders=Count('order__responseorder__response_user_id',
+                                         filter=Q(order__responseorder__statusresponse__status='Approved'),
+                                         distinct=True)) \
+            .values('id', 'name', 'image', 'description', 'count_orders')
+
+        context['categories'] = categories
+
+        return context
 
 
-class Category(DetailView):
+
+class Category(LoginRequiredMixin, DetailView):
     """Класс-обработчик для отображения выбранной категории"""
     model = CategoryOrder
     template_name = 'orders/category.html'
@@ -117,7 +117,7 @@ class Category(DetailView):
                                                     'top_suppliers': unique_responses})
 
 
-class CreateOrder(CreateView):
+class CreateOrder(LoginRequiredMixin, CreateView):
     """Класс-обработчик для создания Заказа"""
     model = Order
     template_name = 'orders/create_order.html'
@@ -162,7 +162,7 @@ class CreateOrder(CreateView):
             return self.form_invalid(form)
 
 
-class OrderView(ListView):
+class OrderView(LoginRequiredMixin, ListView):
     """Класс-обработчик для просмотра заказа"""
     model = Order
     template_name = 'orders/view_order.html'
@@ -184,7 +184,7 @@ class OrderView(ListView):
         return render(request, self.template_name, context=context)
 
 
-class OrderBoardView(ListView):
+class OrderBoardView(LoginRequiredMixin, ListView):
     model = Order
     context_object_name = 'all_orders'
     template_name = 'orders/order_board.html'
@@ -237,3 +237,7 @@ def categories(request):
     context['page_obj_active'] = paginated_active.get_page(page_number_active)
 
     return render(request, 'orders/categories.html', context=context)
+
+class DeleteOrder(DeleteView):
+    model = Order
+    success_url = reverse_lazy('orders:table_order')

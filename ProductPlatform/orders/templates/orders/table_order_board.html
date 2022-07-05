@@ -9,7 +9,7 @@
         <th class="start-date">Дата заказа</th>
         <th class="end-date">Действует до</th>
         <th class="status">Статус</th>
-        {% if not request.user.role == 'Customer' %}
+        {% if not request.user.role == 'Supplier' %}
             <th class="action"></th>
         {% endif %}
     </tr>
@@ -33,7 +33,7 @@
             <td {% if row.status == 'Active' %} class="text-success" {% else %}
                                                 class="text-danger" {% endif %}> {{ row.status }}</td>
 
-            {% if not request.user.role == 'Customer' %}
+            {% if not request.user.role == 'Supplier' %}
                 <td class="button_delete">
                     <button class="action-btn {% if row.status == 'Active' %}deactivate-btn{% else %}accept-btn{% endif %}"
                             data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ row.id }}"

@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -16,7 +17,7 @@ from users.models import Profile
 from django.db.models import Max, Count
 
 
-class PersonalAccountListView(ListView):
+class PersonalAccountListView(LoginRequiredMixin, ListView):
     """Класс-обработчик для отображения информации в личном кабинете"""
     title = 'Личный кабинет'
     model = Profile
@@ -32,7 +33,7 @@ class PersonalAccountListView(ListView):
         return context
 
 
-class PersonalAccountEditView(UpdateView):
+class PersonalAccountEditView(LoginRequiredMixin, UpdateView):
     """Класс-обработчик для редактирования информации в личном кабинете"""
     model = Profile
     template_name = 'users/personal_account_edit.html'
@@ -84,10 +85,9 @@ class Logout(LogoutView):
     template_name = 'orders/main.html'
 
 
-class PersonalActiveOrdersView(ListView):
+class PersonalActiveOrdersView(LoginRequiredMixin, ListView):
     model = Order
     template_name = 'users/account_active_orders.html'
-
 
     def get_context_data(self, *, object_list=None, **kwargs):
         """Метод для создания необходимого контекста для активных заказов личного кабинета"""
@@ -135,15 +135,12 @@ class PersonalActiveOrdersView(ListView):
                 last_status_response = i.statusresponse_set.last()
                 if not last_status_response is None and last_status_response.status == 'On Approval':
                     unique_responses.append(i)
-
-
             context['user'] = current_profile
             context['responses'] = unique_responses
             return context
 
 
-
-class PersonalHistoryOrdersView(ListView):
+class PersonalHistoryOrdersView(LoginRequiredMixin, ListView):
     model = Order
     template_name = 'users/account_history_orders.html'
     context_object_name = 'orders'

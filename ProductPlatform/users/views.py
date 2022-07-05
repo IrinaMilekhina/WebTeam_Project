@@ -17,6 +17,7 @@ from users.models import Profile
 from django.db.models import Max, Count
 
 
+
 class PersonalAccountListView(LoginRequiredMixin, ListView):
     """Класс-обработчик для отображения информации в личном кабинете"""
     title = 'Личный кабинет'
@@ -24,13 +25,15 @@ class PersonalAccountListView(LoginRequiredMixin, ListView):
     template_name = 'users/personal_account.html'
     context_object_name = 'account'
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        """Метод для создания необходимого контекста для личного кабинета"""
-        context = super(PersonalAccountListView,
-                        self).get_context_data(**kwargs)
-        context['account'] = Profile.objects.get(pk=self.request.user.pk)
-        context['title'] = self.title
-        return context
+
+	def get_context_data(self, *, object_list=None, **kwargs):
+		"""Метод для создания необходимого контекста для личного кабинета"""
+		context = super(PersonalAccountListView,
+						self).get_context_data(**kwargs)
+		context['account'] = Profile.objects.get(pk=self.request.user.pk)
+		context['title'] = self.title
+		return context
+
 
 
 class PersonalAccountEditView(LoginRequiredMixin, UpdateView):
@@ -59,30 +62,34 @@ class PersonalAccountEditView(LoginRequiredMixin, UpdateView):
         return redirect(self.success_url)
 
 
+
 class LoginListView(LoginView):
-    template_name = 'users/login.html'
-    form_class = UserLoginForm
-    title = 'Авторизация'
+	template_name = 'users/login.html'
+	form_class = UserLoginForm
+	title = 'Авторизация'
 
 
 class RegisterListView(FormView):
-    model = Profile
-    template_name = 'users/registration.html'
-    form_class = UserRegisterForm
-    success_url = reverse_lazy('users:login')
-    title = 'Регистрация'
+	model = Profile
+	template_name = 'users/registration.html'
+	form_class = UserRegisterForm
+	success_url = reverse_lazy('users:login')
+	title = 'Регистрация'
 
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
+	def form_valid(self, form):
+		form.save()
+		return super().form_valid(form)
 
-    def form_invalid(self, form):
-        print(form.errors)
-        return super().form_invalid(form)
+	def form_invalid(self, form):
+		print(form.errors)
+		return super().form_invalid(form)
 
 
 class Logout(LogoutView):
-    template_name = 'orders/main.html'
+	template_name = 'orders/main.html'
+
+	def get(self, request, *args, **kwargs):
+		return redirect(reverse_lazy('main'))
 
 
 class PersonalActiveOrdersView(LoginRequiredMixin, ListView):
@@ -138,6 +145,9 @@ class PersonalActiveOrdersView(LoginRequiredMixin, ListView):
             context['user'] = current_profile
             context['responses'] = unique_responses
             return context
+
+
+
 
 
 class PersonalHistoryOrdersView(LoginRequiredMixin, ListView):

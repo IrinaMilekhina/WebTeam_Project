@@ -4,79 +4,86 @@
 
 {% block content %}
     <section class="profile" id="profile">
-        <div class="container col-lg-12">
+        <div class="wrapper">
             <div class="row profile-content">
-                <div class="col-lg-4 profile-content">
+                <div class="col-lg-4  profile-content profile-content-left">
                     <div class="left-info">
                         <ul>
                             <li class="col-lg-12">
                                 <h6>Тел. номер</h6>
-                                <span>+7 000-888-0340</span>
+                                <span>{{ profile.phone_number }}</span>
                             </li>
                             <li class="col-lg-12">
                                 <h6>Эл. почта</h6>
-                                <span>info@n.ru</span>
+                                <span>{{ profile.email }}</span>
                             </li>
                             <li class="col-lg-12">
-                                <h6>Адрес</h6>
-                                <span>7-я Кожуховская ул., 9, Москва</span>
+                                <h6>Город</h6>
+                                <span>{{ profile.city }}</span>
                             </li>
                             <li class="col-lg-12">
-                                <h6>Представитель</h6>
-                                <span>Бойко Михаил Иванович</span>
+                                <h6>Контактное лицо</h6>
+                                <span>{{ profile.first_name }} {{ profile.last_name }}</span>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-8 profile-content">
-                    <div class="right-info row col-lg-12">
-                        <div class="comp_name col-lg-12">
-                            <h2>Company Name</h2>
-                        </div>
-                        <div class="right-content col-lg-12">
-                            <div class="col-lg-4 row profile-info">
-                                <div class="col-lg-12 center">
-                                    <img src="{% static 'assets/images/rating.png' %}" alt="">
-                                </div>
-                                <div class="col-lg-12 row center info-text">
-                                    <div class="col-lg-12 center">Рейтинг</div>
+                <div class="col-lg-8 profile-content profile-content-right">
+                    <div class="right-info col-lg-12">
+                        <div class="row center">
+                            <div class="comp_name col-lg-12">
+                                <h2>{{ profile.comp_name }}</h2>
+                            </div>
+                            <div class="right-content row col-lg-12">
+                                <div class="col-lg-4 row profile-info">
                                     <div class="col-lg-12 center">
-                                        <i class="fa fa-star rating"></i>
-                                        <i class="fa fa-star rating"></i>
-                                        <i class="fa fa-star rating"></i>
-                                        <i class="fa fa-star rating"></i>
-                                        <i class="fa fa-star-half-full rating"></i>
+                                        <img src="{% static 'assets/images/rating.png' %}" alt="">
+                                    </div>
+                                    <div class="col-lg-12 row center info-text">
+                                        <div class="col-lg-12 center">Рейтинг</div>
+                                        <div class="col-lg-12 center">
+                                            <i class="fa fa-star rating"></i>
+                                            <i class="fa fa-star rating"></i>
+                                            <i class="fa fa-star rating"></i>
+                                            <i class="fa fa-star rating"></i>
+                                            <i class="fa fa-star-half-full rating"></i>
+                                        </div>
                                     </div>
                                 </div>
+                                {% if profile.role == 'Supplier' %}
+                                    <div class="col-lg-4 row profile-info">
+                                        <div class="col-lg-12 center">
+                                            <img src="{% static 'assets/images/responses.png' %}" alt="">
+                                        </div>
+                                        <div class="col-lg-12 row center info-text">
+                                            <div class="col-lg-12 center">Отклики</div>
+                                            <div class="col-lg-12 center">{{ responses_amount }}</div>
+                                        </div>
+                                    </div>
+                                {% elif profile.role == 'Customer' %}
+                                    <div class="col-lg-4 row profile-info">
+                                        <div class="col-lg-12 center">
+                                            <img src="{% static 'assets/images/orders.png' %}" alt="">
+                                        </div>
+                                        <div class="col-lg-12 row center info-text">
+                                            <div class="col-lg-12 center">Заказы</div>
+                                            <div class="col-lg-12 center">{{ orders_amount }}</div>
+                                        </div>
+                                    </div>
+                                {% endif %}
                             </div>
-                            <div class="col-lg-4 row profile-info">
+                            <div class="ogrn row col-lg-12">
                                 <div class="col-lg-12 center">
-                                    <img src="{% static 'assets/images/responses.png' %}" alt="">
+                                    <div class="ogrn-heading">ОГРН</div>
                                 </div>
-                                <div class="col-lg-12 row center info-text">
-                                    <div class="col-lg-12 center">Отклики</div>
-                                    <div class="col-lg-12 center">1000</div>
-                                </div>
+                                <div class="col-lg-12 center">{{ profile.ogrn }}</div>
                             </div>
-                            <div class="col-lg-4 row profile-info">
-                                <div class="col-lg-12 center">
-                                    <img src="{% static 'assets/images/orders.png' %}" alt="">
-                                </div>
-                                <div class="col-lg-12 row center info-text">
-                                    <div class="col-lg-12 center">Заказы</div>
-                                    <div class="col-lg-12 center">1000</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ogrn row col-lg-12">
-                            <div class="col-lg-12 center">ОГРН</div>
-                            <div class="col-lg-12 center">409390344932403</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="footer col-lg-12">
+        <div class="footer">
             <p>© 2022 N</p>
         </div>
     </section>

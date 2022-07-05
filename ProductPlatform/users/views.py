@@ -2,9 +2,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Count
-from django.shortcuts import get_object_or_404, redirect
+from django.http import Http404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, UpdateView
+from django.views.generic import ListView, UpdateView, DetailView
 from django.views.generic.edit import FormView
 
 from orders.models import ResponseOrder, Order, StatusResponse
@@ -212,9 +213,17 @@ class ProfileView(DetailView):
             if kwargs.get('id'):
                 profile_id = kwargs['id']
                 user_profile = get_object_or_404(Profile, id=profile_id)
+                if user_profile.role == 'Customer':
+                    orders_amount = len(Order.objects.filter(author=user_profile.id))
 
-                return render(request, self.template_name, {'profile': user_profile})
-            else:
-                return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})
+                    return render(request, self.template_name,
+                                  {'profile': user_profile, 'orders_amount': orders_amount})
+                elif user_profile.role == 'Supplier':
+                    responses_amount = len(Order.objects.filter(author=user_profile.id))
+
+                    return render(request, self.template_name,
+                                  {'profile': user_profile, 'responses_amount': responses_amount})
+
+            return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})
         except Http404:
             return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})

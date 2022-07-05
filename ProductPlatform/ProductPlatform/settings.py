@@ -127,3 +127,5 @@ LOGIN_URL = '/users/login'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
+
+TIME_START_CHECK_ORDER_STATUS = ["00:00", "03:00"]  # запуск скрипта, время по москве

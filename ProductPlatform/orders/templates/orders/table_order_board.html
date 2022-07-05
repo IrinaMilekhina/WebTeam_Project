@@ -12,7 +12,7 @@
                 <th>Дата заказа</th>
                 <th>Действует до</th>
                 <th>Статус</th>
-                  {% if not request.user.role == 'Customer' %}
+                  {% if not request.user.role == 'Customer' and not request.user.role == 'Supplier' %}
                 <th></th>
                   {% endif %}
               </tr>
@@ -35,7 +35,7 @@
                 data-href="{% url 'orders:view_order' row.id %}">{{ row.end_time }}</td>
                 <td {% if row.status == 'Active'%} class="text-success" {% else %} class="text-danger" {% endif %}> {{ row.status }}</td>
 
-                  {% if not request.user.role == 'Customer' %}
+                  {% if not request.user.role == 'Customer' and not request.user.role == 'Supplier' %}
                 <td class="button_delete">
                 <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                        style="color: dodgerblue">

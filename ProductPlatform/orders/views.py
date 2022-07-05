@@ -237,3 +237,7 @@ def categories(request):
     context['page_obj_active'] = paginated_active.get_page(page_number_active)
 
     return render(request, 'orders/categories.html', context=context)
+
+class DeleteOrder(DeleteView):
+    model = Order
+    success_url = reverse_lazy('orders:table_order')

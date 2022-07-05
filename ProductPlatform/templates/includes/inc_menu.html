@@ -1,4 +1,5 @@
 <!-- ***** Header Area Start ***** -->
+{% load static %}
 <header class="header-area header-sticky background-header margin-sub-header">
     <div class="container">
         <div class="row">
@@ -6,7 +7,8 @@
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
                     <a href="{% url 'main' %}" class="logo">
-                        N
+                        <img src="{% static 'assets/images/logo.png' %}"
+                                                             alt="">
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->

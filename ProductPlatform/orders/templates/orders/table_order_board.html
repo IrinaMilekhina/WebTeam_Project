@@ -12,25 +12,72 @@
                 <th>Дата заказа</th>
                 <th>Действует до</th>
                 <th>Статус</th>
+                  {% if not request.user.role == 'Customer' %}
+                <th></th>
+                  {% endif %}
               </tr>
             </thead>
             <tbody>
               {% for row in page_obj %}
-              <tr
-                class="meeting-table-row"
-                data-href="{% url 'orders:view_order' row.id %}"
-              >
+              <tr>
                 <td>{{ forloop.counter }}</td>
-                <td>{{ row.id }}</td>
-                <td>{{ row.name }}</td>
-                <td class="category_row">{{ row.category }}</td>
-                <td>{{ row.author.comp_name }}</td>
-                <td>{{ row.create_at }}</td>
-                <td>{{ row.end_time }}</td>
+                <td class="meeting-table-row"
+                data-href="{% url 'orders:view_order' row.id %}">{{ row.id }}</td>
+                <td class="meeting-table-row"
+                data-href="{% url 'orders:view_order' row.id %}">{{ row.name }}</td>
+                <td class="meeting-table-row"
+                data-href="{% url 'orders:view_order' row.id %}" class="category_row">{{ row.category }}</td>
+                <td class="meeting-table-row"
+                data-href="{% url 'orders:view_order' row.id %}">{{ row.author.comp_name }}</td>
+                <td class="meeting-table-row"
+                data-href="{% url 'orders:view_order' row.id %}">{{ row.create_at }}</td>
+                <td class="meeting-table-row"
+                data-href="{% url 'orders:view_order' row.id %}">{{ row.end_time }}</td>
                 <td {% if row.status == 'Active'%} class="text-success" {% else %} class="text-danger" {% endif %}> {{ row.status }}</td>
+
+                  {% if not request.user.role == 'Customer' %}
+                <td class="button_delete">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                       style="color: dodgerblue">
+                    <button class="btn btn-outline-success" type="submit" name="{{ row.id }}">{% if row.status == 'Active' %}
+                                                    Деактивировать{% else %}Активировать{% endif %}</button></a>
+                </td>
+                  {% endif %}
+              <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                 data-bs-keyboard="false" tabindex="-1"
+                                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Подтверждение действий</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Закрыть"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Вы действительно уверены, что хотите {% if row.status == 'Active' %}
+                                            Деактивировать {% else %}
+                                            Активировать{% endif %}?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div class="row">
+                                                <div class="main-button-red">
+                                                    <form class="btn btn-primary" method="POST"
+                                                          action="{% url 'orders:delete_order' row.id %}">
+                                                        {% csrf_token %}<input type="submit" value="Подтверждаю">
+                                                    </form>
+                                                    <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                        Закрыть
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
               </tr>
               {% endfor %}
             </tbody>
+
 </table>
 <!-- Важно, не изменять -->
 {% load filter_tags %}

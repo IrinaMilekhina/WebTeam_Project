@@ -6,13 +6,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, DeleteView
-
-
-
 from orders.forms import CreateOrderForm
 from orders.models import CategoryOrder, Order, StatusResponse, ResponseOrder
 from users.models import Profile
-
 from orders.filters import OrderFilter, CategoryFilter
 from django.views import View
 
@@ -59,7 +55,6 @@ class MainView(CreateView):
             print(form)
             return redirect(self.success_url)
         return self.form_invalid(form)
-
 
 
 class CategoryOrderView(LoginRequiredMixin, ListView):
@@ -255,4 +250,9 @@ def categories(request):
     context['page_obj_active'] = paginated_active.get_page(page_number_active)
 
     return render(request, 'orders/categories.html', context=context)
+
+
+class DeleteOrder(DeleteView):
+    model = Order
+    success_url = reverse_lazy('orders:table_order')
 

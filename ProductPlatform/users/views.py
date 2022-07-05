@@ -207,8 +207,8 @@ class PersonalHistoryOrdersView(ListView):
 
 
 class ProfilePasswordResetView(PasswordResetView):
-
     title = "Сброс пароля"
+    subject_template_name = "users/registration/password_reset_subject.txt"
     email_template_name = "users/registration/password_reset_email.html"
     template_name = "users/registration/password_reset_form.html"
     success_url = reverse_lazy("users:password_reset_done")

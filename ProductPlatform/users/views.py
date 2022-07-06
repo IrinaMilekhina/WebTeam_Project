@@ -202,7 +202,7 @@ class PersonalHistoryOrdersView(LoginRequiredMixin, ListView):
         return context
 
 
-class ProfileView(DetailView):
+class ProfileView(LoginRequiredMixin, DetailView):
     """Класс-обработчик для отображения выбранного профиля"""
     model = Profile
     template_name = 'users/profile.html'

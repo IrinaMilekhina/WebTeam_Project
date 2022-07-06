@@ -2186,6 +2186,7 @@ section.profile .comp_name h2 {
     padding-bottom: 20px;
     font-size: 30px;
     font-weight: 700;
+    text-align: center;
 }
 
 @media (min-width: 992px) {

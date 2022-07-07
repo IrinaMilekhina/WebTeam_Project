@@ -1,8 +1,9 @@
 import datetime
 from django.core.paginator import Paginator
 from django.db.models import Count, Q
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, DeleteView
@@ -252,3 +253,24 @@ def categories(request):
 class DeleteOrder(DeleteView):
     model = Order
     success_url = reverse_lazy('orders:table_order')
+
+
+from django.shortcuts import HttpResponse
+def is_ajax(request):
+    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+
+
+def order_confirmation(request, response_pk, order_pk):
+    if request.POST:
+        statuse_response = get_object_or_404(StatusResponse, id=response_pk)
+        statuse_response.status = 'Approved'
+        statuse_response.save()
+        return redirect(reverse_lazy('orders:view_order', kwargs={'pk': order_pk}))
+
+
+def order_rejection(request, response_pk, order_pk):
+    if request.POST:
+        statuse_response = get_object_or_404(StatusResponse, id=response_pk)
+        statuse_response.status = 'Not Approved'
+        statuse_response.save()
+        return redirect(reverse_lazy('orders:view_order', kwargs={'pk': order_pk}))

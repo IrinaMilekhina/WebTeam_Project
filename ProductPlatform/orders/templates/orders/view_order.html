@@ -32,10 +32,11 @@
                                         {% endif %}
                                     </div>
                                 </li>
-                            {% endfor %}
+
                         </ul>
                         {% if not user.role == 'Supplier' %}
                             <!-- Modal -->
+
                             <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static"
                                  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                                  aria-hidden="true">
@@ -50,10 +51,14 @@
                                             Вы действительно уверены, что хотите принять предложение?
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="accept-btn">Принять</button>
+                                            <form action="{% url 'orders:order_confirmation' response_order.id response_order.order.id%}" method="post">
+                                                {% csrf_token %}
+                                            <button type="submit" class="accept-btn" value="{{ response_order.id }}">Принять</button>
+                                        </form>
                                         </div>
-                                    </div>
+
                                 </div>
+                            </div>
                             </div>
                             <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static"
                                  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
@@ -69,12 +74,16 @@
                                             Вы действительно уверены, что хотите отклонить предложение?
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="close-btn">Отклонить</button>
+                                            <form action="{% url 'orders:order_rejection' response_order.id response_order.order.id%}" method="post">
+                                                {% csrf_token %}
+                                            <button type="submit" class="close-btn">Отклонить</button>
+                                        </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         {% endif %}
+                    {% endfor %}
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -233,4 +242,5 @@
     {% else %}
         <script src="{% static 'assets/js/response.js' %}"></script>
     {% endif %}
+
 {% endblock %}

@@ -87,11 +87,12 @@ class ResponseOrder(models.Model):
                f'к заказу - {self.order}'
 
     def save(self, *args, **kwargs):
-        super(ResponseOrder, self).save(*args, **kwargs)
-        obj = StatusResponse.objects.create(response_order=self,
-                                            status='On Approval',
-                                            user_initiator=self.response_user)
-        obj.save()
+        if self.id or not ResponseOrder.objects.filter(response_user=self.response_user, order=self.order):
+            super(ResponseOrder, self).save(*args, **kwargs)
+            obj = StatusResponse.objects.create(response_order=self,
+                                                status='On Approval',
+                                                user_initiator=self.response_user)
+            obj.save()
 
 
 class StatusResponse(models.Model):

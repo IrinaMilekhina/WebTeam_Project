@@ -3,6 +3,8 @@ from django.forms import SelectDateWidget, DateInput
 
 from orders.models import Order, Feedback
 
+from orders.models import ResponseOrder
+
 
 class CreateOrderForm(forms.ModelForm):
     """Форма для изменения данных в заказе"""
@@ -65,3 +67,25 @@ class FeedbackForm(forms.ModelForm):
         self.fields['message'].widget.attrs['placeholder'] = 'Сообщение...'
         self.fields['message'].widget.attrs['required'] = ''
 
+
+class ResponseOrderForm(forms.ModelForm):
+    class Meta:
+        model = ResponseOrder
+        fields = ['price', 'offer']
+
+    def __init__(self, *args, **kwargs):
+        super(ResponseOrderForm, self).__init__(*args, **kwargs)
+        self.fields['price'].widget.attrs['type'] = 'number'
+        self.fields['price'].widget.attrs['min'] = '0'
+        self.fields['price'].widget.attrs['step'] = '1'
+        self.fields['price'].widget.attrs['id'] = 'price-suggestion'
+        self.fields['price'].widget.attrs['placeholder'] = 'Предложение...'
+        self.fields['price'].widget.attrs['required'] = 'True'
+        self.fields['price'].widget.attrs['name'] = 'name'
+
+        self.fields['offer'].widget.attrs['type'] = 'text'
+        self.fields['offer'].widget.attrs['id'] = 'description'
+        self.fields['offer'].widget.attrs['placeholder'] = 'Описание...'
+        self.fields['offer'].widget.attrs['required'] = 'True'
+        self.fields['offer'].widget.attrs['name'] = 'message'
+        self.fields['offer'].widget.attrs['class'] = 'form-control'

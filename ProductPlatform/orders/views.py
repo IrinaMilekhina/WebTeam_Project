@@ -1,17 +1,19 @@
 import datetime
 from django.core.paginator import Paginator
 from django.db.models import Count, Q
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, DeleteView
+from multi_form_view import MultiModelFormView
 from orders.forms import CreateOrderForm, FeedbackForm
 
 from orders.models import CategoryOrder, Order, StatusResponse, ResponseOrder
 from users.models import Profile
 from orders.filters import OrderFilter, CategoryFilter
-from django.views import View
+
+from orders.forms import ResponseOrderForm
 
 
 class MainView(CreateView):
@@ -23,11 +25,12 @@ class MainView(CreateView):
     def get_context_data(self, **kwargs):
         context = super(MainView, self).get_context_data(**kwargs)
         top_category = CategoryOrder.objects \
-            .filter(order__responseorder__statusresponse__status='Approved',
-                    order__responseorder__statusresponse__time_status__gte=datetime.datetime.now() - datetime.timedelta(days=7)) \
-            .annotate(count=Count('order')) \
-            .values('id', 'name', 'image', 'count') \
-            .order_by('-count')[:6]
+                           .filter(order__responseorder__statusresponse__status='Approved',
+                                   order__responseorder__statusresponse__time_status__gte=datetime.datetime.now() - datetime.timedelta(
+                                       days=7)) \
+                           .annotate(count=Count('order')) \
+                           .values('id', 'name', 'image', 'count') \
+                           .order_by('-count')[:6]
 
         context['title'] = self.title
         context['categories'] = CategoryOrder.objects.all()
@@ -74,7 +77,6 @@ class CategoryOrderView(LoginRequiredMixin, ListView):
         return context
 
 
-
 class Category(LoginRequiredMixin, DetailView):
     """Класс-обработчик для отображения выбранной категории"""
     model = CategoryOrder
@@ -96,9 +98,11 @@ class Category(LoginRequiredMixin, DetailView):
         all_orders_amount = len(orders)
         status_response_orders = StatusResponse.objects.filter(status='Approved')
         response_orders = [status_response.response_order for status_response in status_response_orders]
-        run_orders = [response_order.order for response_order in response_orders if response_order.order.status == 'Active' and response_order.order.category == category]
+        run_orders = [response_order.order for response_order in response_orders if
+                      response_order.order.status == 'Active' and response_order.order.category == category]
         all_completed_orders = len(run_orders)
-        top_suppliers = [response_order.response_user for response_order in response_orders if response_order.order.status == 'Active' and response_order.order.category == category]
+        top_suppliers = [response_order.response_user for response_order in response_orders if
+                         response_order.order.status == 'Active' and response_order.order.category == category]
 
         all_responses = ResponseOrder.objects.select_related().all()
         active_responses = all_responses.filter(order__category=category)
@@ -173,26 +177,52 @@ class CreateOrder(LoginRequiredMixin, CreateView):
             return self.form_invalid(form)
 
 
-class OrderView(LoginRequiredMixin, ListView):
+class OrderView(LoginRequiredMixin, MultiModelFormView):
     """Класс-обработчик для просмотра заказа"""
     model = Order
     template_name = 'orders/view_order.html'
+    form_classes = {'response_order': ResponseOrderForm}
 
     def get(self, request, *args, **kwargs):
         try:
-            id = kwargs.get('pk', None)
+            order_id = kwargs.get('pk', None)
         except KeyError as err:
             print(err)
         try:
-            order = get_object_or_404(Order, id=id)
+            order = get_object_or_404(Order, id=order_id)
         except Http404 as err:
             print(err)
         response_orders = order.responseorder_set.all()
+
         context = {
             'order': order,
             'response_orders': response_orders,
+            'forms': self.get_forms()
         }
         return render(request, self.template_name, context=context)
+
+    def forms_valid(self, forms):
+        user = self.request.user
+        order = Order.objects.get(id=self.kwargs.get('pk'))
+
+        if user.role == 'Supplier':
+            response_order_form = forms.get('response_order')
+            response = ResponseOrder.objects.create(order=order,
+                                                    response_user=user,
+                                                    price=response_order_form.data.get('price'),
+                                                    offer=response_order_form.data.get('offer'))
+            response.save()
+
+        return HttpResponseRedirect(self.request.path_info)
+
+    def get_objects(self):
+        user = self.request.user
+        order = Order.objects.get(id=self.kwargs.get('pk'))
+
+        if user.role == 'Supplier':
+            response = ResponseOrder.objects.filter(order=order, response_user=user).first()
+
+            return {'response_order': response}
 
 
 class OrderBoardView(LoginRequiredMixin, ListView):
@@ -226,11 +256,11 @@ class DeleteCategory(DeleteView):
 def categories(request):
     context = {}
     active_categories = CategoryOrder.objects.select_related() \
-                    .filter(is_active=True) \
-                .annotate(count_orders=Count('order__responseorder__response_user_id',
-                                             filter=Q(order__responseorder__statusresponse__status='Approved'),
-                                             distinct=True)) \
-                .values('id', 'name', 'image', 'description', 'count_orders')
+        .filter(is_active=True) \
+        .annotate(count_orders=Count('order__responseorder__response_user_id',
+                                     filter=Q(order__responseorder__statusresponse__status='Approved'),
+                                     distinct=True)) \
+        .values('id', 'name', 'image', 'description', 'count_orders')
     all_categories = CategoryOrder.objects.select_related() \
         .annotate(count_orders=Count('order__responseorder__response_user_id',
                                      filter=Q(order__responseorder__statusresponse__status='Approved'),
@@ -248,6 +278,7 @@ def categories(request):
     context['page_obj_active'] = paginated_active.get_page(page_number_active)
 
     return render(request, 'orders/categories.html', context=context)
+
 
 class DeleteOrder(DeleteView):
     model = Order

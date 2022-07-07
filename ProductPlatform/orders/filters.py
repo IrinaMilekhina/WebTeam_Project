@@ -3,6 +3,7 @@ from orders.models import Order, CategoryOrder
 
 
 class OrderFilter(django_filters.FilterSet):
+    name = django_filters.CharFilter(lookup_expr='icontains')
 
     CHOICES = (
         ('fromA', 'От А до Я'),
@@ -14,7 +15,7 @@ class OrderFilter(django_filters.FilterSet):
 
     class Meta:
         model = Order
-        fields = ['category']
+        fields = ['category', 'name']
 
     def filter_by_category(self, queryset, category, value):
         expression = 'name' if value == 'fromA' else '-name'

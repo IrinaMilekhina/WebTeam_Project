@@ -123,28 +123,40 @@
                                         <div class="col-lg-12">
                                             <fieldset>
                                                 <label class="small mb-1" for="price-suggestion">Предложение</label>
-                                                <input name="name" min="0" step="1" type="number"
-                                                       id="price-suggestion"
-                                                       placeholder="Предложение..." required="">
+                                                {#                                                <input name="name" min="0" step="1" type="number"#}
+                                                {#                                                       id="price-suggestion"#}
+                                                {#                                                       placeholder="Предложение..." required="">#}
+                                                {{ forms.response_order.price }}
                                             </fieldset>
                                         </div>
                                         <div class="col-lg-12">
                                             <fieldset>
                                                 <label class="small description mb-1" for="description">Описание</label>
-                                                <textarea name="message" type="text" class="form-control"
-                                                          id="description"
-                                                          placeholder="Описание..." required=""></textarea>
+                                                {#                                                <textarea name="message" type="text" class="form-control"#}
+                                                {#                                                          id="description"#}
+                                                {#                                                          placeholder="Описание..." required=""></textarea>#}
+                                                {{ forms.response_order.offer }}
                                             </fieldset>
                                         </div>
                                         <div class="col-lg-12 submit-btn">
                                             <fieldset>
                                                 <button class="button button-login-reg del" type="submit"
-                                                        id="submit-btn"
-                                                        data-canceledresponse="false">
+                                                        id="submit-btn">
                                                     Откликнуться
                                                 </button>
                                             </fieldset>
-                                            <div style="display: none;" class="button del" id="edit-btn">
+                                            <fieldset>
+                                                <button style="display: none;"
+                                                        class="button edit button-login-reg"
+                                                        type="submit"
+                                                        id="save-btn">
+                                                    Сохранить
+                                                </button>
+                                            </fieldset>
+                                            <div style="display: none;" class="button edit" id="edit-btn">
+                                                Редактировать
+                                            </div>
+                                            <div style="display: none;" class="button del" id="cancel-btn">
                                                 Отменить отклик
                                             </div>
                                         </div>

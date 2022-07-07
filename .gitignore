@@ -5,3 +5,4 @@ ProductPlatform/db.sqlite3
 .vscode/
 __pycache__/
 ProductPlatform/*/migrations/*.py
+*.logs

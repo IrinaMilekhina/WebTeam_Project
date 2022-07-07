@@ -149,6 +149,8 @@ class CreateOrder(LoginRequiredMixin, CreateView):
 
             return render(request, self.template_name, {'form': self.form_class, 'title': self.title})
         except (KeyError, Http404):
+            self.form_class.base_fields['category'].initial = None
+
             return render(request, self.template_name, {'form': self.form_class, 'title': self.title})
 
     def post(self, request, *args, **kwargs):

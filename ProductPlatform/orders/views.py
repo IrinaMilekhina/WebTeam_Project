@@ -265,6 +265,9 @@ def order_confirmation(request, response_pk, order_pk):
         statuse_response = get_object_or_404(StatusResponse, id=response_pk)
         statuse_response.status = 'Approved'
         statuse_response.save()
+        order = get_object_or_404(Order, id=order_pk)
+        order.status = 'Not Active'
+        order.save()
         return redirect(reverse_lazy('orders:view_order', kwargs={'pk': order_pk}))
 
 

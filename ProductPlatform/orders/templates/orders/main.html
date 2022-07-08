@@ -126,8 +126,8 @@
           <div class="col-lg-4">
             <div class="meeting-item">
               <div class="thumb">
-                <div class="price">
-                  <span>100 поставщиков</span>
+                <div class="price amount_suppliers">
+                  <span >{{ category.count }}</span>
                   <!-- Надо будет ещё количество добавить, но после того как это вьюху добавят -->
                 </div>
                 <a href="{% url 'orders:category' category.id %}">
@@ -143,8 +143,7 @@
               </div>
               <div class="down-content">
                 <a href="{% url 'orders:category' category.id %}"
-                  ><h4>{{ category.name }}</h4></a
-                >
+                  ><h4>{{ category.name }}</h4></a>
                 <p>{{ category.description }}</p>
               </div>
             </div>

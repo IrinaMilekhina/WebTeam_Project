@@ -1108,6 +1108,12 @@ section.upcoming-meetings .categories .main-button-red a {
     top: 20px;
 }
 
+.amount_suppliers {
+    position: relative;
+    left: 40px;
+    top: 40px;
+}
+
 .meeting-item .thumb .price span {
     font-size: 16px;
     color: #1f272b;

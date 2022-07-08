@@ -2760,6 +2760,8 @@ section.meetings-page .main-button-red a {
 .meeting-single-item .thumb img {
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
+    height: 55vh;
+    object-fit: cover;
 }
 
 .meeting-single-item .thumb .price {

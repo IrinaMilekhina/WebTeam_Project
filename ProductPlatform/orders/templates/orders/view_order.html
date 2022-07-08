@@ -88,11 +88,11 @@
                                         <div class="date-position col-lg-2">
                                             С
                                             <div class="date date-start">
-                                                <h6>Nov <span>9</span></h6>
+                                                {{ order.create_at }}
                                             </div>
                                             До
                                             <div class="date">
-                                                <h6>Nov <span>12</span></h6>
+                                                {{ order.end_time }}
                                             </div>
                                         </div>
                                     </div>
@@ -157,22 +157,22 @@
                                     <div class="col-lg-2" style="width: 72px;"></div>
                                     <div class="col-lg-8 center">{{ order.name }}</div>
                                     <div class="date-position col-lg-2">
-                                        С
-                                        <div class="date date-start">
-                                            <h6>Nov <span>9</span></h6>
+                                            С
+                                            <div class="date date-start">
+                                                {{ order.create_at }}
+                                            </div>
+{#                                            До#}
+{#                                            <div class="date">#}
+{#                                                {{ order.end_time }}#}
+{#                                            </div>#}
                                         </div>
-                                        До
-                                        <div class="date">
-                                            <h6>Nov <span>12</span></h6>
-                                        </div>
-                                    </div>
                                 </div>
-                                <form id="contact" action="" method="post">
+                                <form id="contact" action="{% url 'orders:update_order' order.id %}" method="post">
                                     {% csrf_token %}
                                     <div class="col-lg-12">
                                         <fieldset>
                                             <label class="small mb-1" for="company">Компания</label>
-                                            <input name="name" class="read_only" readonly="readonly" type="text"
+                                            <input name="name_ord" class="read_only" readonly="readonly" type="text"
                                                    id="company"
                                                    required=""
                                                    value="{{ order.author.comp_name }} на сайте с {{ order.author.date_joined }}">
@@ -180,20 +180,35 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <fieldset>
+                                            <label class="small mb-1" for="name">Наименование</label>
+                                            <input name="name" id="name" required="" type="text" class="form-control"
+                                                   value="{{ order.name }}">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <fieldset>
                                             <label class="small mb-1" for="category">Категория</label>
-                                            <select name="name" type="text" id="category" class="form-select"
+                                            <select name="category" type="text" id="category" class="form-select"
                                                     required="">
-                                                <option value="value1">Значение 1</option>
-                                                <option value="value2">Значение 2</option>
-                                                <option value="value3">Значение 3</option>
+                                                <option value="{{ category.id  }}">{{ order.category.name }}</option>
+                                                {% for category in categories %}
+                                                    <option value="{{ category.id }}">{{category.name}}</option>
+                                                {% endfor %}
                                             </select>
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-12">
                                         <fieldset>
+                                            <label class="small mb-1" for="end_time">Исполнить до</label>
+                                            <input name="end_time" id="end_time" required=""
+                                                   value="{{ order.end_time }}">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <fieldset>
                                             <label class="small description mb-1" for="description">Описание</label>
-                                            <textarea name="message" type="text" class="form-control" id="description"
-                                                      placeholder="Описание..." required=""></textarea>
+                                            <textarea name="description" type="text" class="form-control" id="description"
+                                                      placeholder="Описание..." required="">{{ order.description }}</textarea>
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-12 submit-btn">
@@ -210,13 +225,50 @@
                                              id="edit-btn">
                                             Редактировать
                                         </div>
-                                        <div class="button del">
-                                            Удалить заказ
+                                        <div class="button del" data-bs-toggle="modal" data-bs-target="#staticBackdrop3{{ order.id }}">
+                                            {% if order.status == 'Active' %}
+                                                Деактивировать
+                                            {% else %}
+                                                Активировать
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </form>
                             </div>
                         {% endif %}
+                    <div class="modal fade" id="staticBackdrop3{{ order.id }}" data-bs-backdrop="static"
+                         data-bs-keyboard="false" tabindex="-1"
+                         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog no-margin modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Подтверждение действий</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Закрыть"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Вы действительно уверены, что хотите {% if order.status == 'Active' %}
+                                    Деактивировать{% else %}Активировать{% endif %}?
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="row">
+                                        <div class="btns">
+                                            <button type="button" class="close-btn"
+                                                    data-bs-dismiss="modal">
+                                                Закрыть
+                                            </button>
+                                            <form method="POST" action="{% url 'orders:delete_order' order.id %}">
+                                                {% csrf_token %}
+                                                <button class="{% if order.status == 'Active' %}deactivate-btn{% else %}accept-btn{% endif %}"
+                                                        type="submit">Подтверждаю
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>

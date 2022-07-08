@@ -5,7 +5,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView, CreateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from orders.forms import CreateOrderForm, FeedbackForm
 
 from orders.models import CategoryOrder, Order, StatusResponse, ResponseOrder
@@ -188,9 +188,11 @@ class OrderView(LoginRequiredMixin, ListView):
         except Http404 as err:
             print(err)
         response_orders = order.responseorder_set.all()
+        categories= CategoryOrder.objects.all()
         context = {
             'order': order,
             'response_orders': response_orders,
+            'categories': categories
         }
         return render(request, self.template_name, context=context)
 
@@ -252,3 +254,35 @@ def categories(request):
 class DeleteOrder(DeleteView):
     model = Order
     success_url = reverse_lazy('orders:table_order')
+
+class UpdateOrder(UpdateView):
+    model = Order
+    template_name = 'orders/view_order.html'
+    success_url = reverse_lazy('orders:table_order')
+    fields = [
+        "name",
+        "category",
+        "end_time",
+        "description"
+    ]
+
+    # def post(self, request, *args, **kwargs):
+    #     session_user = request.user
+    #     if session_user.get_username() == '':
+    #         return HttpResponseRedirect(redirect_to=reverse_lazy('users:register'))
+    #     form = self.get_form()
+    #     # category = CategoryOrder.objects.get(id=int(form.data.get('category')))
+    #     if form.is_valid():
+    #         order = Order.objects.update(
+    #                                      category=form.data.get('category'),
+    #                                      name=form.data.get('name'),
+    #                                      description=form.data.get(
+    #                                          'description'),
+    #                                      end_time=form.data.get("end_time"))
+    #         order.save()
+    #         return redirect('orders:view_order', pk=order.id)
+    #
+    #     else:
+    #         return self.form_invalid(form)
+
+

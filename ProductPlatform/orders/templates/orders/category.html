@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
 {% block title %}
@@ -7,16 +6,22 @@
 {% endblock %}
 
 {% block content %}
-    <section class="meetings-page" id="meetings">
+    <section class="meetings-page order" id="meetings">
         <div class="container">
-            <div class="row">
+            <div class="row order-content">
                 <div class="col-lg-12">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="meeting-single-item">
                                 <div class="thumb">
+                                    {% if category.image %}
+                                        <img src="/media/{{ category.image }}" alt="">
+                                    {% else %}
+                                        <img src="{% static 'assets/images/placeholder_300x150.png' %}"
+                                             alt="">
+                                    {% endif %}
                                     <div class="price">
-                                        <span>{{ suppliers_amount }} поставщиков</span>
+                                        <span>Кол-во поставщиков: {{ category.count_orders_done }}</span>
                                     </div>
                                 </div>
                                 <div class="down-content">
@@ -27,7 +32,7 @@
                                     <div class="row">
                                         <div class="col-lg-12 top-suppliers">
                                             <h5>Топ поставщики</h5>
-                                            <table class="suppliers" id="topsuppliers">
+                                            <table class="suppliers mt-3" id="topsuppliers">
                                                 <tr class="table-headers">
                                                     <th class="supplier">Поставщик</th>
                                                     <th class="orders_amount">Количество выполненных заказов</th>
@@ -55,24 +60,64 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12">
-                            <div class="main-button-red">
-                                <a class="button-red" href="{% url 'orders:categories' %}">Назад к списку категорий</a>
-                                {% if not user.role == 'Supplier' %}
-                                    <a class="button-green"
-                                       href="{% url 'orders:create_order' %}?category_id={{ category.id }}">
-                                        Создать заказ
-                                    </a>
-                                {% endif %}
-                            </div>
+                    </div>
+                    <div class="col-lg-12">
+
+                        <div class="main-button-red">
+                            {% if not user.role == 'Supplier' %}
+                                <a class="button-green"
+                                   href="{% url 'orders:create_order' %}?category_id={{ category.id }}">
+                                    Создать заказ
+                                </a>
+                            {% endif %}
+                            {% if not user.role == 'Supplier' and not user.role == 'Customer' %}
+                                {#                                <a class="button-red" href="{% url 'orders:categories' %}">Назад к списку категорий</a>#}
+                                <a class="button-red" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                >{% if category.is_active == True %} Деактивировать {% else %}
+                                    Активировать{% endif %}</a>
+
+                                </div>
+                            {% endif %}
+                        <div class="main-button-red">
+                            <a class="button-red" href="{% url 'orders:categories' %}">Назад к списку категорий</a>
                         </div>
+
+
+                        <form method="POST" action="{% url 'orders:delete_category' category.id %}">
+                            {% csrf_token %}
+                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Подтверждение действий</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Вы действительно уверены, что хотите {% if category.is_active == True %}
+                                                <strong>Деактивировать</strong> {% else %}
+                                                <strong>Активировать</strong>{% endif %}? </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="accept-btn">Подтверждаю</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="footer">
             <p>© 2022 N</p>
         </div>
+
     </section>
 {% endblock %}
 

@@ -123,7 +123,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.Profile'
 # Редирект после аутентификации
 LOGIN_REDIRECT_URL = '/'
-
+LOGIN_URL = '/users/login'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -137,3 +137,6 @@ EMAIL_USE_SSL = False
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'tmp/emails'
+
+TIME_START_CHECK_ORDER_STATUS = ["00:00", "03:00"]  # запуск скрипта, время по москве
+

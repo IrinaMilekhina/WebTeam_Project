@@ -1,323 +1,344 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load words_extras %}
 {% block content %}
 
-    <!-- ***** Main Banner Area Start ***** -->
-    <section class="section main-banner" id="top" data-section="section1">
-        <video autoplay muted loop id="bg-video">
-            <source src="{% static 'assets/images/header-bg.mp4' %}" type="video/mp4"/>
-        </video>
+<!-- ***** Main Banner Area Start ***** -->
+<section class="section main-banner" id="top" data-section="section1">
+  <video autoplay muted loop id="bg-video">
+    <source src="{% static 'assets/images/header-bg.mp4' %}" type="video/mp4" />
+  </video>
 
-        <div class="video-overlay header-text">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="caption">
-                            <h2>Добро пожаловать!</h2>
-                            <p>Наша цель – сделать транспортировку продуктов питания по всей России прозрачной,
-                                устойчивой и безотходной. Для начала наша платформа связывает общепит и поставщиков и
-                                улучшает процесс заказа, чтобы сэкономить время, деньги и продукты.</p>
-                            <div class="main-button-red">
-                                {% if not user.is_authenticated %}
-                                    <div><a href="{% url 'users:register' %}">Зарегистрироваться</a></div>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <div class="video-overlay header-text">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="caption">
+            <h2>Добро пожаловать!</h2>
+            <p>
+              Наша цель – сделать транспортировку продуктов питания по всей
+              России прозрачной, устойчивой и безотходной. Для начала наша
+              платформа связывает общепит и поставщиков и улучшает процесс
+              заказа, чтобы сэкономить время, деньги и продукты.
+            </p>
+            <div class="main-button-red">
+              {% if not user.is_authenticated %}
+              <div>
+                <a href="{% url 'users:register' %}">Зарегистрироваться</a>
+              </div>
+              {% endif %}
             </div>
+          </div>
         </div>
-    </section>
-    <!-- ***** Main Banner Area End ***** -->
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ***** Main Banner Area End ***** -->
 
-    <section class="services">
-        <div class="container">
-            <div class="row carousel-at-center">
-                <div class="col-lg-11">
-                    <div class="owl-service-item owl-carousel">
-
-                        <div class="item">
-                            <div class="icon">
-                                <img src="{% static 'assets/images/money.png' %}" alt="">
-                            </div>
-                            <div class="down-content">
-                                <h4>Тратьте меньше</h4>
-                                <p>Более точные заказы означают меньше ошибок, меньше отходов и меньше затрат. А так-же
-                                    более высокую выручку</p>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="icon">
-                                <img src="{% static 'assets/images/time.png' %}" alt="">
-                            </div>
-                            <div class="down-content">
-                                <h4>Экономьте время</h4>
-                                <p>Заказ через вебсайт быстрее. Наши пользователи экономят более 2 часов в неделю. А
-                                    время - это деньги!</p>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="icon">
-                                <img src="{% static 'assets/images/paper.png' %}" alt="">
-                            </div>
-                            <div class="down-content">
-                                <h4>Меньше бюрократии</h4>
-                                <p>Все на сайте, а значит, больше никаких стопок бумаг. И ни какого риска потерять
-                                    важные документы.</p>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="icon">
-                                <img src="{% static 'assets/images/progress.png' %}" alt="">
-                            </div>
-                            <div class="down-content">
-                                <h4>Ускорьте прогресс</h4>
-                                <p>Следите за конкурентами и за их деятельностью. Анализируйте рынок и не дайте себя
-                                    обогнать.</p>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="icon">
-                                <img src="{% static 'assets/images/delivery.png' %}" alt="">
-                            </div>
-                            <div class="down-content">
-                                <h4>Быстрая доставка</h4>
-                                <p>Быстрое оформление заказов обозначает быструю доставку. Мы автоматически выберем за
-                                    вас
-                                    самый быстрый способ доставки.</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+<section class="services">
+  <div class="container">
+    <div class="row carousel-at-center">
+      <div class="col-lg-11">
+        <div class="owl-service-item owl-carousel">
+          <div class="item">
+            <div class="icon">
+              <img src="{% static 'assets/images/money.png' %}" alt="" />
             </div>
-        </div>
-    </section>
+            <div class="down-content">
+              <h4>Тратьте меньше</h4>
+              <p>
+                Более точные заказы означают меньше ошибок, меньше отходов и
+                меньше затрат. А так-же более высокую выручку
+              </p>
+            </div>
+          </div>
 
-    <section class="upcoming-meetings" id="meetings">
-        <div class="container">
+          <div class="item">
+            <div class="icon">
+              <img src="{% static 'assets/images/time.png' %}" alt="" />
+            </div>
+            <div class="down-content">
+              <h4>Экономьте время</h4>
+              <p>
+                Заказ через вебсайт быстрее. Наши пользователи экономят более 2
+                часов в неделю. А время - это деньги!
+              </p>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="icon">
+              <img src="{% static 'assets/images/paper.png' %}" alt="" />
+            </div>
+            <div class="down-content">
+              <h4>Меньше бюрократии</h4>
+              <p>
+                Все на сайте, а значит, больше никаких стопок бумаг. И ни какого
+                риска потерять важные документы.
+              </p>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="icon">
+              <img src="{% static 'assets/images/progress.png' %}" alt="" />
+            </div>
+            <div class="down-content">
+              <h4>Ускорьте прогресс</h4>
+              <p>
+                Следите за конкурентами и за их деятельностью. Анализируйте
+                рынок и не дайте себя обогнать.
+              </p>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="icon">
+              <img src="{% static 'assets/images/delivery.png' %}" alt="" />
+            </div>
+            <div class="down-content">
+              <h4>Быстрая доставка</h4>
+              <p>
+                Быстрое оформление заказов обозначает быструю доставку. Мы
+                автоматически выберем за вас самый быстрый способ доставки.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="upcoming-meetings" id="meetings">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-heading">
+          <h2>Топ категории</h2>
+        </div>
+      </div>
+      <div class="col-lg-auto">
+        <div class="row">
+          {% for category in top_categories %}
+          <!-- Top 6 categories-->
+          <div class="col-lg-4">
+            <div class="meeting-item">
+              <div class="thumb">
+                <div class="price">
+                  <span>100 поставщиков</span>
+                  <!-- Надо будет ещё количество добавить, но после того как это вьюху добавят -->
+                </div>
+                <a href="{% url 'orders:category' category.id %}">
+                  {% if category.image %}
+                  <img src="/media/{{ category.image }}" alt="" />
+                  {% else %}
+                  <img
+                    src="{% static 'assets/images/placeholder_300x150.png' %}"
+                    alt=""
+                  />
+                  {% endif %}
+                </a>
+              </div>
+              <div class="down-content">
+                <a href="{% url 'orders:category' category.id %}"
+                  ><h4>{{ category.name }}</h4></a
+                >
+                <p>{{ category.description }}</p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="apply-now" id="apply">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 align-self-center">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="item">
+              <h3>Для <span class="c-yellow">общепита</span></h3>
+              <p>
+                Откажитесь от бесконечных листов заказов и ночных ожиданий по
+                телефону. Наш бесплатный сайт - это самый эффективный способ
+                заказа у всех ваших поставщиков. Выполняйте заказы быстрее,
+                ложитесь спать раньше.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="item">
+              <h3>Для <span class="c-red">поставщиков</span></h3>
+              <p>
+                Независимо от того, являетесь ли вы семейной фермой или
+                национальным дистрибьютором, наша платформа, разработанная
+                специально для вас, изменит способ ведения бизнеса. Сэкономьте
+                время на ручных операциях, сократите количество ошибок в заказах
+                и продавайте больше продукции.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <article class="accordion">
+          <div class="accordions is-first-expanded">
+            <h3 class="head">
+              <span>Экология</span>
+            </h3>
+            <div class="content">
+              <p class="article">
+                Мы вносим свой вклад в защиту экологии. Важно действовать не
+                завтра, а СЕЙЧАС! Именно поэтому мы заботимся о биоразнообразии,
+                защите ресурсов, нашей воды и прочего. Цели в области
+                устойчивого развития являются для нас руководящими принципами. С
+                2009 года мы также сотрудничаем с природоохранной организацией
+                WWF в целях защиты окружающей среды. Наши поставщики обязаны
+                соблюдать чёткие и строгие правила по защите экологии. Мы так-жи
+                активно стремится к улучшению благосостояния животных при
+                выращивании и содержании сельскохозяйственных животных. Мы
+                продолжаем поощрять поставщиков, которые производят свои
+                продукты в соответствии с более высокими стандартами
+                благополучия животных. При этом мы требуем не только большего
+                благополучия и здоровья животных, но и большей прозрачности и
+                прослеживаемости всей технологической цепочки.
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="our-facts">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="row">
+          <div class="col-lg-12">
+            <h2>Коротко о нас в цифрах</h2>
+          </div>
+          <div class="col-lg-6">
             <div class="row">
+              <div class="col-12">
+                <div class="count-area-content">
+                  <div class="count-digit">{{ all_suppliers_amount }}</div>
+                  <div class="count-title">{{ all_suppliers_amount|default:"100"|ru_plural:"Поставщик,Поставщика,Поставщиков" }}</div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="count-area-content">
+                  <div class="count-digit">{{ all_categories_amount }}</div>
+                  <div class="count-title">{{ all_categories_amount|default:"100"|ru_plural:"Категория,Категории,Категорий" }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-12">
+                <div class="count-area-content">
+                  <div class="count-digit">{{ all_customers_amount }}</div>
+                  <div class="count-title">{{ all_customers_amount|default:"100"|ru_plural:"Ресторатор,Ресторатора,Рестораторов" }}</div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="count-area-content">
+                  <div class="count-digit">{{ all_active_orders_amount }}</div>
+                  <div class="count-title">{{ all_active_orders_amount|default:"100"|ru_plural:"Заказ,Заказа,Заказов" }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 align-self-center">
+        <div class="video">
+          <p><img src="/" alt="" /></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-us" id="contact-us">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9 align-self-center">
+        <div class="row">
+          <div class="col-lg-12">
+            <form id="contact" action="" method="post">
+              {% csrf_token %}
+              <div class="row">
                 <div class="col-lg-12">
-                    <div class="section-heading">
-                        <h2>Топ категории</h2>
-                    </div>
+                  <h2>Вопросы? Пишите мы поможем!</h2>
                 </div>
-                <div class="col-lg-auto">
-                    <div class="row">
-                        {% for category in top_categories %} <!-- Top 6 categories-->
-                            <div class="col-lg-4">
-                                <div class="meeting-item">
-                                    <div class="thumb">
-                                        <div class="price">
-                                            <span>100 поставщиков</span> <!-- Надо будет ещё количество добавить, но после того как это вьюху добавят -->
-                                        </div>
-                                        <a href="{% url 'orders:category' category.id %}">
-                                            {% if category.image %}
-                                                    <img src="/media/{{ category.image }}" alt="">
-                                                {% else %}
-                                                    <img src="{% static 'assets/images/placeholder_300x150.png' %}"
-                                                         alt="">
-                                                {% endif %}
-                                        </a>
-                                    </div>
-                                    <div class="down-content">
-                                        <a href="{% url 'orders:category' category.id %}"><h4>{{ category.name }}</h4></a>
-                                        <p>{{ category.description }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
+                <div class="col-lg-4">
+                  <fieldset>
+                      {{ form.name_user }}
+                  </fieldset>
                 </div>
-            </div>
+                <div class="col-lg-4">
+                  <fieldset>
+                      {{ form.email }}
+                  </fieldset>
+                </div>
+                <div class="col-lg-4">
+                  <fieldset>
+                      {{ form.issue }}
+                  </fieldset>
+                </div>
+                <div class="col-lg-12">
+                  <fieldset>
+                      {{ form.message }}
+                  </fieldset>
+                </div>
+                <div class="col-lg-12">
+                  <fieldset>
+                    <button type="submit" id="form-submit" class="button">
+                      Отослать
+                    </button>
+                  </fieldset>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
-    </section>
-
-    <section class="apply-now" id="apply">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 align-self-center">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="item">
-                                <h3>Для <span class="c-yellow">общепита</span></h3>
-                                <p>Откажитесь от бесконечных листов заказов и ночных ожиданий по телефону. Наш
-                                    бесплатный
-                                    сайт - это самый эффективный способ заказа у всех ваших поставщиков. Выполняйте
-                                    заказы
-                                    быстрее, ложитесь спать раньше.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="item">
-                                <h3>Для <span class="c-red">поставщиков</span></h3>
-                                <p>Независимо от того, являетесь ли вы семейной фермой или национальным дистрибьютором,
-                                    наша платформа, разработанная специально для вас, изменит способ ведения бизнеса.
-                                    Сэкономьте время
-                                    на ручных операциях, сократите количество ошибок в заказах и продавайте больше
-                                    продукции.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <article class="accordion">
-                        <div class="accordions is-first-expanded">
-                            <h3 class="head">
-                                <span>Экология</span>
-                            </h3>
-                            <div class="content">
-                                <p class="article">Мы вносим свой вклад в защиту экологии. Важно действовать не завтра,
-                                    а
-                                    СЕЙЧАС! Именно поэтому мы заботимся о биоразнообразии, защите ресурсов, нашей воды и
-                                    прочего. Цели в области устойчивого развития являются для нас руководящими
-                                    принципами.
-                                    С 2009 года мы также сотрудничаем с природоохранной организацией WWF в целях защиты
-                                    окружающей среды. Наши поставщики обязаны соблюдать чёткие и строгие правила по
-                                    защите
-                                    экологии. Мы так-жи активно стремится к улучшению благосостояния животных при
-                                    выращивании и содержании сельскохозяйственных животных. Мы продолжаем поощрять
-                                    поставщиков, которые производят свои продукты в соответствии с более высокими
-                                    стандартами благополучия животных. При этом мы требуем не только большего
-                                    благополучия и
-                                    здоровья животных, но и большей прозрачности и прослеживаемости всей технологической
-                                    цепочки.</p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="right-info">
+          <ul>
+            <li>
+              <h6>Тел. номер</h6>
+              <span>+7 000-888-0340</span>
+            </li>
+            <li>
+              <h6>Эл. почта</h6>
+              <span>info@n.ru</span>
+            </li>
+            <li>
+              <h6>Адрес</h6>
+              <span>7-я Кожуховская ул., 9, Москва</span>
+            </li>
+            <li>
+              <h6>Представитель</h6>
+              <span>Бойко Михаил Иванович</span>
+            </li>
+          </ul>
         </div>
-    </section>
-
-    <section class="our-facts">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h2>Коротко о нас в цифрах</h2>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="count-area-content">
-                                        <div class="count-digit">{{ all_suppliers_amount }}</div>
-                                        <div class="count-title">поставщиков</div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="count-area-content">
-                                        <div class="count-digit">{{ all_categories_amount }}</div>
-                                        <div class="count-title">Категорий</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="count-area-content new-students">
-                                        <div class="count-digit">{{ all_customers_amount }}</div>
-                                        <div class="count-title">Рестораторов</div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="count-area-content">
-                                        <div class="count-digit">{{ all_active_orders_amount }}</div>
-                                        <div class="count-title">Заказов</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 align-self-center">
-                    <div class="video">
-                        <p><img src="/" alt=""></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="contact-us" id="contact-us">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-9 align-self-center">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <form id="contact" action="" method="post">
-                                {% csrf_token %}
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <h2>Вопросы? Пишите мы поможем!</h2>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <fieldset>
-                                            <input name="name" type="text" id="name" placeholder="Имя..." required="">
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <fieldset>
-                                            <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*"
-                                                   placeholder="Эл. почта..." required="">
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <fieldset>
-                                            <input name="subject" type="text" id="subject" placeholder="Тема..."
-                                                   required="">
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <fieldset>
-                                        <textarea name="user_message" class="form-control" id="user_message"
-                                                  placeholder="Сообщение..." required=""></textarea>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <fieldset>
-                                            <button type="submit" id="form-submit" class="button">Отослать</button>
-                                        </fieldset>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="right-info">
-                        <ul>
-                            <li>
-                                <h6>Тел. номер</h6>
-                                <span>+7 000-888-0340</span>
-                            </li>
-                            <li>
-                                <h6>Эл. почта</h6>
-                                <span>info@n.ru</span>
-                            </li>
-                            <li>
-                                <h6>Адрес</h6>
-                                <span>7-я Кожуховская ул., 9, Москва</span>
-                            </li>
-                            <li>
-                                <h6>Представитель</h6>
-                                <span>Бойко Михаил Иванович</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer">
-            <p>© 2022 N</p>
-        </div>
-    </section>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <p>© 2022 N</p>
+  </div>
+</section>
 
 {% endblock %}

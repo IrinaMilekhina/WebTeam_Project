@@ -1,23 +1,21 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, PasswordResetDoneView, \
     PasswordResetConfirmView, PasswordResetCompleteView
 from django.contrib import messages
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.views.generic.edit import FormView
 from django.db.models import Count
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse_lazy
+from django.views.generic import ListView, UpdateView
+from django.views.generic.edit import FormView
 
 from orders.models import ResponseOrder, Order, StatusResponse
-from users.forms import UserLoginForm, UserRegisterForm
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, UpdateView
-from django.urls import reverse_lazy
-
 from users.forms import PersonalAccountEditForm
+from users.forms import UserLoginForm, UserRegisterForm
 from users.models import Profile
 
-from django.db.models import Max, Count
 
-
-class PersonalAccountListView(ListView):
+class PersonalAccountListView(LoginRequiredMixin, ListView):
     """Класс-обработчик для отображения информации в личном кабинете"""
     title = 'Личный кабинет'
     model = Profile
@@ -33,7 +31,7 @@ class PersonalAccountListView(ListView):
         return context
 
 
-class PersonalAccountEditView(UpdateView):
+class PersonalAccountEditView(LoginRequiredMixin, UpdateView):
     """Класс-обработчик для редактирования информации в личном кабинете"""
     model = Profile
     template_name = 'users/personal_account_edit.html'
@@ -84,11 +82,13 @@ class RegisterListView(FormView):
 class Logout(LogoutView):
     template_name = 'orders/main.html'
 
+    def get(self, request, *args, **kwargs):
+        return redirect(reverse_lazy('main'))
 
-class PersonalActiveOrdersView(ListView):
+
+class PersonalActiveOrdersView(LoginRequiredMixin, ListView):
     model = Order
     template_name = 'users/account_active_orders.html'
-
 
     def get_context_data(self, *, object_list=None, **kwargs):
         """Метод для создания необходимого контекста для активных заказов личного кабинета"""
@@ -136,15 +136,12 @@ class PersonalActiveOrdersView(ListView):
                 last_status_response = i.statusresponse_set.last()
                 if not last_status_response is None and last_status_response.status == 'On Approval':
                     unique_responses.append(i)
-
-
             context['user'] = current_profile
             context['responses'] = unique_responses
             return context
 
 
-
-class PersonalHistoryOrdersView(ListView):
+class PersonalHistoryOrdersView(LoginRequiredMixin, ListView):
     model = Order
     template_name = 'users/account_history_orders.html'
     context_object_name = 'orders'

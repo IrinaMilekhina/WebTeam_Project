@@ -214,10 +214,11 @@ class ProfilePasswordResetView(PasswordResetView):
     success_url = reverse_lazy("users:password_reset_done")
 
     def form_valid(self, form):
-        user = Profile.objects.get(pk=self.request.user.pk)
-        if user.email == form.cleaned_data['email']:
-            return super().form_valid(form)
-        else:
+        try:
+            user = Profile.objects.get(email=form.cleaned_data['email'])
+            if user:
+                return super().form_valid(form)
+        except Profile.DoesNotExist:
             form.errors['InvalidEmail'] = 'Введен некорректный email. Введите email, указанный при регистрации.'
             return super().form_invalid(form)
 

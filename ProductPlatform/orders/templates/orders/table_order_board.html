@@ -35,7 +35,7 @@
 
             {% if not request.user.role == 'Supplier' %}
                 <td class="button_delete">
-                    <button class="action-btn {% if row.status == 'Active' %}deactivate-btn{% else %}accept-btn{% endif %}"
+                    <button class="action-btn {% if row.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"
                             data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ row.id }}"
                             type="submit" name="{{ row.id }}">
                         {% if row.status == 'Active' %}
@@ -47,7 +47,7 @@
                     <div class="modal fade" id="staticBackdrop{{ row.id }}" data-bs-backdrop="static"
                          data-bs-keyboard="false" tabindex="-1"
                          aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog no-margin modal-dialog-centered">
+                        <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="staticBackdropLabel">Подтверждение действий</h5>
@@ -61,14 +61,11 @@
                                 <div class="modal-footer">
                                     <div class="row">
                                         <div class="btns">
-                                            <button type="button" class="close-btn"
-                                                    data-bs-dismiss="modal">
-                                                Закрыть
-                                            </button>
                                             <form method="POST" action="{% url 'orders:delete_order' row.id %}">
                                                 {% csrf_token %}
-                                                <button class="{% if row.status == 'Active' %}deactivate-btn{% else %}accept-btn{% endif %}"
-                                                        type="submit">Подтверждаю
+                                                <button class="modal-btn {% if row.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"
+                                                        type="submit">
+                                                    Подтверждаю
                                                 </button>
                                             </form>
                                         </div>

@@ -36,58 +36,58 @@
                         <div class="col-lg-12">
                             <div class="row cat-center">
                                 {% if user.role == 'Supplier' or user.role == 'Customer' %}
-                                {% for category in page_obj_active %}
-                                    <div class="col-lg-4 cat-cont templatemo-item-col all soon">
-                                        <div class="meeting-item cat-cont">
-                                            <a class="cat-cont-a" href="{% url 'orders:category' category.id %}">
-                                                <div class="thumb">
-                                                    <div class="price">
-                                                        <span>Кол-во поставщиков: {{ category.count_orders }}</span>
-                                                        <!-- Надо будет ещё количество добавить, но после того как это вьюху добавят -->
+                                    {% for category in page_obj_active %}
+                                        <div class="col-lg-4 cat-cont templatemo-item-col all soon">
+                                            <div class="meeting-item cat-cont">
+                                                <a class="cat-cont-a" href="{% url 'orders:category' category.id %}">
+                                                    <div class="thumb">
+                                                        <div class="price">
+                                                            <span>Кол-во поставщиков: {{ category.count_orders }}</span>
+                                                            <!-- Надо будет ещё количество добавить, но после того как это вьюху добавят -->
+                                                        </div>
+                                                        {% if category.image %}
+                                                            <!--                                                        <img src="{{ category.image }}" alt="">-->
+                                                            <img src="/media/{{ category.image }}" alt="">
+                                                        {% else %}
+                                                            <img src="{% static 'assets/images/placeholder_300x150.png' %}"
+                                                                 alt="">
+                                                        {% endif %}
                                                     </div>
-                                                    {% if category.image %}
-                                                        <!--                                                        <img src="{{ category.image }}" alt="">-->
-                                                        <img src="/media/{{ category.image }}" alt="">
-                                                    {% else %}
-                                                        <img src="{% static 'assets/images/placeholder_300x150.png' %}"
-                                                             alt="">
-                                                    {% endif %}
-                                                </div>
-                                                <div class="down-content">
-                                                    <h4>{{ category.name }}</h4>
-                                                    <p>{{ category.description }}</p>
-                                                </div>
-                                            </a>
+                                                    <div class="down-content">
+                                                        <h4>{{ category.name }}</h4>
+                                                        <p>{{ category.description }}</p>
+                                                    </div>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                {% endfor %}
+                                    {% endfor %}
                                 {% else %}
-                                {% for category in page_obj %}
-                                    <div class="col-lg-4 cat-cont templatemo-item-col all soon">
-                                        <div class="meeting-item cat-cont">
-                                            <a class="cat-cont-a" href="{% url 'orders:category' category.id %}">
-                                                <div class="thumb">
-                                                    <div class="price">
-                                                        <span>Кол-во поставщиков: {{ category.count_orders }}</span>
-                                                        <!-- Надо будет ещё количество добавить, но после того как это вьюху добавят -->
+                                    {% for category in page_obj %}
+                                        <div class="col-lg-4 cat-cont templatemo-item-col all soon">
+                                            <div class="meeting-item cat-cont">
+                                                <a class="cat-cont-a" href="{% url 'orders:category' category.id %}">
+                                                    <div class="thumb">
+                                                        <div class="price">
+                                                            <span>Кол-во поставщиков: {{ category.count_orders }}</span>
+                                                            <!-- Надо будет ещё количество добавить, но после того как это вьюху добавят -->
+                                                        </div>
+                                                        {% if category.image %}
+                                                            <!--                                                        <img src="{{ category.image }}" alt="">-->
+                                                            <img src="/media/{{ category.image }}" alt="">
+                                                        {% else %}
+                                                            <img src="{% static 'assets/images/placeholder_300x150.png' %}"
+                                                                 alt="">
+                                                        {% endif %}
                                                     </div>
-                                                    {% if category.image %}
-                                                        <!--                                                        <img src="{{ category.image }}" alt="">-->
-                                                        <img src="/media/{{ category.image }}" alt="">
-                                                    {% else %}
-                                                        <img src="{% static 'assets/images/placeholder_300x150.png' %}"
-                                                             alt="">
-                                                    {% endif %}
-                                                </div>
-                                                <div class="down-content">
-                                                    <h4>{{ category.name }}</h4>
-                                                    <p>{{ category.description }}</p>
-                                                </div>
-                                            </a>
+                                                    <div class="down-content">
+                                                        <h4>{{ category.name }}</h4>
+                                                        <p>{{ category.description }}</p>
+                                                    </div>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
+                                    {% endfor %}
+                                {% endif %}
                             </div>
                         </div>
                         <div class="col-lg-12">
@@ -112,8 +112,9 @@
                     </div>
                 </div>
             </div>
-            <div class="footer">
-                <p>© 2022 HORECA_MALL</p>
-            </div>
+        </div>
+
+        {% include 'includes/inc_footer.html' %}
+
     </section>
 {% endblock %}

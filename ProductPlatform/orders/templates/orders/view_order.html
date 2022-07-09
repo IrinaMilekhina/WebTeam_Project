@@ -187,6 +187,7 @@
                                                 </span>
                                             </h6>
                                         </div>
+                                    </div>
                                 </div>
                                 <form id="contact" action="{% url 'orders:update_order' order.id %}" method="post">
                                     {% csrf_token %}
@@ -274,10 +275,10 @@
                                 <div class="modal-footer">
                                     <div class="row">
                                         <div class="btns">
-                                            <button type="button" class="close-btn"
-                                                    data-bs-dismiss="modal">
-                                                Закрыть
-                                            </button>
+{#                                            <button type="button" class="close-btn"#}
+{#                                                    data-bs-dismiss="modal">#}
+{#                                                Закрыть#}
+{#                                            </button>#}
                                             <form method="POST" action="{% url 'orders:delete_order' order.id %}">
                                                 {% csrf_token %}
                                                 <button class="{% if order.status == 'Active' %}deactivate-btn{% else %}accept-btn{% endif %}"

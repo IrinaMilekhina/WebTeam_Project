@@ -88,11 +88,22 @@
                                         <div class="date-position col-lg-2">
                                             С
                                             <div class="date date-start">
-                                                {{ order.create_at }}
+
+                                                <h6>
+                                                    {{ order.create_at|date:'b' }}
+                                                    <span>
+                                                    {{ order.create_at|date:'d' }}
+                                                </span>
+                                                </h6>
                                             </div>
                                             До
                                             <div class="date">
-                                                {{ order.end_time }}
+                                                <h6>
+                                                    {{ order.end_time|date:'b' }}
+                                                    <span>
+                                                    {{ order.end_time|date:'d' }}
+                                                </span>
+                                                </h6>
                                             </div>
                                         </div>
                                     </div>
@@ -157,14 +168,24 @@
                                     <div class="col-lg-2" style="width: 72px;"></div>
                                     <div class="col-lg-8 center">{{ order.name }}</div>
                                     <div class="date-position col-lg-2">
-                                            С
-                                            <div class="date date-start">
-                                                {{ order.create_at }}
-                                            </div>
-{#                                            До#}
-{#                                            <div class="date">#}
-{#                                                {{ order.end_time }}#}
-{#                                            </div>#}
+
+                                        С
+                                        <div class="date date-start">
+                                            <h6>
+                                                {{ order.create_at|date:'b' }}
+                                                <span>
+                                                    {{ order.create_at|date:'d' }}
+                                                </span>
+                                            </h6>
+                                        </div>
+                                        До
+                                        <div class="date">
+                                            <h6>
+                                                {{ order.end_time|date:'b' }}
+                                                <span>
+                                                    {{ order.end_time|date:'d' }}
+                                                </span>
+                                            </h6>
                                         </div>
                                 </div>
                                 <form id="contact" action="{% url 'orders:update_order' order.id %}" method="post">

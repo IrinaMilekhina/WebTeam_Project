@@ -12,6 +12,7 @@ from orders.models import CategoryOrder, Order, StatusResponse, ResponseOrder
 from users.models import Profile
 from orders.filters import OrderFilter, CategoryFilter
 from django.views import View
+from django.contrib.auth.decorators import login_required
 
 
 class MainView(CreateView):
@@ -207,6 +208,7 @@ class OrderBoardView(LoginRequiredMixin, ListView):
         return context
 
 
+@login_required
 def table_order(request):
     context = {}
     context['filtered_table'] = OrderFilter(
@@ -218,11 +220,12 @@ def table_order(request):
     return render(request, 'orders/order_board.html', context=context)
 
 
-class DeleteCategory(DeleteView):
+class DeleteCategory(LoginRequiredMixin, DeleteView):
     model = CategoryOrder
     success_url = reverse_lazy('orders:categories')
 
 
+@login_required
 def categories(request):
     context = {}
     active_categories = CategoryOrder.objects.select_related() \
@@ -249,6 +252,6 @@ def categories(request):
 
     return render(request, 'orders/categories.html', context=context)
 
-class DeleteOrder(DeleteView):
+class DeleteOrder(LoginRequiredMixin, DeleteView):
     model = Order
     success_url = reverse_lazy('orders:table_order')

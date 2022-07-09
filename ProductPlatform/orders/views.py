@@ -23,6 +23,7 @@ class MainView(CreateView):
     def get_context_data(self, **kwargs):
         context = super(MainView, self).get_context_data(**kwargs)
         top_category = CategoryOrder.objects \
+            .filter(is_active=True) \
             .annotate(count=Count('order')) \
             .values('id', 'name', 'image', 'count', 'description') \
             .order_by('-count')[:6]

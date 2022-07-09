@@ -88,11 +88,21 @@
                                         <div class="date-position col-lg-2">
                                             С
                                             <div class="date date-start">
-                                                <h6>Nov <span>9</span></h6>
+                                                <h6>
+                                                    {{ order.create_at|date:'b' }}
+                                                    <span>
+                                                    {{ order.create_at|date:'d' }}
+                                                </span>
+                                                </h6>
                                             </div>
                                             До
                                             <div class="date">
-                                                <h6>Nov <span>12</span></h6>
+                                                <h6>
+                                                    {{ order.end_time|date:'b' }}
+                                                    <span>
+                                                    {{ order.end_time|date:'d' }}
+                                                </span>
+                                                </h6>
                                             </div>
                                         </div>
                                     </div>
@@ -159,11 +169,21 @@
                                     <div class="date-position col-lg-2">
                                         С
                                         <div class="date date-start">
-                                            <h6>Nov <span>9</span></h6>
+                                            <h6>
+                                                {{ order.create_at|date:'b' }}
+                                                <span>
+                                                    {{ order.create_at|date:'d' }}
+                                                </span>
+                                            </h6>
                                         </div>
                                         До
                                         <div class="date">
-                                            <h6>Nov <span>12</span></h6>
+                                            <h6>
+                                                {{ order.end_time|date:'b' }}
+                                                <span>
+                                                    {{ order.end_time|date:'d' }}
+                                                </span>
+                                            </h6>
                                         </div>
                                     </div>
                                 </div>

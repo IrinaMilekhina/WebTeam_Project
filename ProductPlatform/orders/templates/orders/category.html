@@ -40,7 +40,11 @@
                                                 <!-- Топ 5 поставщиков -->
                                                 {% for supplier, total in top_suppliers.items %}
                                                     <tr class="t-row">
-                                                        <td>{{ supplier.comp_name }}</td>
+                                                        <td>
+                                                            <a href="{% url 'users:profile' supplier.id %}">
+                                                                {{ supplier.comp_name }}
+                                                            </a>
+                                                        </td>
                                                         <td>{{ total }}</td>
                                                     </tr>
                                                 {% endfor %}

@@ -19,7 +19,7 @@ from .views import LoginListView, RegisterListView, Logout, PersonalActiveOrders
     ProfilePasswordResetView, ProfilePasswordResetDoneView, ProfilePasswordResetCompleteView, \
     ProfilePasswordResetConfirmView
 
-from users.views import PersonalAccountListView, PersonalAccountEditView
+from users.views import PersonalAccountListView, PersonalAccountEditView, ProfileView
 
 app_name = 'users'
 
@@ -36,4 +36,5 @@ urlpatterns = [
     path('password-reset/done/', ProfilePasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', ProfilePasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', ProfilePasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('profile/<int:id>/', ProfileView.as_view(), name='profile'),
 ]

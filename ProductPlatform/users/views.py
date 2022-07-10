@@ -100,6 +100,7 @@ class PersonalActiveOrdersView(LoginRequiredMixin, ListView):
             response_for_customer = all_responses.filter(order__author=self.request.user.pk).values('id', 'order_id',
                                                                                                     'price', 'offer',
                                                                                                     'create_at',
+                                                                                                    'response_user_id',
                                                                                                     'response_user__comp_name')
             active_orders = Order.objects.select_related() \
                 .filter(status='Active', author_id=self.request.user.pk) \

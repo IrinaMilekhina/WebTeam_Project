@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -92,51 +94,39 @@ class PersonalActiveOrdersView(LoginRequiredMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         """Метод для создания необходимого контекста для активных заказов личного кабинета"""
         context = super().get_context_data(**kwargs)
-        current_profile = Profile.objects.select_related().get(pk=self.request.user.pk)
-        all_responses = ResponseOrder.objects.select_related().all()
+        user = self.request.user
 
         # для Заказчика
-        if current_profile.role == 'Customer':
-            response_for_customer = all_responses.filter(order__author=self.request.user.pk).values('id', 'order_id',
-                                                                                                    'price', 'offer',
-                                                                                                    'create_at',
-                                                                                                    'response_user__comp_name')
-            active_orders = Order.objects.select_related() \
-                .filter(status='Active', author_id=self.request.user.pk) \
+        if user.role == 'Customer':
+            response_for_customer = ResponseOrder.objects.filter(order__author=user.pk)
+            active_orders = Order.objects.select_related()\
+                .filter(end_time__gte=datetime.today(), author_id=user.pk)\
                 .annotate(count_response=Count('responseorder')) \
                 .values('id', 'category__name', 'author__city', 'name', 'description',
                         'status', 'create_at', 'end_time', 'count_response')
+
             context['orders'] = active_orders
-            context['user'] = current_profile
             context['responses_to_orders'] = response_for_customer
+
             return context
+
         # для поставщика
-        elif current_profile.role == 'Supplier':
-            unique_responses = []
-            # active_responses = all_responses.filter(response_user_id=self.request.user.pk) \
-            #     .values('id', 'statusresponse__id', 'price', 'offer', 'statusresponse__time_status',
-            #             'statusresponse__status', 'order__category__name', 'order_id', 'order__name')
-            # for i in range(active_responses.count()):
-            #     if i > 0 and active_responses[i - 1] != {}:
-            #         if active_responses[i]['id'] == active_responses[i - 1]['id'] and active_responses[i][
-            #             'statusresponse__time_status'] > active_responses[i - 1]['statusresponse__time_status']:
-            #             active_responses[i - 1].clear()
-            #         elif active_responses[i]['id'] == active_responses[i - 1]['id'] and active_responses[i][
-            #             'statusresponse__time_status'] < active_responses[i - 1]['statusresponse__time_status']:
-            #             active_responses[i].clear()
-            #
-            # for n in range(active_responses.count()):
-            #     if active_responses[n] != {} and active_responses[n]['statusresponse__status'] == 'On Approval':
-            #         unique_responses.append(active_responses[n])
+        elif user.role == 'Supplier':
+            active_responses = []
+            responses = ResponseOrder.objects.filter(response_user=user, order__end_time__gte=datetime.today())
 
-            active_responses = all_responses.filter(response_user_id=self.request.user.pk)
+            for response in responses:
+                statuses = StatusResponse.objects.filter(
+                    response_order=response,
+                    status__in=['Not Approved', 'Cancelled'])
+                if len(statuses) == 0:
+                    if StatusResponse.objects.filter(response_order=response, status='Approved').first():
+                        active_responses.append({'response': response, 'status': 'Утверждён'})
+                    else:
+                        active_responses.append({'response': response, 'status': 'На утверждении'})
 
-            for i in active_responses:
-                last_status_response = i.statusresponse_set.last()
-                if not last_status_response is None and last_status_response.status == 'On Approval':
-                    unique_responses.append(i)
-            context['user'] = current_profile
-            context['responses'] = unique_responses
+            context['responses'] = active_responses
+
             return context
 
 

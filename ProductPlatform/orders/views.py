@@ -188,7 +188,8 @@ class OrderView(LoginRequiredMixin, ListView):
         except Http404 as err:
             print(err)
         response_orders = order.responseorder_set.all()
-        categories= CategoryOrder.objects.all()
+        categories= CategoryOrder.objects.select_related().exclude(id=order.category_id)
+
         context = {
             'order': order,
             'response_orders': response_orders,
@@ -253,12 +254,14 @@ def categories(request):
 
 class DeleteOrder(DeleteView):
     model = Order
-    success_url = reverse_lazy('orders:table_order')
+
+    def get_success_url(self):
+        order_id = self.kwargs['pk']
+        return reverse_lazy('orders:view_order', kwargs={'pk': order_id})
 
 class UpdateOrder(UpdateView):
     model = Order
     template_name = 'orders/view_order.html'
-    success_url = reverse_lazy('orders:table_order')
     fields = [
         "name",
         "category",
@@ -266,15 +269,21 @@ class UpdateOrder(UpdateView):
         "description"
     ]
 
+    def get_success_url(self):
+        order_id = self.kwargs['pk']
+        return reverse_lazy('orders:view_order', kwargs={'pk': order_id})
+
+
+
     # def post(self, request, *args, **kwargs):
     #     session_user = request.user
     #     if session_user.get_username() == '':
     #         return HttpResponseRedirect(redirect_to=reverse_lazy('users:register'))
     #     form = self.get_form()
-    #     # category = CategoryOrder.objects.get(id=int(form.data.get('category')))
+    #     category = CategoryOrder.objects.get(id=int(form.data.get('category')))
     #     if form.is_valid():
     #         order = Order.objects.update(
-    #                                      category=form.data.get('category'),
+    #                                      category=category,
     #                                      name=form.data.get('name'),
     #                                      description=form.data.get(
     #                                          'description'),

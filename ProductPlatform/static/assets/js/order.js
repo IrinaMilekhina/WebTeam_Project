@@ -31,7 +31,7 @@ function make_modifiable() {
   name_ord.classList.remove("read_only");
   end_time.removeAttribute("readonly");
   end_time.classList.remove("read_only");
-  end_time.setAttribute("type", "datetime-local");
+  // end_time.setAttribute("type", "datetime-local");
   description_textarea.removeAttribute("readonly");
   description_textarea.classList.remove("read_only");
 }

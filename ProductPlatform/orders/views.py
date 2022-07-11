@@ -191,17 +191,22 @@ class OrderView(LoginRequiredMixin, ListView):
         except Http404 as err:
             print(err)
         response_orders = order.responseorder_set.all()
+        print(response_orders)
         responses = []
+        approved_response = None
         for response_order in response_orders:
             response_statuses = StatusResponse.objects.filter(
                 response_order=response_order,
                 status__in=['Not Approved', 'Cancelled'])
             if len(response_statuses) == 0:
                 responses.append(response_order)
+                if StatusResponse.objects.filter(response_order=response_order, status='Approved').first():
+                    approved_response = response_order
 
         categories = CategoryOrder.objects.select_related().exclude(id=order.category_id)
 
         context = {
+            'approved_response': approved_response,
             'order': order,
             'response_orders': responses,
             'categories': categories

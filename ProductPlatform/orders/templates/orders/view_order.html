@@ -26,11 +26,15 @@
                                     </a>
                                     <div class="line">
                                         <div class="price">{{ response_order.price|floatformat:2 }} ₽</div>
-                                        {% if not user.role == 'Supplier' %}
+                                        {% if user.role != 'Supplier' and not approved_response %}
                                             <i data-bs-toggle="modal" data-bs-target="#staticBackdrop1"
                                                class="fa fa-check accept"></i>
                                             <i data-bs-toggle="modal" data-bs-target="#staticBackdrop2"
                                                class="fa fa-close cancel"></i>
+                                        {% elif approved_response and approved_response == response_order %}
+                                            <span class="accepted-response">Принят</span>
+                                        {% elif approved_response and approved_response != response_order %}
+                                            <span class="not-accepted-response"></span>
                                         {% endif %}
                                     </div>
                                 </li>

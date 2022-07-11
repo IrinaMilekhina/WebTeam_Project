@@ -1260,6 +1260,14 @@ section.order .order-content .responses {
     align-items: stretch;
 }
 
+section.order .accepted-response {
+    color: #239400;
+}
+
+section.order .not-accepted-response {
+    width: 55px;
+}
+
 section.order .accept {
     color: #51b600;
     margin-right: 15px;

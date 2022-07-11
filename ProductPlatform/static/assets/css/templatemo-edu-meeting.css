@@ -2487,12 +2487,12 @@ section.orders-table-board select {
     background-color: #f8f8f8;
     outline: none;
     border: none;
+    margin-right: 10px;
     box-shadow: none;
     font-size: 13px;
     font-weight: 500;
     color: #777777;
     padding: 0 15px;
-    margin-right: 10px;
     display: block;
     line-height: 1.5;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
@@ -2519,7 +2519,12 @@ section.orders-table-board .table {
     background-color: rgba(255, 255, 255, 0) !important;
     border-collapse: separate;
     border-spacing: 0 10px;
-    border-width: 0 0px;
+    border-width: 0 0;
+}
+
+section.orders-table-board .table th,
+section.orders-table-board .table td {
+    border-bottom-width: 0 !important;
 }
 
 section.orders-table-board .filter-form {
@@ -2537,6 +2542,7 @@ section.orders-table-board .filter-form {
     section.orders-table-board .meeting-table thead tr {
         height: auto;
     }
+
     section.orders-table-board .filter-form {
         height: auto;
         padding-top: 6px;
@@ -2548,6 +2554,7 @@ section.orders-table-board .filter-form {
         display: flex;
         align-items: center;
         flex-wrap: wrap !important;
+        width: 60%;
     }
 
     section.orders-table-board .filter-form .filter-fields select {
@@ -2556,9 +2563,22 @@ section.orders-table-board .filter-form {
     }
 }
 
+@media (max-width: 1205px) {
+    section.orders-table-board .filter-form .left-fields {
+        width: 70%;
+    }
+}
+
 @media (max-width: 799px) {
     section.orders-table-board .filter-form .left-fields select {
         max-width: 310px;
+    }
+
+    section.orders-table-board .filter-form .left-fields {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap !important;
+        width: unset;
     }
 }
 
@@ -2697,16 +2717,6 @@ section.orders-table-board .meeting-table thead th {
     background: #a12c2f;
     font-size: 16px;
     vertical-align: middle;
-}
-
-section.orders-table-board #id_category  {
-    display: inline-block;
-    width: 90%;
-    margin-top: 11px;
-}
-
-section.orders-table-board #id_ordering_category{
-    margin-top: 11px;
 }
 
 section.orders-table-board .meeting-table thead tr th:first-child {

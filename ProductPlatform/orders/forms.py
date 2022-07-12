@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import datetime
 
 from django import forms
 from django.forms import SelectDateWidget, DateInput
@@ -13,7 +13,7 @@ class CreateOrderForm(forms.ModelForm):
         model = Order
         fields = ['category', 'name', 'description', 'end_time']
         widgets = {
-            'end_time': (DateInput(attrs={'type': 'date'}))
+            'end_time': (DateInput(attrs={'type': 'datetime-local'}))
         }
 
     def __init__(self, *args, **kwargs):
@@ -29,7 +29,7 @@ class CreateOrderForm(forms.ModelForm):
 
         self.fields['end_time'].widget.attrs['class'] = "form-control"
         self.fields['end_time'].widget.attrs['required'] = "True"
-        self.fields['end_time'].widget.attrs['min'] = date.today() + timedelta(days=1)
+        self.fields['end_time'].widget.attrs['min'] = datetime.now().strftime("%Y-%m-%d %H:%M")
 
         self.fields['description'].widget.attrs['placeholder'] = "Опишите детали заказа"
         self.fields['end_time'].widget.attrs['class'] = "datetimepicker"

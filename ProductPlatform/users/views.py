@@ -1,5 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, PasswordResetDoneView, \
+    PasswordResetConfirmView, PasswordResetCompleteView
+from django.contrib import messages
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Count
 from django.http import Http404
@@ -203,6 +205,39 @@ class PersonalHistoryOrdersView(LoginRequiredMixin, ListView):
         return context
 
 
+class ProfilePasswordResetView(PasswordResetView):
+    title = "Сброс пароля"
+    subject_template_name = "users/registration/password_reset_subject.txt"
+    email_template_name = "users/registration/password_reset_email.html"
+    template_name = "users/registration/password_reset_form.html"
+    success_url = reverse_lazy("users:password_reset_done")
+
+    def form_valid(self, form):
+        try:
+            user = Profile.objects.get(email=form.cleaned_data['email'])
+            if user:
+                return super().form_valid(form)
+        except Profile.DoesNotExist:
+            form.errors['InvalidEmail'] = 'Введен некорректный email. Введите email, указанный при регистрации.'
+            return super().form_invalid(form)
+
+
+class ProfilePasswordResetDoneView(PasswordResetDoneView):
+    title = "Сброс пароля"
+    template_name = "users/registration/password_reset_done.html"
+
+
+class ProfilePasswordResetConfirmView(PasswordResetConfirmView):
+    title = "Сброс пароля"
+    template_name = "users/registration/password_reset_confirm.html"
+    success_url = reverse_lazy("users:password_reset_complete")
+
+
+class ProfilePasswordResetCompleteView(PasswordResetCompleteView):
+    title = "Сброс пароля"
+    template_name = "users/registration/password_reset_complete.html"
+
+
 class ProfileView(LoginRequiredMixin, DetailView):
     """Класс-обработчик для отображения выбранного профиля"""
     model = Profile
@@ -228,3 +263,4 @@ class ProfileView(LoginRequiredMixin, DetailView):
             return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})
         except Http404:
             return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})
+

@@ -94,7 +94,7 @@
                                                             <strong>Предложения:</strong><br>
                                                             {% for response in responses_to_orders %}
                                                                 {% if response.order_id == order.id %}
-                                                                    <a href="{% url 'users:profile' response.response_user.id %}"
+                                                                    <a href="{% url 'users:profile' response.response_user_id %}"
                                                                        class="card-title mbr-fonts-style display-7">
                                                                         {{ response.response_user__comp_name }}
                                                                         - {{ response.price }}

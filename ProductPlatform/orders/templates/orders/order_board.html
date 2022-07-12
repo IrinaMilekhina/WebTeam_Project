@@ -14,11 +14,19 @@
                 <div class="col-12 center">
                     <form class="filter-form" method="GET">
                         <div class="filter-fields left-fields">
-                            {{ filtered_table.form }}
+                            <label for="id_category">Категория:</label>
+                            {{ filtered_table.form.category }}
+                            <label for="id_ordering_category">Сортировка по продукту:</label>
+                            {{ filtered_table.form.ordering_category }}
                         </div>
-                    <button type="submit" class="filter-btn">
-                        <i class="fa fa-search"></i>
-                    </button>    
+                        <div class="filter-fields">
+                            <label for="search">Поиск</label>
+                            {{ filtered_table.form.name }}
+
+                            <button type="submit" class="filter-btn">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
                     </form>
                 </div>
                 <div class="col-12">
@@ -27,8 +35,7 @@
                         <!-- Вставляем таблицу -->
                         {% include "orders/table_order_board.html" %}
                     {% else %}
-                        <h4 class="no-orders text-lg-center text-white">Заказов в данной категории нет, выберите другую
-                            категорию.</h4>
+                        <h4 class="no-orders text-lg-center text-white">Увы, заказы по данному запросу не найдены.</h4>
                     {% endif %}
                 </div>
             </div>
@@ -44,4 +51,5 @@
             });
         });
     </script>
+    <script src="{% static 'assets/js/table_order.js' %}"></script>
 {% endblock %}

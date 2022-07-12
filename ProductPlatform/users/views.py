@@ -220,7 +220,7 @@ class ProfileView(LoginRequiredMixin, DetailView):
                     return render(request, self.template_name,
                                   {'profile': user_profile, 'orders_amount': orders_amount})
                 elif user_profile.role == 'Supplier':
-                    responses_amount = len(Order.objects.filter(author=user_profile.id))
+                    responses_amount = len(ResponseOrder.objects.filter(response_user_id=user_profile.id))
 
                     return render(request, self.template_name,
                                   {'profile': user_profile, 'responses_amount': responses_amount})

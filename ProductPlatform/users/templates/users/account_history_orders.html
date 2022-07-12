@@ -108,9 +108,10 @@
                                             </div>
                                             <div class="top-line row">
                                                 <div class="col">
-                                                    <a href="{% url 'users:profile' order.author.id %}"
+                                                    {% if order.response_approved and order.response_approved.response_user.id != user.id %}
+                                                    <a href="{% url 'users:profile' order.response_approved.response_user.id %}"
                                                        class="card-title mbr-fonts-style display-7">
-                                                        {% if order.response_approved and order.response_approved.response_user.id != user.id %}
+
                                                             <strong>Поставщик:</strong>
                                                             {{ order.response_approved.response_user.first_name }}
                                                             {{ order.response_approved.response_user.last_name }}

@@ -197,7 +197,7 @@
                                         <fieldset>
                                             <label class="small mb-1" for="company">Компания</label>
                                             <a href="{% url 'users:profile' order.author_id %}">
-                                                <input name="name" class="read_only" readonly="readonly" type="text"
+                                                <input name="name" style="cursor: pointer;" class="read_only" readonly="readonly" type="text"
                                                        id="company"
                                                        required=""
                                                        value="{{ order.author.comp_name }} на сайте с {{ order.author.date_joined }}">

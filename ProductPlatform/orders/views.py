@@ -215,6 +215,9 @@ class OrderBoardView(LoginRequiredMixin, ListView):
 
 @login_required
 def table_order(request):
+    if 'pk' in request.GET:
+        order = Order.objects.get(id=request.GET['pk'])
+        order.delete()
     context = {}
     context['filtered_table'] = OrderFilter(
         request.GET, queryset=Order.objects.all())
@@ -222,6 +225,7 @@ def table_order(request):
     paginated = Paginator(context['filtered_table'].qs, 2)
     page_number = request.GET.get('page')
     context['page_obj'] = paginated.get_page(page_number)
+
     return render(request, 'orders/order_board.html', context=context)
 
 

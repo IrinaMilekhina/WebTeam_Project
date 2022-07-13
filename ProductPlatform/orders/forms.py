@@ -11,7 +11,7 @@ class CreateOrderForm(forms.ModelForm):
         model = Order
         fields = ['category', 'name', 'description', 'end_time']
         widgets = {
-            'end_time': (DateInput(attrs={'type': 'date'}))
+            'end_time': (DateInput(attrs={'type': 'datetime-local'}))
         }
 
     def __init__(self, *args, **kwargs):

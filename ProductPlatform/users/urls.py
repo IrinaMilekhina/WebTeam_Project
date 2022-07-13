@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import LoginListView, RegisterListView, Logout, PersonalActiveOrdersView, PersonalHistoryOrdersView
+from .views import LoginListView, RegisterListView, Logout, PersonalActiveOrdersView, PersonalHistoryOrdersView, \
+    ProfilePasswordResetView, ProfilePasswordResetDoneView, ProfilePasswordResetCompleteView, \
+    ProfilePasswordResetConfirmView
 
-from users.views import PersonalAccountListView, PersonalAccountEditView
+from users.views import PersonalAccountListView, PersonalAccountEditView, ProfileView
 
 app_name = 'users'
 
@@ -30,4 +32,9 @@ urlpatterns = [
     path('account_history_orders/', PersonalHistoryOrdersView.as_view(), name='account_history_orders'),
     path('account_history_orders/<int:page>/', PersonalHistoryOrdersView.as_view(), name='history_orders_page'),
     path('account_active_orders/', PersonalActiveOrdersView.as_view(), name='account_active_orders'),
+    path('password-reset/', ProfilePasswordResetView.as_view(), name='password_reset'),
+    path('password-reset/done/', ProfilePasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', ProfilePasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', ProfilePasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('profile/<int:id>/', ProfileView.as_view(), name='profile'),
 ]

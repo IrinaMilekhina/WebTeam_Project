@@ -40,7 +40,11 @@
                                                 <!-- Топ 5 поставщиков -->
                                                 {% for supplier, total in top_suppliers.items %}
                                                     <tr class="t-row">
-                                                        <td>{{ supplier.comp_name }}</td>
+                                                        <td>
+                                                            <a href="{% url 'users:profile' supplier.id %}">
+                                                                {{ supplier.comp_name }}
+                                                            </a>
+                                                        </td>
                                                         <td>{{ total }}</td>
                                                     </tr>
                                                 {% endfor %}
@@ -72,9 +76,16 @@
                             {% endif %}
                             {% if not user.role == 'Supplier' and not user.role == 'Customer' %}
                                 {#                                <a class="button-red" href="{% url 'orders:categories' %}">Назад к списку категорий</a>#}
-                                <a class="button-red" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                >{% if category.is_active == True %} Деактивировать {% else %}
-                                    Активировать{% endif %}</a>
+                                <a class="{% if category.is_active == True %}close-btn{% else %}accept-btn{% endif %}"
+                                   href="#"
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#staticBackdrop">
+                                    {% if category.is_active == True %}
+                                        Деактивировать
+                                    {% else %}
+                                        Активировать
+                                    {% endif %}
+                                </a>
 
                                 </div>
                             {% endif %}
@@ -88,7 +99,7 @@
                             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
                                  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                                  aria-hidden="true">
-                                <div class="modal-dialog">
+                                <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="staticBackdropLabel">Подтверждение действий</h5>
@@ -97,18 +108,18 @@
                                         </div>
                                         <div class="modal-body">
                                             <p>Вы действительно уверены, что хотите {% if category.is_active == True %}
-                                                <strong>Деактивировать</strong> {% else %}
-                                                <strong>Активировать</strong>{% endif %}? </p>
+                                                Деактивировать{% else %}Активировать{% endif %}?</p>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="submit" class="accept-btn">Подтверждаю</button>
+                                            <button type="submit"
+                                                    class="modal-btn {% if category.is_active == True %}close-btn{% else %}accept-btn{% endif %}">
+                                                Подтверждаю
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </form>
-
-
                     </div>
                 </div>
             </div>

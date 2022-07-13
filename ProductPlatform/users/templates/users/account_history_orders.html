@@ -30,14 +30,14 @@
         </div>
     </section>
 
-    <section style="background-color: #262626">
+    <section id="lk">
         <div class="container" style="padding-bottom: 100px">
             <div class="row justify-content-center">
                 <div class="col-lg-12">
                     <div class="card shadow-lg border-0 rounded-lg mt-5"
                          style="background-color: rgba(250, 250, 250, 0.15);color:white">
                         <div class="card-header">
-                            <h2 class="text-center font-weight-light my-4">
+                            <h2 class="text-center font-weight-light my-4 text-primary">
                                 {% if user.role == 'Supplier' %}
                                     История откликов
                                 {% else %}
@@ -49,7 +49,7 @@
                                 <div class="col-12">
                                     {% if not page_obj %}
                                         <div class="card-header" style="padding: 150px">
-                                            <h4 class="text-center font-weight-light my-4">
+                                            <h4 class="text-center font-weight-light my-4 text-primary">
                                                 {% if user.role == 'Supplier' %}
                                                     История откликов пока пуста
                                                     :-(
@@ -64,7 +64,8 @@
                                              style="{% if user.id == order.response_approved.response_user.id %}background:#931c1c;{% else %}background:rgba(250, 250, 250, 0.15);{% endif %}margin-bottom:2rem; padding:2rem; border-radius:20px">
                                             <div class="top-line row">
                                                 <div class="col">
-                                                    <a class="card-title" href="{% url  'orders:view_order' order.order_num %}"><strong>Заказ
+                                                    <a class="card-title"
+                                                       href="{% url  'orders:view_order' order.order_num %}"><strong>Заказ
                                                         №{{ order.order_num }} | {{ order.name }}</strong></a>
                                                 </div>
                                                 <div class="col-auto">
@@ -75,8 +76,10 @@
                                             <div class="bottom-line">
                                                 <p class="mbr-text mbr-fonts-style display-7 text-white">
                                                     {% if user.role == 'Supplier' %}
-                                                        <strong>Заказчик</strong>:
-                                                        {{ order.author.first_name }} {{ order.author.last_name }}
+                                                        <a href="{% url 'users:profile' order.author.id %}">
+                                                            <strong>Заказчик</strong>:
+                                                            {{ order.author.first_name }} {{ order.author.last_name }}
+                                                        </a>
                                                         <br>
                                                     {% endif %}
                                                     <strong>Категория</strong>:
@@ -105,9 +108,10 @@
                                             </div>
                                             <div class="top-line row">
                                                 <div class="col">
-                                                    <a href="/" class="card-title mbr-fonts-style display-7"
-                                                    >
-                                                        {% if order.response_approved and order.response_approved.response_user.id != user.id %}
+                                                    {% if order.response_approved and order.response_approved.response_user.id != user.id %}
+                                                    <a href="{% url 'users:profile' order.response_approved.response_user.id %}"
+                                                       class="card-title mbr-fonts-style display-7">
+
                                                             <strong>Поставщик:</strong>
                                                             {{ order.response_approved.response_user.first_name }}
                                                             {{ order.response_approved.response_user.last_name }}
@@ -117,7 +121,7 @@
                                             </div>
                                         </div>
                                     {% endfor %}
-                                {% include 'includes/pagination.html' %}
+                                    {% include 'includes/pagination.html' %}
                                 </div>
                             </div>
                         </div>

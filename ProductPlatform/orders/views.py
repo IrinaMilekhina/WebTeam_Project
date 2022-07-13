@@ -5,13 +5,14 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView, CreateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from orders.forms import CreateOrderForm, FeedbackForm
 
 from orders.models import CategoryOrder, Order, StatusResponse, ResponseOrder
 from users.models import Profile
 from orders.filters import OrderFilter, CategoryFilter
 from django.views import View
+from django.contrib.auth.decorators import login_required
 
 
 class MainView(CreateView):
@@ -151,6 +152,8 @@ class CreateOrder(LoginRequiredMixin, CreateView):
 
             return render(request, self.template_name, {'form': self.form_class, 'title': self.title})
         except (KeyError, Http404):
+            self.form_class.base_fields['category'].initial = None
+
             return render(request, self.template_name, {'form': self.form_class, 'title': self.title})
 
     def post(self, request, *args, **kwargs):
@@ -190,9 +193,12 @@ class OrderView(LoginRequiredMixin, ListView):
         except Http404 as err:
             print(err)
         response_orders = order.responseorder_set.all()
+        categories= CategoryOrder.objects.select_related().exclude(id=order.category_id)
+
         context = {
             'order': order,
             'response_orders': response_orders,
+            'categories': categories
         }
         return render(request, self.template_name, context=context)
 
@@ -209,6 +215,7 @@ class OrderBoardView(LoginRequiredMixin, ListView):
         return context
 
 
+@login_required
 def table_order(request):
     context = {}
     context['filtered_table'] = OrderFilter(
@@ -220,11 +227,12 @@ def table_order(request):
     return render(request, 'orders/order_board.html', context=context)
 
 
-class DeleteCategory(DeleteView):
+class DeleteCategory(LoginRequiredMixin, DeleteView):
     model = CategoryOrder
     success_url = reverse_lazy('orders:categories')
 
 
+@login_required
 def categories(request):
     context = {}
     active_categories = CategoryOrder.objects.select_related() \
@@ -251,6 +259,46 @@ def categories(request):
 
     return render(request, 'orders/categories.html', context=context)
 
-class DeleteOrder(DeleteView):
+class DeleteOrder(LoginRequiredMixin, DeleteView):
     model = Order
-    success_url = reverse_lazy('orders:table_order')
+
+    def get_success_url(self):
+        order_id = self.kwargs['pk']
+        return reverse_lazy('orders:view_order', kwargs={'pk': order_id})
+
+class UpdateOrder(UpdateView):
+    model = Order
+    template_name = 'orders/view_order.html'
+    fields = [
+        "name",
+        "category",
+        "end_time",
+        "description"
+    ]
+
+    def get_success_url(self):
+        order_id = self.kwargs['pk']
+        return reverse_lazy('orders:view_order', kwargs={'pk': order_id})
+
+
+
+    # def post(self, request, *args, **kwargs):
+    #     session_user = request.user
+    #     if session_user.get_username() == '':
+    #         return HttpResponseRedirect(redirect_to=reverse_lazy('users:register'))
+    #     form = self.get_form()
+    #     category = CategoryOrder.objects.get(id=int(form.data.get('category')))
+    #     if form.is_valid():
+    #         order = Order.objects.update(
+    #                                      category=category,
+    #                                      name=form.data.get('name'),
+    #                                      description=form.data.get(
+    #                                          'description'),
+    #                                      end_time=form.data.get("end_time"))
+    #         order.save()
+    #         return redirect('orders:view_order', pk=order.id)
+    #
+    #     else:
+    #         return self.form_invalid(form)
+
+

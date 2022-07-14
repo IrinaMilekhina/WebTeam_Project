@@ -208,7 +208,8 @@ class OrderView(LoginRequiredMixin, ListView):
         categories = CategoryOrder.objects.select_related().exclude(id=order.category_id)
 
         context = {
-            'approved_response': approved_response,
+            'cancellation_not_available': True if order.status == 'Not Active' else False,
+            'editing_not_available': True if response_orders else False,
             'order': order,
             'response_orders': responses,
             'categories': categories
@@ -276,12 +277,22 @@ def categories(request):
 
     return render(request, 'orders/categories.html', context=context)
 
+
 class DeleteOrder(LoginRequiredMixin, DeleteView):
     model = Order
 
     def get_success_url(self):
         order_id = self.kwargs['pk']
         return reverse_lazy('orders:view_order', kwargs={'pk': order_id})
+
+    # def delete(self, request, *args, **kwargs):
+    #     self.object = self.get_object()
+    #     if self.object.user == request.user or request.user.is_superuser or request.user.is_staff:
+    #         self.object.delete()
+    #         return HttpResponseRedirect(self.get_success_url())
+    #     else:
+    #         raise Http404
+
 
 class UpdateOrder(UpdateView):
     model = Order

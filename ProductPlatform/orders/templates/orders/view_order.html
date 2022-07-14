@@ -170,8 +170,13 @@
                                                     Откликнуться
                                                 </button>
                                             </fieldset>
-                                            <div style="display: none;" class="button del" id="edit-btn">
+                                            <!--<div style="display: none;" class="button del" id="edit-btn">
                                                 Отменить отклик
+                                            </div>-->
+                                            <div style="display: none;" id="edit-btn" class="normal-btn close-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop22">
+                                                
+                                                    Отменить отклик
+                                                
                                             </div>
                                         </div>
                                     </form>
@@ -375,6 +380,36 @@
                                                     {#                                                        type="submit">Подтверждаю#}
                                                     {#                                                </button>#}
                                                     <button class="modal-btn {% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"
+                                                            type="submit">Подтверждаю
+                                                    </button>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal sure delete response-->
+                        <div class="modal fade" id="staticBackdrop22" data-bs-backdrop="static"
+                             data-bs-keyboard="false" tabindex="-1"
+                             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog no-margin modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">Подтверждение действий</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Закрыть"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Вы действительно уверены, что хотите удалить свой отклик?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="row">
+                                            <div class="btns">
+                                                <form method="POST" action="{% url 'orders:delete_response' response_id %}">
+                                                    {% csrf_token %}
+                                                    <button class="modal-btn close-btn"
                                                             type="submit">Подтверждаю
                                                     </button>
 

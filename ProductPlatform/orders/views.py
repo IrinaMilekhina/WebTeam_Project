@@ -215,6 +215,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
         categories = CategoryOrder.objects.select_related().exclude(id=order.category_id)
 
         if request.user.role == 'Supplier':
+            forms = self.get_forms()
             response_id = response_orders.filter(
                 response_user=request.user).values('id')
             if response_id:
@@ -229,11 +230,38 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
             'order': order,
             'response_orders': response_orders,
             'categories': categories,
-            'forms': self.get_forms(),
+            'forms': forms,
             'response_id': response_id
         }
         return render(request, self.template_name, context=context)
 
+    def forms_valid(self, forms):
+        user = self.request.user
+        order = Order.objects.get(id=self.kwargs.get('pk'))
+
+        if user.role == 'Supplier':
+            response_order_form = forms.get('response_order')
+            response = ResponseOrder.objects.create(order=order,
+                                                    response_user=user,
+                                                    price=response_order_form.data.get(
+                                                        'price'),
+                                                    offer=response_order_form.data.get(
+                                                        'offer')
+                                                    )
+
+            response.save()
+
+        return HttpResponseRedirect(self.request.path_info)
+
+    def get_objects(self):
+        user = self.request.user
+        order = Order.objects.get(id=self.kwargs.get('pk'))
+
+        if user.role == 'Supplier':
+            response = ResponseOrder.objects.filter(
+                order=order, response_user=user).first()
+
+            return {'response_order': response}
 
 class OrderBoardView(LoginRequiredMixin, ListView):
     model = Order
@@ -357,15 +385,16 @@ class DeleteResponse(LoginRequiredMixin, DeleteView):
         return reverse_lazy('orders:view_order', kwargs={'pk': order_id})
 
     def form_valid(self, form):
-        order = self.get_object()
-        if len(StatusResponse.objects.filter(response_order__order=order, status='Approved')) == 0:
-            no_approved_response = True
-        else:
+        response_object = self.get_object()
+        if StatusResponse.objects.filter(
+            Q(response_order_id=response_object.id) & Q(status='Approved')):
             no_approved_response = False
-
-        if (order.author == self.request.user and (order.status == 'Active' or no_approved_response))\
+        else:
+            no_approved_response = True
+        status = Order.objects.get(id=response_object.order_id)
+        if (response_object.response_user_id == self.request.user and (status.status == 'Active' or no_approved_response))\
                 or self.request.user.is_superuser or self.request.user.is_staff:
-            order.delete()
+            response_object.delete()
             return HttpResponseRedirect(self.get_success_url())
         else:
             return HttpResponseRedirect(f'{self.get_success_url()}?denied_cancellation=True')

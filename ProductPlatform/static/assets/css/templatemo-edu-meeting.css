@@ -2569,12 +2569,12 @@ section.orders-table-board select {
     background-color: #f8f8f8;
     outline: none;
     border: none;
+    margin-right: 10px;
     box-shadow: none;
     font-size: 13px;
     font-weight: 500;
     color: #777777;
     padding: 0 15px;
-    margin-right: 10px;
     display: block;
     line-height: 1.5;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
@@ -2601,7 +2601,12 @@ section.orders-table-board .table {
     background-color: rgba(255, 255, 255, 0) !important;
     border-collapse: separate;
     border-spacing: 0 10px;
-    border-width: 0 0px;
+    border-width: 0 0;
+}
+
+section.orders-table-board .table th,
+section.orders-table-board .table td {
+    border-bottom-width: 0 !important;
 }
 
 section.orders-table-board .filter-form {
@@ -2612,12 +2617,14 @@ section.orders-table-board .filter-form {
     border-radius: 37px;
     padding: 15px;
     justify-content: space-between;
+    margin-bottom: 25px;
 }
 
 @media (max-width: 1399px) {
     section.orders-table-board .meeting-table thead tr {
         height: auto;
     }
+
     section.orders-table-board .filter-form {
         height: auto;
         padding-top: 6px;
@@ -2629,6 +2636,7 @@ section.orders-table-board .filter-form {
         display: flex;
         align-items: center;
         flex-wrap: wrap !important;
+        width: 60%;
     }
 
     section.orders-table-board .filter-form .filter-fields select {
@@ -2637,9 +2645,22 @@ section.orders-table-board .filter-form {
     }
 }
 
+@media (max-width: 1205px) {
+    section.orders-table-board .filter-form .left-fields {
+        width: 70%;
+    }
+}
+
 @media (max-width: 799px) {
     section.orders-table-board .filter-form .left-fields select {
         max-width: 310px;
+    }
+
+    section.orders-table-board .filter-form .left-fields {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap !important;
+        width: unset;
     }
 }
 
@@ -2778,15 +2799,6 @@ section.orders-table-board .meeting-table thead th {
     background: #a12c2f;
     font-size: 16px;
     vertical-align: middle;
-}
-
-#id_category  {
-    display: inline-block;
-    width: 90%;
-    margin-top: 11px;
-}
-#id_ordering_category{
-    margin-top: 11px;
 }
 
 section.orders-table-board .meeting-table thead tr th:first-child {
@@ -2931,7 +2943,65 @@ section.meetings-page {
     background-repeat: no-repeat;
     background-size: cover;
     padding-top: 140px;
-    padding-bottom: 0px;
+    padding-bottom: 0;
+}
+
+section.meetings-page .cat-center {
+    display: flex;
+    justify-content: center;
+}
+
+section.meetings-page .cat-cont {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+
+section.meetings-page .cat-cont-a {
+    background-color: #fff;
+    border-radius: 20px;
+}
+
+section.meetings-page .categories-filter {
+    display: flex;
+    justify-content: center;
+}
+
+section.meetings-page .categories-filter-form {
+    display: flex;
+    align-items: center;
+    background-color: #3a3a3a;
+    height: 37px;
+    border-radius: 37px;
+    padding: 15px;
+    justify-content: center;
+    margin-bottom: 25px;
+    width: auto;
+}
+
+section.meetings-page .categories-filter-form select {
+    height: 25px;
+    border-radius: 20px;
+    min-width: 150px;
+    background-color: #f8f8f8;
+    outline: none;
+    border: none;
+    box-shadow: none;
+    font-size: 13px;
+    font-weight: 500;
+    color: #777777;
+    padding: 0 15px;
+    margin-right: 10px;
+    display: block;
+    line-height: 1.5;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 section.meetings-page .t-row a {
@@ -2942,29 +3012,14 @@ section.meetings-page .t-row a:hover {
     color: #f5a425;
 }
 
-section.meetings-page .filters {
-    text-align: center;
-    margin-bottom: 60px;
+section.meetings-page .categories-filter-form .filter-fields{
+    display: flex;
 }
 
-section.meetings-page .filters li {
-    font-size: 13px;
-    color: #a12c2f;
-    background-color: #fff;
-    padding: 11px 30px;
-    display: inline-block;
-    border-radius: 22px;
-    font-weight: 600;
-    text-transform: uppercase;
-    transition: all .3s;
-    cursor: pointer;
-    margin: 0px 3px;
-}
-
-section.meetings-page .filters ul li.active,
-section.meetings-page .filters ul li:hover {
-    background-color: #a12c2f;
-    color: #fff;
+section.meetings-page .categories-filter-form label {
+    color: #fafafa;
+    margin-right: 7px;
+    align-self: center;
 }
 
 .pagination {

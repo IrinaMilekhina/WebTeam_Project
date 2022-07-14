@@ -26,7 +26,7 @@
                                     </a>
                                     <div class="line">
                                         <div class="price">{{ response_order.price|floatformat:2 }} ₽</div>
-                                        {% if user.role != 'Supplier' and not approved_response %}
+                                        {% if user.role != 'Supplier' and order.status == 'Active' and not approved_response %}
                                             <i data-bs-toggle="modal" data-bs-target="#staticBackdrop1"
                                                class="fa fa-check accept"></i>
                                             <i data-bs-toggle="modal" data-bs-target="#staticBackdrop2"

@@ -46,11 +46,13 @@ function approve_editing() {
     edit_btn.style.display = "block";
 }
 
-edit_btn.addEventListener("click", () => {
-  make_modifiable();
-  edit_btn.style.display = "none";
-  submit_btn.style.display = "block";
-});
+if (edit_btn) {
+  edit_btn.addEventListener("click", () => {
+    make_modifiable();
+    edit_btn.style.display = "none";
+    submit_btn.style.display = "block";
+  });
+}
 
 make_readonly();
 approve_editing();

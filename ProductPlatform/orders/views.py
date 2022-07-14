@@ -213,13 +213,22 @@ class OrderView(LoginRequiredMixin, ListView):
 
         categories = CategoryOrder.objects.select_related().exclude(id=order.category_id)
 
+        if request.user.role == 'Supplier':
+            response_id = response_orders.filter(
+                response_user=request.user).values('id')
+            if response_id:
+                response_id = response_id[0]['id']
+            else:
+                response_id = None
+        
         context = {
             'no_approved_response': no_approved_response,
             'cancellation_not_available': True if request.GET.get('denied_cancellation') else False,
             'editing_not_available': True if request.GET.get('denied_editing') else False,
             'order': order,
-            'response_orders': responses,
-            'categories': categories
+            'response_orders': response_orders,
+            'categories': categories,
+            'response_id': response_id
         }
         return render(request, self.template_name, context=context)
 
@@ -337,23 +346,50 @@ class UpdateOrder(UpdateView):
         else:
             return HttpResponseRedirect(f'{self.get_success_url()}?denied_editing=True')
 
-    # def post(self, request, *args, **kwargs):
-    #     session_user = request.user
-    #     if session_user.get_username() == '':
-    #         return HttpResponseRedirect(redirect_to=reverse_lazy('users:register'))
-    #     form = self.get_form()
-    #     category = CategoryOrder.objects.get(id=int(form.data.get('category')))
-    #     if form.is_valid():
-    #         order = Order.objects.update(
-    #                                      category=category,
-    #                                      name=form.data.get('name'),
-    #                                      description=form.data.get(
-    #                                          'description'),
-    #                                      end_time=form.data.get("end_time"))
-    #         order.save()
-    #         return redirect('orders:view_order', pk=order.id)
-    #
-    #     else:
-    #         return self.form_invalid(form)
+
+class DeleteResponse(LoginRequiredMixin, DeleteView):
+    model = ResponseOrder
+
+    def get_success_url(self):
+        order_id = self.kwargs['pk']
+        return reverse_lazy('orders:view_order', kwargs={'pk': order_id})
+
+    def form_valid(self, form):
+        order = self.get_object()
+        if len(StatusResponse.objects.filter(response_order__order=order, status='Approved')) == 0:
+            no_approved_response = True
+        else:
+            no_approved_response = False
+
+        if (order.author == self.request.user and (order.status == 'Active' or no_approved_response))\
+                or self.request.user.is_superuser or self.request.user.is_staff:
+            order.delete()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return HttpResponseRedirect(f'{self.get_success_url()}?denied_cancellation=True')
 
 
+class UpdateResponse(LoginRequiredMixin,UpdateView):
+    model = ResponseOrder
+    template_name = 'orders/view_order.html'
+    fields = ['offer', 'price']
+
+    def get_success_url(self):
+        order_id = self.kwargs['pk']
+        return reverse_lazy('orders:view_order', kwargs={'pk': order_id})
+
+    def form_valid(self, form):
+        order = Order.objects.get(id=self.kwargs.get('pk'))
+
+        if len(StatusResponse.objects.filter(response_order__order=order, status__in=['Approved', 'On Approval'])) == 0:
+            no_responses = True
+        else:
+            no_responses = False
+
+        if (order.author == self.request.user and no_responses) \
+                or self.request.user.is_superuser or self.request.user.is_staff:
+            form.save()
+
+            return super().form_valid(form)
+        else:
+            return HttpResponseRedirect(f'{self.get_success_url()}?denied_editing=True')

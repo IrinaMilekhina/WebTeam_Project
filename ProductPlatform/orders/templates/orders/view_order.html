@@ -136,23 +136,30 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- форма update -->
                                 <div class="order response-form">
-                                    <form id="contact" action="" method="post">
+                                    {% if response_id %}
+                                    <form id="contact" action="{% url 'orders:response_update' response_id %}" method="post">
+                                    {% else %}
+                                    <form id="contact" action="" method="post">    
+                                    {% endif %}
                                         {% csrf_token %}
                                         <div class="col-lg-12">
                                             <fieldset>
                                                 <label class="small mb-1" for="price-suggestion">Предложение</label>
-                                                <input name="name" min="0" step="1" type="number"
+                                              <!--  <input name="name" min="0" step="1" type="number"
                                                        id="price-suggestion"
-                                                       placeholder="Предложение..." required="">
+                                                       placeholder="Предложение..." required="">-->
+                                            {{ forms.response_order.price }}
                                             </fieldset>
                                         </div>
                                         <div class="col-lg-12">
                                             <fieldset>
-                                                <label class="small description mb-1" for="description">Описание</label>
+                                            <!--    <label class="small description mb-1" for="description">Описание</label>
                                                 <textarea name="message" type="text" class="form-control"
                                                           id="description"
-                                                          placeholder="Описание..." required=""></textarea>
+                                                          placeholder="Описание..." required=""></textarea>-->
+                                            {{ forms.response_order.offer }}
                                             </fieldset>
                                         </div>
                                         <div class="col-lg-12 submit-btn">

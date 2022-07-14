@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import Category, CreateOrder, OrderView, table_order, DeleteCategory, categories, DeleteOrder,UpdateOrder
+from .views import Category, CreateOrder, OrderView, table_order, DeleteCategory, categories, DeleteOrder,UpdateOrder, DeleteResponse, UpdateResponse
 
 app_name = 'orders'
 
@@ -28,6 +28,10 @@ urlpatterns = [
     path('category/delete/<int:pk>/', DeleteCategory.as_view(), name='delete_category'),
     path('order_delete/<int:pk>/', DeleteOrder.as_view(), name='delete_order'),
     path('update/<int:pk>/', UpdateOrder.as_view(), name='update_order'),
+    path('response_delete/<int:pk>/',
+         DeleteResponse.as_view(), name='delete_response'),
+    path('response_update/<int:pk>/',
+         UpdateResponse.as_view(), name='response_update'),
 
 
 ]

@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from orders.forms import CreateOrderForm, FeedbackForm, ResponseOrderForm
-
+from multi_form_view import MultiModelFormView
 from orders.models import CategoryOrder, Order, StatusResponse, ResponseOrder
 from users.models import Profile
 from orders.filters import OrderFilter, CategoryFilter
@@ -229,6 +229,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
             'order': order,
             'response_orders': response_orders,
             'categories': categories,
+            'forms': self.get_forms(),
             'response_id': response_id
         }
         return render(request, self.template_name, context=context)

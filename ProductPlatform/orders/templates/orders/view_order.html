@@ -245,26 +245,32 @@
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-12 submit-btn">
-                                        <fieldset>
-                                            <button style="display: none;"
-                                                    class="button edit button-login-reg"
-                                                    type="submit"
-                                                    id="submit-btn">
-                                                Сохранить
-                                            </button>
-                                        </fieldset>
-                                        <div style="display: none;"
-                                             class="button edit"
-                                             id="edit-btn">
-                                            Редактировать
-                                        </div>
-                                        <div class="{% if order.status == 'Active' %}close-btn{% else %}approve-btn{% endif %}" data-bs-toggle="modal" data-bs-target="#staticBackdrop3{{ order.id }}">
-                                            {% if order.status == 'Active' %}
-                                                Деактивировать
-                                            {% else %}
-                                                Активировать
-                                            {% endif %}
-                                        </div>
+                                        {% if user.is_staff or user.is_admin or not response_orders %}
+                                            <fieldset>
+                                                <button style="display: none;"
+                                                        class="button edit button-login-reg"
+                                                        type="submit"
+                                                        id="submit-btn">
+                                                    Сохранить
+                                                </button>
+                                            </fieldset>
+                                            <div style="display: none;"
+                                                 class="button edit"
+                                                 id="edit-btn">
+                                                Редактировать
+                                            </div>
+                                        {% endif %}
+                                        {% if user.is_staff or user.is_admin or order.status == 'Active' %}
+                                            <div class="{% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"
+                                                 data-bs-toggle="modal"
+                                                 data-bs-target="#staticBackdrop3{{ order.id }}">
+                                                {% if order.status == 'Active' %}
+                                                    Деактивировать
+                                                {% else %}
+                                                    Активировать
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </form>
                             </div>

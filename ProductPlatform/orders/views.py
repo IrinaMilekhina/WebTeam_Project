@@ -27,7 +27,7 @@ class MainView(CreateView):
            .filter(is_active=True,
                    order__responseorder__statusresponse__status='Approved',
                    order__responseorder__statusresponse__time_status__gte=datetime.datetime.now() - datetime.timedelta(
-                       days=200)) \
+                       days=7)) \
            .annotate(count=Count('order')) \
            .values('id', 'name', 'image', 'count', 'description') \
            .order_by('-count')[:6]

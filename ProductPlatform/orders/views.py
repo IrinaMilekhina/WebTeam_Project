@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
-from orders.forms import CreateOrderForm, FeedbackForm
+from orders.forms import CreateOrderForm, FeedbackForm, ResponseOrderForm
 
 from orders.models import CategoryOrder, Order, StatusResponse, ResponseOrder
 from users.models import Profile
@@ -178,10 +178,11 @@ class CreateOrder(LoginRequiredMixin, CreateView):
             return self.form_invalid(form)
 
 
-class OrderView(LoginRequiredMixin, ListView):
+class OrderView(LoginRequiredMixin, MultiModelFormView):
     """Класс-обработчик для просмотра заказа"""
     model = Order
     template_name = 'orders/view_order.html'
+    form_classes = {'response_order': ResponseOrderForm}
 
     def get(self, request, *args, **kwargs):
         try:

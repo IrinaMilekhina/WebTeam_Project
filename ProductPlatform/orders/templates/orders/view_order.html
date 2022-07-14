@@ -203,7 +203,8 @@
                                         <fieldset>
                                             <label class="small mb-1" for="company">Компания</label>
                                             <a href="{% url 'users:profile' order.author_id %}">
-                                                <input name="name" style="cursor: pointer;" class="read_only" readonly="readonly" type="text"
+                                                <input name="name" style="cursor: pointer;" class="read_only"
+                                                       readonly="readonly" type="text"
                                                        id="company"
                                                        required=""
                                                        value="{{ order.author.comp_name }} на сайте с {{ order.author.date_joined }}">
@@ -223,9 +224,9 @@
                                             <label class="small mb-1" for="category">Категория</label>
                                             <select name="category" type="text" id="category" class="form-select"
                                                     required="">
-                                                <option value="{{ order.category.id  }}">{{ order.category.name }}</option>
+                                                <option value="{{ order.category.id }}">{{ order.category.name }}</option>
                                                 {% for category in categories %}
-                                                    <option value="{{ category.id }}">{{category.name}}</option>
+                                                    <option value="{{ category.id }}">{{ category.name }}</option>
                                                 {% endfor %}
                                             </select>
                                         </fieldset>
@@ -234,14 +235,16 @@
                                         <fieldset>
                                             <label class="small mb-1" for="end_time">Исполнить до</label>
                                             <input name="end_time" id="end_time" type="datetime-local"
-                                                   value="{{ order.end_time|date:"Y-m-d H:m"}}">
+                                                   value="{{ order.end_time|date:"Y-m-d H:m" }}">
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-12">
                                         <fieldset>
                                             <label class="small description mb-1" for="description">Описание</label>
-                                            <textarea name="description" type="text" class="form-control" id="description"
-                                                      placeholder="Описание..." required="">{{ order.description }}</textarea>
+                                            <textarea name="description" type="text" class="form-control"
+                                                      id="description"
+                                                      placeholder="Описание..."
+                                                      required="">{{ order.description }}</textarea>
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-12 submit-btn">
@@ -258,7 +261,7 @@
                                              id="edit-btn">
                                             Редактировать
                                         </div>
-                                        <div class="{% if order.status == 'Active' %}close-btn{% else %}approve-btn{% endif %}" data-bs-toggle="modal" data-bs-target="#staticBackdrop3{{ order.id }}">
+                                        <div class="{% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}" data-bs-toggle="modal" data-bs-target="#staticBackdrop3{{ order.id }}">
                                             {% if order.status == 'Active' %}
                                                 Деактивировать
                                             {% else %}
@@ -295,17 +298,17 @@
 {#                                                <button class="{% if order.status == 'Active' %}deactivate-btn{% else %}accept-btn{% endif %}"#}
 {#                                                        type="submit">Подтверждаю#}
 {#                                                </button>#}
-                                            <button class="{% if order.status == 'Active' %}close-btn{% else %}approve-btn{% endif %}"
+                                            <button class="{% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"
                                                         type="submit">Подтверждаю
                                                 </button>
 
-                                            </form>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>

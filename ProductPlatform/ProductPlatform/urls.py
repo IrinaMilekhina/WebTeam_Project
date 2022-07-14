@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from ProductPlatform.script.change_order_status import start_thread_check_order_status
 from orders.views import MainView
 
-start_thread_check_order_status()
+start_thread_check_order_status()  # запуск скрипта проверки заказов на актуальность по дате
 
 urlpatterns = [
     path('', MainView.as_view(), name='main'),

@@ -40,7 +40,7 @@
                                 </li>
                             {% endfor %}
                         </ul>
-                        {% if not user.role == 'Supplier' %}
+                        {% if user.role != 'Supplier' and order.status == 'Active' and not approved_response %}
                             <!-- Modal -->
                             <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static"
                                  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"

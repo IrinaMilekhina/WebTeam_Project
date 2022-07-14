@@ -264,13 +264,13 @@
                                         </div>
                                         {% endif %}
                                         {% if user.role == 'Customer' and order.status == 'Active' %}
-                                            <div class="modal-btn close-btn"
+                                            <div class="close-btn"
                                                  data-bs-toggle="modal" data-bs-target="#staticBackdrop3{{ order.id }}">
                                                 Отменить
                                             </div>
                                         {% elif user.role == 'Customer' and order.status == 'Not Active'  %}
                                         {% else %}
-                                            <div class="modal-btn {% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"
+                                            <div class="{% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"
                                                  data-bs-toggle="modal" data-bs-target="#staticBackdrop3{{ order.id }}">
                                                 {% if order.status == 'Active' %}
                                                     Деактивировать
@@ -311,7 +311,7 @@
                                                     {#                                                <button class="{% if order.status == 'Active' %}deactivate-btn{% else %}accept-btn{% endif %}"#}
                                                     {#                                                        type="submit">Подтверждаю#}
                                                     {#                                                </button>#}
-                                                    <button class="modal-btn {% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"
+                                                    <button class="{% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"
                                                             type="submit">Подтверждаю
                                                     </button>
 

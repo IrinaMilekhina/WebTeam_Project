@@ -24,13 +24,13 @@ class MainView(CreateView):
     def get_context_data(self, **kwargs):
         context = super(MainView, self).get_context_data(**kwargs)
         top_category = CategoryOrder.objects \
-                           .filter(is_active=True) \
-                           .annotate(count=Count('order')) \
-                           .values('id', 'name', 'image', 'count', 'description') \
-                   .order_by('-count')[:6]
-
-        # .filter(order__responseorder__statusresponse__status='Approved',
-        #         order__responseorder__statusresponse__time_status__gte=datetime.datetime.now() - datetime.timedelta(days=7)) \
+           .filter(is_active=True,
+                   order__responseorder__statusresponse__status='Approved',
+                   order__responseorder__statusresponse__time_status__gte=datetime.datetime.now() - datetime.timedelta(
+                       days=200)) \
+           .annotate(count=Count('order')) \
+           .values('id', 'name', 'image', 'count', 'description') \
+           .order_by('-count')[:6]
 
         context['title'] = self.title
         context['categories'] = CategoryOrder.objects.all()

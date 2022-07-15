@@ -90,6 +90,8 @@ class Logout(LogoutView):
 class PersonalActiveOrdersView(LoginRequiredMixin, ListView):
     model = Order
     template_name = 'users/account_active_orders.html'
+    context_object_name = 'orders'
+    paginate_by = 3
 
     def get_context_data(self, *, object_list=None, **kwargs):
         """Метод для создания необходимого контекста для активных заказов личного кабинета"""
@@ -138,8 +140,17 @@ class PersonalActiveOrdersView(LoginRequiredMixin, ListView):
                 last_status_response = i.statusresponse_set.last()
                 if not last_status_response is None and last_status_response.status == 'On Approval':
                     unique_responses.append(i)
+            page = self.request.GET.get('page')
+            paginator = Paginator(unique_responses, per_page=3)
+            try:
+                orders_paginator = paginator.page(page)
+            except PageNotAnInteger:
+                orders_paginator = paginator.page(1)
+            except EmptyPage:
+                orders_paginator = paginator.page(paginator.num_pages)
+            context['paginator'] = orders_paginator.paginator
+            context['page_obj'] = orders_paginator
             context['user'] = current_profile
-            context['responses'] = unique_responses
             return context
 
 

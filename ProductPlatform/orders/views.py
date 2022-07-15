@@ -378,9 +378,8 @@ class UpdateOrder(UpdateView):
 class DeleteResponse(LoginRequiredMixin, DeleteView):
     model = ResponseOrder
 
-    def get_success_url(self):
-        order_id = self.kwargs['pk']
-        return reverse_lazy('orders:view_order', kwargs={'pk': order_id})
+    def get_success_url(self, page):
+        return reverse_lazy('orders:view_order', args=[str(page), ])
 
     def form_valid(self, form):
         response_object = self.get_object()
@@ -390,12 +389,12 @@ class DeleteResponse(LoginRequiredMixin, DeleteView):
         else:
             no_approved_response = True
         status = Order.objects.get(id=response_object.order_id)
-        if (response_object.response_user_id == self.request.user and (status.status == 'Active' or no_approved_response))\
-                or self.request.user.is_superuser or self.request.user.is_staff:
+        page = response_object.order_id
+            
+        if ((response_object.response_user_id == self.request.user.id) and (status.status == 'Active' or no_approved_response)):
             response_object.delete()
-            return HttpResponseRedirect(self.get_success_url())
-        else:
-            return HttpResponseRedirect(f'{self.get_success_url()}?denied_cancellation=True')
+            return HttpResponseRedirect(self.get_success_url(page))
+        return HttpResponseRedirect(f'{self.get_success_url(page)}?denied_cancellation=True')
 
 
 class UpdateResponse(LoginRequiredMixin,UpdateView):
@@ -403,22 +402,23 @@ class UpdateResponse(LoginRequiredMixin,UpdateView):
     template_name = 'orders/view_order.html'
     fields = ['offer', 'price']
 
-    def get_success_url(self):
-        order_id = self.kwargs['pk']
-        return reverse_lazy('orders:view_order', kwargs={'pk': order_id})
+    def get_success_url(self, page):
+        return reverse_lazy('orders:view_order', args=[str(page), ])
 
     def form_valid(self, form):
-        order = Order.objects.get(id=self.kwargs.get('pk'))
+        response_order = ResponseOrder.objects.get(id=self.kwargs.get('pk'))
 
-        if len(StatusResponse.objects.filter(response_order__order=order, status__in=['Approved', 'On Approval'])) == 0:
-            no_responses = True
-        else:
+        status_response = StatusResponse.objects.filter(
+                Q(response_order_id=response_order.id)).last()
+        if status_response.status == 'Approved':
             no_responses = False
+        else:
+            no_responses = True
+        page = response_order.order_id
 
-        if (order.author == self.request.user and no_responses) \
-                or self.request.user.is_superuser or self.request.user.is_staff:
+        if (response_order.response_user_id == self.request.user.id and no_responses):
             form.save()
 
-            return super().form_valid(form)
+            return HttpResponseRedirect(self.get_success_url(page))
         else:
-            return HttpResponseRedirect(f'{self.get_success_url()}?denied_editing=True')
+            return HttpResponseRedirect(f'{self.get_success_url(page)}?denied_editing=True')

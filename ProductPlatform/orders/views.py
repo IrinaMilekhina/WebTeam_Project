@@ -1,4 +1,6 @@
 import datetime
+
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db.models import Count, Q
 from django.http import Http404, HttpResponseRedirect
@@ -144,38 +146,40 @@ class CreateOrder(LoginRequiredMixin, CreateView):
         Если приходит id категории в параметрах запроса,
         получаем нужную категорию по id и ставим её дефолтной.
         """
+        if request.user != 'Supplier':
+            try:
+                category_id = request.GET['category_id']
+                category = get_object_or_404(CategoryOrder, id=category_id)
+                self.form_class.base_fields['category'].initial = category
 
-        try:
-            category_id = request.GET['category_id']
-            category = get_object_or_404(CategoryOrder, id=category_id)
-            self.form_class.base_fields['category'].initial = category
+                return render(request, self.template_name, {'form': self.form_class, 'title': self.title})
+            except (KeyError, Http404):
+                self.form_class.base_fields['category'].initial = None
 
-            return render(request, self.template_name, {'form': self.form_class, 'title': self.title})
-        except (KeyError, Http404):
-            self.form_class.base_fields['category'].initial = None
-
-            return render(request, self.template_name, {'form': self.form_class, 'title': self.title})
+                return render(request, self.template_name, {'form': self.form_class, 'title': self.title})
+        else:
+            raise PermissionDenied()
 
     def post(self, request, *args, **kwargs):
+        if request.user != 'Supplier':
+            session_user = request.user
+            if session_user.get_username() == '':
+                return HttpResponseRedirect(redirect_to=reverse_lazy('users:register'))
+            form = self.get_form()
+            category = CategoryOrder.objects.get(id=int(form.data.get('category')))
+            if form.is_valid():
+                order = Order.objects.create(author_id=session_user.id,
+                                             category=category,
+                                             name=form.data.get('name'),
+                                             description=form.data.get(
+                                                 'description'),
+                                             end_time=form.data.get("end_time"))
+                order.save()
+                # return HttpResponseRedirect(redirect_to=reverse_lazy('main'))
+                return redirect('orders:view_order', pk=order.id)
 
-        session_user = request.user
-        if session_user.get_username() == '':
-            return HttpResponseRedirect(redirect_to=reverse_lazy('users:register'))
-        form = self.get_form()
-        category = CategoryOrder.objects.get(id=int(form.data.get('category')))
-        if form.is_valid():
-            order = Order.objects.create(author_id=session_user.id,
-                                         category=category,
-                                         name=form.data.get('name'),
-                                         description=form.data.get(
-                                             'description'),
-                                         end_time=form.data.get("end_time"))
-            order.save()
-            # return HttpResponseRedirect(redirect_to=reverse_lazy('main'))
-            return redirect('orders:view_order', pk=order.id)
-
-        else:
-            return self.form_invalid(form)
+            else:
+                return self.form_invalid(form)
 
 
 class OrderView(LoginRequiredMixin, ListView):

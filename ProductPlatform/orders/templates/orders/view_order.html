@@ -170,18 +170,58 @@
                                                     Откликнуться
                                                 </button>
                                             </fieldset>
-                                            <!--<div style="display: none;" class="button del" id="edit-btn">
-                                                Отменить отклик
-                                            </div>-->
-                                            <div style="display: none;" id="edit-btn" class="normal-btn close-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop22">
-                                                
+                                            <fieldset>
+                                                <button style="display: none;"
+                                                        class="normal-btn close-btn"
+                                                        type="submit"
+                                                        id="save-btn">
+                                                    Сохранить
+                                                </button>
+                                            </fieldset>
+                                            <div style="display: none;" class="button edit" id="edit-btn">
+                                                Редактировать
+                                            </div>
+                                            <div style="display: none;" id="cancel-btn" class="normal-btn close-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop22">
                                                     Отменить отклик
-                                                
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
+
+                            {% if cancellation_not_available or editing_not_available %}
+                                <div class="modal fade show" id="denied" data-bs-backdrop="static"
+                                     data-bs-keyboard="false" tabindex="-1"
+                                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">Уведомление</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Вы не можете
+                                                {% if cancellation_not_available %}
+                                                    отменить
+                                                {% elif editing_not_available %}
+                                                    редактировать
+                                                {% endif %}
+                                                своё предложение (отклик).
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button"
+                                                        data-bs-dismiss="modal"
+                                                        class="modal-btn c-btn">
+                                                    Закрыть
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}        
+
                         {% else %}
                             <div class="order">
                                 <div class="h-order col-lg-12">
@@ -407,7 +447,11 @@
                                     <div class="modal-footer">
                                         <div class="row">
                                             <div class="btns">
+                                                {% if response_id %}
                                                 <form method="POST" action="{% url 'orders:delete_response' response_id %}">
+                                                {% else %}
+                                                <form method="POST" action="">
+                                                {% endif %}    
                                                     {% csrf_token %}
                                                     <button class="modal-btn close-btn"
                                                             type="submit">Подтверждаю
@@ -420,6 +464,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>

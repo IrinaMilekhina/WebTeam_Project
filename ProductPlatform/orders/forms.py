@@ -25,17 +25,17 @@ class CreateOrderForm(forms.ModelForm):
         self.fields['category'].widget.attrs['placeholder'] = "Выберите категорию"
         self.fields['category'].widget.attrs['aria-describedby'] = "inputGroup-sizing-sm"
 
-        self.fields['end_time'].widget.attrs['min'] = datetime.now().strftime("%Y-%m-%d %H:%M")
+        self.fields['end_time'].widget.attrs['min'] = datetime.now().strftime(
+            "%Y-%m-%d %H:%M")
         self.fields['end_time'].widget.attrs['class'] = "datetimepicker"
 
         self.fields['description'].widget.attrs['placeholder'] = "Опишите детали заказа"
 
 
-
 class FeedbackForm(forms.ModelForm):
     class Meta:
         model = Feedback
-        fields = ['name_user', 'email', 'issue', 'message',]
+        fields = ['name_user', 'email', 'issue', 'message', ]
 
     def __init__(self, *args, **kwargs):
         super(FeedbackForm, self).__init__(*args, **kwargs)
@@ -73,7 +73,7 @@ class ResponseOrderForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ResponseOrderForm, self).__init__(*args, **kwargs)
         self.fields['price'].widget.attrs['type'] = 'number'
-        self.fields['price'].widget.attrs['min'] = '0'
+        self.fields['price'].widget.attrs['min'] = '1'
         self.fields['price'].widget.attrs['step'] = '1'
         self.fields['price'].widget.attrs['id'] = 'price-suggestion'
         self.fields['price'].widget.attrs['placeholder'] = 'Предложение...'

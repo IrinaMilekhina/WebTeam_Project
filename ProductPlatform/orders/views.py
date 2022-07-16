@@ -214,6 +214,8 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 
         categories = CategoryOrder.objects.select_related().exclude(id=order.category_id)
 
+        forms = None
+        response_id = None
         if request.user.role == 'Supplier':
             forms = self.get_forms()
             response_id = response_orders.filter(

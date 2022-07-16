@@ -146,7 +146,7 @@ class CreateOrder(LoginRequiredMixin, CreateView):
         Если приходит id категории в параметрах запроса,
         получаем нужную категорию по id и ставим её дефолтной.
         """
-        if request.user != 'Supplier':
+        if request.user.role != 'Supplier':
             try:
                 category_id = request.GET['category_id']
                 category = get_object_or_404(CategoryOrder, id=category_id)

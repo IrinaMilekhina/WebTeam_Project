@@ -281,8 +281,12 @@ def table_order(request):
         order = Order.objects.get(id=request.GET['pk'])
         order.delete()
     context = {}
-    context['filtered_table'] = OrderFilter(
-        request.GET, queryset=Order.objects.all())
+    if request.user.role != 'Supplier':
+        context['filtered_table'] = OrderFilter(
+            request.GET, queryset=Order.objects.all())
+    else:
+        context['filtered_table'] = OrderFilter(
+            request.GET, queryset=Order.objects.filter(status='Active'))
     # ! Здесь устанавливается пагинация
     paginated = Paginator(context['filtered_table'].qs, 2)
     page_number = request.GET.get('page')

@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, PasswordResetDoneView, \
     PasswordResetConfirmView, PasswordResetCompleteView
 from django.contrib import messages
@@ -87,7 +87,7 @@ class Logout(LogoutView):
         return redirect(reverse_lazy('main'))
 
 
-class PersonalActiveOrdersView(LoginRequiredMixin, ListView):
+class PersonalActiveOrdersView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Order
     template_name = 'users/account_active_orders.html'
 
@@ -142,8 +142,11 @@ class PersonalActiveOrdersView(LoginRequiredMixin, ListView):
             context['responses'] = unique_responses
             return context
 
+    def test_func(self):
+        return not self.request.user.is_superuser and not self.request.user.is_staff
 
-class PersonalHistoryOrdersView(LoginRequiredMixin, ListView):
+
+class PersonalHistoryOrdersView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Order
     template_name = 'users/account_history_orders.html'
     context_object_name = 'orders'
@@ -203,6 +206,9 @@ class PersonalHistoryOrdersView(LoginRequiredMixin, ListView):
         context['page_obj'] = orders_paginator
         context['user'] = current_profile
         return context
+
+    def test_func(self):
+        return not self.request.user.is_superuser and not self.request.user.is_staff
 
 
 class ProfilePasswordResetView(PasswordResetView):

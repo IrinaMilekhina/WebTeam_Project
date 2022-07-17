@@ -1,12 +1,11 @@
 import datetime
 
-from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db.models import Count, Q
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from orders.forms import CreateOrderForm, FeedbackForm
 
@@ -133,7 +132,7 @@ class Category(LoginRequiredMixin, DetailView):
                                                     'top_suppliers': unique_responses})
 
 
-class CreateOrder(LoginRequiredMixin, CreateView):
+class CreateOrder(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     """Класс-обработчик для создания Заказа"""
     model = Order
     template_name = 'orders/create_order.html'
@@ -146,19 +145,16 @@ class CreateOrder(LoginRequiredMixin, CreateView):
         Если приходит id категории в параметрах запроса,
         получаем нужную категорию по id и ставим её дефолтной.
         """
-        if request.user.role != 'Supplier':
-            try:
-                category_id = request.GET['category_id']
-                category = get_object_or_404(CategoryOrder, id=category_id)
-                self.form_class.base_fields['category'].initial = category
+        try:
+            category_id = request.GET['category_id']
+            category = get_object_or_404(CategoryOrder, id=category_id)
+            self.form_class.base_fields['category'].initial = category
 
-                return render(request, self.template_name, {'form': self.form_class, 'title': self.title})
-            except (KeyError, Http404):
-                self.form_class.base_fields['category'].initial = None
+            return render(request, self.template_name, {'form': self.form_class, 'title': self.title})
+        except (KeyError, Http404):
+            self.form_class.base_fields['category'].initial = None
 
-                return render(request, self.template_name, {'form': self.form_class, 'title': self.title})
-        else:
-            raise PermissionDenied()
+            return render(request, self.template_name, {'form': self.form_class, 'title': self.title})
 
     def post(self, request, *args, **kwargs):
         if request.user != 'Supplier':
@@ -180,6 +176,9 @@ class CreateOrder(LoginRequiredMixin, CreateView):
 
             else:
                 return self.form_invalid(form)
+
+    def test_func(self):
+        return self.request.user.role != 'Supplier'
 
 
 class OrderView(LoginRequiredMixin, ListView):
@@ -220,7 +219,7 @@ class OrderView(LoginRequiredMixin, ListView):
         return render(request, self.template_name, context=context)
 
 
-class OrderBoardView(LoginRequiredMixin, ListView):
+class OrderBoardView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Order
     context_object_name = 'all_orders'
     template_name = 'orders/order_board.html'
@@ -230,6 +229,9 @@ class OrderBoardView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['all_category'] = CategoryOrder.objects.filter(is_active=True)
         return context
+
+    def test_func(self):
+        return self.request.user.role != 'Customer'
 
 
 @login_required
@@ -248,9 +250,12 @@ def table_order(request):
     return render(request, 'orders/order_board.html', context=context)
 
 
-class DeleteCategory(LoginRequiredMixin, DeleteView):
+class DeleteCategory(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = CategoryOrder
     success_url = reverse_lazy('orders:categories')
+
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.is_staff
 
 
 @login_required
@@ -280,14 +285,21 @@ def categories(request):
 
     return render(request, 'orders/categories.html', context=context)
 
-class DeleteOrder(LoginRequiredMixin, DeleteView):
+class DeleteOrder(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Order
 
     def get_success_url(self):
         order_id = self.kwargs['pk']
         return reverse_lazy('orders:view_order', kwargs={'pk': order_id})
 
-class UpdateOrder(UpdateView):
+    def test_func(self):
+        order_id = self.kwargs['pk']
+        order = get_object_or_404(Order, id=order_id)
+        user_is_author = order.author == self.request.user
+
+        return self.request.user.is_superuser or self.request.user.is_staff or user_is_author
+
+class UpdateOrder(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Order
     template_name = 'orders/view_order.html'
     fields = [
@@ -321,5 +333,12 @@ class UpdateOrder(UpdateView):
     #
     #     else:
     #         return self.form_invalid(form)
+
+    def test_func(self):
+        order_id = self.kwargs['pk']
+        order = get_object_or_404(Order, id=order_id)
+        user_is_author = order.author == self.request.user
+
+        return self.request.user.is_superuser or self.request.user.is_staff or user_is_author
 
 

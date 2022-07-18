@@ -90,13 +90,15 @@ class Logout(LogoutView):
 class PersonalActiveOrdersView(LoginRequiredMixin, ListView):
     model = Order
     template_name = 'users/account_active_orders.html'
+    context_object_name = 'orders'
+    paginate_by = 3
 
     def get_context_data(self, *, object_list=None, **kwargs):
         """Метод для создания необходимого контекста для активных заказов личного кабинета"""
         context = super().get_context_data(**kwargs)
         current_profile = Profile.objects.select_related().get(pk=self.request.user.pk)
         all_responses = ResponseOrder.objects.select_related().all()
-
+        page = self.request.GET.get('page')
         # для Заказчика
         if current_profile.role == 'Customer':
             response_for_customer = all_responses.filter(order__author=self.request.user.pk).values('id', 'order_id',
@@ -109,7 +111,15 @@ class PersonalActiveOrdersView(LoginRequiredMixin, ListView):
                 .annotate(count_response=Count('responseorder')) \
                 .values('id', 'category__name', 'author__city', 'name', 'description',
                         'status', 'create_at', 'end_time', 'count_response')
-            context['orders'] = active_orders
+            paginator = Paginator(active_orders, per_page=3)
+            try:
+                orders_paginator = paginator.page(page)
+            except PageNotAnInteger:
+                orders_paginator = paginator.page(1)
+            except EmptyPage:
+                orders_paginator = paginator.page(paginator.num_pages)
+            context['paginator'] = orders_paginator.paginator
+            context['page_obj'] = orders_paginator
             context['user'] = current_profile
             context['responses_to_orders'] = response_for_customer
             return context
@@ -138,8 +148,16 @@ class PersonalActiveOrdersView(LoginRequiredMixin, ListView):
                 last_status_response = i.statusresponse_set.last()
                 if not last_status_response is None and last_status_response.status == 'On Approval':
                     unique_responses.append(i)
+            paginator = Paginator(unique_responses, per_page=3)
+            try:
+                orders_paginator = paginator.page(page)
+            except PageNotAnInteger:
+                orders_paginator = paginator.page(1)
+            except EmptyPage:
+                orders_paginator = paginator.page(paginator.num_pages)
+            context['paginator'] = orders_paginator.paginator
+            context['page_obj'] = orders_paginator
             context['user'] = current_profile
-            context['responses'] = unique_responses
             return context
 
 

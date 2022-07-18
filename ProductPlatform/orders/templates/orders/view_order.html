@@ -38,9 +38,7 @@
                                         {% endif %}
                                     </div>
                                 </li>
-                            {% endfor %}
-                        </ul>
-                        {% if user.role != 'Supplier' and order.status == 'Active' and not approved_response %}
+                                {% if user.role != 'Supplier' and order.status == 'Active' and not approved_response %}
                             <!-- Modal -->
                             <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static"
                                  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
@@ -56,7 +54,10 @@
                                             Вы действительно уверены, что хотите принять предложение?
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="modal-btn accept-btn">Принять</button>
+                                            <form id="approve_response" method="POST" action="{% url 'orders:response_update' response_order.id %}">
+                                                {% csrf_token %}
+                                                <input class="modal-btn accept-btn" type="submit" value="Принять"/>
+                                                </form>
                                         </div>
                                     </div>
                                 </div>
@@ -75,12 +76,18 @@
                                             Вы действительно уверены, что хотите отклонить предложение?
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="modal-btn close-btn">Отклонить</button>
+                                            <form id="cancel_response" method="POST" action="{% url 'orders:delete_response' response_order.id %}">
+                                                {% csrf_token %}
+                                                <input class="modal-btn close-btn" type="submit" value="Отклонить"/>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         {% endif %}
+                            {% endfor %}
+                        </ul>
+
                     </div>
                 </div>
                 <div class="col-lg-6">

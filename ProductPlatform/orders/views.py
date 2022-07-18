@@ -198,7 +198,6 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
             no_approved_response = False
 
         response_orders = order.responseorder_set.all()
-        print(response_orders)
         responses = []
         approved_response = None
         for response_order in response_orders:
@@ -397,8 +396,13 @@ class DeleteResponse(LoginRequiredMixin, DeleteView):
         status = Order.objects.get(id=response_object.order_id)
         page = response_object.order_id
             
-        if ((response_object.response_user_id == self.request.user.id) and (status.status == 'Active' or no_approved_response)):
-            response_object.delete()
+        if ((response_object.order.author_id == self.request.user.id) and (status.status == 'Active' or no_approved_response)):
+            new_status = StatusResponse.objects.create(user_initiator_id=self.request.user.id, status='Not Approved', response_order=response_object)
+            new_status.save()
+        elif((response_object.response_user_id == self.request.user.id) and (status.status == 'Active' or no_approved_response)):
+            new_status = StatusResponse.objects.create(user_initiator_id=self.request.user.id, status='Cancelled',
+                                                       response_order=response_object)
+            new_status.save()
             return HttpResponseRedirect(self.get_success_url(page))
         return HttpResponseRedirect(f'{self.get_success_url(page)}?denied_cancellation=True')
 
@@ -409,7 +413,8 @@ class UpdateResponse(LoginRequiredMixin,UpdateView):
     fields = ['offer', 'price']
 
     def get_success_url(self, page):
-        return reverse_lazy('orders:view_order', args=[str(page), ])
+        # return reverse_lazy('orders:view_order', args=[str(page), ])
+        return reverse_lazy('orders:table_order')
 
     def form_valid(self, form):
         response_order = ResponseOrder.objects.get(id=self.kwargs.get('pk'))

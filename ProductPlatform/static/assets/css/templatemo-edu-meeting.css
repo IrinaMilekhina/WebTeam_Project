@@ -1142,17 +1142,17 @@ section.upcoming-meetings .categories .main-button-red a {
     border-top-left-radius: 20px;
 }
 
-.meeting-item .thumb .price {
-    position: absolute;
-    left: 20px;
-    top: 20px;
+.amount_suppliers {
+    position: relative;
+    left: 30px;
+    top: 50px;
 }
 
 .meeting-item .thumb .price span {
     font-size: 16px;
     color: #1f272b;
     font-weight: 600;
-    background-color: rgba(250, 250, 250, 0.9);
+    background-color: rgb(255, 255, 255);
     padding: 7px 12px;
     border-radius: 10px;
 }
@@ -1618,6 +1618,21 @@ section.order .close-btn {
     transition: all .3s;
     border: none;
     outline: none;
+    cursor: pointer;
+}
+
+section.order .approve-btn {
+    font-size: 13px;
+    color: #fff;
+    background-color: #2b9318;
+    padding: 12px 30px;
+    border-radius: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all .3s;
+    border: none;
+    outline: none;
+    cursor: pointer;
 }
 
 section.order .date {

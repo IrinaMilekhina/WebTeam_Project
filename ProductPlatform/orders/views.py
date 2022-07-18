@@ -1,4 +1,5 @@
 import datetime
+from pprint import pprint
 from django.core.paginator import Paginator
 from django.db.models import Count, Q
 from django.http import Http404, HttpResponseRedirect
@@ -24,13 +25,13 @@ class MainView(CreateView):
     def get_context_data(self, **kwargs):
         context = super(MainView, self).get_context_data(**kwargs)
         top_category = CategoryOrder.objects \
-           .filter(is_active=True,
-                   order__responseorder__statusresponse__status='Approved',
-                   order__responseorder__statusresponse__time_status__gte=datetime.datetime.now() - datetime.timedelta(
-                       days=7)) \
-           .annotate(count=Count('order')) \
-           .values('id', 'name', 'image', 'count', 'description') \
-           .order_by('-count')[:6]
+            .filter(is_active=True,
+                    order__responseorder__statusresponse__status='Approved',
+                    order__responseorder__statusresponse__time_status__gte=datetime.datetime.now() - datetime.timedelta(
+                        days=7)) \
+            .annotate(count=Count('order')) \
+            .values('id', 'name', 'image', 'count', 'description') \
+            .order_by('-count')[:6]
 
         context['title'] = self.title
         context['categories'] = CategoryOrder.objects.all()
@@ -68,14 +69,14 @@ class CategoryOrderView(LoginRequiredMixin, ListView):
         categories = CategoryOrder.objects.select_related() \
             .filter(is_active=True) \
             .annotate(count_orders=Count('order__responseorder__response_user_id',
-                                         filter=Q(order__responseorder__statusresponse__status='Approved'),
+                                         filter=Q(
+                                             order__responseorder__statusresponse__status='Approved'),
                                          distinct=True)) \
             .values('id', 'name', 'image', 'description', 'count_orders')
 
         context['categories'] = categories
 
         return context
-
 
 
 class Category(LoginRequiredMixin, DetailView):
@@ -97,11 +98,15 @@ class Category(LoginRequiredMixin, DetailView):
             return render(request, self.template_name, {'ERROR': 'Страница не найдена', 'title': '404'})
         orders = Order.objects.filter(category_id=category.pk, status='Active')
         all_orders_amount = len(orders)
-        status_response_orders = StatusResponse.objects.filter(status='Approved')
-        response_orders = [status_response.response_order for status_response in status_response_orders]
-        run_orders = [response_order.order for response_order in response_orders if response_order.order.status == 'Active' and response_order.order.category == category]
+        status_response_orders = StatusResponse.objects.filter(
+            status='Approved')
+        response_orders = [
+            status_response.response_order for status_response in status_response_orders]
+        run_orders = [response_order.order for response_order in response_orders if response_order.order.status ==
+                      'Active' and response_order.order.category == category]
         all_completed_orders = len(run_orders)
-        top_suppliers = [response_order.response_user for response_order in response_orders if response_order.order.status == 'Active' and response_order.order.category == category]
+        top_suppliers = [response_order.response_user for response_order in response_orders if response_order.order.status ==
+                         'Active' and response_order.order.category == category]
 
         all_responses = ResponseOrder.objects.select_related().all()
         active_responses = all_responses.filter(order__category=category)
@@ -216,6 +221,12 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 
         forms = None
         response_id = None
+        error = request.GET.get('error')
+        if error == 'Approved':
+            error = 'Заказ имеет статус Поставщик найден'
+        else:
+            error = 'Заказ имеет статус отменён'
+
         if request.user.role == 'Supplier':
             forms = self.get_forms()
             response_id = response_orders.filter(
@@ -224,11 +235,12 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
                 response_id = response_id[0]['id']
             else:
                 response_id = None
-        
+
         context = {
             'no_approved_response': no_approved_response,
             'cancellation_not_available': True if request.GET.get('denied_cancellation') else False,
             'editing_not_available': True if request.GET.get('denied_editing') else False,
+            'error': error,
             'order': order,
             'response_orders': response_orders,
             'categories': categories,
@@ -264,6 +276,38 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
                 order=order, response_user=user).first()
 
             return {'response_order': response}
+
+
+    def order_confirmation(self, response_pk, order_pk):
+        if self.POST:
+            try:
+                status_response = StatusResponse.objects.filter(
+                    response_order_id=response_pk).last()
+                
+                status_response.status = 'Approved'
+                status_response.save()
+                order = get_object_or_404(Order, id=order_pk)
+                order.status = 'Not Active'
+                order.save()
+            except Http404:
+                pass
+            return redirect(reverse_lazy('main'))
+            # return redirect(reverse_lazy('orders:view_order', kwargs={'pk': order_pk}))
+
+    def order_rejection(self, response_pk, order_pk):
+        if self.POST:
+            try:
+                statuse_response = get_object_or_404(
+                    StatusResponse, id=response_pk)
+                statuse_response.status = 'Not Approved'
+                statuse_response.save()
+                order = get_object_or_404(Order, id=order_pk)
+                order.status = 'Active'
+                order.save()
+            except Http404:
+                pass
+            return redirect(reverse_lazy('orders:view_order', kwargs={'pk': order_pk}))
+
 
 class OrderBoardView(LoginRequiredMixin, ListView):
     model = Order
@@ -306,14 +350,16 @@ class DeleteCategory(LoginRequiredMixin, DeleteView):
 def categories(request):
     context = {}
     active_categories = CategoryOrder.objects.select_related() \
-                    .filter(is_active=True) \
-                .annotate(count_orders=Count('order__responseorder__response_user_id',
-                                             filter=Q(order__responseorder__statusresponse__status='Approved'),
-                                             distinct=True)) \
-                .values('id', 'name', 'image', 'description', 'count_orders')
+        .filter(is_active=True) \
+        .annotate(count_orders=Count('order__responseorder__response_user_id',
+                                     filter=Q(
+                                         order__responseorder__statusresponse__status='Approved'),
+                                     distinct=True)) \
+        .values('id', 'name', 'image', 'description', 'count_orders')
     all_categories = CategoryOrder.objects.select_related() \
         .annotate(count_orders=Count('order__responseorder__response_user_id',
-                                     filter=Q(order__responseorder__statusresponse__status='Approved'),
+                                     filter=Q(
+                                         order__responseorder__statusresponse__status='Approved'),
                                      distinct=True)) \
         .values('id', 'name', 'image', 'description', 'count_orders')
     context['filtered_categories'] = CategoryFilter(
@@ -392,20 +438,20 @@ class DeleteResponse(LoginRequiredMixin, DeleteView):
     def form_valid(self, form):
         response_object = self.get_object()
         if StatusResponse.objects.filter(
-            Q(response_order_id=response_object.id) & Q(status='Approved')):
+                Q(response_order_id=response_object.id) & Q(status='Approved')):
             no_approved_response = False
         else:
             no_approved_response = True
         status = Order.objects.get(id=response_object.order_id)
         page = response_object.order_id
-            
+
         if ((response_object.response_user_id == self.request.user.id) and (status.status == 'Active' or no_approved_response)):
             response_object.delete()
             return HttpResponseRedirect(self.get_success_url(page))
         return HttpResponseRedirect(f'{self.get_success_url(page)}?denied_cancellation=True')
 
 
-class UpdateResponse(LoginRequiredMixin,UpdateView):
+class UpdateResponse(LoginRequiredMixin, UpdateView):
     model = ResponseOrder
     template_name = 'orders/view_order.html'
     fields = ['offer', 'price']
@@ -415,18 +461,20 @@ class UpdateResponse(LoginRequiredMixin,UpdateView):
 
     def form_valid(self, form):
         response_order = ResponseOrder.objects.get(id=self.kwargs.get('pk'))
-
+        status_order = Order.objects.filter(id=response_order.order_id).first()
         status_response = StatusResponse.objects.filter(
-                Q(response_order_id=response_order.id)).last()
-        if status_response.status == 'Approved':
-            no_responses = False
+            Q(response_order_id=response_order.id)).last()
+        page = response_order.order_id
+
+        if status_order.status != 'Active':
+
+            return HttpResponseRedirect(f'{self.get_success_url(page)}?denied_editing=True&error=Active')
+        elif status_response.status == 'Approved':
+
+            return HttpResponseRedirect(f'{self.get_success_url(page)}?denied_editing=True&error=Approved')
         else:
             no_responses = True
-        page = response_order.order_id
 
         if (response_order.response_user_id == self.request.user.id and no_responses):
             form.save()
-
             return HttpResponseRedirect(self.get_success_url(page))
-        else:
-            return HttpResponseRedirect(f'{self.get_success_url(page)}?denied_editing=True')

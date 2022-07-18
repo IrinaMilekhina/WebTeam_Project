@@ -31,17 +31,7 @@
                                                class="fa fa-check accept"></i>
                                             <i data-bs-toggle="modal" data-bs-target="#staticBackdrop2"
                                                class="fa fa-close cancel"></i>
-                                        {% elif approved_response and approved_response == response_order %}
-                                            <span class="accepted-response">Принят</span>
-                                        {% elif approved_response and approved_response != response_order %}
-                                            <span class="not-accepted-response"></span>
-                                        {% endif %}
-                                    </div>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                        {% if user.role != 'Supplier' and order.status == 'Active' and not approved_response %}
-                            <!-- Modal -->
+                                               <!-- Modal -->
                             <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static"
                                  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                                  aria-hidden="true">
@@ -56,11 +46,16 @@
                                             Вы действительно уверены, что хотите принять предложение?
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="modal-btn accept-btn">Принять</button>
+                                            <div class="modal-footer">
+                                             <form action="{% url 'orders:order_confirmation' response_order.id order.id %}" method="post">
+                                                {% csrf_token %}
+                                            <button type="submit" class="modal-btn accept-btn">Принять</button>
+                                        </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static"
                                  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                                  aria-hidden="true">
@@ -75,14 +70,30 @@
                                             Вы действительно уверены, что хотите отклонить предложение?
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="modal-btn close-btn">Отклонить</button>
+                                            <form action="{% url 'orders:order_rejection' response_order.id order.id %}" method="post">
+                                                {% csrf_token %}
+                                            <button type="submit" class="close-btn">Отклонить</button>
+                                        </form>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>   
+                                              
+                                        {% elif approved_response and approved_response == response_order %}
+                                            <span class="accepted-response">Принят</span>
+                                        {% elif approved_response and approved_response != response_order %}
+                                            <span class="not-accepted-response"></span>
+                                        {% endif %}
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        {% if user.role != 'Supplier' and order.status == 'Active' and not approved_response %}
+                            
                         {% endif %}
                     </div>
                 </div>
+                <!-- right side-->
                 <div class="col-lg-6">
                     <div class="row">
                         {% if user.role == 'Supplier' %}
@@ -147,18 +158,13 @@
                                         <div class="col-lg-12">
                                             <fieldset>
                                                 <label class="small mb-1" for="price-suggestion">Предложение</label>
-                                              <!--  <input name="name" min="0" step="1" type="number"
-                                                       id="price-suggestion"
-                                                       placeholder="Предложение..." required="">-->
+                                             
                                             {{ forms.response_order.price }}
                                             </fieldset>
                                         </div>
                                         <div class="col-lg-12">
                                             <fieldset>
-                                            <!--    <label class="small description mb-1" for="description">Описание</label>
-                                                <textarea name="message" type="text" class="form-control"
-                                                          id="description"
-                                                          placeholder="Описание..." required=""></textarea>-->
+                                           
                                             {{ forms.response_order.offer }}
                                             </fieldset>
                                         </div>
@@ -208,7 +214,8 @@
                                                 {% elif editing_not_available %}
                                                     редактировать
                                                 {% endif %}
-                                                своё предложение (отклик).
+                                                своё предложение (отклик)
+                                                по причине: {{ error }}
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button"
@@ -330,37 +337,7 @@
                                 </form>
                             </div>
                         {% endif %}
-                    <div class="modal fade" id="staticBackdrop3{{ order.id }}" data-bs-backdrop="static"
-                         data-bs-keyboard="false" tabindex="-1"
-                         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog no-margin modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="staticBackdropLabel">Подтверждение действий</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Закрыть"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Вы действительно уверены, что хотите {% if order.status == 'Active' %}
-                                    Деактивировать{% else %}Активировать{% endif %}?
-                                </div>
-                                <div class="modal-footer">
-                                    <div class="row">
-                                        <div class="btns">
-{#                                            <button type="button" class="close-btn"#}
-{#                                                    data-bs-dismiss="modal">#}
-{#                                                Закрыть#}
-{#                                            </button>#}
-                                            <form method="POST" action="{% url 'orders:delete_order' order.id %}">
-                                                {% csrf_token %}
-{#                                                <button class="{% if order.status == 'Active' %}deactivate-btn{% else %}accept-btn{% endif %}"#}
-{#                                                        type="submit">Подтверждаю#}
-{#                                                </button>#}
-                                            <button class="{% if order.status == 'Active' %}close-btn{% else %}approve-btn{% endif %}"
-                                                        type="submit">Подтверждаю
-                                                </button>
-
-                                            </form>
+                    
                             {% if editing_not_available or cancellation_not_available %}
                                 <div class="modal fade-show" id="staticBackdrop1" data-bs-backdrop="static"
                                      data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
@@ -391,8 +368,8 @@
                                         </div>
                                     </div>
                                 </div>
+                            
                             {% endif %}
-                        {% endif %}
                         <div class="modal fade" id="staticBackdrop3{{ order.id }}" data-bs-backdrop="static"
                              data-bs-keyboard="false" tabindex="-1"
                              aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -410,15 +387,10 @@
                                     <div class="modal-footer">
                                         <div class="row">
                                             <div class="btns">
-                                                {#                                            <button type="button" class="close-btn"#}
-                                                {#                                                    data-bs-dismiss="modal">#}
-                                                {#                                                Закрыть#}
-                                                {#                                            </button>#}
+                                              
                                                 <form method="POST" action="{% url 'orders:delete_order' order.id %}">
                                                     {% csrf_token %}
-                                                    {#                                                <button class="{% if order.status == 'Active' %}deactivate-btn{% else %}accept-btn{% endif %}"#}
-                                                    {#                                                        type="submit">Подтверждаю#}
-                                                    {#                                                </button>#}
+                                                   
                                                     <button class="modal-btn {% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"
                                                             type="submit">Подтверждаю
                                                     </button>
@@ -430,6 +402,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <!-- Modal sure delete response-->
                         <div class="modal fade" id="staticBackdrop22" data-bs-backdrop="static"
                              data-bs-keyboard="false" tabindex="-1"
@@ -468,6 +441,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
 
         {% include 'includes/inc_footer.html' %}

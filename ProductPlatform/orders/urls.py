@@ -32,6 +32,11 @@ urlpatterns = [
          DeleteResponse.as_view(), name='delete_response'),
     path('response_update/<int:pk>/',
          UpdateResponse.as_view(), name='response_update'),
+    path('order_confirmation/<int:response_pk>/<int:order_pk>/', OrderView.order_confirmation,
+         name='order_confirmation'),
+    path('order_rejection/<int:response_pk>/<int:order_pk>/',
+         OrderView.order_rejection, name='order_rejection'),
+    
 
 
 ]

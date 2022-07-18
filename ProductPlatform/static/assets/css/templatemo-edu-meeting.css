@@ -1956,6 +1956,12 @@ section.our-facts h2 {
     font-size: 36px;
 }
 
+.count-digit-table {
+    margin: 0px;
+    color: #ffffff;
+    font-size: 36px;
+}
+
 .count-title {
     font-size: 18px;
     font-weight: 500;

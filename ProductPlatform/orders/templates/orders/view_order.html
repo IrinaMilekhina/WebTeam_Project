@@ -258,7 +258,7 @@
                                              id="edit-btn">
                                             Редактировать
                                         </div>
-                                        <div class="{% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}" data-bs-toggle="modal" data-bs-target="#staticBackdrop3{{ order.id }}">
+                                        <div class="{% if order.status == 'Active' %}close-btn{% else %}approve-btn{% endif %}" data-bs-toggle="modal" data-bs-target="#staticBackdrop3{{ order.id }}">
                                             {% if order.status == 'Active' %}
                                                 Деактивировать
                                             {% else %}
@@ -295,7 +295,7 @@
 {#                                                <button class="{% if order.status == 'Active' %}deactivate-btn{% else %}accept-btn{% endif %}"#}
 {#                                                        type="submit">Подтверждаю#}
 {#                                                </button>#}
-                                            <button class="{% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"
+                                            <button class="{% if order.status == 'Active' %}close-btn{% else %}approve-btn{% endif %}"
                                                         type="submit">Подтверждаю
                                                 </button>
 

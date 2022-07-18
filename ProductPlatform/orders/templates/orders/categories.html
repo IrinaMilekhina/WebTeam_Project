@@ -14,27 +14,21 @@
     </section>
 
     <section class="meetings-page" id="meetings">
-        {% if not user.role == 'Supplier' and not user.role == 'Customer' %}
-            <form class="form-inline" method="GET" style="color: white; font-weight: bold;">
-                {{ filtered_categories.form }}
-                &nbsp;&nbsp;<button type="submit" class="btn btn-warning">Go</button>
-            </form>
-        {% endif %}
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row">
-                        {#                        <div class="col-lg-12"> !!! Фильтрация на будущее !!! #}
-                        {#                            <div class="filters">#}
-                        {#                                <ul>#}
-                        {#                                    {% for over_category in over_categories %}#}
-                        {#                                        <li><a href="/">{{ over_category.name }}</a></li>#}
-                        {#                                    {% endfor %}#}
-                        {#                                </ul>#}
-                        {#                            </div>#}
-                        {#                        </div>#}
                         <div class="col-lg-12">
                             <div class="row cat-center">
+                                {% if not user.role == 'Supplier' and not user.role == 'Customer' %}
+                                    <div class="col-lg-12 categories-filter">
+                                        <form class="categories-filter-form" id="categories_filter_form" method="GET">
+                                            <div class="filter-fields left-fields">
+                                                {{ filtered_categories.form }}
+                                            </div>
+                                        </form>
+                                    </div>
+                                {% endif %}
                                 {% if user.role == 'Supplier' or user.role == 'Customer' %}
                                     {% for category in page_obj_active %}
                                         <div class="col-lg-4 cat-cont templatemo-item-col all soon">
@@ -67,7 +61,7 @@
                                             <div class="meeting-item cat-cont">
                                                 <a class="cat-cont-a" href="{% url 'orders:category' category.id %}">
                                                     <div class="thumb">
-                                                        <div class="price">
+                                                        <div class="price amount_suppliers">
                                                             <span>Кол-во поставщиков: {{ category.count_orders }}</span>
                                                             <!-- Надо будет ещё количество добавить, но после того как это вьюху добавят -->
                                                         </div>
@@ -94,7 +88,6 @@
                             {#                            {% include 'includes/pagination.html' %}#}
                             {% load filter_tags %}
 
-                            {% load filter_tags %}
                             <div class="pagination col-lg-12">
                                 <ul>
                                     {% if page_obj.has_previous %}
@@ -133,8 +126,12 @@
                 </div>
             </div>
         </div>
-        <div class="footer">
-            <p>© 2022 HORECA_MALL</p>
-        </div>
+
+        {% include 'includes/inc_footer.html' %}
+
     </section>
+{% endblock %}
+
+{% block morejs %}
+    <script src="{% static 'assets/js/categories.js' %}"></script>
 {% endblock %}

@@ -12,7 +12,7 @@
         </div>
     </section>
 
-    <section class="meetings-page" id="meetings">
+    <section class="meetings-page create-order" id="meetings">
         <form id='form' action="{% url 'orders:create_order' %}" method="post">
             {% csrf_token %}
             <div class="container">
@@ -42,41 +42,35 @@
 {#                                    </div>#}
                                     <div class="down-content-create_order">
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-lg-12">
                                                 <div class="mb-3">
                                                     <label class="small mb-1"
                                                           id="">Наименование:</label>
                                                     {{ form.name }}
                                                 </div>
                                             </div>
-                                            <div class="row row-cols-auto mb-3">
-                                                <div class="col-sm-6">
-                                                    <div class="col-md-16">
-                                                        <div class="mb-3">
-                                                            <label class="small mb-1"
-                                                                  id="">Категория:</label>
-                                                            {{ form.category }}
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6 mb-3">
-                                                        <div class="mb-3">
-                                                            <label class="small mb-1"
-                                                            id="">Действует до:</label>
-                                                            {{ form.end_time }}
-                                                        </div>
-                                                    </div>
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label class="small mb-1"
+                                                          id="">Категория:</label>
+                                                    {{ form.category }}
                                                 </div>
-                                                <div class="col col-sm-6">
-                                                    <div class="col-md-auto">
-                                                        <div class="mb-3">
-                                                            <fieldset>
-                                                                <label class="small mb-1"
-                                                                id="">Описание:</label>
-                                                                {{ form.description }}
-                                                            </fieldset>
-                                                        </div>
-                                                    </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label class="small mb-1"
+                                                    id="">Действует до:</label>
+                                                    {{ form.end_time }}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="mb-3">
+                                                    <fieldset>
+                                                        <label class="small mb-1"
+                                                        id="">Описание:</label>
+                                                        {{ form.description }}
+                                                    </fieldset>
                                                 </div>
                                             </div>
                                         </div>
@@ -84,12 +78,12 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="main-button-red">
-                                        <button class="btn btn-danger" role="button" aria-pressed="true">Создать
-                                            заказ
+                                        <button id='button_clear' class="button-red btn-block" type="button">
+                                            Очистить форму
                                         </button>
-
-
-                                    <button id='button_clear' class="btn btn-danger btn-block" type="button">Очистить форму</button>
+                                        <button class="button-green" role="button" aria-pressed="true">
+                                            Создать заказ
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -98,10 +92,9 @@
                     </div>
                 </div>
             </div>
-
-            <div class="footer">
-                <p>© 2022 HORECA_MALL</p>
-            </div>
         </form>
+
+        {% include 'includes/inc_footer.html' %}
+
     </section>
 {% endblock %}

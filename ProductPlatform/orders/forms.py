@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django import forms
 from django.forms import SelectDateWidget, DateInput
 
@@ -18,18 +20,15 @@ class CreateOrderForm(forms.ModelForm):
         super(CreateOrderForm, self).__init__(*args, **kwargs)
 
         self.fields['name'].widget.attrs['placeholder'] = "Введите наименование заказа"
-        self.fields['name'].widget.attrs['class'] = "form-control"
         self.fields['name'].widget.attrs['aria-describedby'] = "inputGroup-sizing-sm"
 
         self.fields['category'].widget.attrs['placeholder'] = "Выберите категорию"
-        self.fields['category'].widget.attrs['class'] = "form-select"
         self.fields['category'].widget.attrs['aria-describedby'] = "inputGroup-sizing-sm"
 
-        self.fields['end_time'].widget.attrs['class'] = "form-control"
+        self.fields['end_time'].widget.attrs['min'] = datetime.now().strftime("%Y-%m-%d %H:%M")
+        self.fields['end_time'].widget.attrs['class'] = "datetimepicker"
 
         self.fields['description'].widget.attrs['placeholder'] = "Опишите детали заказа"
-        self.fields['end_time'].widget.attrs['class'] = "datetimepicker"
-        self.fields['description'].widget.attrs['class'] = "form-control"
 
 
 

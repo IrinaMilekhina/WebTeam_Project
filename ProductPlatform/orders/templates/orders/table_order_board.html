@@ -1,6 +1,8 @@
-<table id="datatable" class="meeting-table table count-digit">
+{% load filter_tags %}
+
+<table id="datatable" class="meeting-table table count-digit-table">
     <thead>
-    <tr class="count-digit">
+    <tr class="count-digit-table">
         <th class="num">№</th>
         <th class="order-id">id Заказа</th>
         <th class="name">Наименование</th>
@@ -61,13 +63,10 @@
                                 <div class="modal-footer">
                                     <div class="row">
                                         <div class="btns">
-                                            <form method="POST" action="{% url 'orders:delete_order' row.id %}">
-                                                {% csrf_token %}
-                                                <button class="modal-btn {% if row.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"
-                                                        type="submit">
-                                                    Подтверждаю
-                                                </button>
-                                            </form>
+                                            <button class="change-status modal-btn {% if row.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"
+                                                    data-href="{% my_url page_obj.number 'page' request.GET.urlencode row.id %}">
+                                                Подтверждаю
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -82,8 +81,6 @@
 
 </table>
 
-<!-- Важно, не изменять -->
-{% load filter_tags %}
 <div class="pagination col-lg-12">
     <ul>
         {% if page_obj.has_previous %}

@@ -47,4 +47,5 @@ def start_thread_check_order_status():
     """Запуск потока проверки статусов Заказов"""
     logger.warning('start thread check order...')
     my_thread = threading.Thread(target=start_planner)
+    my_thread.daemon = True
     my_thread.start()

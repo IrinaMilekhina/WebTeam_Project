@@ -92,12 +92,15 @@ class Logout(LogoutView):
 class PersonalActiveOrdersView(LoginRequiredMixin, ListView):
     model = Order
     template_name = 'users/account_active_orders.html'
+    context_object_name = 'orders'
+    paginate_by = 3
 
     def get_context_data(self, *, object_list=None, **kwargs):
         """Метод для создания необходимого контекста для активных заказов личного кабинета"""
         context = super().get_context_data(**kwargs)
         user = self.request.user
-
+        page = self.request.GET.get('page')
+        
         # для Заказчика
         if user.role == 'Customer':
             response_for_customer = ResponseOrder.objects.filter(order__author=user.pk)
@@ -107,7 +110,15 @@ class PersonalActiveOrdersView(LoginRequiredMixin, ListView):
                 .values('id', 'category__name', 'author__city', 'name', 'description',
                         'status', 'create_at', 'end_time', 'count_response')
 
-            context['orders'] = active_orders
+            paginator = Paginator(active_orders, per_page=3)
+            try:
+                orders_paginator = paginator.page(page)
+            except PageNotAnInteger:
+                orders_paginator = paginator.page(1)
+            except EmptyPage:
+                orders_paginator = paginator.page(paginator.num_pages)
+            context['paginator'] = orders_paginator.paginator
+            context['page_obj'] = orders_paginator
             context['responses_to_orders'] = response_for_customer
 
             return context
@@ -126,9 +137,17 @@ class PersonalActiveOrdersView(LoginRequiredMixin, ListView):
                         active_responses.append({'response': response, 'status': 'Утверждён'})
                     else:
                         active_responses.append({'response': response, 'status': 'На утверждении'})
-
-            context['responses'] = active_responses
-
+            
+            paginator = Paginator(active_responses, per_page=3)
+            try:
+                orders_paginator = paginator.page(page)
+            except PageNotAnInteger:
+                orders_paginator = paginator.page(1)
+            except EmptyPage:
+                orders_paginator = paginator.page(paginator.num_pages)
+            context['paginator'] = orders_paginator.paginator
+            context['page_obj'] = orders_paginator
+            
             return context
 
 

@@ -59,7 +59,7 @@
                                         </div>
                                     {% endif %}
                                     {% if user.role == 'Customer' %}
-                                        {% for order in orders %}
+                                        {% for order in page_obj %}
                                             <div class="card-wrapper "
                                                  style="{% if user.id == order.response_approved.response_user.id %}background:#931c1c;{% else %}background:rgba(250, 250, 250, 0.15);{% endif %}margin-bottom:2rem; padding:2rem; border-radius:20px">
                                                 <div class="top-line row">
@@ -113,7 +113,7 @@
                                             </div>
                                         {% endfor %}
                                     {% else %}
-                                        {% for response in responses %}
+                                        {% for response in page_obj %}
                                             <div class="card-wrapper "
                                                  style="{% if user.id == order.response_approved.response_user.id %}background:#931c1c;{% else %}background:rgba(250, 250, 250, 0.15);{% endif %}margin-bottom:2rem; padding:2rem; border-radius:20px">
                                                 <div class="top-line row">
@@ -160,6 +160,7 @@
                                             </div>
                                         {% endfor %}
                                     {% endif %}
+                                {% include 'includes/pagination.html' %}
                                 </div>
                             </div>
                         </div>
@@ -167,8 +168,8 @@
                 </div>
             </div>
         </div>
-    </section>
-    <section class="footer" style="background:#262626; margin-top: 0px">
-        <p>© 2022 HORECA_MALL</p>
+
+        {% include 'includes/inc_footer.html' %}
+
     </section>
 {% endblock %}

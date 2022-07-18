@@ -21,20 +21,26 @@
                         <ul id="res">
                             {% for response_order in response_orders %}
                                 <li class="col-lg-12 response">
-                                    <a href="{% url 'users:profile' response_order.response_user.id %}">{{ response_order.response_user.comp_name }}</a>
+                                    <a href="{% url 'users:profile' response_order.response_user.id %}">
+                                        {{ response_order.response_user.comp_name }}
+                                    </a>
                                     <div class="line">
                                         <div class="price">{{ response_order.price|floatformat:2 }} ₽</div>
-                                        {% if not user.role == 'Supplier' %}
+                                        {% if user.role != 'Supplier' and order.status == 'Active' and not approved_response %}
                                             <i data-bs-toggle="modal" data-bs-target="#staticBackdrop1"
                                                class="fa fa-check accept"></i>
                                             <i data-bs-toggle="modal" data-bs-target="#staticBackdrop2"
                                                class="fa fa-close cancel"></i>
+                                        {% elif approved_response and approved_response == response_order %}
+                                            <span class="accepted-response">Принят</span>
+                                        {% elif approved_response and approved_response != response_order %}
+                                            <span class="not-accepted-response"></span>
                                         {% endif %}
                                     </div>
                                 </li>
                             {% endfor %}
                         </ul>
-                        {% if not user.role == 'Supplier' %}
+                        {% if user.role != 'Supplier' and order.status == 'Active' and not approved_response %}
                             <!-- Modal -->
                             <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static"
                                  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
@@ -197,7 +203,7 @@
                                         <fieldset>
                                             <label class="small mb-1" for="company">Компания</label>
                                             <a href="{% url 'users:profile' order.author_id %}">
-                                                <input name="name" class="read_only" readonly="readonly" type="text"
+                                                <input name="name" style="cursor: pointer;" class="read_only" readonly="readonly" type="text"
                                                        id="company"
                                                        required=""
                                                        value="{{ order.author.comp_name }} на сайте с {{ order.author.date_joined }}">
@@ -252,7 +258,7 @@
                                              id="edit-btn">
                                             Редактировать
                                         </div>
-                                        <div class="{% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}" data-bs-toggle="modal" data-bs-target="#staticBackdrop3{{ order.id }}">
+                                        <div class="{% if order.status == 'Active' %}close-btn{% else %}approve-btn{% endif %}" data-bs-toggle="modal" data-bs-target="#staticBackdrop3{{ order.id }}">
                                             {% if order.status == 'Active' %}
                                                 Деактивировать
                                             {% else %}
@@ -289,7 +295,7 @@
 {#                                                <button class="{% if order.status == 'Active' %}deactivate-btn{% else %}accept-btn{% endif %}"#}
 {#                                                        type="submit">Подтверждаю#}
 {#                                                </button>#}
-                                            <button class="{% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"
+                                            <button class="{% if order.status == 'Active' %}close-btn{% else %}approve-btn{% endif %}"
                                                         type="submit">Подтверждаю
                                                 </button>
 
@@ -304,9 +310,9 @@
                 </div>
             </div>
         </div>
-        <div class="footer" style="margin-top: 10vh;">
-            <p>© 2022 HORECA_MALL</p>
-        </div>
+
+        {% include 'includes/inc_footer.html' %}
+
     </section>
 {% endblock %}
 

@@ -24,11 +24,13 @@ class MainView(CreateView):
     def get_context_data(self, **kwargs):
         context = super(MainView, self).get_context_data(**kwargs)
         top_category = CategoryOrder.objects \
-            .filter(order__responseorder__statusresponse__status='Approved',
-                    order__responseorder__statusresponse__time_status__gte=datetime.datetime.now() - datetime.timedelta(days=7)) \
-            .annotate(count=Count('order')) \
-            .values('id', 'name', 'image', 'count') \
-            .order_by('-count')[:6]
+           .filter(is_active=True,
+                   order__responseorder__statusresponse__status='Approved',
+                   order__responseorder__statusresponse__time_status__gte=datetime.datetime.now() - datetime.timedelta(
+                       days=7)) \
+           .annotate(count=Count('order')) \
+           .values('id', 'name', 'image', 'count', 'description') \
+           .order_by('-count')[:6]
 
         context['title'] = self.title
         context['categories'] = CategoryOrder.objects.all()
@@ -191,11 +193,24 @@ class OrderView(LoginRequiredMixin, ListView):
         except Http404 as err:
             print(err)
         response_orders = order.responseorder_set.all()
-        categories= CategoryOrder.objects.select_related().exclude(id=order.category_id)
+        print(response_orders)
+        responses = []
+        approved_response = None
+        for response_order in response_orders:
+            response_statuses = StatusResponse.objects.filter(
+                response_order=response_order,
+                status__in=['Not Approved', 'Cancelled'])
+            if len(response_statuses) == 0:
+                responses.append(response_order)
+                if StatusResponse.objects.filter(response_order=response_order, status='Approved').first():
+                    approved_response = response_order
+
+        categories = CategoryOrder.objects.select_related().exclude(id=order.category_id)
 
         context = {
+            'approved_response': approved_response,
             'order': order,
-            'response_orders': response_orders,
+            'response_orders': responses,
             'categories': categories
         }
         return render(request, self.template_name, context=context)
@@ -215,6 +230,9 @@ class OrderBoardView(LoginRequiredMixin, ListView):
 
 @login_required
 def table_order(request):
+    if 'pk' in request.GET:
+        order = Order.objects.get(id=request.GET['pk'])
+        order.delete()
     context = {}
     context['filtered_table'] = OrderFilter(
         request.GET, queryset=Order.objects.all())
@@ -222,6 +240,7 @@ def table_order(request):
     paginated = Paginator(context['filtered_table'].qs, 2)
     page_number = request.GET.get('page')
     context['page_obj'] = paginated.get_page(page_number)
+
     return render(request, 'orders/order_board.html', context=context)
 
 

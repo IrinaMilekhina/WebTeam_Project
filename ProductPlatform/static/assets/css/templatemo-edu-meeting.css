@@ -304,6 +304,7 @@ body {
     transition: all .3s;
     border: none;
     outline: none;
+    cursor: pointer;
 }
 
 .modal-btn:hover {

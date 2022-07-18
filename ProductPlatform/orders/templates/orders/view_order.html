@@ -256,51 +256,62 @@
                                                 Сохранить
                                             </button>
                                         </fieldset>
+                                        {% if user.role == 'Suplier' and order.status == 'Active' or user.role != 'Suplier' and user.role != 'Customer' %}
                                         <div style="display: none;"
                                              class="button edit"
                                              id="edit-btn">
                                             Редактировать
                                         </div>
-                                        <div class="{% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}" data-bs-toggle="modal" data-bs-target="#staticBackdrop3{{ order.id }}">
-                                            {% if order.status == 'Active' %}
-                                                Деактивировать
-                                            {% else %}
-                                                Активировать
-                                            {% endif %}
-                                        </div>
+                                        {% endif %}
+                                        {% if user.role == 'Customer' and order.status == 'Active' %}
+                                            <div class="modal-btn close-btn"
+                                                 data-bs-toggle="modal" data-bs-target="#staticBackdrop3{{ order.id }}">
+                                                Отменить
+                                            </div>
+                                        {% elif user.role == 'Customer' and order.status == 'Not Active'  %}
+                                        {% else %}
+                                            <div class="modal-btn {% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"
+                                                 data-bs-toggle="modal" data-bs-target="#staticBackdrop3{{ order.id }}">
+                                                {% if order.status == 'Active' %}
+                                                    Деактивировать
+                                                {% else %}
+                                                    Активировать
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </form>
                             </div>
                         {% endif %}
-                    <div class="modal fade" id="staticBackdrop3{{ order.id }}" data-bs-backdrop="static"
-                         data-bs-keyboard="false" tabindex="-1"
-                         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog no-margin modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="staticBackdropLabel">Подтверждение действий</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Закрыть"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Вы действительно уверены, что хотите {% if order.status == 'Active' %}
-                                    Деактивировать{% else %}Активировать{% endif %}?
-                                </div>
-                                <div class="modal-footer">
-                                    <div class="row">
-                                        <div class="btns">
-{#                                            <button type="button" class="close-btn"#}
-{#                                                    data-bs-dismiss="modal">#}
-{#                                                Закрыть#}
-{#                                            </button>#}
-                                            <form method="POST" action="{% url 'orders:delete_order' order.id %}">
-                                                {% csrf_token %}
-{#                                                <button class="{% if order.status == 'Active' %}deactivate-btn{% else %}accept-btn{% endif %}"#}
-{#                                                        type="submit">Подтверждаю#}
-{#                                                </button>#}
-                                            <button class="{% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"
-                                                        type="submit">Подтверждаю
-                                                </button>
+                        <div class="modal fade" id="staticBackdrop3{{ order.id }}" data-bs-backdrop="static"
+                             data-bs-keyboard="false" tabindex="-1"
+                             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog no-margin modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">Подтверждение действий</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Закрыть"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Вы действительно уверены, что хотите {% if order.status == 'Active' %}
+                                        Деактивировать{% else %}Активировать{% endif %}?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="row">
+                                            <div class="btns">
+                                                {#                                            <button type="button" class="close-btn"#}
+                                                {#                                                    data-bs-dismiss="modal">#}
+                                                {#                                                Закрыть#}
+                                                {#                                            </button>#}
+                                                <form method="POST" action="{% url 'orders:delete_order' order.id %}">
+                                                    {% csrf_token %}
+                                                    {#                                                <button class="{% if order.status == 'Active' %}deactivate-btn{% else %}accept-btn{% endif %}"#}
+                                                    {#                                                        type="submit">Подтверждаю#}
+                                                    {#                                                </button>#}
+                                                    <button class="modal-btn {% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"
+                                                            type="submit">Подтверждаю
+                                                    </button>
 
                                                 </form>
                                             </div>

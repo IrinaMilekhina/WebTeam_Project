@@ -281,11 +281,14 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
     def order_confirmation(self, response_pk, order_pk):
         if self.POST:
             try:
-                status_response = StatusResponse.objects.filter(
-                    response_order_id=response_pk).last()
-                
-                status_response.status = 'Approved'
-                status_response.save()
+                # status_response = StatusResponse.objects.filter(
+                #     response_order_id=response_pk).last()
+                #
+                # status_response.status = 'Approved'
+                # status_response.save()
+                StatusResponse.objects.create(response_order_id=response_pk,
+                                              status='Approved',
+                                              user_initiator=self.user)
                 order = get_object_or_404(Order, id=order_pk)
                 order.status = 'Not Active'
                 order.save()
@@ -297,10 +300,13 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
     def order_rejection(self, response_pk, order_pk):
         if self.POST:
             try:
-                statuse_response = get_object_or_404(
-                    StatusResponse, id=response_pk)
-                statuse_response.status = 'Not Approved'
-                statuse_response.save()
+                # statuse_response = get_object_or_404(
+                #     StatusResponse, id=response_pk)
+                # statuse_response.status = 'Not Approved'
+                # statuse_response.save()
+                StatusResponse.objects.create(response_order_id=response_pk,
+                                              status='Not Approved',
+                                              user_initiator=self.user)
                 order = get_object_or_404(Order, id=order_pk)
                 order.status = 'Active'
                 order.save()

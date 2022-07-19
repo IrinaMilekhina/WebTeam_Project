@@ -13,7 +13,9 @@ from orders.models import CategoryOrder, Order, StatusResponse, ResponseOrder
 from users.models import Profile
 from orders.filters import OrderFilter, CategoryFilter
 from django.views import View
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
+
+from ProductPlatform.orders.decorators import order_board_check
 
 
 class MainView(CreateView):
@@ -235,6 +237,7 @@ class OrderBoardView(LoginRequiredMixin, UserPassesTestMixin, ListView):
 
 
 @login_required
+@user_passes_test(order_board_check)
 def table_order(request):
     if 'pk' in request.GET:
         order = Order.objects.get(id=request.GET['pk'])

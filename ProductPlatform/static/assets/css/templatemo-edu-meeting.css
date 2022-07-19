@@ -1618,6 +1618,21 @@ section.order .close-btn {
     transition: all .3s;
     border: none;
     outline: none;
+    cursor: pointer;
+}
+
+section.order .approve-btn {
+    font-size: 13px;
+    color: #fff;
+    background-color: #2b9318;
+    padding: 12px 30px;
+    border-radius: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all .3s;
+    border: none;
+    outline: none;
+    cursor: pointer;
 }
 
 section.order .date {
@@ -1951,6 +1966,12 @@ section.our-facts h2 {
 }
 
 .count-digit {
+    margin: 0px;
+    color: #ffffff;
+    font-size: 36px;
+}
+
+.count-digit-table {
     margin: 0px;
     color: #ffffff;
     font-size: 36px;

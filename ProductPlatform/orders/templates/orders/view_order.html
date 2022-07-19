@@ -31,54 +31,66 @@
                                                class="fa fa-check accept"></i>
                                             <i data-bs-toggle="modal" data-bs-target="#staticBackdrop2"
                                                class="fa fa-close cancel"></i>
-                                               <!-- Modal -->
-                            <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static"
-                                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="staticBackdropLabel">Подтверждение</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Вы действительно уверены, что хотите принять предложение?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <div class="modal-footer">
-                                             <form action="{% url 'orders:order_confirmation' response_order.id order.id %}" method="post">
-                                                {% csrf_token %}
-                                            <button type="submit" class="modal-btn accept-btn">Принять</button>
-                                        </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static"
-                                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="staticBackdropLabel">Подтверждение</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Вы действительно уверены, что хотите отклонить предложение?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <form action="{% url 'orders:order_rejection' response_order.id order.id %}" method="post">
-                                                {% csrf_token %}
-                                            <button type="submit" class="close-btn">Отклонить</button>
-                                        </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>   
-                                              
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static"
+                                                 data-bs-keyboard="false" tabindex="-1"
+                                                 aria-labelledby="staticBackdropLabel"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="staticBackdropLabel">
+                                                                Подтверждение</h5>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Вы действительно уверены, что хотите принять предложение?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <div class="modal-footer">
+                                                                <form action="{% url 'orders:order_confirmation' response_order.id order.id %}"
+                                                                      method="post">
+                                                                    {% csrf_token %}
+                                                                    <button type="submit" class="modal-btn accept-btn">
+                                                                        Принять
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static"
+                                                 data-bs-keyboard="false" tabindex="-1"
+                                                 aria-labelledby="staticBackdropLabel"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="staticBackdropLabel">
+                                                                Подтверждение</h5>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Вы действительно уверены, что хотите отклонить предложение?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form action="{% url 'orders:order_rejection' response_order.id order.id %}"
+                                                                  method="post">
+                                                                {% csrf_token %}
+                                                                <button type="submit" class="close-btn">Отклонить
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         {% elif approved_response and approved_response == response_order %}
                                             <span class="accepted-response">Принят</span>
                                         {% elif approved_response and approved_response != response_order %}
@@ -89,7 +101,7 @@
                             {% endfor %}
                         </ul>
                         {% if user.role != 'Supplier' and order.status == 'Active' and not approved_response %}
-                            
+
                         {% endif %}
                     </div>
                 </div>
@@ -150,47 +162,49 @@
                                 <!-- форма update -->
                                 <div class="order response-form">
                                     {% if response_id %}
-                                    <form id="contact" action="{% url 'orders:response_update' response_id %}" method="post">
+                                        <form id="contact" action="{% url 'orders:response_update' response_id %}"
+                                              method="post">
                                     {% else %}
-                                    <form id="contact" action="" method="post">    
+                                        <form id="contact" action="" method="post">
                                     {% endif %}
-                                        {% csrf_token %}
-                                        <div class="col-lg-12">
-                                            <fieldset>
-                                                <label class="small mb-1" for="price-suggestion">Предложение</label>
-                                             
+                                    {% csrf_token %}
+                                    <div class="col-lg-12">
+                                        <fieldset>
+                                            <label class="small mb-1" for="price-suggestion">Предложение</label>
+
                                             {{ forms.response_order.price }}
-                                            </fieldset>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <fieldset>
-                                           
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <fieldset>
+
                                             {{ forms.response_order.offer }}
-                                            </fieldset>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-12 submit-btn">
+                                        <fieldset>
+                                            <button class="button button-login-reg del" type="submit"
+                                                    id="submit-btn"
+                                                    data-canceledresponse="false">
+                                                Откликнуться
+                                            </button>
+                                        </fieldset>
+                                        <fieldset>
+                                            <button style="display: none;"
+                                                    class="normal-btn close-btn"
+                                                    type="submit"
+                                                    id="save-btn">
+                                                Сохранить
+                                            </button>
+                                        </fieldset>
+                                        <div style="display: none;" class="button edit" id="edit-btn">
+                                            Редактировать
                                         </div>
-                                        <div class="col-lg-12 submit-btn">
-                                            <fieldset>
-                                                <button class="button button-login-reg del" type="submit"
-                                                        id="submit-btn"
-                                                        data-canceledresponse="false">
-                                                    Откликнуться
-                                                </button>
-                                            </fieldset>
-                                            <fieldset>
-                                                <button style="display: none;"
-                                                        class="normal-btn close-btn"
-                                                        type="submit"
-                                                        id="save-btn">
-                                                    Сохранить
-                                                </button>
-                                            </fieldset>
-                                            <div style="display: none;" class="button edit" id="edit-btn">
-                                                Редактировать
-                                            </div>
-                                            <div style="display: none;" id="cancel-btn" class="normal-btn close-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop22">
-                                                    Отменить отклик
-                                            </div>
+                                        <div style="display: none;" id="cancel-btn" class="normal-btn close-btn"
+                                             data-bs-toggle="modal" data-bs-target="#staticBackdrop22">
+                                            Отменить отклик
                                         </div>
+                                    </div>
                                     </form>
                                 </div>
                             </div>
@@ -227,7 +241,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            {% endif %}        
+                            {% endif %}
 
                         {% else %}
                             <div class="order">
@@ -337,39 +351,39 @@
                                 </form>
                             </div>
                         {% endif %}
-                    
-                            {% if editing_not_available or cancellation_not_available %}
-                                <div class="modal fade-show" id="staticBackdrop1" data-bs-backdrop="static"
-                                     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                     aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel">Уведомление</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Вы не можете
-                                                {% if cancellation_not_available %}
-                                                    отменить
-                                                {% elif editing_not_available %}
-                                                    редактировать
-                                                {% endif %}
-                                                заказ.
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button"
-                                                        data-bs-dismiss="modal"
-                                                        class="modal-btn c-btn">
-                                                    Закрыть
-                                                </button>
-                                            </div>
+
+                        {% if editing_not_available or cancellation_not_available %}
+                            <div class="modal fade-show" id="staticBackdrop1" data-bs-backdrop="static"
+                                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Уведомление</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Вы не можете
+                                            {% if cancellation_not_available %}
+                                                отменить
+                                            {% elif editing_not_available %}
+                                                редактировать
+                                            {% endif %}
+                                            заказ.
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button"
+                                                    data-bs-dismiss="modal"
+                                                    class="modal-btn c-btn">
+                                                Закрыть
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                            
-                            {% endif %}
+                            </div>
+
+                        {% endif %}
                         <div class="modal fade" id="staticBackdrop3{{ order.id }}" data-bs-backdrop="static"
                              data-bs-keyboard="false" tabindex="-1"
                              aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -387,10 +401,10 @@
                                     <div class="modal-footer">
                                         <div class="row">
                                             <div class="btns">
-                                              
+
                                                 <form method="POST" action="{% url 'orders:delete_order' order.id %}">
                                                     {% csrf_token %}
-                                                   
+
                                                     <button class="modal-btn {% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"
                                                             type="submit">Подтверждаю
                                                     </button>
@@ -402,7 +416,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Modal sure delete response-->
                         <div class="modal fade" id="staticBackdrop22" data-bs-backdrop="static"
                              data-bs-keyboard="false" tabindex="-1"
@@ -421,14 +435,15 @@
                                         <div class="row">
                                             <div class="btns">
                                                 {% if response_id %}
-                                                <form method="POST" action="{% url 'orders:delete_response' response_id %}">
+                                                    <form method="POST"
+                                                          action="{% url 'orders:delete_response' response_id %}">
                                                 {% else %}
-                                                <form method="POST" action="">
-                                                {% endif %}    
-                                                    {% csrf_token %}
-                                                    <button class="modal-btn close-btn"
-                                                            type="submit">Подтверждаю
-                                                    </button>
+                                                    <form method="POST" action="">
+                                                {% endif %}
+                                                {% csrf_token %}
+                                                <button class="modal-btn close-btn"
+                                                        type="submit">Подтверждаю
+                                                </button>
 
                                                 </form>
                                             </div>
@@ -437,12 +452,12 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
         </div>
-        </div>
+
 
         {% include 'includes/inc_footer.html' %}
 

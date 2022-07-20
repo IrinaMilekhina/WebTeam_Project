@@ -93,6 +93,7 @@ class ResponseOrder(models.Model):
                                             user_initiator=self.response_user)
         obj.save()
 
+    
 
 class StatusResponse(models.Model):
     '''Статус отклика для избежания UPDATE таблицы RESPONSE_ORDER'''

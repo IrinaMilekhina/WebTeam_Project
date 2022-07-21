@@ -212,19 +212,43 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 		responses = []
 		approved_response = None
 		cancelled_response = None
-		for response_order in response_orders:
-			# response_statuses = StatusResponse.objects.filter(
-			#     response_order=response_order,
-			#     status__in=['Not Approved', 'Cancelled'])
 
-			response_statuses = StatusResponse.objects.filter(
-				response_order=response_order).last()
+		# for response_order in response_orders:
+		# 	response_statuses = StatusResponse.objects.filter(
+		# 		response_order=response_order,
+		# 		status__in=['Not Approved', 'Cancelled'])
+		# 	if len(response_statuses) == 0:
+		# 		responses.append(response_order)
+		# 		if StatusResponse.objects.filter(response_order=response_order, status='Approved').first():
+		# 			approved_response = response_order
+
+
+
+
+		for response_order in response_orders:
+
+
+
+			if request.user.role == 'Customer':
+				response_statuses = StatusResponse.objects.filter(
+					response_order=response_order,
+					status__in=['On Approval', 'Approved', 'Not Approved'])
+
+			if request.user.role == 'Supplier':
+				response_statuses = StatusResponse.objects.filter(
+						response_order=response_order)
+
+			# response_statuses = StatusResponse.objects.filter(
+			# 	response_order=response_order).last()
+			# response_statuses = StatusResponse.objects.filter(
+			# 	response_order=response_order).last()
 			# if response_statuses.status != 'Cancelled':
-			if response_statuses == 0:  # len(response_statuses) == 0:
+			# if response_statuses == 0:  # len(response_statuses) == 0:
+			if len(response_statuses) != 0:
 				responses.append(response_order)
-				if StatusResponse.objects.filter(response_order=response_order, status='Approved').last():
+				if StatusResponse.objects.filter(response_order=response_order, status='Approved').first():
 					approved_response = response_order
-				if StatusResponse.objects.filter(response_order=response_order, status='Cancelled').last():
+				if StatusResponse.objects.filter(response_order=response_order, status='Cancelled').first():
 					cancelled_response = response_order
 
 		categories = CategoryOrder.objects.select_related().exclude(id=order.category_id)
@@ -234,7 +258,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 		error = request.GET.get('error')
 		if error == 'Approved':
 			error = 'Заказ имеет статус Поставщик найден'
-		elif error == 'Cancelled' or response_statuses.status == 'Cancelled':
+		elif error == 'Cancelled': # error == 'Cancelled' or response_statuses.status == 'Cancelled':
 			error = 'Ваш отклик отклонен'
 		else:
 			error = 'Заказ имеет статус отменён'
@@ -254,7 +278,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 			'editing_not_available': True if request.GET.get('denied_editing') else False,
 			'error': error,
 			'order': order,
-			'response_orders': response_orders,  # responses, #response_orders,
+			'response_orders': responses,  # responses, #response_orders,
 			'categories': categories,
 			'forms': forms,
 			'response_id': response_id

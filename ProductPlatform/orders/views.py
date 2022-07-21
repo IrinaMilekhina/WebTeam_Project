@@ -305,7 +305,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
                 # statuse_response.status = 'Not Approved'
                 # statuse_response.save()
                 StatusResponse.objects.create(response_order_id=response_pk,
-                                              status='Not Approved',
+                                              status='Cancelled',
                                               user_initiator=self.user)
                 order = get_object_or_404(Order, id=order_pk)
                 order.status = 'Active'

@@ -233,7 +233,6 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 				else:
 					responses.append(response_order)
 
-
 		# if len(response_statuses) != 0:
 		# 	responses.append(response_order)
 		# 	if StatusResponse.objects.filter(response_order=response_order, status='Approved').first():
@@ -253,9 +252,6 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 			error = 'Ваш отклик отклонен'
 		else:
 			error = 'Заказ имеет статус отменён'
-
-
-
 
 		if request.user.role == 'Supplier':
 			forms = self.get_forms()
@@ -279,7 +275,6 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 		}
 		return render(request, self.template_name, context=context)
 
-
 	def forms_valid(self, forms):
 		user = self.request.user
 		order = Order.objects.get(id=self.kwargs.get('pk'))
@@ -298,7 +293,6 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 
 		return HttpResponseRedirect(self.request.path_info)
 
-
 	def get_objects(self):
 		user = self.request.user
 		order = Order.objects.get(id=self.kwargs.get('pk'))
@@ -308,7 +302,6 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 				order=order, response_user=user).first()
 
 			return {'response_order': response}
-
 
 	def order_confirmation(self, response_pk, order_pk):
 		if self.POST:
@@ -327,7 +320,6 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 			except Http404:
 				pass
 			return redirect(reverse_lazy('main'))
-
 
 	# return redirect(reverse_lazy('orders:view_order', kwargs={'pk': order_pk}))
 
@@ -496,11 +488,9 @@ class DeleteResponse(LoginRequiredMixin, DeleteView):
 				status.status == 'Active' or no_approved_response) and not cancelled_response):
 			response_object.delete()
 			return HttpResponseRedirect(self.get_success_url(page))
-		# if cancelled_response:
-		# 	return HttpResponseRedirect(f'{self.get_success_url(page)}?denied_cancellation=True,cancelled_response=True')
-		# else:
-		# 	return HttpResponseRedirect(f'{self.get_success_url(page)}?denied_cancellation=True,cancelled_response=False')
-		return HttpResponseRedirect(f'{self.get_success_url(page)}?denied_cancellation=True&cancelled_response={cancelled_response}')
+
+		return HttpResponseRedirect(
+			f'{self.get_success_url(page)}?denied_cancellation=True&cancelled_response={cancelled_response}')
 
 
 class UpdateResponse(LoginRequiredMixin, UpdateView):

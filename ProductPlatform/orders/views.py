@@ -214,14 +214,18 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 		approved_response = None
 		cancelled_response = None
 
-		if request.user.role == 'Customer':
+		if not request.user.role:
+			for response_order in response_orders:
+				responses.append(response_order)
+
+		elif request.user.role == 'Customer':
 			for response_order in response_orders:
 				response_statuses = StatusResponse.objects.filter(
 					response_order=response_order).last()
 				if response_statuses.status != 'Cancelled':
 					responses.append(response_order)
 
-		if request.user.role == 'Supplier':
+		elif request.user.role == 'Supplier':
 			for response_order in response_orders:
 				response_statuses = StatusResponse.objects.filter(
 					response_order=response_order).last()
@@ -253,6 +257,9 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 			error = 'Ваш отклик отклонен'
 		else:
 			error = 'Заказ имеет статус отменён'
+
+
+
 
 		if request.user.role == 'Supplier':
 			forms = self.get_forms()

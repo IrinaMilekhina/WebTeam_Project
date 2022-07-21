@@ -214,23 +214,19 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 		approved_response = None
 		cancelled_response = None
 
-		if not request.user.role:
-			for response_order in response_orders:
-				responses.append(response_order)
-
-		elif request.user.role == 'Customer':
+		if request.user.role == 'Customer':
 			for response_order in response_orders:
 				response_statuses = StatusResponse.objects.filter(
 					response_order=response_order).last()
 				if response_statuses.status != 'Cancelled':
 					responses.append(response_order)
 
-		elif request.user.role == 'Supplier':
+		if request.user.role == 'Supplier' or not request.user.role:
 			for response_order in response_orders:
 				response_statuses = StatusResponse.objects.filter(
 					response_order=response_order).last()
 				if response_statuses.status == 'Cancelled':
-					if request.user.id == response_order.response_user_id:
+					if request.user.id == response_order.response_user_id or not request.user.role:
 						responses.append(response_order)
 					else:
 						continue

@@ -225,18 +225,17 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 
 
 
-		for response_order in response_orders:
-
-
-
-			if request.user.role == 'Customer':
-				response_statuses = StatusResponse.objects.filter(
-					response_order=response_order,
-					status__in=['On Approval', 'Approved', 'Not Approved'])
-
-			if request.user.role == 'Supplier':
-				response_statuses = StatusResponse.objects.filter(
-						response_order=response_order)
+		# for response_order in response_orders:
+		#
+		#
+		#
+		# 	if request.user.role == 'Customer':
+		# 		response_statuses = StatusResponse.objects.filter(
+		# 			response_order=response_order).last()
+		#
+		# 	if request.user.role == 'Supplier':
+		# 		response_statuses = StatusResponse.objects.filter(
+		# 				response_order=response_order)
 
 			# response_statuses = StatusResponse.objects.filter(
 			# 	response_order=response_order).last()
@@ -244,12 +243,13 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 			# 	response_order=response_order).last()
 			# if response_statuses.status != 'Cancelled':
 			# if response_statuses == 0:  # len(response_statuses) == 0:
-			if len(response_statuses) != 0:
-				responses.append(response_order)
-				if StatusResponse.objects.filter(response_order=response_order, status='Approved').first():
-					approved_response = response_order
-				if StatusResponse.objects.filter(response_order=response_order, status='Cancelled').first():
-					cancelled_response = response_order
+
+			# if len(response_statuses) != 0:
+			# 	responses.append(response_order)
+			# 	if StatusResponse.objects.filter(response_order=response_order, status='Approved').first():
+			# 		approved_response = response_order
+			# 	if StatusResponse.objects.filter(response_order=response_order, status='Cancelled').first():
+			# 		cancelled_response = response_order
 
 		categories = CategoryOrder.objects.select_related().exclude(id=order.category_id)
 
@@ -278,7 +278,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 			'editing_not_available': True if request.GET.get('denied_editing') else False,
 			'error': error,
 			'order': order,
-			'response_orders': responses,  # responses, #response_orders,
+			'response_orders': response_orders,  # responses, #response_orders,
 			'categories': categories,
 			'forms': forms,
 			'response_id': response_id

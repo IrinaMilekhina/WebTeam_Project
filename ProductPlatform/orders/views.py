@@ -304,6 +304,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 			return {'response_order': response}
 
 	def order_confirmation(self, response_pk, order_pk):
+		"""Утверждение отклика и изменение статуса заказа на Not Active"""
 		if self.POST:
 			try:
 				# status_response = StatusResponse.objects.filter(
@@ -324,6 +325,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 	# return redirect(reverse_lazy('orders:view_order', kwargs={'pk': order_pk}))
 
 	def order_rejection(self, response_pk, order_pk):
+		"""Отклонение отклика"""
 		if self.POST:
 			try:
 				# statuse_response = get_object_or_404(
@@ -342,6 +344,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 
 
 class OrderBoardView(LoginRequiredMixin, ListView):
+
 	model = Order
 	context_object_name = 'all_orders'
 	template_name = 'orders/order_board.html'
@@ -355,6 +358,7 @@ class OrderBoardView(LoginRequiredMixin, ListView):
 
 @login_required
 def table_order(request):
+	"""Обработчик доски заказов"""
 	if 'pk' in request.GET:
 		order = Order.objects.get(id=request.GET['pk'])
 		order.delete()
@@ -409,6 +413,7 @@ def categories(request):
 
 
 class DeleteOrder(LoginRequiredMixin, DeleteView):
+	"""Класс-обработчик для удаления заказа"""
 	model = Order
 
 	def get_success_url(self):
@@ -431,6 +436,7 @@ class DeleteOrder(LoginRequiredMixin, DeleteView):
 
 
 class UpdateOrder(UpdateView):
+	"""Класс-обработчик для редактирования заказа"""
 	model = Order
 	template_name = 'orders/view_order.html'
 	fields = [

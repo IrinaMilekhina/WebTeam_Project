@@ -200,10 +200,11 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 		except Http404 as err:
 			print(err)
 
-		if len(StatusResponse.objects.filter(response_order__order=order, status='Approved')) == 0:
+		if StatusResponse.objects.filter(response_order__order=order, status='Approved').last():
 			no_approved_response = True
-		elif len(StatusResponse.objects.filter(response_order__order=order, status='Cancelled')) == 0:
-			no_approved_response = True
+		elif StatusResponse.objects.filter(response_order__order=order, status='Cancelled').last():
+			no_approved_response = False
+			cancelled_response = True
 		else:
 			no_approved_response = False
 
@@ -213,21 +214,27 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 		approved_response = None
 		cancelled_response = None
 
+		if request.user.role == 'Customer':
+			for response_order in response_orders:
+				response_statuses = StatusResponse.objects.filter(
+					response_order=response_order).last()
+				if response_statuses.status != 'Cancelled':
+					responses.append(response_order)
+
+		if request.user.role == 'Supplier':
+			for response_order in response_orders:
+				response_statuses = StatusResponse.objects.filter(
+					response_order=response_order).last()
+				if response_statuses.status == 'Cancelled':
+					if request.user.id == response_order.response_user_id:
+						responses.append(response_order)
+					else:
+						continue
+				else:
+					responses.append(response_order)
+
+
 		# for response_order in response_orders:
-		# 	response_statuses = StatusResponse.objects.filter(
-		# 		response_order=response_order,
-		# 		status__in=['Not Approved', 'Cancelled'])
-		# 	if len(response_statuses) == 0:
-		# 		responses.append(response_order)
-		# 		if StatusResponse.objects.filter(response_order=response_order, status='Approved').first():
-		# 			approved_response = response_order
-
-
-
-
-		# for response_order in response_orders:
-		#
-		#
 		#
 		# 	if request.user.role == 'Customer':
 		# 		response_statuses = StatusResponse.objects.filter(
@@ -235,30 +242,31 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 		#
 		# 	if request.user.role == 'Supplier':
 		# 		response_statuses = StatusResponse.objects.filter(
-		# 				response_order=response_order)
+		# 			response_order=response_order)
 
-			# response_statuses = StatusResponse.objects.filter(
-			# 	response_order=response_order).last()
-			# response_statuses = StatusResponse.objects.filter(
-			# 	response_order=response_order).last()
-			# if response_statuses.status != 'Cancelled':
-			# if response_statuses == 0:  # len(response_statuses) == 0:
+		# response_statuses = StatusResponse.objects.filter(
+		# 	response_order=response_order).last()
+		# response_statuses = StatusResponse.objects.filter(
+		# 	response_order=response_order).last()
+		# if response_statuses.status != 'Cancelled':
+		# if response_statuses == 0:  # len(response_statuses) == 0:
 
-			# if len(response_statuses) != 0:
-			# 	responses.append(response_order)
-			# 	if StatusResponse.objects.filter(response_order=response_order, status='Approved').first():
-			# 		approved_response = response_order
-			# 	if StatusResponse.objects.filter(response_order=response_order, status='Cancelled').first():
-			# 		cancelled_response = response_order
+		# if len(response_statuses) != 0:
+		# 	responses.append(response_order)
+		# 	if StatusResponse.objects.filter(response_order=response_order, status='Approved').first():
+		# 		approved_response = response_order
+		# 	if StatusResponse.objects.filter(response_order=response_order, status='Cancelled').first():
+		# 		cancelled_response = response_order
 
 		categories = CategoryOrder.objects.select_related().exclude(id=order.category_id)
 
 		forms = None
 		response_id = None
 		error = request.GET.get('error')
+		cancelled_response = request.GET.get('cancelled_response')
 		if error == 'Approved':
 			error = 'Заказ имеет статус Поставщик найден'
-		elif error == 'Cancelled': # error == 'Cancelled' or response_statuses.status == 'Cancelled':
+		elif error == 'Cancelled' or cancelled_response or response_statuses.status == 'Cancelled':  # error == 'Cancelled' or response_statuses.status == 'Cancelled':
 			error = 'Ваш отклик отклонен'
 		else:
 			error = 'Заказ имеет статус отменён'
@@ -278,12 +286,13 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 			'editing_not_available': True if request.GET.get('denied_editing') else False,
 			'error': error,
 			'order': order,
-			'response_orders': response_orders,  # responses, #response_orders,
+			'response_orders': responses,  # responses, #response_orders,
 			'categories': categories,
 			'forms': forms,
 			'response_id': response_id
 		}
 		return render(request, self.template_name, context=context)
+
 
 	def forms_valid(self, forms):
 		user = self.request.user
@@ -303,6 +312,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 
 		return HttpResponseRedirect(self.request.path_info)
 
+
 	def get_objects(self):
 		user = self.request.user
 		order = Order.objects.get(id=self.kwargs.get('pk'))
@@ -312,6 +322,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 				order=order, response_user=user).first()
 
 			return {'response_order': response}
+
 
 	def order_confirmation(self, response_pk, order_pk):
 		if self.POST:
@@ -330,6 +341,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 			except Http404:
 				pass
 			return redirect(reverse_lazy('main'))
+
 
 	# return redirect(reverse_lazy('orders:view_order', kwargs={'pk': order_pk}))
 
@@ -475,7 +487,7 @@ class DeleteResponse(LoginRequiredMixin, DeleteView):
 	model = ResponseOrder
 
 	def get_success_url(self, page):
-		return reverse_lazy('orders:view_order', args=[str(page), ])
+		return reverse_lazy('orders:view_order', args=[str(page)])
 
 	def form_valid(self, form):
 		response_object = self.get_object()
@@ -498,7 +510,11 @@ class DeleteResponse(LoginRequiredMixin, DeleteView):
 				status.status == 'Active' or no_approved_response) and not cancelled_response):
 			response_object.delete()
 			return HttpResponseRedirect(self.get_success_url(page))
-		return HttpResponseRedirect(f'{self.get_success_url(page)}?denied_cancellation=True')
+		# if cancelled_response:
+		# 	return HttpResponseRedirect(f'{self.get_success_url(page)}?denied_cancellation=True,cancelled_response=True')
+		# else:
+		# 	return HttpResponseRedirect(f'{self.get_success_url(page)}?denied_cancellation=True,cancelled_response=False')
+		return HttpResponseRedirect(f'{self.get_success_url(page)}?denied_cancellation=True&cancelled_response={cancelled_response}')
 
 
 class UpdateResponse(LoginRequiredMixin, UpdateView):

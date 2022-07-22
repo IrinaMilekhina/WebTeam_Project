@@ -23,7 +23,7 @@ cd ProductPlatform
 
 ```python
 pip install -r requirements.txt #install required packages
-python manage.py makemigrations
+python manage.py makemigrations #filling database
 python manage.py migrate # run first migration
 python manage.py loaddata main_fixtures.json
 python manage.py runserver # run the server

@@ -23,8 +23,8 @@ cd ProductPlatform
 
 ```python
 pip install -r requirements.txt #install required packages
-python manage.py loaddata main_fixtures.json
 python manage.py migrate # run first migration
+python manage.py loaddata main_fixtures.json
 python manage.py runserver # run the server
 ```
 В браузере ввести адрес http://172.0.0.1:8000 и откроется проект.

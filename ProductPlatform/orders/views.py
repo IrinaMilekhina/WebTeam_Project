@@ -337,16 +337,13 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 
 		"""
 		if self.POST:
+			# Изменение статусов откликов для Админа
 			if self.user.is_staff or self.user.is_ssuperuser:
 				response_order_last = StatusResponse.objects.filter(response_order_id=response_pk).last()
 				if response_order_last.status == 'Cancelled':
 					StatusResponse.objects.create(response_order_id=response_pk,
 												  status='On Approval',
 												  user_initiator=self.user)
-				# elif response_order_last.status == 'Not Approved':
-				# 	StatusResponse.objects.create(response_order_id=response_pk,
-				# 								  status='Cancelled',
-				# 								  user_initiator=self.user)
 				elif response_order_last.status == 'Approved':
 					pass
 				else:
@@ -355,6 +352,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 												  user_initiator=self.user)
 
 			else:
+				# Отклнение откликов для Заказчика
 				try:
 					# statuse_response = get_object_or_404(
 					#     StatusResponse, id=response_pk)

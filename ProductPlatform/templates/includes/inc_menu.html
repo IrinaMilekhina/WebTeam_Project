@@ -26,7 +26,7 @@
                             <li><a href="{% url 'users:login' %}">Войти</a></li>
                         {% endif %}
                         {% if user.is_staff or user.is_admin %}
-                            <li><a href="/">Администрация</a></li>
+                            <li><a href="/admin/">Администрация</a></li>
                         {% endif %}
                     </ul>
                     <a class='menu-trigger'>

@@ -331,22 +331,46 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 	# return redirect(reverse_lazy('orders:view_order', kwargs={'pk': order_pk}))
 
 	def order_rejection(self, response_pk, order_pk):
-		"""Отклонение отклика заказчиком"""
+		"""
+			Отклонение отклика Заказчиком.
+			Для Администратора переключение статуса отклика кнопкой "Х" и возможность подтвердить отклик.
+
+		"""
 		if self.POST:
-			try:
-				# statuse_response = get_object_or_404(
-				#     StatusResponse, id=response_pk)
-				# statuse_response.status = 'Not Approved'
-				# statuse_response.save()
-				StatusResponse.objects.create(response_order_id=response_pk,
-											  status='Cancelled',
-											  user_initiator=self.user)
-				order = get_object_or_404(Order, id=order_pk)
-				order.status = 'Active'
-				order.save()
-			except Http404:
-				pass
-			return redirect(reverse_lazy('orders:view_order', kwargs={'pk': order_pk}))
+			if self.user.is_staff or self.user.is_ssuperuser:
+				response_order_last = StatusResponse.objects.filter(response_order_id=response_pk).last()
+				if response_order_last.status == 'Cancelled':
+					StatusResponse.objects.create(response_order_id=response_pk,
+												  status='On Approval',
+												  user_initiator=self.user)
+				# elif response_order_last.status == 'Not Approved':
+				# 	StatusResponse.objects.create(response_order_id=response_pk,
+				# 								  status='Cancelled',
+				# 								  user_initiator=self.user)
+				elif response_order_last.status == 'Approved':
+					pass
+				else:
+					StatusResponse.objects.create(response_order_id=response_pk,
+												  status='Cancelled',
+												  user_initiator=self.user)
+
+			else:
+				try:
+					# statuse_response = get_object_or_404(
+					#     StatusResponse, id=response_pk)
+					# statuse_response.status = 'Not Approved'
+					# statuse_response.save()
+					StatusResponse.objects.create(response_order_id=response_pk,
+												  status='Cancelled',
+												  user_initiator=self.user)
+					order = get_object_or_404(Order, id=order_pk)
+					order.status = 'Active'
+					order.save()
+				except Http404:
+					pass
+
+
+		return redirect(reverse_lazy('orders:view_order', kwargs={'pk': order_pk}))
 
 
 class OrderBoardView(LoginRequiredMixin, ListView):

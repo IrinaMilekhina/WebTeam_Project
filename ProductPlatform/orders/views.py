@@ -275,8 +275,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 			'forms': forms,
 			'response_id': response_id,
 			'response_order_user_id': self.request.user.id,
-			'cancelled_response_order_user_id': cancelled_responses_order_users_id,
-			'request_user_id': 23
+			'cancelled_response_order_user_id': cancelled_responses_order_users_id
 
 		}
 		return render(request, self.template_name, context=context)

@@ -3,7 +3,7 @@ from datetime import datetime
 from django import forms
 from django.forms import SelectDateWidget, DateInput
 
-from orders.models import Order, Feedback
+from orders.models import Order, Feedback, ResponseOrder
 
 
 class CreateOrderForm(forms.ModelForm):
@@ -25,17 +25,17 @@ class CreateOrderForm(forms.ModelForm):
         self.fields['category'].widget.attrs['placeholder'] = "Выберите категорию"
         self.fields['category'].widget.attrs['aria-describedby'] = "inputGroup-sizing-sm"
 
-        self.fields['end_time'].widget.attrs['min'] = datetime.now().strftime("%Y-%m-%d %H:%M")
+        self.fields['end_time'].widget.attrs['min'] = datetime.now().strftime(
+            "%Y-%m-%d %H:%M")
         self.fields['end_time'].widget.attrs['class'] = "datetimepicker"
 
         self.fields['description'].widget.attrs['placeholder'] = "Опишите детали заказа"
 
 
-
 class FeedbackForm(forms.ModelForm):
     class Meta:
         model = Feedback
-        fields = ['name_user', 'email', 'issue', 'message',]
+        fields = ['name_user', 'email', 'issue', 'message', ]
 
     def __init__(self, *args, **kwargs):
         super(FeedbackForm, self).__init__(*args, **kwargs)
@@ -64,3 +64,25 @@ class FeedbackForm(forms.ModelForm):
         self.fields['message'].widget.attrs['placeholder'] = 'Сообщение...'
         self.fields['message'].widget.attrs['required'] = ''
 
+
+class ResponseOrderForm(forms.ModelForm):
+    class Meta:
+        model = ResponseOrder
+        fields = ['price', 'offer']
+
+    def __init__(self, *args, **kwargs):
+        super(ResponseOrderForm, self).__init__(*args, **kwargs)
+        self.fields['price'].widget.attrs['type'] = 'number'
+        self.fields['price'].widget.attrs['min'] = '1'
+        self.fields['price'].widget.attrs['step'] = '1'
+        self.fields['price'].widget.attrs['id'] = 'price-suggestion'
+        self.fields['price'].widget.attrs['placeholder'] = 'Предложение...'
+        self.fields['price'].widget.attrs['required'] = 'True'
+        self.fields['price'].widget.attrs['name'] = 'name'
+
+        self.fields['offer'].widget.attrs['type'] = 'text'
+        self.fields['offer'].widget.attrs['id'] = 'description'
+        self.fields['offer'].widget.attrs['placeholder'] = 'Описание...'
+        self.fields['offer'].widget.attrs['required'] = 'True'
+        self.fields['offer'].widget.attrs['name'] = 'message'
+        self.fields['offer'].widget.attrs['class'] = 'form-control'

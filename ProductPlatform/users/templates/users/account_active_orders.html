@@ -71,7 +71,7 @@
                                                     <div class="col-auto">
                                                         <p class="price mbr-fonts-style display-7 text-white">
                                                             Статус: <strong>{% if order.status == 'Active' %}Поиск
-                                                            поставщика{% else %}{{ order.status }}{% endif %}</strong>
+                                                            поставщика{% else %}Поставщик утверждён{% endif %}</strong>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -94,10 +94,10 @@
                                                             <strong>Предложения:</strong><br>
                                                             {% for response in responses_to_orders %}
                                                                 {% if response.order_id == order.id %}
-                                                                    <a href="{% url 'users:profile' response.response_user_id %}"
+                                                                    <a href="{% url 'users:profile' response.response_user.id %}"
                                                                        class="card-title mbr-fonts-style display-7">
-                                                                        {{ response.response_user__comp_name }}
-                                                                        - {{ response.price }}
+                                                                        {{ response.response_user.comp_name }}
+                                                                        - {{ response.price|floatformat:2 }} ₽
                                                                     </a>
                                                                     <br>
                                                                 {% endif %}
@@ -119,23 +119,23 @@
                                                 <div class="top-line row">
                                                     <div class="col">
                                                         <a class="card-title"
-                                                           href="{% url 'orders:view_order' response.order.id %}">
+                                                           href="{% url 'orders:view_order' response.response.order.id %}">
                                                             <strong>
-                                                                Отклик №{{ response.id }}
+                                                                Отклик №{{ response.response.id }}
                                                             </strong>
                                                         </a>
                                                     </div>
                                                     <div class="col-auto">
                                                         <p class="price mbr-fonts-style display-7 text-white">
-                                                            Статус: <strong>На утверждении</strong></p>
+                                                            Статус: <strong>{{ response.status }}</strong></p>
                                                     </div>
                                                 </div>
                                                 <div class="bottom-line">
                                                     <p class="mbr-text mbr-fonts-style display-7 text-white">
                                                         <strong>Категория</strong>:
-                                                        {{ response.order.category }}<br><strong>Цена</strong>:
-                                                        {{ response.price }}<br><strong>Оффер</strong>:
-                                                        {{ response.offer }}<br>
+                                                        {{ response.response.order.category }}<br><strong>Цена</strong>:
+                                                        {{ response.response.price|floatformat:2 }} ₽<br><strong>Оффер</strong>:
+                                                        {{ response.response.offer }}<br>
                                                     </p>
                                                 </div>
                                                 <div class="top-line row">
@@ -149,10 +149,10 @@
                                                     </div>
                                                     <div class="col-auto">
                                                         <p class="price mbr-fonts-style display-7 text-white">
-                                                            <a href="{% url 'orders:view_order' response.order_id %}"
+                                                            <a href="{% url 'orders:view_order' response.response.order_id %}"
                                                                class="card-title mbr-fonts-style display-7">
                                                                 <strong>Заказ
-                                                                    № {{ response.order_id }}:</strong> {{ response.order.name }}
+                                                                    № {{ response.response.order_id }}:</strong> {{ response.response.order.name }}
                                                             </a><br>
                                                         </p>
                                                     </div>

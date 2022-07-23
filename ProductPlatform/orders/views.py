@@ -226,6 +226,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 			for response_order in response_orders:
 				response_statuses = StatusResponse.objects.filter(
 					response_order=response_order).last()
+				response_order.last_status = response_statuses.status
 				if response_statuses.status == 'Cancelled':
 					cancelled_responses_order_users_id.append(response_statuses.response_order.response_user_id)
 					if request.user.id == response_order.response_user_id or not request.user.role:

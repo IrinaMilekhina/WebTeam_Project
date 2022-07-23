@@ -26,11 +26,21 @@
                                     </a>
                                     <div class="line">
                                         <div class="price">{{ response_order.price|floatformat:2 }} ₽</div>
-                                        {% if user.role != 'Supplier' and order.status == 'Active' and not approved_response and not cancelled_response_response %}
+{#                                        {% if user.role != 'Supplier' and order.status == 'Active' and not approved_response and not cancelled_response_response %}#}
+                                        {% if user.role != 'Supplier' and order.status == 'Active'  %}
                                             <i data-bs-toggle="modal" data-bs-target="#staticBackdrop1"
                                                class="fa fa-check accept"></i>
-                                            <i data-bs-toggle="modal" data-bs-target="#staticBackdrop2"
+                                            {% if user.role != 'Customer'  and response_order.last_status == 'Cancelled'%}
+                                                <i data-bs-toggle="modal" data-bs-target="#staticBackdrop2"
+                                               class="fa fa-close accept"></i>
+                                                {% else %}
+                                                <i data-bs-toggle="modal" data-bs-target="#staticBackdrop2"
                                                class="fa fa-close cancel"></i>
+                                            {% endif %}
+
+                                            <i data-bs-toggle="modal" data-bs-target="#staticBackdrop3"
+                                               class="fa fa-info"></i>
+
                                             <!-- Modal -->
                                             <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static"
                                                  data-bs-keyboard="false" tabindex="-1"
@@ -90,6 +100,35 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static"
+                                                 data-bs-keyboard="false" tabindex="-1"
+                                                 aria-labelledby="staticBackdropLabel"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="staticBackdropLabel">
+                                                                Предложение от {{ response_order.response_user.comp_name }}</h5>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            {{ response_order.offer }}
+                                                        </div>
+{#                                                        <div class="modal-footer">#}
+{#                                                            <form action="{% url 'orders:order_rejection' response_order.id order.id %}"#}
+{#                                                                  method="post">#}
+{#                                                                {% csrf_token %}#}
+{#                                                                <button type="submit" class="close-btn">Отклонить#}
+{#                                                                </button>#}
+{#                                                            </form>#}
+{#                                                        </div>#}
+                                                    </div>
+                                                </div>
+                                            </div>
+
 
                                         {% elif approved_response and approved_response == response_order %}
                                             <span class="accepted-response">Принят</span>

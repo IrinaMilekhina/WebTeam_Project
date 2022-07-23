@@ -330,7 +330,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 	# return redirect(reverse_lazy('orders:view_order', kwargs={'pk': order_pk}))
 
 	def order_rejection(self, response_pk, order_pk):
-		"""Отклонение отклика"""
+		"""Отклонение отклика заказчиком"""
 		if self.POST:
 			try:
 				# statuse_response = get_object_or_404(
@@ -473,6 +473,7 @@ class UpdateOrder(UpdateView):
 
 
 class DeleteResponse(LoginRequiredMixin, DeleteView):
+	"""Отклонение отклика Поставщиком"""
 	model = ResponseOrder
 
 	def get_success_url(self, page):

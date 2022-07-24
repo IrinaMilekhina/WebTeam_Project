@@ -213,6 +213,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 		responses = []
 		approved_response = None
 		cancelled_response = None
+		cancelled_responses_order_users_id = []
 
 		if request.user.role == 'Customer':
 			for response_order in response_orders:
@@ -226,6 +227,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 				response_statuses = StatusResponse.objects.filter(
 					response_order=response_order).last()
 				if response_statuses.status == 'Cancelled':
+					cancelled_responses_order_users_id.append(response_statuses.response_order.response_user_id)
 					if request.user.id == response_order.response_user_id or not request.user.role:
 						responses.append(response_order)
 					else:
@@ -271,7 +273,10 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 			'response_orders': responses,  # responses, #response_orders,
 			'categories': categories,
 			'forms': forms,
-			'response_id': response_id
+			'response_id': response_id,
+			'response_order_user_id': self.request.user.id,
+			'cancelled_response_order_user_id': cancelled_responses_order_users_id
+
 		}
 		return render(request, self.template_name, context=context)
 
@@ -325,7 +330,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 	# return redirect(reverse_lazy('orders:view_order', kwargs={'pk': order_pk}))
 
 	def order_rejection(self, response_pk, order_pk):
-		"""Отклонение отклика"""
+		"""Отклонение отклика заказчиком"""
 		if self.POST:
 			try:
 				# statuse_response = get_object_or_404(
@@ -468,6 +473,7 @@ class UpdateOrder(UpdateView):
 
 
 class DeleteResponse(LoginRequiredMixin, DeleteView):
+	"""Отклонение отклика Поставщиком"""
 	model = ResponseOrder
 
 	def get_success_url(self, page):
@@ -492,12 +498,22 @@ class DeleteResponse(LoginRequiredMixin, DeleteView):
 
 		if ((response_object.response_user_id == self.request.user.id) and (
 				status.status == 'Active' or no_approved_response) and not cancelled_response):
-			response_object.delete()
-			return HttpResponseRedirect(self.get_success_url(page))
+			"""Если нужно удалять отклики из БД"""
+			# 	response_object.delete()
+			# 	return HttpResponseRedirect(self.get_success_url(page))
+			#
+			# return HttpResponseRedirect(
+			# 	f'{self.get_success_url(page)}?denied_cancellation=True&cancelled_response={cancelled_response}')
+			"""Если нужно установить статус 'Cancelled' для отклика в БД"""
+			try:
 
-		return HttpResponseRedirect(
-			f'{self.get_success_url(page)}?denied_cancellation=True&cancelled_response={cancelled_response}')
+				StatusResponse.objects.create(response_order_id=self.object.pk,
+											  status='Cancelled',
+											  user_initiator=response_object.response_user)
+			except Http404:
+				pass
 
+		return HttpResponseRedirect(f'{self.get_success_url(page)}')
 
 class UpdateResponse(LoginRequiredMixin, UpdateView):
 	model = ResponseOrder

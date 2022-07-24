@@ -1351,11 +1351,17 @@ section.order .accept {
     margin-right: 15px;
 }
 
+section.order .info {
+    color: #094e6f;
+    margin-right: 15px;
+}
+
 section.order .cancel {
     color: #ef0000;
 }
 
 section.order .accept:hover,
+section.order .info:hover,
 section.order .cancel {
     cursor: pointer;
 }

@@ -28,7 +28,7 @@
                                         <div class="price">{{ response_order.price|floatformat:2 }} ₽</div>
                                         {% if user.role != 'Supplier' and order.status == 'Active' and not approved_response and not cancelled_response_response %}
                                             <i type="button" class="fa fa-info info" data-bs-toggle="collapse" data-bs-target="#collapseExample{{ forloop.counter0 }}"
-                                               aria-expanded="false" aria-controls="collapseExample"></i>
+                                               aria-expanded="false" aria-controls="collapseExample"> </i>
 
                                             <i data-bs-toggle="modal" data-bs-target="#staticBackdrop1"
                                                class="fa fa-check accept"></i>

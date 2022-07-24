@@ -401,6 +401,7 @@
                                     <div class="modal-footer">
                                         <div class="row">
                                             <div class="btns">
+{#                                            {% if order.status == 'Active' %}#}
 
                                                 <form method="POST" action="{% url 'orders:delete_order' order.id %}">
                                                     {% csrf_token %}
@@ -410,6 +411,17 @@
                                                     </button>
 
                                                 </form>
+{#                                            {% else %}#}
+{#                                            <form method="POST" action="{% url 'orders:delete_order' order.id %}">#}
+{#                                                    {% csrf_token %}#}
+{##}
+{#                                                    <button class="modal-btn {% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"#}
+{#                                                            type="submit">Подтверждаю#}
+{#                                                    </button>#}
+{##}
+{#                                                </form>#}
+{##}
+{#                                            {% endif %}#}
                                             </div>
                                         </div>
                                     </div>

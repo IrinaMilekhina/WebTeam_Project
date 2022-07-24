@@ -28,10 +28,10 @@
                                         <div class="price">{{ response_order.price|floatformat:2 }} ₽</div>
 
                                         <!--  Info Button -->
-                                        <i data-bs-toggle="modal" data-bs-target="#staticBackdrop3"
+                                        <i data-bs-toggle="modal" data-bs-target="#staticBackdrop3_{{ response_order.response_user.id }}"
                                                class="fa fa-info"></i>
                                         <!-- Modal  for Info Button -->
-                                        <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static"
+                                        <div class="modal fade" id="staticBackdrop3_{{ response_order.response_user.id }}" data-bs-backdrop="static"
                                                  data-bs-keyboard="false" tabindex="-1"
                                                  aria-labelledby="staticBackdropLabel"
                                                  aria-hidden="true">
@@ -61,18 +61,18 @@
 
 
                                         {% if user.role != 'Supplier' and order.status == 'Active' and not approved_response and not cancelled_response_response %}
-                                            <i data-bs-toggle="modal" data-bs-target="#staticBackdrop1"
+                                            <i data-bs-toggle="modal" data-bs-target="#staticBackdrop1_{{ response_order.response_user.id }}"
                                                class="fa fa-check accept"></i>
                                             {% if user.role != 'Customer'  and response_order.last_status == 'Cancelled'%}
-                                                <i data-bs-toggle="modal" data-bs-target="#staticBackdrop2"
+                                                <i data-bs-toggle="modal" data-bs-target="#staticBackdrop2_{{ response_order.response_user.id }}"
                                                class="fa fa-close accept"></i>
                                                 {% else %}
-                                                <i data-bs-toggle="modal" data-bs-target="#staticBackdrop2"
+                                                <i data-bs-toggle="modal" data-bs-target="#staticBackdrop2_{{ response_order.response_user.id }}"
                                                class="fa fa-close cancel"></i>
                                             {% endif %}
 
                                             <!-- Modal -->
-                                            <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static"
+                                            <div class="modal fade" id="staticBackdrop1_{{ response_order.response_user.id }}" data-bs-backdrop="static"
                                                  data-bs-keyboard="false" tabindex="-1"
                                                  aria-labelledby="staticBackdropLabel"
                                                  aria-hidden="true">
@@ -103,7 +103,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static"
+                                            <div class="modal fade" id="staticBackdrop2_{{ response_order.response_user.id }}" data-bs-backdrop="static"
                                                  data-bs-keyboard="false" tabindex="-1"
                                                  aria-labelledby="staticBackdropLabel"
                                                  aria-hidden="true">

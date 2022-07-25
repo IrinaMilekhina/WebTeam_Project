@@ -200,7 +200,9 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 		except Http404 as err:
 			print(err)
 
-		if StatusResponse.objects.filter(response_order__order=order, status='Approved').last():
+		approved_response = StatusResponse.objects.filter(response_order__order=order, status='Approved').last()
+		if approved_response:
+			approved_response = approved_response.response_order
 			no_approved_response = True
 		elif StatusResponse.objects.filter(response_order__order=order, status='Cancelled').last():
 			no_approved_response = False
@@ -211,7 +213,6 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 		response_orders = order.responseorder_set.all()
 		# print(response_orders)
 		responses = []
-		approved_response = None
 		cancelled_response = None
 		cancelled_responses_order_users_id = []
 
@@ -268,6 +269,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 
 		context = {
 			'no_approved_response': no_approved_response,
+			'approved_response': approved_response,
 			'cancellation_not_available': True if request.GET.get('denied_cancellation') else False,
 			'editing_not_available': True if request.GET.get('denied_editing') else False,
 			'error': error,

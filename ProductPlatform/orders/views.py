@@ -209,7 +209,7 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 			no_approved_response = False
 
 		response_orders = order.responseorder_set.all()
-		print(response_orders)
+		# print(response_orders)
 		responses = []
 		approved_response = None
 		cancelled_response = None
@@ -219,8 +219,9 @@ class OrderView(LoginRequiredMixin, MultiModelFormView):
 			for response_order in response_orders:
 				response_statuses = StatusResponse.objects.filter(
 					response_order=response_order).last()
-				if response_statuses.status != 'Cancelled':
-					responses.append(response_order)
+				if response_statuses != None:
+					if response_statuses.status != 'Cancelled':
+						responses.append(response_order)
 
 		if request.user.role == 'Supplier' or not request.user.role:
 			for response_order in response_orders:
@@ -460,6 +461,9 @@ class DeleteOrder(LoginRequiredMixin, DeleteView):
 			order.delete()
 			return HttpResponseRedirect(self.get_success_url())
 		else:
+			if (order.author == self.request.user and (order.status == 'Not Active')):
+				order.delete()
+				return HttpResponseRedirect(self.get_success_url())
 			return HttpResponseRedirect(f'{self.get_success_url()}?denied_cancellation=True')
 
 

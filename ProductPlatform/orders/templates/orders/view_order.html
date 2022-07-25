@@ -26,13 +26,53 @@
                                     </a>
                                     <div class="line">
                                         <div class="price">{{ response_order.price|floatformat:2 }} ₽</div>
+
+                                        <!--  Info Button -->
+                                        <i style="margin-right: 15px" data-bs-toggle="modal" data-bs-target="#staticBackdrop3_{{ response_order.response_user.id }}"
+                                               class="fa fa-info"></i>
+                                        <!-- Modal  for Info Button -->
+                                        <div class="modal fade" id="staticBackdrop3_{{ response_order.response_user.id }}" data-bs-backdrop="static"
+                                                 data-bs-keyboard="false" tabindex="-1"
+                                                 aria-labelledby="staticBackdropLabel"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="staticBackdropLabel">
+                                                                Предложение от {{ response_order.response_user.comp_name }}</h5>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            {{ response_order.offer }}
+                                                        </div>
+{#                                                        <div class="modal-footer">#}
+{#                                                            <form action="{% url 'orders:order_rejection' response_order.id order.id %}"#}
+{#                                                                  method="post">#}
+{#                                                                {% csrf_token %}#}
+{#                                                                <button type="submit" class="close-btn">Отклонить#}
+{#                                                                </button>#}
+{#                                                            </form>#}
+{#                                                        </div>#}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
                                         {% if user.role != 'Supplier' and order.status == 'Active' and not approved_response and not cancelled_response_response %}
-                                            <i data-bs-toggle="modal" data-bs-target="#staticBackdrop1"
+                                            <i data-bs-toggle="modal" data-bs-target="#staticBackdrop1_{{ response_order.response_user.id }}"
                                                class="fa fa-check accept"></i>
-                                            <i data-bs-toggle="modal" data-bs-target="#staticBackdrop2"
+                                            {% if user.role != 'Customer'  and response_order.last_status == 'Cancelled'%}
+                                                <i data-bs-toggle="modal" data-bs-target="#staticBackdrop2_{{ response_order.response_user.id }}"
+                                               class="fa fa-close accept"></i>
+                                                {% else %}
+                                                <i data-bs-toggle="modal" data-bs-target="#staticBackdrop2_{{ response_order.response_user.id }}"
                                                class="fa fa-close cancel"></i>
+                                            {% endif %}
+
                                             <!-- Modal -->
-                                            <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static"
+                                            <div class="modal fade" id="staticBackdrop1_{{ response_order.response_user.id }}" data-bs-backdrop="static"
                                                  data-bs-keyboard="false" tabindex="-1"
                                                  aria-labelledby="staticBackdropLabel"
                                                  aria-hidden="true">
@@ -63,7 +103,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static"
+                                            <div class="modal fade" id="staticBackdrop2_{{ response_order.response_user.id }}" data-bs-backdrop="static"
                                                  data-bs-keyboard="false" tabindex="-1"
                                                  aria-labelledby="staticBackdropLabel"
                                                  aria-hidden="true">
@@ -76,20 +116,38 @@
                                                                     data-bs-dismiss="modal"
                                                                     aria-label="Close"></button>
                                                         </div>
-                                                        <div class="modal-body">
-                                                            Вы действительно уверены, что хотите отклонить предложение?
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <form action="{% url 'orders:order_rejection' response_order.id order.id %}"
-                                                                  method="post">
-                                                                {% csrf_token %}
-                                                                <button type="submit" class="close-btn">Отклонить
-                                                                </button>
-                                                            </form>
-                                                        </div>
+
+                                                        {% if user.role != 'Customer'  and response_order.last_status == 'Cancelled'%}
+                                                            <div class="modal-body">
+                                                                Вы действительно уверены, что хотите восстановить предложение?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <form action="{% url 'orders:order_rejection' response_order.id order.id %}"
+                                                                      method="post">
+                                                                    {% csrf_token %}
+                                                                    <button type="submit" class="close-btn">Восстановить
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        {% else %}
+                                                            <div class="modal-body">
+                                                                Вы действительно уверены, что хотите отклонить предложение?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <form action="{% url 'orders:order_rejection' response_order.id order.id %}"
+                                                                      method="post">
+                                                                    {% csrf_token %}
+                                                                    <button type="submit" class="close-btn">Отклонить
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                            {% endif %}
                                                     </div>
                                                 </div>
                                             </div>
+
+
+
 
                                         {% elif approved_response and approved_response == response_order %}
                                             <span class="accepted-response">Принят</span>

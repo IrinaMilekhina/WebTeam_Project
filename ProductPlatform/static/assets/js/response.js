@@ -19,11 +19,13 @@ function make_readonly() {
     description_textarea.setAttribute('readonly', 'readonly');
     description_textarea.classList.add('read_only');
 
-    submit_btn.style.display = 'none';
-    edit_btn.style.display = 'block';
-    edit_btn.addEventListener('click', () => {
-      make_modifiable();
-    });
+    if (submit_btn) {
+      submit_btn.style.display = 'none';
+      edit_btn.style.display = 'block';
+      edit_btn.addEventListener('click', () => {
+        make_modifiable();
+      });
+    }
     cancel_btn.style.display = 'block';
   }
 }

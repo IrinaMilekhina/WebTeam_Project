@@ -191,210 +191,208 @@ class CreateOrder(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
 
 class OrderView(LoginRequiredMixin, MultiModelFormView):
-	"""Класс-обработчик для просмотра заказа"""
-	model = Order
-	template_name = 'orders/view_order.html'
-	form_classes = {'response_order': ResponseOrderForm}
+    """Класс-обработчик для просмотра заказа"""
+    model = Order
+    template_name = 'orders/view_order.html'
+    form_classes = {'response_order': ResponseOrderForm}
 
-	def get(self, request, *args, **kwargs):
-		try:
-			id = kwargs.get('pk', None)
-		except KeyError as err:
-			print(err)
-		try:
-			order = get_object_or_404(Order, id=id)
-		except Http404 as err:
-			print(err)
+    def get(self, request, *args, **kwargs):
+        try:
+            id = kwargs.get('pk', None)
+        except KeyError as err:
+            print(err)
+        try:
+            order = get_object_or_404(Order, id=id)
+        except Http404 as err:
+            print(err)
 
-		approved_response = StatusResponse.objects.filter(response_order__order=order, status='Approved').last()
-		if approved_response:
-			approved_response = approved_response.response_order
-      no_approved_response = False
-    elif StatusResponse.objects.filter(response_order__order=order, status='Cancelled').last():
-      no_approved_response = True
-      cancelled_response = True
-    else:
-      no_approved_response = True
+        approved_response = StatusResponse.objects.filter(response_order__order=order, status='Approved').last()
+        if approved_response:
+            approved_response = approved_response.response_order
+            no_approved_response = False
+        elif StatusResponse.objects.filter(response_order__order=order, status='Cancelled').last():
+            no_approved_response = True
+            cancelled_response = True
+        else:
+            no_approved_response = True
 
-		response_orders = order.responseorder_set.all()
-		# print(response_orders)
-		responses = []
-		not_active_responses_order_users_id = []
+        response_orders = order.responseorder_set.all()
+        # print(response_orders)
+        responses = []
+        not_active_responses_order_users_id = []
 
-		if request.user.role == 'Customer':
-			for response_order in response_orders:
-				response_statuses = StatusResponse.objects.filter(
-					response_order=response_order).last()
-				if response_statuses != None:
-					if response_statuses.status != 'Cancelled':
-						responses.append(response_order)
+        if request.user.role == 'Customer':
+            for response_order in response_orders:
+                response_statuses = StatusResponse.objects.filter(
+                    response_order=response_order).last()
+                if response_statuses is not None:
+                    if response_statuses.status != 'Cancelled':
+                        responses.append(response_order)
 
-		if request.user.role == 'Supplier' or not request.user.role:
-			for response_order in response_orders:
-				response_statuses = StatusResponse.objects.filter(
-					response_order=response_order).last()
-				response_order.last_status = response_statuses.status
-				if response_statuses.status == 'Cancelled' \
-            or response_statuses.status == 'Approved' \
-            or response_statuses.status == 'Not Approved':
-					not_active_responses_order_users_id.append(response_statuses.response_order.response_user_id)
-					if request.user.id == response_order.response_user_id or not request.user.role:
-						responses.append(response_order)
-					else:
-						continue
-				else:
-					responses.append(response_order)
+        if request.user.role == 'Supplier' or not request.user.role:
+            for response_order in response_orders:
+                response_statuses = StatusResponse.objects.filter(
+                    response_order=response_order).last()
+                response_order.last_status = response_statuses.status
+                if response_statuses.status == 'Cancelled' \
+                        or response_statuses.status == 'Approved' \
+                        or response_statuses.status == 'Not Approved':
+                    not_active_responses_order_users_id.append(response_statuses.response_order.response_user_id)
+                    if request.user.id == response_order.response_user_id or not request.user.role:
+                        responses.append(response_order)
+                    else:
+                        continue
+                else:
+                    responses.append(response_order)
 
-		# if len(response_statuses) != 0:
-		# 	responses.append(response_order)
-		# 	if StatusResponse.objects.filter(response_order=response_order, status='Approved').first():
-		# 		approved_response = response_order
-		# 	if StatusResponse.objects.filter(response_order=response_order, status='Cancelled').first():
-		# 		cancelled_response = response_order
+        # if len(response_statuses) != 0:
+        # 	responses.append(response_order)
+        # 	if StatusResponse.objects.filter(response_order=response_order, status='Approved').first():
+        # 		approved_response = response_order
+        # 	if StatusResponse.objects.filter(response_order=response_order, status='Cancelled').first():
+        # 		cancelled_response = response_order
 
-		categories = CategoryOrder.objects.select_related().exclude(id=order.category_id)
+        categories = CategoryOrder.objects.select_related().exclude(id=order.category_id)
 
-		forms = None
-		response_id = None
-		error = request.GET.get('error')
-		cancelled_response = request.GET.get('cancelled_response')
-		if error == 'Approved':
-			error = 'Заказ имеет статус Поставщик найден'
-		elif error == 'Cancelled' or cancelled_response:  # error == 'Cancelled' or response_statuses.status == 'Cancelled':
-			error = 'Ваш отклик отклонен'
-		else:
-			error = 'Заказ имеет статус отменён'
+        forms = None
+        response_id = None
+        error = request.GET.get('error')
+        cancelled_response = request.GET.get('cancelled_response')
+        if error == 'Approved':
+            error = 'Заказ имеет статус Поставщик найден'
+        elif error == 'Cancelled' or cancelled_response:  # error == 'Cancelled' or response_statuses.status == 'Cancelled':
+            error = 'Ваш отклик отклонен'
+        else:
+            error = 'Заказ имеет статус отменён'
 
-		if request.user.role == 'Supplier':
-			forms = self.get_forms()
-			response_id = response_orders.filter(
-				response_user=request.user).values('id')
-			if response_id:
-				response_id = response_id[0]['id']
-			else:
-				response_id = None
+        if request.user.role == 'Supplier':
+            forms = self.get_forms()
+            response_id = response_orders.filter(
+                response_user=request.user).values('id')
+            if response_id:
+                response_id = response_id[0]['id']
+            else:
+                response_id = None
 
-		context = {
-			'no_approved_response': no_approved_response,
-			'approved_response': approved_response,
-			'cancellation_not_available': True if request.GET.get('denied_cancellation') else False,
-			'editing_not_available': True if request.GET.get('denied_editing') else False,
-			'error': error,
-			'order': order,
-			'response_orders': responses,  # responses, #response_orders,
-			'categories': categories,
-			'forms': forms,
-			'response_id': response_id,
-			'response_order_user_id': self.request.user.id,
-			'not_active_responses_order_users_id': not_active_responses_order_users_id
+        context = {
+            'no_approved_response': no_approved_response,
+            'approved_response': approved_response,
+            'cancellation_not_available': True if request.GET.get('denied_cancellation') else False,
+            'editing_not_available': True if request.GET.get('denied_editing') else False,
+            'error': error,
+            'order': order,
+            'response_orders': responses,  # responses, #response_orders,
+            'categories': categories,
+            'forms': forms,
+            'response_id': response_id,
+            'response_order_user_id': self.request.user.id,
+            'not_active_responses_order_users_id': not_active_responses_order_users_id
 
-		}
-		return render(request, self.template_name, context=context)
+        }
+        return render(request, self.template_name, context=context)
 
-	def forms_valid(self, forms):
-		user = self.request.user
-		order = Order.objects.get(id=self.kwargs.get('pk'))
+    def forms_valid(self, forms):
+        user = self.request.user
+        order = Order.objects.get(id=self.kwargs.get('pk'))
 
-		if user.role == 'Supplier':
-			response_order_form = forms.get('response_order')
-			response = ResponseOrder.objects.create(order=order,
-													response_user=user,
-													price=response_order_form.data.get(
-														'price'),
-													offer=response_order_form.data.get(
-														'offer')
-													)
+        if user.role == 'Supplier':
+            response_order_form = forms.get('response_order')
+            response = ResponseOrder.objects.create(order=order,
+                                                    response_user=user,
+                                                    price=response_order_form.data.get(
+                                                        'price'),
+                                                    offer=response_order_form.data.get(
+                                                        'offer')
+                                                    )
 
-			response.save()
+            response.save()
 
-		return HttpResponseRedirect(self.request.path_info)
+        return HttpResponseRedirect(self.request.path_info)
 
-	def get_objects(self):
-		user = self.request.user
-		order = Order.objects.get(id=self.kwargs.get('pk'))
+    def get_objects(self):
+        user = self.request.user
+        order = Order.objects.get(id=self.kwargs.get('pk'))
 
-		if user.role == 'Supplier':
-			response = ResponseOrder.objects.filter(
-				order=order, response_user=user).first()
+        if user.role == 'Supplier':
+            response = ResponseOrder.objects.filter(
+                order=order, response_user=user).first()
 
-			return {'response_order': response}
+            return {'response_order': response}
 
-	def order_confirmation(self, response_pk, order_pk):
-		"""Утверждение отклика и изменение статуса заказа на Not Active"""
-		if self.POST:
-			try:
-				# status_response = StatusResponse.objects.filter(
-				#     response_order_id=response_pk).last()
-				#
-				# status_response.status = 'Approved'
-				# status_response.save()
-				StatusResponse.objects.create(response_order_id=response_pk,
-											  status='Approved',
-											  user_initiator=self.user)
-				order = get_object_or_404(Order, id=order_pk)
-				order.status = 'Not Active'
-				order.save()
-			except Http404:
-				pass
-			return redirect(reverse_lazy('main'))
+    def order_confirmation(self, response_pk, order_pk):
+        """Утверждение отклика и изменение статуса заказа на Not Active"""
+        if self.POST:
+            try:
+                # status_response = StatusResponse.objects.filter(
+                #     response_order_id=response_pk).last()
+                #
+                # status_response.status = 'Approved'
+                # status_response.save()
+                StatusResponse.objects.create(response_order_id=response_pk,
+                                              status='Approved',
+                                              user_initiator=self.user)
+                order = get_object_or_404(Order, id=order_pk)
+                order.status = 'Not Active'
+                order.save()
+            except Http404:
+                pass
+            return redirect(reverse_lazy('main'))
 
-	# return redirect(reverse_lazy('orders:view_order', kwargs={'pk': order_pk}))
+    # return redirect(reverse_lazy('orders:view_order', kwargs={'pk': order_pk}))
 
-	def order_rejection(self, response_pk, order_pk):
-		"""
-			Отклонение отклика Заказчиком.
-			Для Администратора переключение статуса отклика кнопкой "Х" и возможность подтвердить отклик.
+    def order_rejection(self, response_pk, order_pk):
+        """
+            Отклонение отклика Заказчиком.
+            Для Администратора переключение статуса отклика кнопкой "Х" и возможность подтвердить отклик.
 
-		"""
-		if self.POST:
-			# Изменение статусов откликов для Админа
-			if self.user.is_staff or self.user.is_ssuperuser:
-				response_order_last = StatusResponse.objects.filter(response_order_id=response_pk).last()
-				if response_order_last.status == 'Cancelled':
-					StatusResponse.objects.create(response_order_id=response_pk,
-												  status='On Approval',
-												  user_initiator=self.user)
-				elif response_order_last.status == 'Approved':
-					pass
-				else:
-					StatusResponse.objects.create(response_order_id=response_pk,
-												  status='Cancelled',
-												  user_initiator=self.user)
+        """
+        if self.POST:
+            # Изменение статусов откликов для Админа
+            if self.user.is_staff or self.user.is_ssuperuser:
+                response_order_last = StatusResponse.objects.filter(response_order_id=response_pk).last()
+                if response_order_last.status == 'Cancelled':
+                    StatusResponse.objects.create(response_order_id=response_pk,
+                                                  status='On Approval',
+                                                  user_initiator=self.user)
+                elif response_order_last.status == 'Approved':
+                    pass
+                else:
+                    StatusResponse.objects.create(response_order_id=response_pk,
+                                                  status='Cancelled',
+                                                  user_initiator=self.user)
 
-			else:
-				# Отклнение откликов для Заказчика
-				try:
-					# statuse_response = get_object_or_404(
-					#     StatusResponse, id=response_pk)
-					# statuse_response.status = 'Not Approved'
-					# statuse_response.save()
-					StatusResponse.objects.create(response_order_id=response_pk,
-												  status='Cancelled',
-												  user_initiator=self.user)
-					order = get_object_or_404(Order, id=order_pk)
-					order.status = 'Active'
-					order.save()
-				except Http404:
-					pass
+            else:
+                # Отклнение откликов для Заказчика
+                try:
+                    # statuse_response = get_object_or_404(
+                    #     StatusResponse, id=response_pk)
+                    # statuse_response.status = 'Not Approved'
+                    # statuse_response.save()
+                    StatusResponse.objects.create(response_order_id=response_pk,
+                                                  status='Cancelled',
+                                                  user_initiator=self.user)
+                    order = get_object_or_404(Order, id=order_pk)
+                    order.status = 'Active'
+                    order.save()
+                except Http404:
+                    pass
 
-
-		return redirect(reverse_lazy('orders:view_order', kwargs={'pk': order_pk}))
+        return redirect(reverse_lazy('orders:view_order', kwargs={'pk': order_pk}))
 
 
 class OrderBoardView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    model = Order
+    context_object_name = 'all_orders'
+    template_name = 'orders/order_board.html'
+    paginate_by = 2
 
-	model = Order
-	context_object_name = 'all_orders'
-	template_name = 'orders/order_board.html'
-	paginate_by = 2
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['all_category'] = CategoryOrder.objects.filter(is_active=True)
+        return context
 
-	def get_context_data(self, **kwargs):
-		context = super().get_context_data(**kwargs)
-		context['all_category'] = CategoryOrder.objects.filter(is_active=True)
-		return context
-    
-  def test_func(self):
-    return self.request.user.role != 'Customer'
+    def test_func(self):
+        return self.request.user.role != 'Customer'
 
 
 @login_required
@@ -429,66 +427,65 @@ class DeleteCategory(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 @login_required
 def categories(request):
-	context = {}
-	active_categories = CategoryOrder.objects.select_related() \
-		.filter(is_active=True) \
-		.annotate(count_orders=Count('order__responseorder__response_user_id',
-									 filter=Q(
-										 order__responseorder__statusresponse__status='Approved'),
-									 distinct=True)) \
-		.values('id', 'name', 'image', 'description', 'count_orders')
-	all_categories = CategoryOrder.objects.select_related() \
-		.annotate(count_orders=Count('order__responseorder__response_user_id',
-									 filter=Q(
-										 order__responseorder__statusresponse__status='Approved'),
-									 distinct=True)) \
-		.values('id', 'name', 'image', 'description', 'count_orders')
-	context['filtered_categories'] = CategoryFilter(
-		request.GET, queryset=all_categories)
-	context['active_category'] = active_categories
-	# ! Здесь устанавливается пагинация
-	paginated = Paginator(context['filtered_categories'].qs, 6)
-	page_number = request.GET.get('page')
-	context['page_obj'] = paginated.get_page(page_number)
-	paginated_active = Paginator(context['active_category'], 6)
-	page_number_active = request.GET.get('page')
-	context['page_obj_active'] = paginated_active.get_page(page_number_active)
+    context = {}
+    active_categories = CategoryOrder.objects.select_related() \
+        .filter(is_active=True) \
+        .annotate(count_orders=Count('order__responseorder__response_user_id',
+                                     filter=Q(
+                                         order__responseorder__statusresponse__status='Approved'),
+                                     distinct=True)) \
+        .values('id', 'name', 'image', 'description', 'count_orders')
+    all_categories = CategoryOrder.objects.select_related() \
+        .annotate(count_orders=Count('order__responseorder__response_user_id',
+                                     filter=Q(
+                                         order__responseorder__statusresponse__status='Approved'),
+                                     distinct=True)) \
+        .values('id', 'name', 'image', 'description', 'count_orders')
+    context['filtered_categories'] = CategoryFilter(
+        request.GET, queryset=all_categories)
+    context['active_category'] = active_categories
+    # ! Здесь устанавливается пагинация
+    paginated = Paginator(context['filtered_categories'].qs, 6)
+    page_number = request.GET.get('page')
+    context['page_obj'] = paginated.get_page(page_number)
+    paginated_active = Paginator(context['active_category'], 6)
+    page_number_active = request.GET.get('page')
+    context['page_obj_active'] = paginated_active.get_page(page_number_active)
 
-	return render(request, 'orders/categories.html', context=context)
+    return render(request, 'orders/categories.html', context=context)
 
 
 class DeleteOrder(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-	"""Класс-обработчик для удаления заказа"""
-	model = Order
+    """Класс-обработчик для удаления заказа"""
+    model = Order
 
-	def get_success_url(self):
-		order_id = self.kwargs['pk']
-		return reverse_lazy('orders:view_order', kwargs={'pk': order_id})
+    def get_success_url(self):
+        order_id = self.kwargs['pk']
+        return reverse_lazy('orders:view_order', kwargs={'pk': order_id})
 
-	def form_valid(self, form):
-		order = self.get_object()
-		if len(StatusResponse.objects.filter(response_order__order=order, status='Approved')) == 0:
-			no_approved_response = True
-		else:
-			no_approved_response = False
+    def form_valid(self, form):
+        order = self.get_object()
+        if len(StatusResponse.objects.filter(response_order__order=order, status='Approved')) == 0:
+            no_approved_response = True
+        else:
+            no_approved_response = False
 
-		if (order.author == self.request.user and (order.status == 'Active' or no_approved_response)) \
-				or self.request.user.is_superuser or self.request.user.is_staff:
-			order.delete()
-			return HttpResponseRedirect(self.get_success_url())
-		else:
-			if (order.author == self.request.user and (order.status == 'Not Active')):
-				order.delete()
-				return HttpResponseRedirect(self.get_success_url())
-			return HttpResponseRedirect(f'{self.get_success_url()}?denied_cancellation=True')
+        if (order.author == self.request.user and (order.status == 'Active' or no_approved_response)) \
+                or self.request.user.is_superuser or self.request.user.is_staff:
+            order.delete()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            if (order.author == self.request.user and (order.status == 'Not Active')):
+                order.delete()
+                return HttpResponseRedirect(self.get_success_url())
+            return HttpResponseRedirect(f'{self.get_success_url()}?denied_cancellation=True')
 
+    def test_func(self):
+        order_id = self.kwargs['pk']
+        order = get_object_or_404(Order, id=order_id)
+        user_is_author = order.author == self.request.user
 
-  def test_func(self):
-    order_id = self.kwargs['pk']
-    order = get_object_or_404(Order, id=order_id)
-    user_is_author = order.author == self.request.user
-
-    return self.request.user.is_superuser or self.request.user.is_staff or user_is_author
+        return self.request.user.is_superuser or self.request.user.is_staff or user_is_author
 
 
 class UpdateOrder(UpdateView):

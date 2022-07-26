@@ -28,125 +28,134 @@
                                         <div class="price">{{ response_order.price|floatformat:2 }} ₽</div>
 
                                         <!--  Info Button -->
-                                        <i style="margin-right: 15px" data-bs-toggle="modal" data-bs-target="#staticBackdrop3_{{ response_order.response_user.id }}"
-                                               class="fa fa-info"></i>
+                                        <i style="margin-right: 15px" data-bs-toggle="modal"
+                                           data-bs-target="#staticBackdrop3_{{ response_order.response_user.id }}"
+                                           class="fa fa-info"></i>
                                         <!-- Modal  for Info Button -->
-                                        <div class="modal fade" id="staticBackdrop3_{{ response_order.response_user.id }}" data-bs-backdrop="static"
-                                                 data-bs-keyboard="false" tabindex="-1"
-                                                 aria-labelledby="staticBackdropLabel"
-                                                 aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="staticBackdropLabel">
-                                                                Предложение от {{ response_order.response_user.comp_name }}</h5>
-                                                            <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal"
-                                                                    aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            {{ response_order.offer }}
-                                                        </div>
-{#                                                        <div class="modal-footer">#}
-{#                                                            <form action="{% url 'orders:order_rejection' response_order.id order.id %}"#}
-{#                                                                  method="post">#}
-{#                                                                {% csrf_token %}#}
-{#                                                                <button type="submit" class="close-btn">Отклонить#}
-{#                                                                </button>#}
-{#                                                            </form>#}
-{#                                                        </div>#}
+                                        <div class="modal fade"
+                                             id="staticBackdrop3_{{ response_order.response_user.id }}"
+                                             data-bs-backdrop="static"
+                                             data-bs-keyboard="false" tabindex="-1"
+                                             aria-labelledby="staticBackdropLabel"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="staticBackdropLabel">
+                                                            Предложение
+                                                            от {{ response_order.response_user.comp_name }}</h5>
+                                                        <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
                                                     </div>
+                                                    <div class="modal-body">
+                                                        {{ response_order.offer }}
+                                                    </div>
+                                                    {#                                                        <div class="modal-footer">#}
+                                                    {#                                                            <form action="{% url 'orders:order_rejection' response_order.id order.id %}"#}
+                                                    {#                                                                  method="post">#}
+                                                    {#                                                                {% csrf_token %}#}
+                                                    {#                                                                <button type="submit" class="close-btn">Отклонить#}
+                                                    {#                                                                </button>#}
+                                                    {#                                                            </form>#}
+                                                    {#                                                        </div>#}
                                                 </div>
                                             </div>
+                                        </div>
 
 
                                         {% if user.role != 'Supplier' and order.status == 'Active' and not approved_response and not cancelled_response_response %}
-                                                <i data-bs-toggle="modal" data-bs-target="#staticBackdrop2_{{ response_order.response_user.id }}"
+                                            <i data-bs-toggle="modal"
+                                               data-bs-target="#staticBackdrop2_{{ response_order.response_user.id }}"
                                                class="fa fa-close accept"></i>
-                                                <i data-bs-toggle="modal" data-bs-target="#staticBackdrop2_{{ response_order.response_user.id }}"
+                                            <i data-bs-toggle="modal"
+                                               data-bs-target="#staticBackdrop2_{{ response_order.response_user.id }}"
                                                class="fa fa-close cancel"></i>
-                                            {% endif %}
+                                        {% endif %}
 
-                                            <!-- Modal -->
+                                        <!-- Modal -->
 
-                                            <div class="modal fade" id="staticBackdrop1_{{ response_order.response_user.id }}" data-bs-backdrop="static"
-                                                 data-bs-keyboard="false" tabindex="-1"
-                                                 aria-labelledby="staticBackdropLabel"
-                                                 aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="staticBackdropLabel">
-                                                                Подтверждение</h5>
-                                                            <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal"
-                                                                    aria-label="Close"></button>
+                                        <div class="modal fade"
+                                             id="staticBackdrop1_{{ response_order.response_user.id }}"
+                                             data-bs-backdrop="static"
+                                             data-bs-keyboard="false" tabindex="-1"
+                                             aria-labelledby="staticBackdropLabel"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="staticBackdropLabel">
+                                                            Подтверждение</h5>
+                                                        <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Вы действительно уверены, что хотите принять предложение?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <div class="modal-footer">
+                                                            <form action="{% url 'orders:order_confirmation' response_order.id order.id %}"
+                                                                  method="post">
+                                                                {% csrf_token %}
+                                                                <button type="submit" class="modal-btn accept-btn">
+                                                                    Принять
+                                                                </button>
+                                                            </form>
                                                         </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal fade"
+                                             id="staticBackdrop2_{{ response_order.response_user.id }}"
+                                             data-bs-backdrop="static"
+                                             data-bs-keyboard="false" tabindex="-1"
+                                             aria-labelledby="staticBackdropLabel"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="staticBackdropLabel">
+                                                            Подтверждение</h5>
+                                                        <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+
+                                                    {% if user.role != 'Customer'  and response_order.last_status == 'Cancelled' %}
                                                         <div class="modal-body">
-                                                            Вы действительно уверены, что хотите принять предложение?
+                                                            Вы действительно уверены, что хотите восстановить
+                                                            предложение?
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <div class="modal-footer">
-                                                                <form action="{% url 'orders:order_confirmation' response_order.id order.id %}"
-                                                                      method="post">
-                                                                    {% csrf_token %}
-                                                                    <button type="submit" class="modal-btn accept-btn">
-                                                                        Принять
-                                                                    </button>
-                                                                </form>
-                                                            </div>
+                                                            <form action="{% url 'orders:order_rejection' response_order.id order.id %}"
+                                                                  method="post">
+                                                                {% csrf_token %}
+                                                                <button type="submit" class="close-btn">Восстановить
+                                                                </button>
+                                                            </form>
                                                         </div>
-                                                    </div>
+                                                    {% else %}
+                                                        <div class="modal-body">
+                                                            Вы действительно уверены, что хотите отклонить предложение?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form action="{% url 'orders:order_rejection' response_order.id order.id %}"
+                                                                  method="post">
+                                                                {% csrf_token %}
+                                                                <button type="submit" class="close-btn">Отклонить
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    {% endif %}
                                                 </div>
                                             </div>
-
-                                            <div class="modal fade" id="staticBackdrop2_{{ response_order.response_user.id }}" data-bs-backdrop="static"
-                                                 data-bs-keyboard="false" tabindex="-1"
-                                                 aria-labelledby="staticBackdropLabel"
-                                                 aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="staticBackdropLabel">
-                                                                Подтверждение</h5>
-                                                            <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal"
-                                                                    aria-label="Close"></button>
-                                                        </div>
-
-                                                        {% if user.role != 'Customer'  and response_order.last_status == 'Cancelled'%}
-                                                            <div class="modal-body">
-                                                                Вы действительно уверены, что хотите восстановить предложение?
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <form action="{% url 'orders:order_rejection' response_order.id order.id %}"
-                                                                      method="post">
-                                                                    {% csrf_token %}
-                                                                    <button type="submit" class="close-btn">Восстановить
-                                                                    </button>
-                                                                </form>
-                                                            </div>
-                                                        {% else %}
-                                                            <div class="modal-body">
-                                                                Вы действительно уверены, что хотите отклонить предложение?
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <form action="{% url 'orders:order_rejection' response_order.id order.id %}"
-                                                                      method="post">
-                                                                    {% csrf_token %}
-                                                                    <button type="submit" class="close-btn">Отклонить
-                                                                    </button>
-                                                                </form>
-                                                            </div>
-                                                            {% endif %}
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        </div>
 
 
-
-
-                                        {% elif approved_response and approved_response == response_order %}
+                                        {% if approved_response and approved_response == response_order %}
                                             <span class="accepted-response">Принят</span>
                                         {% elif approved_response and approved_response != response_order %}
                                             <span class="not-accepted-response"></span>
@@ -382,7 +391,7 @@
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-12 submit-btn">
-                                        {% if user.is_staff or user.is_admin or user.role == 'Customer' and order.status == 'Active' %}
+                                        {% if user.is_staff or user.is_admin or order.status == 'Active' %}
                                             <fieldset>
                                                 <button style="display: none;"
                                                         class="button edit button-login-reg"
@@ -399,10 +408,10 @@
                                         {% endif %}
                                         {% if user.role == 'Customer' and order.status == 'Active' %}
                                             <div class="modal-btn close-btn"
-                                                  data-bs-toggle="modal" data-bs-target="#staticBackdrop3{{ order.id }}">
-                                                 Отменить
-                                             </div>
-                                            {% elif user.role == 'Customer' and order.status == 'Not Active'  %}
+                                                 data-bs-toggle="modal" data-bs-target="#staticBackdrop3{{ order.id }}">
+                                                Отменить
+                                            </div>
+                                        {% elif user.role == 'Customer' and order.status == 'Not Active' %}
                                         {% elif user.is_staff or user.is_admin %}
                                             <div class="normal-btn {% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"
                                                  data-bs-toggle="modal"
@@ -468,7 +477,7 @@
                                     <div class="modal-footer">
                                         <div class="row">
                                             <div class="btns">
-{#                                            {% if order.status == 'Active' %}#}
+                                                {#                                            {% if order.status == 'Active' %}#}
 
                                                 <form method="POST" action="{% url 'orders:delete_order' order.id %}">
                                                     {% csrf_token %}
@@ -478,17 +487,17 @@
                                                     </button>
 
                                                 </form>
-{#                                            {% else %}#}
-{#                                            <form method="POST" action="{% url 'orders:delete_order' order.id %}">#}
-{#                                                    {% csrf_token %}#}
-{##}
-{#                                                    <button class="modal-btn {% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"#}
-{#                                                            type="submit">Подтверждаю#}
-{#                                                    </button>#}
-{##}
-{#                                                </form>#}
-{##}
-{#                                            {% endif %}#}
+                                                {#                                            {% else %}#}
+                                                {#                                            <form method="POST" action="{% url 'orders:delete_order' order.id %}">#}
+                                                {#                                                    {% csrf_token %}#}
+                                                {##}
+                                                {#                                                    <button class="modal-btn {% if order.status == 'Active' %}close-btn{% else %}accept-btn{% endif %}"#}
+                                                {#                                                            type="submit">Подтверждаю#}
+                                                {#                                                    </button>#}
+                                                {##}
+                                                {#                                                </form>#}
+                                                {##}
+                                                {#                                            {% endif %}#}
                                             </div>
                                         </div>
                                     </div>

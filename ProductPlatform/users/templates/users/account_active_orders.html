@@ -112,7 +112,7 @@
                                                 </div>
                                             </div>
                                         {% endfor %}
-                                    {% else %}
+                                    {% elif user.role == 'Supplier' %}
                                         {% for response in page_obj %}
                                             <div class="card-wrapper "
                                                  style="{% if user.id == order.response_approved.response_user.id %}background:#931c1c;{% else %}background:rgba(250, 250, 250, 0.15);{% endif %}margin-bottom:2rem; padding:2rem; border-radius:20px">
@@ -140,12 +140,11 @@
                                                 </div>
                                                 <div class="top-line row">
                                                     <div class="col">
-
-                                                        {#                                                        <strong>Заказ:</strong><br>#}
-                                                        {#                                                        <a href="#"#}
-                                                        {#                                                           class="card-title mbr-fonts-style display-7">#}
-                                                        {#                                                            {{ response.order__name }}</a><br>#}
-                                                        {#                                                        </a>#}
+{#                                                        <strong>Заказ:</strong><br>#}
+{#                                                        <a href="#"#}
+{#                                                           class="card-title mbr-fonts-style display-7">#}
+{#                                                            {{ response.order__name }}</a><br>#}
+{#                                                        </a>#}
                                                     </div>
                                                     <div class="col-auto">
                                                         <p class="price mbr-fonts-style display-7 text-white">
